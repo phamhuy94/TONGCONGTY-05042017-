@@ -94,7 +94,7 @@ namespace ERP.Web.Areas.Settings.Controllers
                                     bangluong.LUONG_BAO_HIEM = querytinhluong.LUONG_BAO_HIEM;
                                     bangluong.PHU_CAP_AN_TRUA = querytinhluong.PHU_CAP_AN_TRUA;
                                     bangluong.PHU_CAP_DI_LAI_DIEN_THOAI = querytinhluong.PHU_CAP_DI_LAI_DIEN_THOAI;
-                                    bangluong.PHU_CAP_THUONG_DOANH_SO = querytinhluong.PHU_CAP_DI_LAI_DIEN_THOAI;
+                                    bangluong.PHU_CAP_THUONG_DOANH_SO = 0;
                                     bangluong.PHU_CAP_TRACH_NHIEM = querytinhluong.PHU_CAP_TRACH_NHIEM;
                                     bangluong.CONG_CO_BAN = ngaychuan;
                                     bangluong.LUONG_CO_BAN_NGAY = (querytinhluong.LUONG_CO_BAN/ngaychuan);
@@ -112,19 +112,82 @@ namespace ERP.Web.Areas.Settings.Controllers
                                     bangluong.TONG_THU_NHAP = bangluong.PHU_CAP_AN_TRUA + bangluong.PHU_CAP_DI_LAI_DIEN_THOAI + bangluong.PHU_CAP_THUONG_DOANH_SO + bangluong.PHU_CAP_TRACH_NHIEM + bangluong.LUONG_THUC_TE_SO_TIEN + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_LE;
                                     bangluong.TAM_UNG = ungluong;
                                     bangluong.VAY_TIN_DUNG = vaytindung;
-                                    bangluong.GIO_DI_TRE = giodimuon + giovesom;
-                                    bangluong.PHAT_DI_TRE = Convert.ToDecimal(bangluong.GIO_DI_TRE) * bangluong.LUONG_CO_BAN_GIO * 2;
+                                    bangluong.GIO_DI_TRE = (giodimuon * 3) + giovesom;
+                                    bangluong.PHAT_DI_TRE = Convert.ToDecimal(bangluong.GIO_DI_TRE) * bangluong.LUONG_CO_BAN_GIO;
                                     bangluong.CONG_DOAN = querytinhluong.LUONG_CO_BAN * Convert.ToDecimal(0.02);
                                     bangluong.LUONG_LAO_CONG = querytinhluong.LUONG_LAO_CONG;
-                                    //bangluong.THUC_LINH = 
+                                    bangluong.THUC_LINH = (bangluong.PHU_CAP_AN_TRUA + bangluong.PHU_CAP_DI_LAI_DIEN_THOAI + bangluong.PHU_CAP_THUONG_DOANH_SO + bangluong.PHU_CAP_TRACH_NHIEM + bangluong.LUONG_THUC_TE_SO_TIEN + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_LE) - (bangluong.TAM_UNG + bangluong.VAY_TIN_DUNG + bangluong.PHAT_DI_TRE + bangluong.CONG_DOAN + bangluong.LUONG_LAO_CONG+ bangluong.BAO_HIEM_NHAN_VIEN_DONG);
+                                    db.CCTC_BANG_LUONG.Add(bangluong);
                                 }
-
-                                   
-
-
-
+                                
+                                
 
                                 db.CCTC_BANG_CHAM_CONG.Add(bcc);
+                                
+                                db.SaveChanges();
+                                so_dong_thanh_cong++;
+                                dong = rowIterator;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+                ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+
+            }
+            finally
+            {
+                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+            }
+            return View("Import_Bangchamcong");
+        }
+        #endregion
+
+
+
+        #region "Import TinhLuong"
+        public ActionResult Import_TinhLuong()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Import_TinhLuong(FormCollection formCollection)
+        {
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase file = Request.Files["UploadedFile"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                    {
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] fileBytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                        //var usersList = new List<Users>();
+                        using (var package = new ExcelPackage(file.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                             
+                                NV_TINH_LUONG tinhluong = new NV_TINH_LUONG();
+                                tinhluong.USERNAME = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                tinhluong.LUONG_CO_BAN =Convert.ToDecimal(workSheet.Cells[rowIterator, 3].Value);
+                                tinhluong.LUONG_BAO_HIEM = Convert.ToDecimal(workSheet.Cells[rowIterator, 4].Value);
+                                tinhluong.PHU_CAP_AN_TRUA = Convert.ToDecimal(workSheet.Cells[rowIterator, 5].Value);
+                                tinhluong.PHU_CAP_DI_LAI_DIEN_THOAI = Convert.ToDecimal(workSheet.Cells[rowIterator,6].Value);
+                                tinhluong.PHU_CAP_TRACH_NHIEM = Convert.ToDecimal(workSheet.Cells[rowIterator, 7].Value);
+                                tinhluong.LUONG_LAO_CONG = Convert.ToDecimal(workSheet.Cells[rowIterator, 8].Value);
+
+                                db.NV_TINH_LUONG.Add(tinhluong);
+
                                 db.SaveChanges();
                                 so_dong_thanh_cong++;
                                 dong = rowIterator;
