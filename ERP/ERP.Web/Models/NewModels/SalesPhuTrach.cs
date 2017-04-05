@@ -13,5 +13,8 @@ namespace ERP.Web.Models
         public string NGAY_BAT_DAU_PHU_TRACH { set; get; }
         public string NGAY_KET_THUC_PHU_TRACH { set; get; }
         public bool TRANG_THAI { set; get; }
+
+        public bool SALES_CU { set; get; }
+        public bool SALES_MOI { set; get; }
     }
 }

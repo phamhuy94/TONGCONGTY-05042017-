@@ -193,7 +193,7 @@
                                                 <td><input style="height: 68px" type="text" class="form-control" ng-model="arraylienhe[$index].chuc_vu"></td>
                                                 <td><input style="height: 68px" type="text" class="form-control" ng-model="arraylienhe[$index].phong_ban"></td>
                                                 <td>
-                                                    <input style="height: 68px" type="text" datepicker class="form-control datetimepickerKT" ng-model="arraylienhe[$index].ngay_sinh">
+                                                    <input style="height: 68px" type="text" class="form-control" ng-model="arraylienhe[$index].ngay_sinh">
                                                 </td>
                                                 <td>
                                                     <input style="height: 68px" type="text" class="form-control" ng-model="arraylienhe[$index].gioi_tinh">
@@ -484,7 +484,7 @@
                         <div class="form-group">
                             <label for="addmasothue" class="col-sm-2 control-label">Ngày sinh</label>
                             <div class="col-sm-2">
-                                <input type="text" datepicker class="form-control datetimepickerKT" ng-model="editlh.NGAY_SINH">
+                                <input type="text" class="form-control" ng-model="editlh.NGAY_SINH">
                             </div>
                             <label for="addwebsite" class="col-sm-1 control-label">Giới tính</label>
                             <div class="col-sm-2">
@@ -523,6 +523,24 @@
                                 <select ng-model="editlh.SALES_PHU_TRACH" class="form-control input-md" disabled="disabled">
                                     <option ng-repeat="abc in list_nhanvienkd" value="{{abc.USERNAME}}">{{abc.HO_VA_TEN}}</option>
                                 </select>
+                            </div>
+                            <label class="col-sm-1 control-label">Sales cũ</label>
+                            <div class="col-sm-1">
+                                <input type="checkbox" id="addemail" ng-model="editlh.SALES_CU">
+                            </div>
+                            <label class="col-sm-1 control-label">Sales mới</label>
+                            <div class="col-sm-1">
+                                <input type="checkbox" id="addemail" ng-model="editlh.SALES_MOI">
+                            </div>
+                            <label class="col-sm-1 control-label">Trạng thái</label>
+                            <div class="col-sm-1">
+                                <input type="checkbox" id="addemail" ng-model="editlh.TRANG_THAI">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="addmasothue" class="col-sm-2 control-label">Ngày kết thúc phụ trách</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" ng-model="editlh.NGAY_KET_THUC_PHU_TRACH">
                             </div>
                         </div>
                         <div class="form-group">
@@ -725,7 +743,7 @@
                         <div class="form-group">
                             <label for="addmasothue" class="col-sm-2 control-label">Ngày sinh</label>
                             <div class="col-sm-2">
-                                <input type="text" datepicker class="form-control datetimepickerKT" ng-model="ngay_sinh">
+                                <input type="text" class="form-control" ng-model="ngay_sinh">
                             </div>
                             <label for="addwebsite" class="col-sm-1 control-label">Giới tính</label>
                             <div class="col-sm-2">
