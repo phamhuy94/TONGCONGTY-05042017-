@@ -42,6 +42,8 @@ namespace ERP.Web.Models.Database
             this.HHs = new HashSet<HH>();
             this.HHs1 = new HashSet<HH>();
             this.HHs2 = new HashSet<HH>();
+            this.KHO_CT_NHAP_KHO11 = new HashSet<KHO_CT_NHAP_KHO>();
+            this.KHO_CT_XUAT_KHO11 = new HashSet<KHO_CT_XUAT_KHO>();
         }
     
         public string SO_TK { get; set; }
@@ -102,5 +104,9 @@ namespace ERP.Web.Models.Database
         public virtual ICollection<HH> HHs1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HH> HHs2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KHO_CT_NHAP_KHO> KHO_CT_NHAP_KHO11 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KHO_CT_XUAT_KHO> KHO_CT_XUAT_KHO11 { get; set; }
     }
 }
