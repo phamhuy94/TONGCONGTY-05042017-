@@ -32,37 +32,67 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="name">ID liên hệ: </label>
                                     <div class="col-md-8">
-                                        <select ng-model="id_lien_he" class="form-control input-md">
-                                            <option ng-repeat="abc in listlienhe" value="{{abc.ID_LIEN_HE}}">{{abc.ID_LIEN_HE}}</option>
-                                        </select>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="newlienhe.NGUOI_LIEN_HE" value="{{newlienhe.NGUOI_LIEN_HE}}" ng-change="newlienheFind()" ng-focus="showtable_lienhenew = true">
+                                            <input type="hidden" class="form-control" ng-model="newlienhe.ID_LIEN_HE" ng-change="newlienheFind()" ng-focus="showtable_lienhenew = true">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_lienhenew = !showtable_lienhenew" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_lienhenew">
+                                                    <div class="table-responsive" style="max-height: 280px">
+                                                        <table class="table table-striped table-hover" st-pagination-scroll st-table="LienHenewCollection" st-safe-src="arrayLienHenewFinded">
+                                                            <tbody>
+                                                                <tr ng-repeat="staff in LienHenewCollection" style="cursor:pointer" ng-click="showInfoLHnewStaff(staff)">
+                                                                    <td>{{staff.NGUOI_LIEN_HE}}</td>
+                                                                    <td>{{staff.EMAIL_CONG_TY}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- Text input-->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="name">Sale phụ trách: </label>
                                     <div class="col-md-8">
-                                        <select ng-model="sales_phu_trach" class="form-control input-md">
-                                            <option ng-repeat="abc in listnhanvienphutrach" value="{{abc.USERNAME}}">{{abc.HO_VA_TEN}}</option>
-                                        </select>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" ng-model="new.HO_VA_TEN" value="{{new.HO_VA_TEN}}" ng-change="onNhanVienNewFind()" ng-focus="showtable_ho_va_ten_new = true">
+                                            <input type="hidden" class="form-control" ng-model="new.USERNAME" ng-change="onNhanVienNewFind()" ng-focus="showtable_ho_va_ten_new = true">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_ho_va_ten_new = !showtable_ho_va_ten_new" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_ho_va_ten_new">
+                                                    <div class="table-responsive" style="max-height: 280px">
+                                                        <table class="table table-striped table-hover" st-pagination-scroll st-table="staffsnewCollection" st-safe-src="arraynewNVFinded">
+                                                            <tbody>
+                                                                <tr ng-repeat="staff in staffsnewCollection" style="cursor:pointer" ng-click="showInfonewStaff(staff)">
+                                                                    <td>{{staff.HO_VA_TEN}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Textarea -->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="name">Ngày bắt đầu phụ trách: </label>
-                                    <div class="col-md-8">
-                                        <input id="tenkho" name="tenkho"  mask="39/19/9999" type="text" placeholder="" class="form-control input-md" ng-model="ngay_bat_dau_phu_trach">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="name">Ngày kết thúc phụ trách: </label>
-                                    <div class="col-md-8">
-                                        <input id="tenkho" name="tenkho"  mask="39/19/9999" type="text" placeholder="" class="form-control input-md" ng-model="ngay_ket_thuc_phu_trach">
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label class="col-md-2 control-label" for="name">Trạng thái: </label>
-                                    <div class="col-md-4">
-                                        <input id="tenkho" name="tenkho" type="checkbox" placeholder="Tên dịch vụ"  ng-model="trang_thai">
+                                    <div class="col-md-2">
+                                        <input id="tenkho" name="tenkho" type="checkbox"  ng-model="trang_thai">
+                                    </div>
+                                    <label class="col-md-2 control-label" for="name">Sales cũ: </label>
+                                    <div class="col-md-2">
+                                        <input id="tenkho" name="tenkho" type="checkbox"  ng-model="sales_cu">
+                                    </div>
+                                    <label class="col-md-2 control-label" for="name">Sales mới: </label>
+                                    <div class="col-md-2">
+                                        <input id="tenkho" name="tenkho" type="checkbox" ng-model="sales_moi">
                                     </div>
                                 </div>
                                 <!-- Button (Double) -->
@@ -94,54 +124,48 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="name">ID liên hệ: </label>
                                     <div class="col-md-8">
-                                        <select ng-model="item.ID_LIEN_HE" class="form-control input-md">
-                                            <option ng-repeat="abc in listlienhe" value="{{abc.ID_LIEN_HE}}">{{abc.ID_LIEN_HE}}</option>
-                                        </select>
+                                        <md-input-container>
+                                            <md-select ng-model="item.ID_LIEN_HE">
+                                                <md-option><em>None</em></md-option>
+                                                <md-option ng-repeat="state in listlienhe" ng-value="state.ID_LIEN_HE">
+                                                    {{state.NGUOI_LIEN_HE}}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
                                     </div>
                                 </div>
                                 <!-- Text input-->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="name">Sale phụ trách: </label>
-                                    <div class="col-md-8">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" ng-model="item.HO_VA_TEN" value="{{nvkd.HO_VA_TEN}}" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
-                                            <input type="hidden" class="form-control" ng-model="item.USERNAME" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
-                                            <div class="input-group-btn">
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_ho_va_ten = !showtable_ho_va_ten" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_ho_va_ten">
-                                                    <div class="table-responsive" style="max-height: 280px">
-                                                        <table class="table table-striped table-hover" st-pagination-scroll st-table="staffsCollection" st-safe-src="arrayNVFinded">
-                                                            <tbody>
-                                                                <tr ng-repeat="staff in staffsCollection" style="cursor:pointer" ng-click="showInfoStaff(staff)">
-                                                                    <td>{{staff.HO_VA_TEN}}</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Textarea -->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="name">Ngày bắt đầu phụ trách: </label>
-                                    <div class="col-md-8">
-                                        <input id="tenkho" name="tenkho" mask="39/19/9999" type="text" placeholder="Tên dịch vụ" class="form-control input-md" ng-model="item.NGAY_BAT_DAU_PHU_TRACH">
+                                    <div class="col-md-8"> 
+                                        <md-input-container>
+                                            <md-select ng-model="item.SALES_PHU_TRACH">
+                                                <md-option><em>None</em></md-option>
+                                                <md-option ng-repeat="state in list_nhanvienkd" ng-value="state.USERNAME">
+                                                    {{state.HO_VA_TEN}}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>                           
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="name">Ngày kết thúc phụ trách: </label>
                                     <div class="col-md-8">
-                                        <input id="tenkho" name="tenkho" mask="39/19/9999" type="text" placeholder="Tên dịch vụ" class="form-control input-md" ng-model="item.NGAY_KET_THUC_PHU_TRACH">
+                                        <input id="tenkho" name="tenkho" type="text" mask="39/99/9999" class="form-control input-md datetimepickerKT" ng-model="item.NGAY_KET_THUC_PHU_TRACH">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="name">Trạng thái: </label>
-                                    <div class="col-md-4">
+                                    <label class="col-md-2 control-label" for="name">Trạng thái: </label>
+                                    <div class="col-md-2">
                                         <input id="tenkho" name="tenkho" type="checkbox" ng-model="item.TRANG_THAI">
+                                    </div>
+                                    <label class="col-md-2 control-label" for="name">Sale cũ: </label>
+                                    <div class="col-md-2">
+                                        <input id="tenkho" name="tenkho" type="checkbox" ng-model="item.SALES_CU">
+                                    </div>
+                                    <label class="col-md-2 control-label" for="name">Sale mới: </label>
+                                    <div class="col-md-2">
+                                        <input id="tenkho" name="tenkho" type="checkbox" ng-model="item.SALES_MOI">
                                     </div>
                                 </div>
                                 <!-- Button (Double) -->
@@ -202,10 +226,10 @@
             </thead>
             <tbody>
                 <tr dir-paginate-start="item in filtered = (listsalephutrach | filter: {TEN_MO_HINH:searchtext}) | itemsPerPage:3 ">
-                    <td>{{ item.ID_LIEN_HE }}</td>
+                    <td>{{item.ID_LIEN_HE }}</td>
                     <td>{{item.SALES_PHU_TRACH}}</td>
-                    <td>{{item.NGAY_BAT_DAU_PHU_TRACH | date: 'dd/MM/yyyy'}}</td>
-                    <td>{{item.NGAY_KET_THUC_PHU_TRACH | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{item.NGAY_BAT_DAU_PHU_TRACH | stringToDate : 'dd/MM/yyyy'}}</td>
+                    <td>{{item.NGAY_KET_THUC_PHU_TRACH | stringToDate : 'dd/MM/yyyy'}}</td>
                     <td class="text-center">
                         <button class="btn btn-success btn-circle" ng-click="edit(item)" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
                     </td>
