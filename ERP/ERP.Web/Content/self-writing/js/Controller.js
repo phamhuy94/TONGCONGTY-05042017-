@@ -295,6 +295,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 SDT1: $scope.arraylienhe[i].so_dien_thoai1,
                 SDT2: $scope.arraylienhe[i].so_dien_thoai2,
                 SALES_PHU_TRACH: $scope.arraylienhe[i].sales_phu_trach,
+                SALES_MOI : $scope.arraylienhe[i].sales_moi,
+                SALES_CU : $scope.arraylienhe[i].sales_cu,
             }
             $scope.Lien_he_TK.push(lien_he);
         }
@@ -472,7 +474,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             NGUOI_LIEN_HE: $scope.editlh.NGUOI_LIEN_HE,
             CHUC_VU: $scope.editlh.CHUC_VU,
             PHONG_BAN: $scope.editlh.PHONG_BAN,
-            NGAY_SINH: $scope.editlh.NGAY_SINH.format('DD-MM-YYYY'),
+            NGAY_SINH: $scope.editlh.NGAY_SINH.format('YYYY-DD-MM'),
             GIOI_TINH: $scope.editlh.GIOI_TINH,
             EMAIL_CA_NHAN: $scope.editlh.EMAIL_CA_NHAN,
             EMAIL_CONG_TY: $scope.editlh.EMAIL_CONG_TY,
@@ -493,7 +495,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             NGUOI_LIEN_HE: $scope.nguoi_lien_he,
             CHUC_VU: $scope.chuc_vu,
             PHONG_BAN: $scope.phong_ban,
-            NGAY_SINH: $scope.ngay_sinh,
+            NGAY_SINH: $scope.ngay_sinh.format('DD-MM-YYYY'),
             GIOI_TINH: $scope.gioi_tinh,
             EMAIL_CA_NHAN: $scope.email_ca_nhan,
             EMAIL_CONG_TY: $scope.email_cong_ty,
@@ -502,7 +504,9 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             GHI_CHU: $scope.ghi_chu_lh,
             SDT1: $scope.so_dien_thoai1,
             SDT2: $scope.so_dien_thoai2,
-            SALES_PHU_TRACH: $scope.sales_phu_trach,
+            SALES_PHU_TRACH: $scope.nvkd.USERNAME,
+            SALES_MOI: $scope.sales_moi,
+            SALES_CU : $scope.sales_cu,
         }
         khachhangService.add_lienhe(data_add).then(function (response) {
             $scope.load_khachhang();
@@ -569,7 +573,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         skype: '',
         facebook: '',
         sales_phu_trach: '',
-       
+        sales_cu: '',
+        sales_moi : '',
     }];
 
     $scope.arraytaikhoan = [{
@@ -582,6 +587,43 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         loai_tai_khoan: '',
     }];
 
+    //Lọc nhân viên
+    $scope.arrayNVFinded = [];
+    $scope.arrayStaffs = [];
+    $scope.showtable_ho_va_ten = false;
+
+    $http.get(window.location.origin + '/api/Api_NhanvienKD')
+            .then(function (response) {
+                if (response.data) {
+                    $scope.arrayStaffs = response.data;
+                    $scope.arrayNVFinded = $scope.arrayStaffs.map(function (item) {
+                        return item;
+                    });
+                }
+            }, function (error) {
+                console.log(error);
+            });
+
+    $scope.onNhanVienFind = function () {
+        if (!$scope.HO_VA_TEN) {
+            $scope.arrayNVFinded = $scope.arrayStaffs.map(function (item) {
+                return item;
+            });
+        }
+        $scope.arrayNVFinded = $scope.arrayStaffs.filter(function (item) {
+            if (item.HO_VA_TEN.toLowerCase().indexOf($scope.nvkd.HO_VA_TEN.toLowerCase()) >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+    $scope.showInfoStaff = function (staff) {
+        $scope.nvkd = staff;
+        $scope.showtable_ho_va_ten = false;
+    }
+    // End Lọc nhân viên
 });
 // End khach hang
 
