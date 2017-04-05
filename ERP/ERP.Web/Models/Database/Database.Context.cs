@@ -46,6 +46,7 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<CN_NHOM_NGUOI_DUNG_NGHIEP_VU> CN_NHOM_NGUOI_DUNG_NGHIEP_VU { get; set; }
         public virtual DbSet<DM_CHUNG_TU> DM_CHUNG_TU { get; set; }
         public virtual DbSet<DM_DINH_KHOAN_TU_DONG> DM_DINH_KHOAN_TU_DONG { get; set; }
+        public virtual DbSet<DM_DOI_TUONG> DM_DOI_TUONG { get; set; }
         public virtual DbSet<DM_KHO> DM_KHO { get; set; }
         public virtual DbSet<DM_LOAI_CHUNG_TU> DM_LOAI_CHUNG_TU { get; set; }
         public virtual DbSet<DM_LOAI_DOI_TUONG> DM_LOAI_DOI_TUONG { get; set; }
@@ -59,6 +60,7 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<HT_LICH_SU_DANG_NHAP> HT_LICH_SU_DANG_NHAP { get; set; }
         public virtual DbSet<HT_NGUOI_DUNG> HT_NGUOI_DUNG { get; set; }
         public virtual DbSet<KH> KHs { get; set; }
+        public virtual DbSet<KH_CHUYEN_SALES> KH_CHUYEN_SALES { get; set; }
         public virtual DbSet<KH_DC_XUAT_HANG> KH_DC_XUAT_HANG { get; set; }
         public virtual DbSet<KH_LIEN_HE> KH_LIEN_HE { get; set; }
         public virtual DbSet<KH_LOAI> KH_LOAI { get; set; }
@@ -115,7 +117,6 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<TONKHO_TAHP> TONKHO_TAHP { get; set; }
         public virtual DbSet<XL_DANG_KY_PHE_DUYET> XL_DANG_KY_PHE_DUYET { get; set; }
         public virtual DbSet<XL_THAM_CHIEU_CHUNG_TU> XL_THAM_CHIEU_CHUNG_TU { get; set; }
-        public virtual DbSet<DM_DOI_TUONG> DM_DOI_TUONG { get; set; }
     
         public virtual int PROD_HANGHOA()
         {
@@ -148,6 +149,20 @@ namespace ERP.Web.Models.Database
         public virtual ObjectResult<string> XL_LayMaGiuHangMoiNhat()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("XL_LayMaGiuHangMoiNhat");
+        }
+    
+        public virtual ObjectResult<LocKHTheoSale_Result> LocKHTheoSale(string sale)
+        {
+            var saleParameter = sale != null ?
+                new ObjectParameter("sale", sale) :
+                new ObjectParameter("sale", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<LocKHTheoSale_Result>("LocKHTheoSale", saleParameter);
+        }
+    
+        public virtual ObjectResult<GetAll_KhachHang_Result1> GetAll_KhachHang()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_KhachHang_Result1>("GetAll_KhachHang");
         }
     }
 }

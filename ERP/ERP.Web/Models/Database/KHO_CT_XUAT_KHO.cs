@@ -31,8 +31,8 @@ namespace ERP.Web.Models.Database
         public virtual DM_KHO DM_KHO { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN1 { get; set; }
+        public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN2 { get; set; }
         public virtual HH HH { get; set; }
         public virtual KHO_XUAT_KHO KHO_XUAT_KHO { get; set; }
-        public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN11 { get; set; }
     }
 }

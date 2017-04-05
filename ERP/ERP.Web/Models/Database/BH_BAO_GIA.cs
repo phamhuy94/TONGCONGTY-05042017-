@@ -29,10 +29,7 @@ namespace ERP.Web.Models.Database
         public string HAN_THANH_TOAN { get; set; }
         public Nullable<int> HIEU_LUC_BAO_GIA { get; set; }
         public string DIEU_KHOAN_THANH_TOAN { get; set; }
-        public decimal THANH_TIEN { get; set; }
         public Nullable<decimal> PHI_VAN_CHUYEN { get; set; }
-        public double CK_VAT { get; set; }
-        public decimal TIEN_VAT { get; set; }
         public decimal TONG_TIEN { get; set; }
         public Nullable<bool> DA_DUYET { get; set; }
         public string NGUOI_DUYET { get; set; }

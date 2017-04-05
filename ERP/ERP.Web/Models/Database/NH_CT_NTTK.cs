@@ -27,9 +27,9 @@ namespace ERP.Web.Models.Database
         public string DON_VI { get; set; }
     
         public virtual CCTC_PHONG_BAN CCTC_PHONG_BAN { get; set; }
+        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN1 { get; set; }
         public virtual NH_NTTK NH_NTTK { get; set; }
-        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
     }
 }
