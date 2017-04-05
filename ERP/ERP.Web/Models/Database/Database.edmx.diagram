@@ -277,6 +277,8 @@
         <AssociationConnector Association="ERP_DATABASEModel.FK__QUY_CT_PH__MA_DO__44952D46" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3552E9B6" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3CF40B7E" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_KH__14F1071C" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__TK_KH__15E52B55" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

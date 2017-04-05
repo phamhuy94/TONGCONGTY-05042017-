@@ -20,6 +20,8 @@ namespace ERP.Web.Models.Database
         public System.DateTime NGAY_BAT_DAU_PHU_TRACH { get; set; }
         public Nullable<System.DateTime> NGAY_KET_THUC_PHU_TRACH { get; set; }
         public Nullable<bool> TRANG_THAI { get; set; }
+        public bool SALES_MOI { get; set; }
+        public bool SALES_CU { get; set; }
     
         public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
         public virtual KH_LIEN_HE KH_LIEN_HE { get; set; }
