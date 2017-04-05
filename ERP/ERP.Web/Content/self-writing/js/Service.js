@@ -813,6 +813,10 @@ app.service('khachhangService', function ($http) {
             return response.data;
         });
     };
+
+    this.save_salesphutrach = function (username, idlienhe, data_savesalesphutrach) {
+        return $http.put('/api/Api_SalePhuTrach/' + username + '/' + idlienhe, data_savesalesphutrach);
+    };
 });
 //end khach hang
 
