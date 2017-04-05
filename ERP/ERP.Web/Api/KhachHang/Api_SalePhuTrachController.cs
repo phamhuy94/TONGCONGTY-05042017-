@@ -69,7 +69,16 @@ namespace ERP.Web.Api.HeThong
             if (sale.NGAY_BAT_DAU_PHU_TRACH != null)
                 nv.NGAY_BAT_DAU_PHU_TRACH = xlnt.Xulydatetime(sale.NGAY_BAT_DAU_PHU_TRACH);
             nv.TRANG_THAI = sale.TRANG_THAI;
-
+            if (sale.SALES_CU == false && sale.SALES_MOI == false)
+            {
+                nv.SALES_MOI = true;
+                nv.SALES_CU = false;
+            }
+            else
+            {
+                nv.SALES_CU = sale.SALES_CU;
+                nv.SALES_MOI = sale.SALES_MOI;
+            }
             try
             {
                 db.SaveChanges();
@@ -88,6 +97,55 @@ namespace ERP.Web.Api.HeThong
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        [Route("api/Api_SalePhuTrach/{username}/{idlienhe}")]
+        public IHttpActionResult PutKH_SALES_PHU_TRACH(string username, int idlienhe, SalesPhuTrach sale)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (idlienhe != sale.ID_LIEN_HE)
+            {
+                return BadRequest();
+            }
+            var nv = db.KH_SALES_PHU_TRACH.Where(x => x.ID_LIEN_HE == idlienhe && x.SALES_PHU_TRACH == username).FirstOrDefault();
+
+            nv.ID_LIEN_HE = sale.ID_LIEN_HE;
+            nv.SALES_PHU_TRACH = sale.SALES_PHU_TRACH;
+            if (sale.NGAY_KET_THUC_PHU_TRACH != null)
+                nv.NGAY_KET_THUC_PHU_TRACH = xlnt.Xulydatetime(sale.NGAY_KET_THUC_PHU_TRACH);
+            nv.TRANG_THAI = sale.TRANG_THAI;
+            if (sale.SALES_CU == false && sale.SALES_MOI == false)
+            {
+                nv.SALES_MOI = true;
+                nv.SALES_CU = false;
+            }
+            else
+            {
+                nv.SALES_CU = sale.SALES_CU;
+                nv.SALES_MOI = sale.SALES_MOI;
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!KH_SALES_PHU_TRACHExists(idlienhe))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
 
         // POST: api/Api_SalePhuTrach
         [ResponseType(typeof(KH_SALES_PHU_TRACH))]
