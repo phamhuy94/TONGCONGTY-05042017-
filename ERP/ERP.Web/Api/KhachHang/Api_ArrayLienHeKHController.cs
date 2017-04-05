@@ -126,6 +126,15 @@ namespace ERP.Web.Api.KhachHang
                 salept.SALES_PHU_TRACH = item.SALES_PHU_TRACH;
                 salept.NGAY_BAT_DAU_PHU_TRACH = DateTime.Today.Date;
                 salept.TRANG_THAI = true;
+                if (item.SALES_CU == false && item.SALES_MOI == false)
+                {
+                    salept.SALES_MOI = true;
+                    salept.SALES_CU = false;
+                } else 
+                {
+                    salept.SALES_CU = item.SALES_CU;
+                    salept.SALES_MOI = item.SALES_MOI;
+                }               
                 db.KH_SALES_PHU_TRACH.Add(salept);
                 db.SaveChanges();
             }

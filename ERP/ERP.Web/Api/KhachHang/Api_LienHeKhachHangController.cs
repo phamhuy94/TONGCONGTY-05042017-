@@ -49,6 +49,8 @@ namespace ERP.Web.Api.KhachHang
                              t2.NGAY_BAT_DAU_PHU_TRACH,
                              t2.NGAY_KET_THUC_PHU_TRACH,
                              t2.TRANG_THAI,
+                             t2.SALES_MOI,
+                             t2.SALES_CU,
                              t3.HO_VA_TEN,
                              t4.TEN_CONG_TY
                          });
@@ -74,7 +76,9 @@ namespace ERP.Web.Api.KhachHang
                 TRANG_THAI = x.TRANG_THAI,
                 NGAY_KET_THUC_PHU_TRACH = x.NGAY_KET_THUC_PHU_TRACH,
                 NGAY_BAT_DAU_PHU_TRACH = x.NGAY_BAT_DAU_PHU_TRACH,
-                TEN_CONG_TY = x.TEN_CONG_TY
+                TEN_CONG_TY = x.TEN_CONG_TY,
+                SALES_CU = x.SALES_CU,
+                SALES_MOI = x.SALES_MOI,
             }).ToList();
             return result;
         }
@@ -159,6 +163,16 @@ namespace ERP.Web.Api.KhachHang
             salept.SALES_PHU_TRACH = lh.SALES_PHU_TRACH;
             salept.NGAY_BAT_DAU_PHU_TRACH = DateTime.Today.Date;
             salept.TRANG_THAI = true;
+            if (lh.SALES_CU == false && lh.SALES_MOI == false)
+            {
+                salept.SALES_MOI = true;
+                salept.SALES_CU = false;
+            }
+            else
+            {
+                salept.SALES_CU = lh.SALES_CU;
+                salept.SALES_MOI = lh.SALES_MOI;
+            }
             db.KH_SALES_PHU_TRACH.Add(salept);
             db.SaveChanges();
 
