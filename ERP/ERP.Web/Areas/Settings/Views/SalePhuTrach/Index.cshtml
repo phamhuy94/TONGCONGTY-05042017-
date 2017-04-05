@@ -1,7 +1,6 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/self-writing/css/SalePhuTrach.css" rel="stylesheet" />
 <div ng-app="myApp" ng-controller="salephutrachCtrl">
@@ -184,7 +183,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate-start="item in filtered = (listsalephutrach | filter: {TEN_MO_HINH:searchtext}) | itemsPerPage:3 ">
+                <tr dir-paginate-start="item in filtered = (listsalephutrach | filter: {TEN_MO_HINH:searchtext}) | itemsPerPage:20 ">
                     <td>{{ item.ID_LIEN_HE }}</td>
                     <td>{{item.SALES_PHU_TRACH}}</td>
                     <td>{{item.NGAY_BAT_DAU_PHU_TRACH | date: 'dd/MM/yyyy'}}</td>
