@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ERP.Web.Models.Database.XL_DANG_KY_PHE_DUYET>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/self-writing/css/Donhangdukien.css" rel="stylesheet" />
+<script src="~/Content/self-writing/js/Services/ChecktonService.js"></script>
+<script src="~/Content/self-writing/js/Controllers/ChecktonCtrl.js"></script>
+
+<div class="panel-heading title">Bạn đang ở mục check tồn kho</div>
+<br />
+<div ng-app="myApp">
+    <div class="content" ng-controller="ChecktonCtrl">
+
+
+        <div id="quick-access">
+            <form class="form-inline quick-search-form" role="form" action="#">
+                <div class="form-group" style="width: 100%">
+                    <input type="text" style="width: 60%" class="form-control" placeholder="Search Here" ng-model="search_text">
+                </div>
+            </form>
+        </div>
+
+        <table id="example" class="table table-bordered" cellspacing="0" name="tblhanghoa">
+            <thead>
+                <tr>
+                    <th>Mã hàng</th>
+                    <th>Mã chuẩn </th>
+                    <th>Thông số</th>
+                    <th>Xuất xứ</th>
+                    <th>Giá List</th>
+                    <th>Ngưng SX</th>
+                    <th>Tồn kho</th>
+                    <th>SL giữ</th>
+                    <th>Tồn hãng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="item in filtered = (listtonkho | filter: {MA_CHUAN:search_text}) | itemsPerPage:20 | orderBy: 'item.MA_CHUAN'" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                    <td class="text-left">{{ item.MA_HANG }}</td>
+                    <td class="text-left">{{item.MA_CHUAN}}</td>
+                    <td class="text-left">{{item.THONG_SO}}</td>
+                    <td class="text-left">{{item.XUAT_XU}}</td>
+                    <td class="text-left">{{item.GIA_LIST}}</td>
+                    <td class="text-left">{{item.DISCONTINUE}}</td>
+                    <td class="text-left">{{item.SL_HOPLONG}}</td>
+                    <td class="text-left">{{item.SL_GIU}}</td>
+                    <td class="text-left">{{item.SL_HANG}}</td>
+
+
+                </tr>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="9" style="border: none !important">
+                        <dir-pagination-controls max-size="12" style="float:right;"
+                                                 direction-links="true"
+                                                 boundary-links="true">
+                        </dir-pagination-controls>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script src="~/Content/download/angularjs/angular-ui-router.js"></script>
+
+
