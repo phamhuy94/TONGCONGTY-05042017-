@@ -35,7 +35,7 @@ namespace ERP.Web.Models.Database
         public virtual CCTC_CONG_TY CCTC_CONG_TY { get; set; }
         public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
         public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN1 { get; set; }
-        public virtual DM_LOAI_DOI_TUONG DM_LOAI_DOI_TUONG { get; set; }
+        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHO_CT_NHAP_KHO> KHO_CT_NHAP_KHO { get; set; }
     }

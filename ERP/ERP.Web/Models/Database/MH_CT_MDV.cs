@@ -33,11 +33,11 @@ namespace ERP.Web.Models.Database
         public string SO_HOA_DON { get; set; }
         public Nullable<System.DateTime> NGAY_HOA_DON { get; set; }
     
+        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN1 { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN2 { get; set; }
         public virtual DV DV { get; set; }
         public virtual MH_MDV MH_MDV { get; set; }
-        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
     }
 }

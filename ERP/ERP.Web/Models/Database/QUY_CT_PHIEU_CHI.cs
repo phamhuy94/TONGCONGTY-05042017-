@@ -36,11 +36,11 @@ namespace ERP.Web.Models.Database
         public string KY_HIEU_HD { get; set; }
         public string MA_NHA_CUNG_CAP { get; set; }
     
+        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN1 { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN2 { get; set; }
         public virtual NCC NCC { get; set; }
         public virtual QUY_PHIEU_CHI QUY_PHIEU_CHI { get; set; }
-        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
     }
 }

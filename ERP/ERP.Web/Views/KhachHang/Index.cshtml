@@ -466,7 +466,7 @@
                         <div class="form-group">
                             <label for="addtencongty" class="col-sm-2 control-label">Người liên hệ</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" disabled="disabled" id="addtencongty" ng-model="editlh.NGUOI_LIEN_HE">
+                                <input type="text" class="form-control"  id="addtencongty" ng-model="editlh.NGUOI_LIEN_HE">
                             </div>
                         </div>
                         <div class="form-group">
@@ -910,6 +910,7 @@
                     <th>Tỉnh</th>
                     <th>Quốc gia</th>
                     <th>Phân loại khách</th>
+                    <th>Sales phụ trách</th>
                 </tr>
             </thead>
             <tbody>
@@ -920,6 +921,7 @@
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{ item.TINH}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.QUOC_GIA}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_LOAI_KHACH}}</td>
+                    <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.SALES_PHU_TRACH}}</td>
                 </tr>
                 <!--Detail row-->
 

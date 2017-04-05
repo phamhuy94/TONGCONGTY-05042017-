@@ -22,6 +22,7 @@ namespace ERP.Web.Models.Database
             this.BH_DON_HANG_DU_KIEN = new HashSet<BH_DON_HANG_DU_KIEN>();
             this.KH_LIEN_HE = new HashSet<KH_LIEN_HE>();
             this.KH_TK_NGAN_HANG = new HashSet<KH_TK_NGAN_HANG>();
+            this.KH_CHUYEN_SALES = new HashSet<KH_CHUYEN_SALES>();
             this.KH_DC_XUAT_HANG = new HashSet<KH_DC_XUAT_HANG>();
             this.KHO_DNXH = new HashSet<KHO_DNXH>();
             this.KHO_GIU_HANG = new HashSet<KHO_GIU_HANG>();
@@ -58,6 +59,8 @@ namespace ERP.Web.Models.Database
         public virtual ICollection<KH_LIEN_HE> KH_LIEN_HE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KH_TK_NGAN_HANG> KH_TK_NGAN_HANG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KH_CHUYEN_SALES> KH_CHUYEN_SALES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KH_DC_XUAT_HANG> KH_DC_XUAT_HANG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
