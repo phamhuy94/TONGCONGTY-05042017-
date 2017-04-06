@@ -4,7 +4,14 @@
 }
 <script src="~/Content/self-writing/js/Controllers/ChuyenSaleCtrl.js"></script>
 <script src="~/Content/self-writing/js/Services/ChuyenSaleService.js"></script>
-
+<style>
+    .hienthi {
+        display : block !important;
+    }
+    .nohienthi{
+        display : none !important;
+    }
+</style>
 <div ng-app="myApp" ng-controller="chuyensaleCtrl">
     <div class="content">
         <table id="example" class="table" cellspacing="0">
@@ -73,9 +80,10 @@
                             </md-select>
                         </md-input-container>
                     </td>
-                    <td>
+                    <td>                    
                         <button type="submit" data-ng-hide="editMode" data-ng-click="editMode = true; editAppKey(entry)" class="btn btn-default">Edit</button>
                         <button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; save(entry)" class="btn btn-default">Save</button>
+                        <button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; add(entry)" class="btn btn-default">Thêm</button>
                         <button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
                     </td>
                 </tr>

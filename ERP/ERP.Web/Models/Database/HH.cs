@@ -73,6 +73,7 @@ namespace ERP.Web.Models.Database
         public virtual TONKHO_GIU_TAHCM TONKHO_GIU_TAHCM { get; set; }
         public virtual TONKHO_GIU_TADN TONKHO_GIU_TADN { get; set; }
         public virtual TONKHO_GIU_TAHP TONKHO_GIU_TAHP { get; set; }
+        public virtual TONKHO_HANG_DANG_VE TONKHO_HANG_DANG_VE { get; set; }
         public virtual TONKHO_HANG TONKHO_HANG { get; set; }
         public virtual TONKHO_HOPLONG TONKHO_HOPLONG { get; set; }
         public virtual TONKHO_KYGUI_HL TONKHO_KYGUI_HL { get; set; }

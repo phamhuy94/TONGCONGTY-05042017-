@@ -141,6 +141,7 @@ namespace ERP.Web.Api.Kho
             nv.HUY_DON_GIU = kHO_GIU_HANG.HUY_DON_GIU;
             nv.DON_DANG_XUAT = kHO_GIU_HANG.DON_DANG_XUAT;
             nv.DON_DA_HOAN_THANH = kHO_GIU_HANG.DON_DA_HOAN_THANH;
+            nv.GIU_PO = kHO_GIU_HANG.GIU_PO;
             nv.TRUC_THUOC = kHO_GIU_HANG.TRUC_THUOC;
             db.KHO_GIU_HANG.Add(nv);
 
@@ -160,7 +161,7 @@ namespace ERP.Web.Api.Kho
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = kHO_GIU_HANG.MA_GIU_KHO }, kHO_GIU_HANG);
+            return Ok(nv);
         }
 
         // DELETE: api/Api_KhoGiuHang/5

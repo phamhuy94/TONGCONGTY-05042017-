@@ -557,7 +557,11 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MA_GIU_KHO" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="DVT" Type="nvarchar" MaxLength="64" />
+          <Property Name="XUAT_XU" Type="nvarchar" MaxLength="64" />
           <Property Name="SL_GIU" Type="int" Nullable="false" />
+          <Property Name="DON_GIA" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="THANH_TIEN" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="NGAY_XUAT" Type="date" />
           <Property Name="DA_XUAT" Type="bit" Nullable="false" />
           <Property Name="GHI_CHU" Type="nvarchar(max)" />
@@ -638,9 +642,10 @@
           <Property Name="MA_KHACH_HANG" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="NGAY_GIU" Type="date" Nullable="false" />
           <Property Name="HUY_DON_GIU" Type="bit" Nullable="false" />
+          <Property Name="GIU_PO" Type="bit" Nullable="false" />
           <Property Name="DON_DANG_XUAT" Type="bit" Nullable="false" />
           <Property Name="DON_DA_HOAN_THANH" Type="bit" Nullable="false" />
-          <Property Name="TRUC_THUOC" Type="varchar" MaxLength="64" />
+          <Property Name="TRUC_THUOC" Type="varchar" MaxLength="64" Nullable="false" />
         </EntityType>
         <EntityType Name="KHO_NHAP_KHO">
           <Key>
@@ -1050,28 +1055,28 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_GIU" Type="int" Nullable="false" />
+          <Property Name="SL_GIU_HL" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TADN">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_GIU" Type="int" Nullable="false" />
+          <Property Name="SL_GIU_TADN" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TAHCM">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_GIU" Type="int" Nullable="false" />
+          <Property Name="SL_GIU_TAHCM" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TAHP">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_GIU" Type="int" Nullable="false" />
+          <Property Name="SL_GIU_TAHP" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_HANG">
           <Key>
@@ -1080,6 +1085,15 @@
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="MA_NHOM_HANG" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="SL_HANG" Type="int" Nullable="false" />
+          <Property Name="THOI_GIAN_CAP_HANG" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="TONKHO_HANG_DANG_VE">
+          <Key>
+            <PropertyRef Name="MA_HANG" />
+          </Key>
+          <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="SL_DANG_VE" Type="int" Nullable="false" />
+          <Property Name="NGAY_VE_DU_KIEN" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_HOPLONG">
           <Key>
@@ -1093,32 +1107,32 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_KYGUI_DEN" Type="int" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="int" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_HL" Type="int" Nullable="false" />
+          <Property Name="SL_HL_KYGUI_DI" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TADN">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_KYGUI_DEN" Type="int" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="int" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TADN" Type="int" Nullable="false" />
+          <Property Name="SL_TADN_KYGUI_DI" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TAHCM">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_KYGUI_DEN" Type="int" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="int" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TAHCM" Type="int" Nullable="false" />
+          <Property Name="SL_TAHCM_KYGUI_DI" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TAHP">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_KYGUI_DEN" Type="int" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="int" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TAHP" Type="int" Nullable="false" />
+          <Property Name="SL_TAHP_KYGUI_DI" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_TADN">
           <Key>
@@ -2252,7 +2266,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__KHO_GIU_H__TRUC___5CACADF9">
-          <End Role="CCTC_CONG_TY" Type="Self.CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Role="CCTC_CONG_TY" Type="Self.CCTC_CONG_TY" Multiplicity="1" />
           <End Role="KHO_GIU_HANG" Type="Self.KHO_GIU_HANG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CCTC_CONG_TY">
@@ -3199,6 +3213,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TONKHO_HA__MA_HA__3EE740E8">
+          <End Role="HH" Type="Self.HH" Multiplicity="1" />
+          <End Role="TONKHO_HANG_DANG_VE" Type="Self.TONKHO_HANG_DANG_VE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HH">
+              <PropertyRef Name="MA_HANG" />
+            </Principal>
+            <Dependent Role="TONKHO_HANG_DANG_VE">
+              <PropertyRef Name="MA_HANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TONKHO_HA__MA_HA__5DD5DC5C">
           <End Role="HH" Type="Self.HH" Multiplicity="1" />
           <End Role="TONKHO_HANG" Type="Self.TONKHO_HANG" Multiplicity="0..1" />
@@ -3467,8 +3493,15 @@
           <Parameter Name="tukhoa" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="GetAll_KhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="LocKHTheoSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="HopLong_DS_TONKHO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MA_CHUAN" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="HopLong_GetAllSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="HopLong_LocKHTheoSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sale" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="TimKiemKhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sdt" Type="varchar" Mode="In" />
         </Function>
         <Function Name="XL_LayMaGiuHangMoiNhat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="XL_LayMaKhachMoiNhat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -3556,6 +3589,7 @@
           <EntitySet Name="TONKHO_GIU_TAHCM" EntityType="Self.TONKHO_GIU_TAHCM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TONKHO_GIU_TAHP" EntityType="Self.TONKHO_GIU_TAHP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TONKHO_HANG" EntityType="Self.TONKHO_HANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TONKHO_HANG_DANG_VE" EntityType="Self.TONKHO_HANG_DANG_VE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TONKHO_HOPLONG" EntityType="Self.TONKHO_HOPLONG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TONKHO_KYGUI_HL" EntityType="Self.TONKHO_KYGUI_HL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TONKHO_KYGUI_TADN" EntityType="Self.TONKHO_KYGUI_TADN" Schema="dbo" store:Type="Tables" />
@@ -4246,6 +4280,10 @@
             <End Role="HH" EntitySet="HH" />
             <End Role="TONKHO_GIU_TAHP" EntitySet="TONKHO_GIU_TAHP" />
           </AssociationSet>
+          <AssociationSet Name="FK__TONKHO_HA__MA_HA__3EE740E8" Association="Self.FK__TONKHO_HA__MA_HA__3EE740E8">
+            <End Role="HH" EntitySet="HH" />
+            <End Role="TONKHO_HANG_DANG_VE" EntitySet="TONKHO_HANG_DANG_VE" />
+          </AssociationSet>
           <AssociationSet Name="FK__TONKHO_HA__MA_HA__5DD5DC5C" Association="Self.FK__TONKHO_HA__MA_HA__5DD5DC5C">
             <End Role="HH" EntitySet="HH" />
             <End Role="TONKHO_HANG" EntitySet="TONKHO_HANG" />
@@ -4352,6 +4390,10 @@
           <FunctionImport Name="LocKHTheoSale" ReturnType="Collection(ERP_DATABASEModel.LocKHTheoSale_Result)">
           <Parameter Name="sale" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetAll_KhachHang" ReturnType="Collection(ERP_DATABASEModel.GetAll_KhachHang_Result1)" />
+          <FunctionImport Name="TimKiemKhachHang" ReturnType="Collection(ERP_DATABASEModel.TimKiemKhachHang_Result)">
+          <Parameter Name="sdt" Mode="In" Type="String" />
+          </FunctionImport>
           <EntitySet Name="BH_BAO_GIA" EntityType="ERP_DATABASEModel.BH_BAO_GIA" />
           <EntitySet Name="BH_CT_BAO_GIA" EntityType="ERP_DATABASEModel.BH_CT_BAO_GIA" />
           <EntitySet Name="BH_DE_NGHI_GIU_HANG" EntityType="ERP_DATABASEModel.BH_DE_NGHI_GIU_HANG" />
@@ -4432,6 +4474,7 @@
           <EntitySet Name="TONKHO_GIU_TAHCM" EntityType="ERP_DATABASEModel.TONKHO_GIU_TAHCM" />
           <EntitySet Name="TONKHO_GIU_TAHP" EntityType="ERP_DATABASEModel.TONKHO_GIU_TAHP" />
           <EntitySet Name="TONKHO_HANG" EntityType="ERP_DATABASEModel.TONKHO_HANG" />
+          <EntitySet Name="TONKHO_HANG_DANG_VE" EntityType="ERP_DATABASEModel.TONKHO_HANG_DANG_VE" />
           <EntitySet Name="TONKHO_HOPLONG" EntityType="ERP_DATABASEModel.TONKHO_HOPLONG" />
           <EntitySet Name="TONKHO_KYGUI_HL" EntityType="ERP_DATABASEModel.TONKHO_KYGUI_HL" />
           <EntitySet Name="TONKHO_KYGUI_TADN" EntityType="ERP_DATABASEModel.TONKHO_KYGUI_TADN" />
@@ -5002,6 +5045,10 @@
             <End Role="HH" EntitySet="HHs" />
             <End Role="TONKHO_GIU_TAHP" EntitySet="TONKHO_GIU_TAHP" />
           </AssociationSet>
+          <AssociationSet Name="FK__TONKHO_HA__MA_HA__3EE740E8" Association="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__3EE740E8">
+            <End Role="HH" EntitySet="HHs" />
+            <End Role="TONKHO_HANG_DANG_VE" EntitySet="TONKHO_HANG_DANG_VE" />
+          </AssociationSet>
           <AssociationSet Name="FK__TONKHO_HA__MA_HA__5DD5DC5C" Association="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__5DD5DC5C">
             <End Role="HH" EntitySet="HHs" />
             <End Role="TONKHO_HANG" EntitySet="TONKHO_HANG" />
@@ -5210,7 +5257,13 @@
             <End Role="QUY_PHIEU_THU" EntitySet="QUY_PHIEU_THU" />
             <End Role="QUY_CT_PHIEU_THU" EntitySet="QUY_CT_PHIEU_THU" />
           </AssociationSet>
-          <FunctionImport Name="GetAll_KhachHang" ReturnType="Collection(ERP_DATABASEModel.GetAll_KhachHang_Result1)" />
+          <FunctionImport Name="HopLong_LocKHTheoSale" ReturnType="Collection(ERP_DATABASEModel.HopLong_LocKHTheoSale_Result)">
+          <Parameter Name="sale" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="HopLong_GetAllSale" ReturnType="Collection(ERP_DATABASEModel.HopLong_GetAllSale_Result)" />
+          <FunctionImport Name="HopLong_DS_TONKHO" ReturnType="Collection(ERP_DATABASEModel.HopLong_DS_TONKHO_Result)">
+          <Parameter Name="MA_CHUAN" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="XL_TimKiemHangHoa_Result">
           <Property Type="String" Name="MA_HANG" Nullable="false" MaxLength="128" />
@@ -5289,6 +5342,36 @@
           <Property Type="String" Name="MA_LOAI_KHACH" Nullable="false" MaxLength="64" />
           <Property Type="String" Name="NHOM_NGANH" Nullable="true" MaxLength="128" />
           <Property Type="String" Name="TEN_LOAI_KHACH" Nullable="false" MaxLength="128" />
+        </ComplexType>
+        <ComplexType Name="GetAll_KhachHang_Result1">
+          <Property Type="Int32" Name="ID" Nullable="true" />
+          <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_CONG_TY" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="VAN_PHONG_GIAO_DICH" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="DIA_CHI_XUAT_HOA_DON" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="TINH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="QUOC_GIA" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="MST" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="HOTLINE" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="FAX" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="LOGO" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="MA_LOAI_KHACH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="WEBSITE" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="DIEU_KHOAN_THANH_TOAN" Nullable="true" MaxLength="64" />
+          <Property Type="Int32" Name="SO_NGAY_DUOC_NO" Nullable="true" />
+          <Property Type="Int32" Name="SO_NO_TOI_DA" Nullable="true" />
+          <Property Type="String" Name="GHI_CHU" Nullable="true" />
+          <Property Type="String" Name="TRUC_THUOC" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_LOAI_KHACH" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="ALES_PHU_TRACH" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="TimKiemKhachHang_Result">
+          <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_CONG_TY" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="TINH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="QUOC_GIA" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="SALES_PHU_TRACH" Nullable="true" MaxLength="64" />
         </ComplexType>
         <EntityType Name="BH_BAO_GIA">
           <Key>
@@ -5822,6 +5905,7 @@
           <NavigationProperty Name="TONKHO_GIU_TAHCM" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__6576FE24" FromRole="HH" ToRole="TONKHO_GIU_TAHCM" />
           <NavigationProperty Name="TONKHO_GIU_TADN" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__69478F08" FromRole="HH" ToRole="TONKHO_GIU_TADN" />
           <NavigationProperty Name="TONKHO_GIU_TAHP" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__6D181FEC" FromRole="HH" ToRole="TONKHO_GIU_TAHP" />
+          <NavigationProperty Name="TONKHO_HANG_DANG_VE" Relationship="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__3EE740E8" FromRole="HH" ToRole="TONKHO_HANG_DANG_VE" />
           <NavigationProperty Name="TONKHO_HANG" Relationship="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__5DD5DC5C" FromRole="HH" ToRole="TONKHO_HANG" />
           <NavigationProperty Name="TONKHO_HOPLONG" Relationship="ERP_DATABASEModel.FK__TONKHO_HO__MA_HA__4E9398CC" FromRole="HH" ToRole="TONKHO_HOPLONG" />
           <NavigationProperty Name="TONKHO_KYGUI_HL" Relationship="ERP_DATABASEModel.FK__TONKHO_KY__MA_HA__70E8B0D0" FromRole="HH" ToRole="TONKHO_KYGUI_HL" />
@@ -6090,11 +6174,15 @@
           <Property Name="MA_GIU_KHO" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="SL_GIU" Type="Int32" Nullable="false" />
+          <Property Name="DON_GIA" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="THANH_TIEN" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
           <Property Name="NGAY_XUAT" Type="DateTime" Precision="0" />
           <Property Name="DA_XUAT" Type="Boolean" Nullable="false" />
           <Property Name="GHI_CHU" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__KHO_CT_GI__MA_HA__255C790F" FromRole="KHO_CT_GIU_HANG" ToRole="HH" />
           <NavigationProperty Name="KHO_GIU_HANG" Relationship="ERP_DATABASEModel.FK__KHO_CT_GI__MA_GI__246854D6" FromRole="KHO_CT_GIU_HANG" ToRole="KHO_GIU_HANG" />
+          <Property Name="DVT" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="XUAT_XU" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="KHO_CT_NHAP_KHO">
           <Key>
@@ -6191,9 +6279,10 @@
           <Property Name="MA_KHACH_HANG" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="NGAY_GIU" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="HUY_DON_GIU" Type="Boolean" Nullable="false" />
+          <Property Name="GIU_PO" Type="Boolean" Nullable="false" />
           <Property Name="DON_DANG_XUAT" Type="Boolean" Nullable="false" />
           <Property Name="DON_DA_HOAN_THANH" Type="Boolean" Nullable="false" />
-          <Property Name="TRUC_THUOC" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="TRUC_THUOC" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__KHO_GIU_H__TRUC___5CACADF9" FromRole="KHO_GIU_HANG" ToRole="CCTC_CONG_TY" />
           <NavigationProperty Name="CCTC_NHAN_VIEN" Relationship="ERP_DATABASEModel.FK__KHO_GIU_H__SALES__1DBB5747" FromRole="KHO_GIU_HANG" ToRole="CCTC_NHAN_VIEN" />
           <NavigationProperty Name="KH" Relationship="ERP_DATABASEModel.FK__KHO_GIU_H__MA_KH__1EAF7B80" FromRole="KHO_GIU_HANG" ToRole="KH" />
@@ -6701,7 +6790,7 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_GIU" Type="Int32" Nullable="false" />
+          <Property Name="SL_GIU_HL" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__61A66D40" FromRole="TONKHO_GIU_HL" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TADN">
@@ -6709,7 +6798,7 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_GIU" Type="Int32" Nullable="false" />
+          <Property Name="SL_GIU_TADN" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__69478F08" FromRole="TONKHO_GIU_TADN" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TAHCM">
@@ -6717,7 +6806,7 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_GIU" Type="Int32" Nullable="false" />
+          <Property Name="SL_GIU_TAHCM" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__6576FE24" FromRole="TONKHO_GIU_TAHCM" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TAHP">
@@ -6725,7 +6814,7 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_GIU" Type="Int32" Nullable="false" />
+          <Property Name="SL_GIU_TAHP" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__6D181FEC" FromRole="TONKHO_GIU_TAHP" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_HANG">
@@ -6737,6 +6826,16 @@
           <Property Name="SL_HANG" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__5DD5DC5C" FromRole="TONKHO_HANG" ToRole="HH" />
           <NavigationProperty Name="HH_NHOM_VTHH" Relationship="ERP_DATABASEModel.FK__TONKHO_HA__MA_NH__7F36D027" FromRole="TONKHO_HANG" ToRole="HH_NHOM_VTHH" />
+          <Property Name="THOI_GIAN_CAP_HANG" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TONKHO_HANG_DANG_VE">
+          <Key>
+            <PropertyRef Name="MA_HANG" />
+          </Key>
+          <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="SL_DANG_VE" Type="Int32" Nullable="false" />
+          <Property Name="NGAY_VE_DU_KIEN" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__3EE740E8" FromRole="TONKHO_HANG_DANG_VE" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_HOPLONG">
           <Key>
@@ -6751,8 +6850,8 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_KYGUI_DEN" Type="Int32" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="Int32" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_HL" Type="Int32" Nullable="false" />
+          <Property Name="SL_HL_KYGUI_DI" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_KY__MA_HA__70E8B0D0" FromRole="TONKHO_KYGUI_HL" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TADN">
@@ -6760,8 +6859,8 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_KYGUI_DEN" Type="Int32" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="Int32" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TADN" Type="Int32" Nullable="false" />
+          <Property Name="SL_TADN_KYGUI_DI" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_KY__MA_HA__7889D298" FromRole="TONKHO_KYGUI_TADN" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TAHCM">
@@ -6769,8 +6868,8 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_KYGUI_DEN" Type="Int32" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="Int32" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TAHCM" Type="Int32" Nullable="false" />
+          <Property Name="SL_TAHCM_KYGUI_DI" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_KY__MA_HA__74B941B4" FromRole="TONKHO_KYGUI_TAHCM" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TAHP">
@@ -6778,8 +6877,8 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_KYGUI_DEN" Type="Int32" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="Int32" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TAHP" Type="Int32" Nullable="false" />
+          <Property Name="SL_TAHP_KYGUI_DI" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_KY__MA_HA__7C5A637C" FromRole="TONKHO_KYGUI_TAHP" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_TADN">
@@ -7141,7 +7240,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__KHO_GIU_H__TRUC___5CACADF9">
-          <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="1" />
           <End Type="ERP_DATABASEModel.KHO_GIU_HANG" Role="KHO_GIU_HANG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CCTC_CONG_TY">
@@ -8508,6 +8607,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TONKHO_HA__MA_HA__3EE740E8">
+          <End Type="ERP_DATABASEModel.HH" Role="HH" Multiplicity="1" />
+          <End Type="ERP_DATABASEModel.TONKHO_HANG_DANG_VE" Role="TONKHO_HANG_DANG_VE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HH">
+              <PropertyRef Name="MA_HANG" />
+            </Principal>
+            <Dependent Role="TONKHO_HANG_DANG_VE">
+              <PropertyRef Name="MA_HANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TONKHO_HA__MA_HA__5DD5DC5C">
           <End Type="ERP_DATABASEModel.HH" Role="HH" Multiplicity="1" />
           <End Type="ERP_DATABASEModel.TONKHO_HANG" Role="TONKHO_HANG" Multiplicity="0..1" />
@@ -9132,8 +9243,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="GetAll_KhachHang_Result1">
-          <Property Type="Int32" Name="ID" Nullable="true" />
+        <ComplexType Name="HopLong_LocKHTheoSale_Result">
           <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
           <Property Type="String" Name="TEN_CONG_TY" Nullable="false" MaxLength="128" />
           <Property Type="String" Name="VAN_PHONG_GIAO_DICH" Nullable="true" MaxLength="256" />
@@ -9145,15 +9255,38 @@
           <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="64" />
           <Property Type="String" Name="FAX" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="LOGO" Nullable="true" MaxLength="64" />
-          <Property Type="String" Name="MA_LOAI_KHACH" Nullable="true" MaxLength="64" />
           <Property Type="String" Name="WEBSITE" Nullable="true" MaxLength="64" />
           <Property Type="String" Name="DIEU_KHOAN_THANH_TOAN" Nullable="true" MaxLength="64" />
           <Property Type="Int32" Name="SO_NGAY_DUOC_NO" Nullable="true" />
           <Property Type="Int32" Name="SO_NO_TOI_DA" Nullable="true" />
           <Property Type="String" Name="GHI_CHU" Nullable="true" />
           <Property Type="String" Name="TRUC_THUOC" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="MA_LOAI_KHACH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="NHOM_NGANH" Nullable="true" MaxLength="128" />
           <Property Type="String" Name="TEN_LOAI_KHACH" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="ALES_PHU_TRACH" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="HopLong_GetAllSale_Result">
+          <Property Type="String" Name="USERNAME" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="HO_VA_TEN" Nullable="false" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="HopLong_DS_TONKHO_Result">
+          <Property Type="String" Name="MA_HANG" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="TEN_HANG" Nullable="true" />
+          <Property Type="String" Name="MA_CHUAN" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="THONG_SO" Nullable="true" />
+          <Property Type="String" Name="XUAT_XU" Nullable="true" MaxLength="64" />
+          <Property Type="Decimal" Name="GIA_LIST" Nullable="true" Precision="28" Scale="2" />
+          <Property Type="Boolean" Name="DISCONTINUE" Nullable="true" />
+          <Property Type="String" Name="MA_CHUYEN_DOI" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="TON_HOPLONG" Nullable="true" />
+          <Property Type="Int32" Name="TON_DANANG" Nullable="true" />
+          <Property Type="Int32" Name="TON_HCM" Nullable="true" />
+          <Property Type="Int32" Name="TON_HAIPHONG" Nullable="true" />
+          <Property Type="Int32" Name="SL_DANG_GIU" Nullable="true" />
+          <Property Type="Int32" Name="SL_NHAN_KY_GUI" Nullable="true" />
+          <Property Type="Int32" Name="SL_KY_GUI_DI" Nullable="true" />
+          <Property Type="Int32" Name="TON_TAI_HANG" Nullable="true" />
+          <Property Type="String" Name="THOI_GIAN_CAP_HANG" Nullable="true" MaxLength="128" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -9204,9 +9337,10 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="XL_LayMaKhachMoiNhat" FunctionName="ERP_DATABASEModel.Store.XL_LayMaKhachMoiNhat" />
           <FunctionImportMapping FunctionImportName="XL_LayMaGiuHangMoiNhat" FunctionName="ERP_DATABASEModel.Store.XL_LayMaGiuHangMoiNhat" />
-          <FunctionImportMapping FunctionImportName="LocKHTheoSale" FunctionName="ERP_DATABASEModel.Store.LocKHTheoSale">
+          <FunctionImportMapping FunctionImportName="GetAll_KhachHang" FunctionName="ERP_DATABASEModel.Store.GetAll_KhachHang">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ERP_DATABASEModel.LocKHTheoSale_Result">
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_KhachHang_Result1">
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
                 <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
                 <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
@@ -9218,15 +9352,26 @@
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="FAX" ColumnName="FAX" />
                 <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+                <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
                 <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
                 <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
                 <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
                 <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
                 <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
                 <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
-                <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
-                <ScalarProperty Name="NHOM_NGANH" ColumnName="NHOM_NGANH" />
                 <ScalarProperty Name="TEN_LOAI_KHACH" ColumnName="TEN_LOAI_KHACH" />
+                <ScalarProperty Name="ALES_PHU_TRACH" ColumnName="ALES_PHU_TRACH" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TimKiemKhachHang" FunctionName="ERP_DATABASEModel.Store.TimKiemKhachHang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.TimKiemKhachHang_Result">
+                <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+                <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+                <ScalarProperty Name="TINH" ColumnName="TINH" />
+                <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+                <ScalarProperty Name="SALES_PHU_TRACH" ColumnName="SALES_PHU_TRACH" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -9817,9 +9962,13 @@
           <EntitySetMapping Name="KHO_CT_GIU_HANG">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CT_GIU_HANG">
               <MappingFragment StoreEntitySet="KHO_CT_GIU_HANG">
+                <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+                <ScalarProperty Name="DVT" ColumnName="DVT" />
                 <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
                 <ScalarProperty Name="DA_XUAT" ColumnName="DA_XUAT" />
                 <ScalarProperty Name="NGAY_XUAT" ColumnName="NGAY_XUAT" />
+                <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
+                <ScalarProperty Name="DON_GIA" ColumnName="DON_GIA" />
                 <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
                 <ScalarProperty Name="MA_GIU_KHO" ColumnName="MA_GIU_KHO" />
@@ -9903,6 +10052,7 @@
                 <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
                 <ScalarProperty Name="DON_DA_HOAN_THANH" ColumnName="DON_DA_HOAN_THANH" />
                 <ScalarProperty Name="DON_DANG_XUAT" ColumnName="DON_DANG_XUAT" />
+                <ScalarProperty Name="GIU_PO" ColumnName="GIU_PO" />
                 <ScalarProperty Name="HUY_DON_GIU" ColumnName="HUY_DON_GIU" />
                 <ScalarProperty Name="NGAY_GIU" ColumnName="NGAY_GIU" />
                 <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
@@ -10343,7 +10493,7 @@
           <EntitySetMapping Name="TONKHO_GIU_HL">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_HL">
               <MappingFragment StoreEntitySet="TONKHO_GIU_HL">
-                <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+                <ScalarProperty Name="SL_GIU_HL" ColumnName="SL_GIU_HL" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10351,7 +10501,7 @@
           <EntitySetMapping Name="TONKHO_GIU_TADN">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_TADN">
               <MappingFragment StoreEntitySet="TONKHO_GIU_TADN">
-                <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+                <ScalarProperty Name="SL_GIU_TADN" ColumnName="SL_GIU_TADN" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10359,7 +10509,7 @@
           <EntitySetMapping Name="TONKHO_GIU_TAHCM">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_TAHCM">
               <MappingFragment StoreEntitySet="TONKHO_GIU_TAHCM">
-                <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+                <ScalarProperty Name="SL_GIU_TAHCM" ColumnName="SL_GIU_TAHCM" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10367,7 +10517,7 @@
           <EntitySetMapping Name="TONKHO_GIU_TAHP">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_TAHP">
               <MappingFragment StoreEntitySet="TONKHO_GIU_TAHP">
-                <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+                <ScalarProperty Name="SL_GIU_TAHP" ColumnName="SL_GIU_TAHP" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10375,8 +10525,18 @@
           <EntitySetMapping Name="TONKHO_HANG">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_HANG">
               <MappingFragment StoreEntitySet="TONKHO_HANG">
+                <ScalarProperty Name="THOI_GIAN_CAP_HANG" ColumnName="THOI_GIAN_CAP_HANG" />
                 <ScalarProperty Name="SL_HANG" ColumnName="SL_HANG" />
                 <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+                <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TONKHO_HANG_DANG_VE">
+            <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_HANG_DANG_VE">
+              <MappingFragment StoreEntitySet="TONKHO_HANG_DANG_VE">
+                <ScalarProperty Name="NGAY_VE_DU_KIEN" ColumnName="NGAY_VE_DU_KIEN" />
+                <ScalarProperty Name="SL_DANG_VE" ColumnName="SL_DANG_VE" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10392,8 +10552,8 @@
           <EntitySetMapping Name="TONKHO_KYGUI_HL">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_HL">
               <MappingFragment StoreEntitySet="TONKHO_KYGUI_HL">
-                <ScalarProperty Name="SL_KYGUI_DI" ColumnName="SL_KYGUI_DI" />
-                <ScalarProperty Name="SL_KYGUI_DEN" ColumnName="SL_KYGUI_DEN" />
+                <ScalarProperty Name="SL_HL_KYGUI_DI" ColumnName="SL_HL_KYGUI_DI" />
+                <ScalarProperty Name="SL_KYGUI_DEN_HL" ColumnName="SL_KYGUI_DEN_HL" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10401,8 +10561,8 @@
           <EntitySetMapping Name="TONKHO_KYGUI_TADN">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_TADN">
               <MappingFragment StoreEntitySet="TONKHO_KYGUI_TADN">
-                <ScalarProperty Name="SL_KYGUI_DI" ColumnName="SL_KYGUI_DI" />
-                <ScalarProperty Name="SL_KYGUI_DEN" ColumnName="SL_KYGUI_DEN" />
+                <ScalarProperty Name="SL_TADN_KYGUI_DI" ColumnName="SL_TADN_KYGUI_DI" />
+                <ScalarProperty Name="SL_KYGUI_DEN_TADN" ColumnName="SL_KYGUI_DEN_TADN" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10410,8 +10570,8 @@
           <EntitySetMapping Name="TONKHO_KYGUI_TAHCM">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_TAHCM">
               <MappingFragment StoreEntitySet="TONKHO_KYGUI_TAHCM">
-                <ScalarProperty Name="SL_KYGUI_DI" ColumnName="SL_KYGUI_DI" />
-                <ScalarProperty Name="SL_KYGUI_DEN" ColumnName="SL_KYGUI_DEN" />
+                <ScalarProperty Name="SL_TAHCM_KYGUI_DI" ColumnName="SL_TAHCM_KYGUI_DI" />
+                <ScalarProperty Name="SL_KYGUI_DEN_TAHCM" ColumnName="SL_KYGUI_DEN_TAHCM" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10419,8 +10579,8 @@
           <EntitySetMapping Name="TONKHO_KYGUI_TAHP">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_TAHP">
               <MappingFragment StoreEntitySet="TONKHO_KYGUI_TAHP">
-                <ScalarProperty Name="SL_KYGUI_DI" ColumnName="SL_KYGUI_DI" />
-                <ScalarProperty Name="SL_KYGUI_DEN" ColumnName="SL_KYGUI_DEN" />
+                <ScalarProperty Name="SL_TAHP_KYGUI_DI" ColumnName="SL_TAHP_KYGUI_DI" />
+                <ScalarProperty Name="SL_KYGUI_DEN_TAHP" ColumnName="SL_KYGUI_DEN_TAHP" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -10469,10 +10629,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAll_KhachHang" FunctionName="ERP_DATABASEModel.Store.GetAll_KhachHang">
+          <FunctionImportMapping FunctionImportName="HopLong_LocKHTheoSale" FunctionName="ERP_DATABASEModel.Store.HopLong_LocKHTheoSale">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_KhachHang_Result1">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_LocKHTheoSale_Result">
                 <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
                 <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
                 <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
@@ -10484,15 +10643,46 @@
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="FAX" ColumnName="FAX" />
                 <ScalarProperty Name="LOGO" ColumnName="LOGO" />
-                <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
                 <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
                 <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
                 <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
                 <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
                 <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
                 <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+                <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+                <ScalarProperty Name="NHOM_NGANH" ColumnName="NHOM_NGANH" />
                 <ScalarProperty Name="TEN_LOAI_KHACH" ColumnName="TEN_LOAI_KHACH" />
-                <ScalarProperty Name="ALES_PHU_TRACH" ColumnName="ALES_PHU_TRACH" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HopLong_GetAllSale" FunctionName="ERP_DATABASEModel.Store.HopLong_GetAllSale">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_GetAllSale_Result">
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="HO_VA_TEN" ColumnName="HO_VA_TEN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HopLong_DS_TONKHO" FunctionName="ERP_DATABASEModel.Store.HopLong_DS_TONKHO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_DS_TONKHO_Result">
+                <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+                <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
+                <ScalarProperty Name="MA_CHUAN" ColumnName="MA_CHUAN" />
+                <ScalarProperty Name="THONG_SO" ColumnName="THONG_SO" />
+                <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+                <ScalarProperty Name="GIA_LIST" ColumnName="GIA_LIST" />
+                <ScalarProperty Name="DISCONTINUE" ColumnName="DISCONTINUE" />
+                <ScalarProperty Name="MA_CHUYEN_DOI" ColumnName="MA_CHUYEN_DOI" />
+                <ScalarProperty Name="TON_HOPLONG" ColumnName="TON_HOPLONG" />
+                <ScalarProperty Name="TON_DANANG" ColumnName="TON_DANANG" />
+                <ScalarProperty Name="TON_HCM" ColumnName="TON_HCM" />
+                <ScalarProperty Name="TON_HAIPHONG" ColumnName="TON_HAIPHONG" />
+                <ScalarProperty Name="SL_DANG_GIU" ColumnName="SL_DANG_GIU" />
+                <ScalarProperty Name="SL_NHAN_KY_GUI" ColumnName="SL_NHAN_KY_GUI" />
+                <ScalarProperty Name="SL_KY_GUI_DI" ColumnName="SL_KY_GUI_DI" />
+                <ScalarProperty Name="TON_TAI_HANG" ColumnName="TON_TAI_HANG" />
+                <ScalarProperty Name="THOI_GIAN_CAP_HANG" ColumnName="THOI_GIAN_CAP_HANG" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

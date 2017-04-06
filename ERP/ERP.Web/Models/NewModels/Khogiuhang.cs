@@ -14,8 +14,12 @@ namespace ERP.Web.Models.NewModels
         public string HO_VA_TEN { set; get; }
         public string TEN_CONG_TY { set; get; }
         public bool HUY_DON_GIU { set; get; }
+        public bool GIU_PO { set; get; }
         public bool DON_DANG_XUAT { set; get; }
         public bool DON_DA_HOAN_THANH { set; get; }
+        public string TRUC_THUOC { set; get; }
+
+
 
         public string NGAY_XUAT { set; get; }
         public string MA_HANG { set; get; }
@@ -23,6 +27,6 @@ namespace ERP.Web.Models.NewModels
 
         public bool DA_XUAT { set; get; }
         public string GHI_CHU { set; get; }
-        public string TRUC_THUOC { set; get; }
+       
     }
 }

@@ -107,6 +107,7 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<TONKHO_GIU_TAHCM> TONKHO_GIU_TAHCM { get; set; }
         public virtual DbSet<TONKHO_GIU_TAHP> TONKHO_GIU_TAHP { get; set; }
         public virtual DbSet<TONKHO_HANG> TONKHO_HANG { get; set; }
+        public virtual DbSet<TONKHO_HANG_DANG_VE> TONKHO_HANG_DANG_VE { get; set; }
         public virtual DbSet<TONKHO_HOPLONG> TONKHO_HOPLONG { get; set; }
         public virtual DbSet<TONKHO_KYGUI_HL> TONKHO_KYGUI_HL { get; set; }
         public virtual DbSet<TONKHO_KYGUI_TADN> TONKHO_KYGUI_TADN { get; set; }
@@ -163,6 +164,38 @@ namespace ERP.Web.Models.Database
         public virtual ObjectResult<GetAll_KhachHang_Result1> GetAll_KhachHang()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_KhachHang_Result1>("GetAll_KhachHang");
+        }
+    
+        public virtual ObjectResult<TimKiemKhachHang_Result> TimKiemKhachHang(string sdt)
+        {
+            var sdtParameter = sdt != null ?
+                new ObjectParameter("sdt", sdt) :
+                new ObjectParameter("sdt", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TimKiemKhachHang_Result>("TimKiemKhachHang", sdtParameter);
+        }
+    
+        public virtual ObjectResult<HopLong_LocKHTheoSale_Result> HopLong_LocKHTheoSale(string sale)
+        {
+            var saleParameter = sale != null ?
+                new ObjectParameter("sale", sale) :
+                new ObjectParameter("sale", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale", saleParameter);
+        }
+    
+        public virtual ObjectResult<HopLong_GetAllSale_Result> HopLong_GetAllSale()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_GetAllSale_Result>("HopLong_GetAllSale");
+        }
+    
+        public virtual ObjectResult<HopLong_DS_TONKHO_Result> HopLong_DS_TONKHO(string mA_CHUAN)
+        {
+            var mA_CHUANParameter = mA_CHUAN != null ?
+                new ObjectParameter("MA_CHUAN", mA_CHUAN) :
+                new ObjectParameter("MA_CHUAN", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_DS_TONKHO_Result>("HopLong_DS_TONKHO", mA_CHUANParameter);
         }
     }
 }
