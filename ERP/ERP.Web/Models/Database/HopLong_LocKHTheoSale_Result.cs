@@ -11,9 +11,8 @@ namespace ERP.Web.Models.Database
 {
     using System;
     
-    public partial class GetAll_KhachHang_Result1
+    public partial class HopLong_LocKHTheoSale_Result
     {
-        public Nullable<int> ID { get; set; }
         public string MA_KHACH_HANG { get; set; }
         public string TEN_CONG_TY { get; set; }
         public string VAN_PHONG_GIAO_DICH { get; set; }
@@ -25,14 +24,14 @@ namespace ERP.Web.Models.Database
         public string EMAIL { get; set; }
         public string FAX { get; set; }
         public string LOGO { get; set; }
-        public string MA_LOAI_KHACH { get; set; }
         public string WEBSITE { get; set; }
         public string DIEU_KHOAN_THANH_TOAN { get; set; }
         public Nullable<int> SO_NGAY_DUOC_NO { get; set; }
         public Nullable<int> SO_NO_TOI_DA { get; set; }
         public string GHI_CHU { get; set; }
         public string TRUC_THUOC { get; set; }
+        public string MA_LOAI_KHACH { get; set; }
+        public string NHOM_NGANH { get; set; }
         public string TEN_LOAI_KHACH { get; set; }
-        public string ALES_PHU_TRACH { get; set; }
     }
 }

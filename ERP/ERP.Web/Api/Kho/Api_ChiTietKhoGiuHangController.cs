@@ -128,6 +128,41 @@ namespace ERP.Web.Api.Kho
         //    return Ok(giuhang);
         //}
 
+        [HttpPost]
+        [Route("api/Api_ChiTietKhoGiuHang/PostKhoCT_GiuKho")]
+        public async Task<IHttpActionResult> PostKhoCT_GiuKho([FromBody] List<KHO_CT_GIU_HANG> ChiTietGiuKho)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            //int index = _context.NH_CT_NTTK.ToList().Count();
+            foreach (var item in ChiTietGiuKho)
+            {
+                item.THANH_TIEN = item.SL_GIU * item.DON_GIA;
+                db.KHO_CT_GIU_HANG.Add(item);
+            }
+            //for (int i = 0; i < qUY_CT_PHIEU_CHI.Count(); i++)
+            //{
+            //    //nH_NTTKs[i].ID = (index + i + 1).ToString();
+            //    db.QUY_CT_PHIEU_CHI.Add(qUY_CT_PHIEU_CHI[i]);
+            //}
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+            return Ok(ChiTietGiuKho);
+        }
+
+
+
+
+
+
         [ResponseType(typeof(KHO_CT_GIU_HANG))]
         public void PostKHO_CT_GIU_HANG(List<Khogiuhang> lh)
         {

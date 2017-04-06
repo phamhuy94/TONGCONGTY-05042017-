@@ -25,6 +25,21 @@
         });
     };
 
+
+    $scope.add = function (entry) {
+        $scope.entry = entry;
+        var data_add = {
+            ID: $scope.entry.ID,
+            MA_KHACH_HANG: $scope.entry.MA_KHACH_HANG,
+            SALE_HIEN_THOI: $scope.entry.SALE_HIEN_THOI,
+            SALE_SAP_CHUYEN: $scope.entry.SALE_SAP_CHUYEN,
+            SALE_CU: $scope.entry.SALE_CU,
+            SALE_CU_2: $scope.entry.SALE_CU_2,
+        }
+        chuyensaleService.add_listchuyensale(data_add).then(function () {
+            $scope.load_listchuyensale();
+        });
+    };
     var tmpDate = new Date();
 
     $scope.newField = {};
@@ -34,6 +49,7 @@
     $scope.editAppKey = function (field) {
         $scope.editing = $scope.appkeys.indexOf(field);
         $scope.newField = angular.copy(field);
+
     }
 
     $scope.saveField = function (index) {
@@ -41,6 +57,14 @@
             $scope.appkeys[$scope.editing] = $scope.newField;
             $scope.editing = false;
         }
+
+        $scope.check = function (entry) {
+            if (entry != "") {
+                return false;
+            } else {
+                return true;
+            }
+        };
     };
 
     $scope.cancel = function (index) {
@@ -57,4 +81,6 @@
         });
     };
     $scope.load_nhanvienkd();
+
+    
 });

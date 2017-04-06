@@ -25,6 +25,7 @@ namespace ERP.Web.Models.Database
         public string MA_KHACH_HANG { get; set; }
         public System.DateTime NGAY_GIU { get; set; }
         public bool HUY_DON_GIU { get; set; }
+        public bool GIU_PO { get; set; }
         public bool DON_DANG_XUAT { get; set; }
         public bool DON_DA_HOAN_THANH { get; set; }
         public string TRUC_THUOC { get; set; }

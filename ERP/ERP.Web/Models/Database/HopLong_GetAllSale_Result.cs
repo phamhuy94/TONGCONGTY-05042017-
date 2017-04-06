@@ -10,13 +10,10 @@
 namespace ERP.Web.Models.Database
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TONKHO_GIU_TADN
+    public partial class HopLong_GetAllSale_Result
     {
-        public string MA_HANG { get; set; }
-        public int SL_GIU_TADN { get; set; }
-    
-        public virtual HH HH { get; set; }
+        public string USERNAME { get; set; }
+        public string HO_VA_TEN { get; set; }
     }
 }

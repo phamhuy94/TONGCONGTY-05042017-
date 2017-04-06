@@ -10,13 +10,13 @@
 namespace ERP.Web.Models.Database
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TONKHO_GIU_TADN
+    public partial class TimKiemKhachHang_Result
     {
-        public string MA_HANG { get; set; }
-        public int SL_GIU_TADN { get; set; }
-    
-        public virtual HH HH { get; set; }
+        public string MA_KHACH_HANG { get; set; }
+        public string TEN_CONG_TY { get; set; }
+        public string TINH { get; set; }
+        public string QUOC_GIA { get; set; }
+        public string SALES_PHU_TRACH { get; set; }
     }
 }
