@@ -3500,6 +3500,9 @@
         <Function Name="HopLong_LocKHTheoSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sale" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="HopLong_PhanTrang_TonKho" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sotrang" Type="int" Mode="In" />
+        </Function>
         <Function Name="TimKiemKhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sdt" Type="varchar" Mode="In" />
         </Function>
@@ -5263,6 +5266,9 @@
           <FunctionImport Name="HopLong_GetAllSale" ReturnType="Collection(ERP_DATABASEModel.HopLong_GetAllSale_Result)" />
           <FunctionImport Name="HopLong_DS_TONKHO" ReturnType="Collection(ERP_DATABASEModel.HopLong_DS_TONKHO_Result)">
           <Parameter Name="MA_CHUAN" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="HopLong_PhanTrang_TonKho" ReturnType="Collection(ERP_DATABASEModel.HopLong_PhanTrang_TonKho_Result)">
+            <Parameter Name="sotrang" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="XL_TimKiemHangHoa_Result">
@@ -9287,6 +9293,29 @@
           <Property Type="Int32" Name="SL_KY_GUI_DI" Nullable="true" />
           <Property Type="Int32" Name="TON_TAI_HANG" Nullable="true" />
           <Property Type="String" Name="THOI_GIAN_CAP_HANG" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="MA_NHOM_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="DVT" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="HopLong_PhanTrang_TonKho_Result">
+          <Property Type="String" Name="MA_HANG" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="TEN_HANG" Nullable="true" />
+          <Property Type="String" Name="MA_CHUAN" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="THONG_SO" Nullable="true" />
+          <Property Type="String" Name="MA_NHOM_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="DVT" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="XUAT_XU" Nullable="true" MaxLength="64" />
+          <Property Type="Decimal" Name="GIA_LIST" Nullable="true" Precision="28" Scale="2" />
+          <Property Type="Boolean" Name="DISCONTINUE" Nullable="true" />
+          <Property Type="String" Name="MA_CHUYEN_DOI" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="TON_HOPLONG" Nullable="true" />
+          <Property Type="Int32" Name="TON_DANANG" Nullable="true" />
+          <Property Type="Int32" Name="TON_HCM" Nullable="true" />
+          <Property Type="Int32" Name="TON_HAIPHONG" Nullable="true" />
+          <Property Type="Int32" Name="SL_DANG_GIU" Nullable="true" />
+          <Property Type="Int32" Name="SL_NHAN_KY_GUI" Nullable="true" />
+          <Property Type="Int32" Name="SL_KY_GUI_DI" Nullable="true" />
+          <Property Type="Int32" Name="TON_TAI_HANG" Nullable="true" />
+          <Property Type="String" Name="THOI_GIAN_CAP_HANG" Nullable="true" MaxLength="128" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -10670,6 +10699,33 @@
                 <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
                 <ScalarProperty Name="MA_CHUAN" ColumnName="MA_CHUAN" />
                 <ScalarProperty Name="THONG_SO" ColumnName="THONG_SO" />
+                <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+                <ScalarProperty Name="GIA_LIST" ColumnName="GIA_LIST" />
+                <ScalarProperty Name="DISCONTINUE" ColumnName="DISCONTINUE" />
+                <ScalarProperty Name="MA_CHUYEN_DOI" ColumnName="MA_CHUYEN_DOI" />
+                <ScalarProperty Name="TON_HOPLONG" ColumnName="TON_HOPLONG" />
+                <ScalarProperty Name="TON_DANANG" ColumnName="TON_DANANG" />
+                <ScalarProperty Name="TON_HCM" ColumnName="TON_HCM" />
+                <ScalarProperty Name="TON_HAIPHONG" ColumnName="TON_HAIPHONG" />
+                <ScalarProperty Name="SL_DANG_GIU" ColumnName="SL_DANG_GIU" />
+                <ScalarProperty Name="SL_NHAN_KY_GUI" ColumnName="SL_NHAN_KY_GUI" />
+                <ScalarProperty Name="SL_KY_GUI_DI" ColumnName="SL_KY_GUI_DI" />
+                <ScalarProperty Name="TON_TAI_HANG" ColumnName="TON_TAI_HANG" />
+                <ScalarProperty Name="THOI_GIAN_CAP_HANG" ColumnName="THOI_GIAN_CAP_HANG" />
+                <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+                <ScalarProperty Name="DVT" ColumnName="DVT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HopLong_PhanTrang_TonKho" FunctionName="ERP_DATABASEModel.Store.HopLong_PhanTrang_TonKho">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_PhanTrang_TonKho_Result">
+                <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+                <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
+                <ScalarProperty Name="MA_CHUAN" ColumnName="MA_CHUAN" />
+                <ScalarProperty Name="THONG_SO" ColumnName="THONG_SO" />
+                <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+                <ScalarProperty Name="DVT" ColumnName="DVT" />
                 <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
                 <ScalarProperty Name="GIA_LIST" ColumnName="GIA_LIST" />
                 <ScalarProperty Name="DISCONTINUE" ColumnName="DISCONTINUE" />
