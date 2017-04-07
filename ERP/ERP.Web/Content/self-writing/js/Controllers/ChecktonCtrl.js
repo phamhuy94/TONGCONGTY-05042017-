@@ -5,6 +5,4 @@
         });
     };
     $scope.datatonkho(1);
-    
-
 });
