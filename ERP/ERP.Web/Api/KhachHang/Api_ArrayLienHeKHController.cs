@@ -107,8 +107,8 @@ namespace ERP.Web.Api.KhachHang
                 lienhe.NGUOI_LIEN_HE = item.NGUOI_LIEN_HE;
                 lienhe.CHUC_VU = item.CHUC_VU;
                 lienhe.PHONG_BAN = item.PHONG_BAN;
-                if (item.NGAY_SINH != "")
-                    lienhe.NGAY_SINH = xlnt.Xulydatetime(item.NGAY_SINH);
+                //if (item.NGAY_SINH != null)
+                //    lienhe.NGAY_SINH = xlnt.Xulydatetime(item.NGAY_SINH);
                 lienhe.GIOI_TINH = item.GIOI_TINH;
                 lienhe.EMAIL_CA_NHAN = item.EMAIL_CA_NHAN;
                 lienhe.EMAIL_CONG_TY = item.EMAIL_CONG_TY;
@@ -126,7 +126,22 @@ namespace ERP.Web.Api.KhachHang
                 salept.SALES_PHU_TRACH = item.SALES_PHU_TRACH;
                 salept.NGAY_BAT_DAU_PHU_TRACH = DateTime.Today.Date;
                 salept.TRANG_THAI = true;
+                if (item.SALES_CU == false && item.SALES_MOI == false)
+                {
+                    salept.SALES_MOI = true;
+                    salept.SALES_CU = false;
+                } else 
+                {
+                    salept.SALES_CU = item.SALES_CU;
+                    salept.SALES_MOI = item.SALES_MOI;
+                }               
                 db.KH_SALES_PHU_TRACH.Add(salept);
+                db.SaveChanges();
+
+                KH_CHUYEN_SALES chuyensale = new KH_CHUYEN_SALES();
+                chuyensale.MA_KHACH_HANG = item.MA_KHACH_HANG;
+                chuyensale.SALE_HIEN_THOI = item.SALES_PHU_TRACH;
+                db.KH_CHUYEN_SALES.Add(chuyensale);
                 db.SaveChanges();
             }
         }

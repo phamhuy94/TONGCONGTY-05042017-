@@ -1,6 +1,6 @@
 ﻿app.service('ChecktonService', function ($http) {
-    this.get_dataton = function () {
-        return $http.get("/api/Api_Checktonkho/").then(function (response) {
+    this.get_dataton = function (sotrang) {
+        return $http.get("/api/Api_Checktonkho/Get/"+sotrang).then(function (response) {
             return response.data;
         });
     }

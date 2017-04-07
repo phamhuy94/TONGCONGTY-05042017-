@@ -13,5 +13,11 @@ namespace ERP.Web.Areas.Inventory.Controllers
         {
             return View();
         }
+
+        public ActionResult Giu_Hang_HL()
+        {
+            return View();
+        }
+
     }
 }

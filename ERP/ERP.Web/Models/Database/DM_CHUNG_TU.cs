@@ -29,11 +29,11 @@ namespace ERP.Web.Models.Database
         public string DOI_TUONG { get; set; }
     
         public virtual CCTC_CONG_TY CCTC_CONG_TY { get; set; }
+        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
         public virtual DM_LOAI_CHUNG_TU DM_LOAI_CHUNG_TU { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<XL_THAM_CHIEU_CHUNG_TU> XL_THAM_CHIEU_CHUNG_TU { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<XL_THAM_CHIEU_CHUNG_TU> XL_THAM_CHIEU_CHUNG_TU1 { get; set; }
-        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
     }
 }

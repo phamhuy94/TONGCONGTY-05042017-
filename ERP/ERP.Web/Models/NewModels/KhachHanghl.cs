@@ -27,5 +27,6 @@ namespace ERP.Web.Models.NewModels
         public string GHI_CHU { set; get; }
         public string TRUC_THUOC { set; get; }
         public string TEN_LOAI_KHACH { set; get; }
+        public string SALES_PHU_TRACH { set; get; }
     }
 }

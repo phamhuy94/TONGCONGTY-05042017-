@@ -22,6 +22,8 @@ namespace ERP.Web.Models.Database
         public double CHIET_KHAU { get; set; }
         public string CACH_TINH_THANH_TIEN { get; set; }
         public decimal THANH_TIEN { get; set; }
+        public Nullable<double> CK_VAT { get; set; }
+        public Nullable<decimal> TIEN_VAT { get; set; }
         public string TINH_TRANG_HANG { get; set; }
         public string THOI_GIAN_GIAO_HANG { get; set; }
         public Nullable<System.DateTime> NGAY_GIAO_HANG { get; set; }

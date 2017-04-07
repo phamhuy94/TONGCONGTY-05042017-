@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link href="~/Content/download/dist/css/AdminLTE.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
 
@@ -40,6 +41,15 @@
     <script src="~/Content/self-writing/js/Service.js"></script>
     <script src="~/Content/self-writing/js/Controller.js"></script>
     <script src="~/Content/download/angularjs/dirPagination.js"></script>
+    <script src="~/Content/download/moment.min.js"></script>
+    <script src="~/Content/download/date_directive.js"></script>
+    <script src="~/Content/download/bootstrap-datetimepicker.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="~/Content/download/angular-smart-table/angular-smart-table/dist/smart-table.js"></script>
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     <script>
         $(function () {
             CKEDITOR.config.extraPlugins = 'justify';
@@ -177,6 +187,16 @@
                     </li>
                     <li class="treeview">
                         <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span>QUẢN LÝ SALES</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/Settings/SalePhuTrach/Index"><i class="fa fa-angle-double-right"></i>Sales phụ trách</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
                             <i class="fa fa-bolt"></i>
                             <span>CHỨC NĂNG</span>
                             <i class="fa fa-angle-left pull-right"></i>
@@ -216,6 +236,7 @@
     <script src="~/Content/self-writing/js/nav_hoplong_multilevel.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngMask/3.1.1/ngMask.min.js"></script>
+
 
     <style>
         body input {

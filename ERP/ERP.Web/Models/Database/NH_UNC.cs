@@ -28,9 +28,9 @@ namespace ERP.Web.Models.Database
         public string TRUC_THUOC { get; set; }
     
         public virtual CCTC_CONG_TY CCTC_CONG_TY { get; set; }
+        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
         public virtual DM_TK_NGAN_HANG_NOI_BO DM_TK_NGAN_HANG_NOI_BO { get; set; }
         public virtual HT_NGUOI_DUNG HT_NGUOI_DUNG { get; set; }
         public virtual HT_NGUOI_DUNG HT_NGUOI_DUNG1 { get; set; }
-        public virtual DM_DOI_TUONG DM_DOI_TUONG { get; set; }
     }
 }

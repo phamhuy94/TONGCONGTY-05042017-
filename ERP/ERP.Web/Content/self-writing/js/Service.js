@@ -785,6 +785,11 @@ app.service('khachhangService', function ($http) {
         });
     };
 
+    this.get_danhsachlienhe = function () {
+        return $http.get('/api/Api_ListLienHeKH').then(function (response) {
+            return response.data;
+        });
+    };
     this.add_phanloaikh = function (phanloaikh_add) {
         return $http.post('/api/Api_PhanLoaiKH', phanloaikh_add);
     };
@@ -813,6 +818,12 @@ app.service('khachhangService', function ($http) {
             return response.data;
         });
     };
+
+    this.save_salesphutrach = function (username, idlienhe, data_savesalesphutrach) {
+        return $http.put('/api/Api_SalePhuTrach/' + username + '/' + idlienhe, data_savesalesphutrach);
+    };
+
+
 });
 //end khach hang
 

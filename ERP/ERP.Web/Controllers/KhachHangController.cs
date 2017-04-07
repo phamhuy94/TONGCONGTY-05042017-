@@ -285,6 +285,16 @@ namespace ERP.Web.Controllers
 
         #endregion
 
+        #region "Tìm Kiếm KHÁCH HÀNG"
+
+        public ActionResult TimKiem_KhachHang()
+        {
+
+            return View();
+        }
+
+        #endregion
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public void Index(IEnumerable<HttpPostedFileBase> files)

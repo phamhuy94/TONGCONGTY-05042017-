@@ -15,8 +15,8 @@ namespace ERP.Web.Models.Database
     public partial class TONKHO_KYGUI_TAHCM
     {
         public string MA_HANG { get; set; }
-        public int SL_KYGUI_DEN { get; set; }
-        public int SL_KYGUI_DI { get; set; }
+        public int SL_KYGUI_DEN_TAHCM { get; set; }
+        public int SL_TAHCM_KYGUI_DI { get; set; }
     
         public virtual HH HH { get; set; }
     }

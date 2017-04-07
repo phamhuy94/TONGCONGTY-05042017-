@@ -18,10 +18,7 @@
           <Property Name="HAN_THANH_TOAN" Type="nvarchar" MaxLength="128" />
           <Property Name="HIEU_LUC_BAO_GIA" Type="int" />
           <Property Name="DIEU_KHOAN_THANH_TOAN" Type="nvarchar" MaxLength="128" />
-          <Property Name="THANH_TIEN" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="PHI_VAN_CHUYEN" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="CK_VAT" Type="float" Nullable="false" />
-          <Property Name="TIEN_VAT" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="TONG_TIEN" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="DA_DUYET" Type="bit" />
           <Property Name="NGUOI_DUYET" Type="varchar" MaxLength="64" Nullable="false" />
@@ -43,6 +40,8 @@
           <Property Name="CHIET_KHAU" Type="float" Nullable="false" />
           <Property Name="CACH_TINH_THANH_TIEN" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="THANH_TIEN" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="CK_VAT" Type="float" />
+          <Property Name="TIEN_VAT" Type="decimal" Precision="28" Scale="2" />
           <Property Name="TINH_TRANG_HANG" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="THOI_GIAN_GIAO_HANG" Type="nvarchar(max)" Nullable="false" />
           <Property Name="NGAY_GIAO_HANG" Type="date" />
@@ -425,6 +424,17 @@
           <Property Name="GHI_CHU" Type="nvarchar(max)" />
           <Property Name="TRUC_THUOC" Type="varchar" MaxLength="64" Nullable="false" />
         </EntityType>
+        <EntityType Name="KH_CHUYEN_SALES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MA_KHACH_HANG" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="SALE_HIEN_THOI" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="SALE_SAP_CHUYEN" Type="varchar" MaxLength="64" />
+          <Property Name="SALE_CU" Type="varchar" MaxLength="64" />
+          <Property Name="SALE_CU_2" Type="varchar" MaxLength="64" />
+        </EntityType>
         <EntityType Name="KH_DC_XUAT_HANG">
           <Key>
             <PropertyRef Name="ID" />
@@ -442,7 +452,7 @@
           <Property Name="MA_KHACH_HANG" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="NGUOI_LIEN_HE" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="CHUC_VU" Type="nvarchar" MaxLength="64" />
-          <Property Name="PHONG_BAN" Type="varchar" MaxLength="64" />
+          <Property Name="PHONG_BAN" Type="nvarchar" MaxLength="64" />
           <Property Name="NGAY_SINH" Type="date" />
           <Property Name="GIOI_TINH" Type="nvarchar" MaxLength="10" />
           <Property Name="EMAIL_CA_NHAN" Type="varchar" MaxLength="64" />
@@ -481,6 +491,8 @@
           <Property Name="NGAY_BAT_DAU_PHU_TRACH" Type="date" Nullable="false" />
           <Property Name="NGAY_KET_THUC_PHU_TRACH" Type="date" />
           <Property Name="TRANG_THAI" Type="bit" />
+          <Property Name="SALES_MOI" Type="bit" Nullable="false" />
+          <Property Name="SALES_CU" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="KH_TK_NGAN_HANG">
           <Key>
@@ -504,6 +516,7 @@
           <Property Name="NGAY_HACH_TOAN" Type="date" Nullable="false" />
           <Property Name="DIEN_GIAI" Type="nvarchar" MaxLength="64" />
           <Property Name="NGUOI_LAP_PHIEU" Type="varchar" MaxLength="64" />
+          <Property Name="TRUC_THUOC" Type="varchar" MaxLength="64" />
         </EntityType>
         <EntityType Name="KHO_CT_CHUYEN_KHO">
           <Key>
@@ -544,7 +557,11 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MA_GIU_KHO" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="DVT" Type="nvarchar" MaxLength="64" />
+          <Property Name="XUAT_XU" Type="nvarchar" MaxLength="64" />
           <Property Name="SL_GIU" Type="int" Nullable="false" />
+          <Property Name="DON_GIA" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="THANH_TIEN" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="NGAY_XUAT" Type="date" />
           <Property Name="DA_XUAT" Type="bit" Nullable="false" />
           <Property Name="GHI_CHU" Type="nvarchar(max)" />
@@ -571,6 +588,7 @@
           <Property Name="SO_HOA_DON" Type="varchar" MaxLength="64" />
           <Property Name="NGAY_HOA_DON" Type="date" />
           <Property Name="GIA_TRI_NHAP_KHO" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="TK_KHO" Type="varchar" MaxLength="64" />
         </EntityType>
         <EntityType Name="KHO_CT_XUAT_KHO">
           <Key>
@@ -588,6 +606,7 @@
           <Property Name="THANH_TIEN" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="DON_GIA_VON" Type="decimal" Precision="28" Scale="2" Nullable="false" />
           <Property Name="QUY_DOI" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="TK_KHO" Type="varchar" MaxLength="64" />
         </EntityType>
         <EntityType Name="KHO_DNXH">
           <Key>
@@ -623,9 +642,10 @@
           <Property Name="MA_KHACH_HANG" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="NGAY_GIU" Type="date" Nullable="false" />
           <Property Name="HUY_DON_GIU" Type="bit" Nullable="false" />
+          <Property Name="GIU_PO" Type="bit" Nullable="false" />
           <Property Name="DON_DANG_XUAT" Type="bit" Nullable="false" />
           <Property Name="DON_DA_HOAN_THANH" Type="bit" Nullable="false" />
-          <Property Name="TRUC_THUOC" Type="varchar" MaxLength="64" />
+          <Property Name="TRUC_THUOC" Type="varchar" MaxLength="64" Nullable="false" />
         </EntityType>
         <EntityType Name="KHO_NHAP_KHO">
           <Key>
@@ -719,6 +739,7 @@
           <Property Name="DIEN_GIAI" Type="nvarchar" MaxLength="256" />
           <Property Name="NV_MUA_HANG" Type="varchar" MaxLength="64" />
           <Property Name="TONG_TIEN" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="TRUC_THUOC" Type="varchar" MaxLength="64" />
         </EntityType>
         <EntityType Name="NCC">
           <Key>
@@ -1034,28 +1055,28 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_GIU" Type="int" Nullable="false" />
+          <Property Name="SL_GIU_HL" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TADN">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_GIU" Type="int" Nullable="false" />
+          <Property Name="SL_GIU_TADN" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TAHCM">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_GIU" Type="int" Nullable="false" />
+          <Property Name="SL_GIU_TAHCM" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TAHP">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_GIU" Type="int" Nullable="false" />
+          <Property Name="SL_GIU_TAHP" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_HANG">
           <Key>
@@ -1064,6 +1085,15 @@
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="MA_NHOM_HANG" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="SL_HANG" Type="int" Nullable="false" />
+          <Property Name="THOI_GIAN_CAP_HANG" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="TONKHO_HANG_DANG_VE">
+          <Key>
+            <PropertyRef Name="MA_HANG" />
+          </Key>
+          <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="SL_DANG_VE" Type="int" Nullable="false" />
+          <Property Name="NGAY_VE_DU_KIEN" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_HOPLONG">
           <Key>
@@ -1077,32 +1107,32 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_KYGUI_DEN" Type="int" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="int" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_HL" Type="int" Nullable="false" />
+          <Property Name="SL_HL_KYGUI_DI" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TADN">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_KYGUI_DEN" Type="int" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="int" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TADN" Type="int" Nullable="false" />
+          <Property Name="SL_TADN_KYGUI_DI" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TAHCM">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_KYGUI_DEN" Type="int" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="int" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TAHCM" Type="int" Nullable="false" />
+          <Property Name="SL_TAHCM_KYGUI_DI" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TAHP">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="SL_KYGUI_DEN" Type="int" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="int" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TAHP" Type="int" Nullable="false" />
+          <Property Name="SL_TAHP_KYGUI_DI" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TONKHO_TADN">
           <Key>
@@ -1791,6 +1821,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__KH_CHUYEN__MA_KH__2EB0D91F">
+          <End Role="KH" Type="Self.KH" Multiplicity="1" />
+          <End Role="KH_CHUYEN_SALES" Type="Self.KH_CHUYEN_SALES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KH">
+              <PropertyRef Name="MA_KHACH_HANG" />
+            </Principal>
+            <Dependent Role="KH_CHUYEN_SALES">
+              <PropertyRef Name="MA_KHACH_HANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KH_CHUYEN__SALE___2FA4FD58">
+          <End Role="CCTC_NHAN_VIEN" Type="Self.CCTC_NHAN_VIEN" Multiplicity="1" />
+          <End Role="KH_CHUYEN_SALES" Type="Self.KH_CHUYEN_SALES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_NHAN_VIEN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="KH_CHUYEN_SALES">
+              <PropertyRef Name="SALE_HIEN_THOI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KH_CHUYEN__SALE___30992191">
+          <End Role="CCTC_NHAN_VIEN" Type="Self.CCTC_NHAN_VIEN" Multiplicity="0..1" />
+          <End Role="KH_CHUYEN_SALES" Type="Self.KH_CHUYEN_SALES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_NHAN_VIEN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="KH_CHUYEN_SALES">
+              <PropertyRef Name="SALE_SAP_CHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KH_CHUYEN__SALE___318D45CA">
+          <End Role="CCTC_NHAN_VIEN" Type="Self.CCTC_NHAN_VIEN" Multiplicity="0..1" />
+          <End Role="KH_CHUYEN_SALES" Type="Self.KH_CHUYEN_SALES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_NHAN_VIEN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="KH_CHUYEN_SALES">
+              <PropertyRef Name="SALE_CU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KH_CHUYEN__SALE___32816A03">
+          <End Role="CCTC_NHAN_VIEN" Type="Self.CCTC_NHAN_VIEN" Multiplicity="0..1" />
+          <End Role="KH_CHUYEN_SALES" Type="Self.KH_CHUYEN_SALES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_NHAN_VIEN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="KH_CHUYEN_SALES">
+              <PropertyRef Name="SALE_CU_2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__KH_DC_XUA__MA_KH__5F141958">
           <End Role="KH" Type="Self.KH" Multiplicity="1" />
           <End Role="KH_DC_XUAT_HANG" Type="Self.KH_DC_XUAT_HANG" Multiplicity="*" />
@@ -1824,6 +1914,18 @@
             </Principal>
             <Dependent Role="KHO_CHUYEN_KHO">
               <PropertyRef Name="NGUOI_LAP_PHIEU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KHO_CHUYE__TRUC___270FB757">
+          <End Role="CCTC_CONG_TY" Type="Self.CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Role="KHO_CHUYEN_KHO" Type="Self.KHO_CHUYEN_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_CONG_TY">
+              <PropertyRef Name="MA_CONG_TY" />
+            </Principal>
+            <Dependent Role="KHO_CHUYEN_KHO">
+              <PropertyRef Name="TRUC_THUOC" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1971,6 +2073,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__KHO_CT_NH__TK_KH__14F1071C">
+          <End Role="DM_TAI_KHOAN_HACH_TOAN" Type="Self.DM_TAI_KHOAN_HACH_TOAN" Multiplicity="0..1" />
+          <End Role="KHO_CT_NHAP_KHO" Type="Self.KHO_CT_NHAP_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_TAI_KHOAN_HACH_TOAN">
+              <PropertyRef Name="SO_TK" />
+            </Principal>
+            <Dependent Role="KHO_CT_NHAP_KHO">
+              <PropertyRef Name="TK_KHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__KHO_CT_NH__TK_NO__09746778">
           <End Role="DM_TAI_KHOAN_HACH_TOAN" Type="Self.DM_TAI_KHOAN_HACH_TOAN" Multiplicity="1" />
           <End Role="KHO_CT_NHAP_KHO" Type="Self.KHO_CT_NHAP_KHO" Multiplicity="*" />
@@ -2028,6 +2142,18 @@
             </Principal>
             <Dependent Role="KHO_CT_XUAT_KHO">
               <PropertyRef Name="TK_CO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KHO_CT_XU__TK_KH__15E52B55">
+          <End Role="DM_TAI_KHOAN_HACH_TOAN" Type="Self.DM_TAI_KHOAN_HACH_TOAN" Multiplicity="0..1" />
+          <End Role="KHO_CT_XUAT_KHO" Type="Self.KHO_CT_XUAT_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_TAI_KHOAN_HACH_TOAN">
+              <PropertyRef Name="SO_TK" />
+            </Principal>
+            <Dependent Role="KHO_CT_XUAT_KHO">
+              <PropertyRef Name="TK_KHO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2140,7 +2266,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__KHO_GIU_H__TRUC___5CACADF9">
-          <End Role="CCTC_CONG_TY" Type="Self.CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Role="CCTC_CONG_TY" Type="Self.CCTC_CONG_TY" Multiplicity="1" />
           <End Role="KHO_GIU_HANG" Type="Self.KHO_GIU_HANG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CCTC_CONG_TY">
@@ -2152,11 +2278,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__KHO_NHAP___MA_DO__00DF2177">
-          <End Role="DM_LOAI_DOI_TUONG" Type="Self.DM_LOAI_DOI_TUONG" Multiplicity="0..1" />
+          <End Role="DM_DOI_TUONG" Type="Self.DM_DOI_TUONG" Multiplicity="0..1" />
           <End Role="KHO_NHAP_KHO" Type="Self.KHO_NHAP_KHO" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DM_LOAI_DOI_TUONG">
-              <PropertyRef Name="MA_LOAI_DOI_TUONG" />
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
             </Principal>
             <Dependent Role="KHO_NHAP_KHO">
               <PropertyRef Name="MA_DOI_TUONG" />
@@ -2388,6 +2514,18 @@
             </Principal>
             <Dependent Role="MH_MDV">
               <PropertyRef Name="NV_MUA_HANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MH_MDV__TRUC_THU__2803DB90">
+          <End Role="CCTC_CONG_TY" Type="Self.CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Role="MH_MDV" Type="Self.MH_MDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_CONG_TY">
+              <PropertyRef Name="MA_CONG_TY" />
+            </Principal>
+            <Dependent Role="MH_MDV">
+              <PropertyRef Name="TRUC_THUOC" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3075,6 +3213,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TONKHO_HA__MA_HA__3EE740E8">
+          <End Role="HH" Type="Self.HH" Multiplicity="1" />
+          <End Role="TONKHO_HANG_DANG_VE" Type="Self.TONKHO_HANG_DANG_VE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HH">
+              <PropertyRef Name="MA_HANG" />
+            </Principal>
+            <Dependent Role="TONKHO_HANG_DANG_VE">
+              <PropertyRef Name="MA_HANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TONKHO_HA__MA_HA__5DD5DC5C">
           <End Role="HH" Type="Self.HH" Multiplicity="1" />
           <End Role="TONKHO_HANG" Type="Self.TONKHO_HANG" Multiplicity="0..1" />
@@ -3342,6 +3492,17 @@
         <Function Name="BaiVietTheoDanhMuc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tukhoa" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="GetAll_KhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="HopLong_DS_TONKHO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MA_CHUAN" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="HopLong_GetAllSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="HopLong_LocKHTheoSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sale" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="TimKiemKhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sdt" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="XL_LayMaGiuHangMoiNhat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="XL_LayMaKhachMoiNhat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="XL_TimKiemHangHoa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3381,6 +3542,7 @@
           <EntitySet Name="HT_LICH_SU_DANG_NHAP" EntityType="Self.HT_LICH_SU_DANG_NHAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HT_NGUOI_DUNG" EntityType="Self.HT_NGUOI_DUNG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KH" EntityType="Self.KH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KH_CHUYEN_SALES" EntityType="Self.KH_CHUYEN_SALES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KH_DC_XUAT_HANG" EntityType="Self.KH_DC_XUAT_HANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KH_LIEN_HE" EntityType="Self.KH_LIEN_HE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KH_LOAI" EntityType="Self.KH_LOAI" Schema="dbo" store:Type="Tables" />
@@ -3427,6 +3589,7 @@
           <EntitySet Name="TONKHO_GIU_TAHCM" EntityType="Self.TONKHO_GIU_TAHCM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TONKHO_GIU_TAHP" EntityType="Self.TONKHO_GIU_TAHP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TONKHO_HANG" EntityType="Self.TONKHO_HANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TONKHO_HANG_DANG_VE" EntityType="Self.TONKHO_HANG_DANG_VE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TONKHO_HOPLONG" EntityType="Self.TONKHO_HOPLONG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TONKHO_KYGUI_HL" EntityType="Self.TONKHO_KYGUI_HL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TONKHO_KYGUI_TADN" EntityType="Self.TONKHO_KYGUI_TADN" Schema="dbo" store:Type="Tables" />
@@ -3653,6 +3816,26 @@
             <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
             <End Role="HT_NGUOI_DUNG" EntitySet="HT_NGUOI_DUNG" />
           </AssociationSet>
+          <AssociationSet Name="FK__KH_CHUYEN__MA_KH__2EB0D91F" Association="Self.FK__KH_CHUYEN__MA_KH__2EB0D91F">
+            <End Role="KH" EntitySet="KH" />
+            <End Role="KH_CHUYEN_SALES" EntitySet="KH_CHUYEN_SALES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KH_CHUYEN__SALE___2FA4FD58" Association="Self.FK__KH_CHUYEN__SALE___2FA4FD58">
+            <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
+            <End Role="KH_CHUYEN_SALES" EntitySet="KH_CHUYEN_SALES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KH_CHUYEN__SALE___30992191" Association="Self.FK__KH_CHUYEN__SALE___30992191">
+            <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
+            <End Role="KH_CHUYEN_SALES" EntitySet="KH_CHUYEN_SALES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KH_CHUYEN__SALE___318D45CA" Association="Self.FK__KH_CHUYEN__SALE___318D45CA">
+            <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
+            <End Role="KH_CHUYEN_SALES" EntitySet="KH_CHUYEN_SALES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KH_CHUYEN__SALE___32816A03" Association="Self.FK__KH_CHUYEN__SALE___32816A03">
+            <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
+            <End Role="KH_CHUYEN_SALES" EntitySet="KH_CHUYEN_SALES" />
+          </AssociationSet>
           <AssociationSet Name="FK__KH_DC_XUA__MA_KH__5F141958" Association="Self.FK__KH_DC_XUA__MA_KH__5F141958">
             <End Role="KH" EntitySet="KH" />
             <End Role="KH_DC_XUAT_HANG" EntitySet="KH_DC_XUAT_HANG" />
@@ -3663,6 +3846,10 @@
           </AssociationSet>
           <AssociationSet Name="FK__KHO_CHUYE__NGUOI__2CBDA3B5" Association="Self.FK__KHO_CHUYE__NGUOI__2CBDA3B5">
             <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
+            <End Role="KHO_CHUYEN_KHO" EntitySet="KHO_CHUYEN_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KHO_CHUYE__TRUC___270FB757" Association="Self.FK__KHO_CHUYE__TRUC___270FB757">
+            <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
             <End Role="KHO_CHUYEN_KHO" EntitySet="KHO_CHUYEN_KHO" />
           </AssociationSet>
           <AssociationSet Name="FK__KHO_CT_CH__MA_HA__308E3499" Association="Self.FK__KHO_CT_CH__MA_HA__308E3499">
@@ -3713,6 +3900,10 @@
             <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
             <End Role="KHO_CT_NHAP_KHO" EntitySet="KHO_CT_NHAP_KHO" />
           </AssociationSet>
+          <AssociationSet Name="FK__KHO_CT_NH__TK_KH__14F1071C" Association="Self.FK__KHO_CT_NH__TK_KH__14F1071C">
+            <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
+            <End Role="KHO_CT_NHAP_KHO" EntitySet="KHO_CT_NHAP_KHO" />
+          </AssociationSet>
           <AssociationSet Name="FK__KHO_CT_NH__TK_NO__09746778" Association="Self.FK__KHO_CT_NH__TK_NO__09746778">
             <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
             <End Role="KHO_CT_NHAP_KHO" EntitySet="KHO_CT_NHAP_KHO" />
@@ -3730,6 +3921,10 @@
             <End Role="KHO_CT_XUAT_KHO" EntitySet="KHO_CT_XUAT_KHO" />
           </AssociationSet>
           <AssociationSet Name="FK__KHO_CT_XU__TK_CO__1B9317B3" Association="Self.FK__KHO_CT_XU__TK_CO__1B9317B3">
+            <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
+            <End Role="KHO_CT_XUAT_KHO" EntitySet="KHO_CT_XUAT_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KHO_CT_XU__TK_KH__15E52B55" Association="Self.FK__KHO_CT_XU__TK_KH__15E52B55">
             <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
             <End Role="KHO_CT_XUAT_KHO" EntitySet="KHO_CT_XUAT_KHO" />
           </AssociationSet>
@@ -3774,7 +3969,7 @@
             <End Role="KHO_GIU_HANG" EntitySet="KHO_GIU_HANG" />
           </AssociationSet>
           <AssociationSet Name="FK__KHO_NHAP___MA_DO__00DF2177" Association="Self.FK__KHO_NHAP___MA_DO__00DF2177">
-            <End Role="DM_LOAI_DOI_TUONG" EntitySet="DM_LOAI_DOI_TUONG" />
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
             <End Role="KHO_NHAP_KHO" EntitySet="KHO_NHAP_KHO" />
           </AssociationSet>
           <AssociationSet Name="FK__KHO_NHAP___NGUOI__278EDA44" Association="Self.FK__KHO_NHAP___NGUOI__278EDA44">
@@ -3851,6 +4046,10 @@
           </AssociationSet>
           <AssociationSet Name="FK__MH_MDV__NV_MUA_H__72E607DB" Association="Self.FK__MH_MDV__NV_MUA_H__72E607DB">
             <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
+            <End Role="MH_MDV" EntitySet="MH_MDV" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MH_MDV__TRUC_THU__2803DB90" Association="Self.FK__MH_MDV__TRUC_THU__2803DB90">
+            <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
             <End Role="MH_MDV" EntitySet="MH_MDV" />
           </AssociationSet>
           <AssociationSet Name="FK__NB_CONG_T__CONG___1273C1CD" Association="Self.FK__NB_CONG_T__CONG___1273C1CD">
@@ -4081,6 +4280,10 @@
             <End Role="HH" EntitySet="HH" />
             <End Role="TONKHO_GIU_TAHP" EntitySet="TONKHO_GIU_TAHP" />
           </AssociationSet>
+          <AssociationSet Name="FK__TONKHO_HA__MA_HA__3EE740E8" Association="Self.FK__TONKHO_HA__MA_HA__3EE740E8">
+            <End Role="HH" EntitySet="HH" />
+            <End Role="TONKHO_HANG_DANG_VE" EntitySet="TONKHO_HANG_DANG_VE" />
+          </AssociationSet>
           <AssociationSet Name="FK__TONKHO_HA__MA_HA__5DD5DC5C" Association="Self.FK__TONKHO_HA__MA_HA__5DD5DC5C">
             <End Role="HH" EntitySet="HH" />
             <End Role="TONKHO_HANG" EntitySet="TONKHO_HANG" />
@@ -4184,6 +4387,13 @@
           </FunctionImport>
           <FunctionImport Name="XL_LayMaKhachMoiNhat" ReturnType="Collection(String)" />
           <FunctionImport Name="XL_LayMaGiuHangMoiNhat" ReturnType="Collection(String)" />
+          <FunctionImport Name="LocKHTheoSale" ReturnType="Collection(ERP_DATABASEModel.LocKHTheoSale_Result)">
+          <Parameter Name="sale" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAll_KhachHang" ReturnType="Collection(ERP_DATABASEModel.GetAll_KhachHang_Result1)" />
+          <FunctionImport Name="TimKiemKhachHang" ReturnType="Collection(ERP_DATABASEModel.TimKiemKhachHang_Result)">
+          <Parameter Name="sdt" Mode="In" Type="String" />
+          </FunctionImport>
           <EntitySet Name="BH_BAO_GIA" EntityType="ERP_DATABASEModel.BH_BAO_GIA" />
           <EntitySet Name="BH_CT_BAO_GIA" EntityType="ERP_DATABASEModel.BH_CT_BAO_GIA" />
           <EntitySet Name="BH_DE_NGHI_GIU_HANG" EntityType="ERP_DATABASEModel.BH_DE_NGHI_GIU_HANG" />
@@ -4203,6 +4413,7 @@
           <EntitySet Name="CN_NHOM_NGUOI_DUNG_NGHIEP_VU" EntityType="ERP_DATABASEModel.CN_NHOM_NGUOI_DUNG_NGHIEP_VU" />
           <EntitySet Name="DM_CHUNG_TU" EntityType="ERP_DATABASEModel.DM_CHUNG_TU" />
           <EntitySet Name="DM_DINH_KHOAN_TU_DONG" EntityType="ERP_DATABASEModel.DM_DINH_KHOAN_TU_DONG" />
+          <EntitySet Name="DM_DOI_TUONG" EntityType="ERP_DATABASEModel.DM_DOI_TUONG" />
           <EntitySet Name="DM_KHO" EntityType="ERP_DATABASEModel.DM_KHO" />
           <EntitySet Name="DM_LOAI_CHUNG_TU" EntityType="ERP_DATABASEModel.DM_LOAI_CHUNG_TU" />
           <EntitySet Name="DM_LOAI_DOI_TUONG" EntityType="ERP_DATABASEModel.DM_LOAI_DOI_TUONG" />
@@ -4216,6 +4427,7 @@
           <EntitySet Name="HT_LICH_SU_DANG_NHAP" EntityType="ERP_DATABASEModel.HT_LICH_SU_DANG_NHAP" />
           <EntitySet Name="HT_NGUOI_DUNG" EntityType="ERP_DATABASEModel.HT_NGUOI_DUNG" />
           <EntitySet Name="KHs" EntityType="ERP_DATABASEModel.KH" />
+          <EntitySet Name="KH_CHUYEN_SALES" EntityType="ERP_DATABASEModel.KH_CHUYEN_SALES" />
           <EntitySet Name="KH_DC_XUAT_HANG" EntityType="ERP_DATABASEModel.KH_DC_XUAT_HANG" />
           <EntitySet Name="KH_LIEN_HE" EntityType="ERP_DATABASEModel.KH_LIEN_HE" />
           <EntitySet Name="KH_LOAI" EntityType="ERP_DATABASEModel.KH_LOAI" />
@@ -4262,6 +4474,7 @@
           <EntitySet Name="TONKHO_GIU_TAHCM" EntityType="ERP_DATABASEModel.TONKHO_GIU_TAHCM" />
           <EntitySet Name="TONKHO_GIU_TAHP" EntityType="ERP_DATABASEModel.TONKHO_GIU_TAHP" />
           <EntitySet Name="TONKHO_HANG" EntityType="ERP_DATABASEModel.TONKHO_HANG" />
+          <EntitySet Name="TONKHO_HANG_DANG_VE" EntityType="ERP_DATABASEModel.TONKHO_HANG_DANG_VE" />
           <EntitySet Name="TONKHO_HOPLONG" EntityType="ERP_DATABASEModel.TONKHO_HOPLONG" />
           <EntitySet Name="TONKHO_KYGUI_HL" EntityType="ERP_DATABASEModel.TONKHO_KYGUI_HL" />
           <EntitySet Name="TONKHO_KYGUI_TADN" EntityType="ERP_DATABASEModel.TONKHO_KYGUI_TADN" />
@@ -4348,6 +4561,10 @@
             <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
             <End Role="DM_CHUNG_TU" EntitySet="DM_CHUNG_TU" />
           </AssociationSet>
+          <AssociationSet Name="FK__DM_DOI_TU__MA_CO__7E02B4CC" Association="ERP_DATABASEModel.FK__DM_DOI_TU__MA_CO__7E02B4CC">
+            <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+          </AssociationSet>
           <AssociationSet Name="FK__DM_KHACH___TRUC___1A69E950" Association="ERP_DATABASEModel.FK__DM_KHACH___TRUC___1A69E950">
             <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
             <End Role="KH" EntitySet="KHs" />
@@ -4364,6 +4581,10 @@
             <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
             <End Role="HT_NGUOI_DUNG" EntitySet="HT_NGUOI_DUNG" />
           </AssociationSet>
+          <AssociationSet Name="FK__KHO_CHUYE__TRUC___270FB757" Association="ERP_DATABASEModel.FK__KHO_CHUYE__TRUC___270FB757">
+            <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
+            <End Role="KHO_CHUYEN_KHO" EntitySet="KHO_CHUYEN_KHO" />
+          </AssociationSet>
           <AssociationSet Name="FK__KHO_DNXH__TRUC_T__7A1D154F" Association="ERP_DATABASEModel.FK__KHO_DNXH__TRUC_T__7A1D154F">
             <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
             <End Role="KHO_DNXH" EntitySet="KHO_DNXH" />
@@ -4379,6 +4600,10 @@
           <AssociationSet Name="FK__KHO_XUAT___TRUC___269AB60B" Association="ERP_DATABASEModel.FK__KHO_XUAT___TRUC___269AB60B">
             <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
             <End Role="KHO_XUAT_KHO" EntitySet="KHO_XUAT_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MH_MDV__TRUC_THU__2803DB90" Association="ERP_DATABASEModel.FK__MH_MDV__TRUC_THU__2803DB90">
+            <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
+            <End Role="MH_MDV" EntitySet="MH_MDV" />
           </AssociationSet>
           <AssociationSet Name="FK__NB_CONG_T__CONG___1273C1CD" Association="ERP_DATABASEModel.FK__NB_CONG_T__CONG___1273C1CD">
             <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
@@ -4435,6 +4660,22 @@
           <AssociationSet Name="FK__DM_PHU_TR__SALES__473C8FC7" Association="ERP_DATABASEModel.FK__DM_PHU_TR__SALES__473C8FC7">
             <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
             <End Role="KH_SALES_PHU_TRACH" EntitySet="KH_SALES_PHU_TRACH" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KH_CHUYEN__SALE___2FA4FD58" Association="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___2FA4FD58">
+            <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
+            <End Role="KH_CHUYEN_SALES" EntitySet="KH_CHUYEN_SALES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KH_CHUYEN__SALE___30992191" Association="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___30992191">
+            <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
+            <End Role="KH_CHUYEN_SALES" EntitySet="KH_CHUYEN_SALES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KH_CHUYEN__SALE___318D45CA" Association="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___318D45CA">
+            <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
+            <End Role="KH_CHUYEN_SALES" EntitySet="KH_CHUYEN_SALES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KH_CHUYEN__SALE___32816A03" Association="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___32816A03">
+            <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
+            <End Role="KH_CHUYEN_SALES" EntitySet="KH_CHUYEN_SALES" />
           </AssociationSet>
           <AssociationSet Name="FK__KHO_CHUYE__NGUOI__2CBDA3B5" Association="ERP_DATABASEModel.FK__KHO_CHUYE__NGUOI__2CBDA3B5">
             <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
@@ -4540,6 +4781,10 @@
             <End Role="HT_NGUOI_DUNG" EntitySet="HT_NGUOI_DUNG" />
             <End Role="CN_NHOM_NGUOI_DUNG_NGHIEP_VU" EntitySet="CN_NHOM_NGUOI_DUNG_NGHIEP_VU" />
           </AssociationSet>
+          <AssociationSet Name="FK__DM_CHUNG___DOI_T__4EC8A2F6" Association="ERP_DATABASEModel.FK__DM_CHUNG___DOI_T__4EC8A2F6">
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+            <End Role="DM_CHUNG_TU" EntitySet="DM_CHUNG_TU" />
+          </AssociationSet>
           <AssociationSet Name="FK__DM_CHUNG___MA_LO__7755B73D" Association="ERP_DATABASEModel.FK__DM_CHUNG___MA_LO__7755B73D">
             <End Role="DM_LOAI_CHUNG_TU" EntitySet="DM_LOAI_CHUNG_TU" />
             <End Role="DM_CHUNG_TU" EntitySet="DM_CHUNG_TU" />
@@ -4564,6 +4809,46 @@
             <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
             <End Role="DM_DINH_KHOAN_TU_DONG" EntitySet="DM_DINH_KHOAN_TU_DONG" />
           </AssociationSet>
+          <AssociationSet Name="FK__DM_DOI_TU__MA_LO__7D0E9093" Association="ERP_DATABASEModel.FK__DM_DOI_TU__MA_LO__7D0E9093">
+            <End Role="DM_LOAI_DOI_TUONG" EntitySet="DM_LOAI_DOI_TUONG" />
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KHO_NHAP___MA_DO__00DF2177" Association="ERP_DATABASEModel.FK__KHO_NHAP___MA_DO__00DF2177">
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+            <End Role="KHO_NHAP_KHO" EntitySet="KHO_NHAP_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MH_CT_MDV__MA_DO__7A8729A3" Association="ERP_DATABASEModel.FK__MH_CT_MDV__MA_DO__7A8729A3">
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+            <End Role="MH_CT_MDV" EntitySet="MH_CT_MDV" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NGAN_HANG__MA_DO__50FB042B" Association="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__50FB042B">
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+            <End Role="NH_CT_NTTK" EntitySet="NH_CT_NTTK" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NGAN_HANG__MA_DO__5C6CB6D7" Association="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__5C6CB6D7">
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+            <End Role="NH_NTTK" EntitySet="NH_NTTK" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NGAN_HANG__MA_DO__65F62111" Association="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__65F62111">
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+            <End Role="NH_UNC" EntitySet="NH_UNC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NGAN_HANG__MA_DO__66EA454A" Association="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__66EA454A">
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+            <End Role="NH_CT_UNC" EntitySet="NH_CT_UNC" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QUY_CT_PH__MA_DO__44952D46" Association="ERP_DATABASEModel.FK__QUY_CT_PH__MA_DO__44952D46">
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+            <End Role="QUY_CT_PHIEU_CHI" EntitySet="QUY_CT_PHIEU_CHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QUY_PHIEU__MA_DO__3552E9B6" Association="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3552E9B6">
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+            <End Role="QUY_PHIEU_CHI" EntitySet="QUY_PHIEU_CHI" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QUY_PHIEU__MA_DO__3CF40B7E" Association="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3CF40B7E">
+            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
+            <End Role="QUY_PHIEU_THU" EntitySet="QUY_PHIEU_THU" />
+          </AssociationSet>
           <AssociationSet Name="FK__DM_KHO__MA_KHO_C__619B8048" Association="ERP_DATABASEModel.FK__DM_KHO__MA_KHO_C__619B8048">
             <End Role="DM_KHO" EntitySet="DM_KHO" />
             <End Role="DM_KHO1" EntitySet="DM_KHO" />
@@ -4583,10 +4868,6 @@
           <AssociationSet Name="FK__KHO_CT_XU__XUAT___18B6AB08" Association="ERP_DATABASEModel.FK__KHO_CT_XU__XUAT___18B6AB08">
             <End Role="DM_KHO" EntitySet="DM_KHO" />
             <End Role="KHO_CT_XUAT_KHO" EntitySet="KHO_CT_XUAT_KHO" />
-          </AssociationSet>
-          <AssociationSet Name="FK__KHO_NHAP___MA_DO__00DF2177" Association="ERP_DATABASEModel.FK__KHO_NHAP___MA_DO__00DF2177">
-            <End Role="DM_LOAI_DOI_TUONG" EntitySet="DM_LOAI_DOI_TUONG" />
-            <End Role="KHO_NHAP_KHO" EntitySet="KHO_NHAP_KHO" />
           </AssociationSet>
           <AssociationSet Name="FK__DM_TK_NGA__LOAI___1CBC4616" Association="ERP_DATABASEModel.FK__DM_TK_NGA__LOAI___1CBC4616">
             <End Role="DM_LOAI_TK_NGAN_HANG" EntitySet="DM_LOAI_TK_NGAN_HANG" />
@@ -4608,6 +4889,10 @@
             <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
             <End Role="KHO_CT_NHAP_KHO" EntitySet="KHO_CT_NHAP_KHO" />
           </AssociationSet>
+          <AssociationSet Name="FK__KHO_CT_NH__TK_KH__14F1071C" Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_KH__14F1071C">
+            <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
+            <End Role="KHO_CT_NHAP_KHO" EntitySet="KHO_CT_NHAP_KHO" />
+          </AssociationSet>
           <AssociationSet Name="FK__KHO_CT_NH__TK_NO__09746778" Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_NO__09746778">
             <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
             <End Role="KHO_CT_NHAP_KHO" EntitySet="KHO_CT_NHAP_KHO" />
@@ -4617,6 +4902,10 @@
             <End Role="KHO_CT_NHAP_KHO" EntitySet="KHO_CT_NHAP_KHO" />
           </AssociationSet>
           <AssociationSet Name="FK__KHO_CT_XU__TK_CO__1B9317B3" Association="ERP_DATABASEModel.FK__KHO_CT_XU__TK_CO__1B9317B3">
+            <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
+            <End Role="KHO_CT_XUAT_KHO" EntitySet="KHO_CT_XUAT_KHO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KHO_CT_XU__TK_KH__15E52B55" Association="ERP_DATABASEModel.FK__KHO_CT_XU__TK_KH__15E52B55">
             <End Role="DM_TAI_KHOAN_HACH_TOAN" EntitySet="DM_TAI_KHOAN_HACH_TOAN" />
             <End Role="KHO_CT_XUAT_KHO" EntitySet="KHO_CT_XUAT_KHO" />
           </AssociationSet>
@@ -4756,6 +5045,10 @@
             <End Role="HH" EntitySet="HHs" />
             <End Role="TONKHO_GIU_TAHP" EntitySet="TONKHO_GIU_TAHP" />
           </AssociationSet>
+          <AssociationSet Name="FK__TONKHO_HA__MA_HA__3EE740E8" Association="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__3EE740E8">
+            <End Role="HH" EntitySet="HHs" />
+            <End Role="TONKHO_HANG_DANG_VE" EntitySet="TONKHO_HANG_DANG_VE" />
+          </AssociationSet>
           <AssociationSet Name="FK__TONKHO_HA__MA_HA__5DD5DC5C" Association="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__5DD5DC5C">
             <End Role="HH" EntitySet="HHs" />
             <End Role="TONKHO_HANG" EntitySet="TONKHO_HANG" />
@@ -4851,6 +5144,10 @@
           <AssociationSet Name="FK__DM_TK_NGA__MA_NH__17036CC0" Association="ERP_DATABASEModel.FK__DM_TK_NGA__MA_NH__17036CC0">
             <End Role="KH" EntitySet="KHs" />
             <End Role="KH_TK_NGAN_HANG" EntitySet="KH_TK_NGAN_HANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK__KH_CHUYEN__MA_KH__2EB0D91F" Association="ERP_DATABASEModel.FK__KH_CHUYEN__MA_KH__2EB0D91F">
+            <End Role="KH" EntitySet="KHs" />
+            <End Role="KH_CHUYEN_SALES" EntitySet="KH_CHUYEN_SALES" />
           </AssociationSet>
           <AssociationSet Name="FK__KH_DC_XUA__MA_KH__5F141958" Association="ERP_DATABASEModel.FK__KH_DC_XUA__MA_KH__5F141958">
             <End Role="KH" EntitySet="KHs" />
@@ -4960,51 +5257,13 @@
             <End Role="QUY_PHIEU_THU" EntitySet="QUY_PHIEU_THU" />
             <End Role="QUY_CT_PHIEU_THU" EntitySet="QUY_CT_PHIEU_THU" />
           </AssociationSet>
-          <EntitySet Name="DM_DOI_TUONG" EntityType="ERP_DATABASEModel.DM_DOI_TUONG" />
-          <AssociationSet Name="FK__DM_DOI_TU__MA_CO__7E02B4CC" Association="ERP_DATABASEModel.FK__DM_DOI_TU__MA_CO__7E02B4CC">
-            <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DM_CHUNG___DOI_T__4EC8A2F6" Association="ERP_DATABASEModel.FK__DM_CHUNG___DOI_T__4EC8A2F6">
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-            <End Role="DM_CHUNG_TU" EntitySet="DM_CHUNG_TU" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DM_DOI_TU__MA_LO__7D0E9093" Association="ERP_DATABASEModel.FK__DM_DOI_TU__MA_LO__7D0E9093">
-            <End Role="DM_LOAI_DOI_TUONG" EntitySet="DM_LOAI_DOI_TUONG" />
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-          </AssociationSet>
-          <AssociationSet Name="FK__MH_CT_MDV__MA_DO__7A8729A3" Association="ERP_DATABASEModel.FK__MH_CT_MDV__MA_DO__7A8729A3">
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-            <End Role="MH_CT_MDV" EntitySet="MH_CT_MDV" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NGAN_HANG__MA_DO__50FB042B" Association="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__50FB042B">
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-            <End Role="NH_CT_NTTK" EntitySet="NH_CT_NTTK" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NGAN_HANG__MA_DO__5C6CB6D7" Association="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__5C6CB6D7">
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-            <End Role="NH_NTTK" EntitySet="NH_NTTK" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NGAN_HANG__MA_DO__65F62111" Association="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__65F62111">
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-            <End Role="NH_UNC" EntitySet="NH_UNC" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NGAN_HANG__MA_DO__66EA454A" Association="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__66EA454A">
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-            <End Role="NH_CT_UNC" EntitySet="NH_CT_UNC" />
-          </AssociationSet>
-          <AssociationSet Name="FK__QUY_CT_PH__MA_DO__44952D46" Association="ERP_DATABASEModel.FK__QUY_CT_PH__MA_DO__44952D46">
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-            <End Role="QUY_CT_PHIEU_CHI" EntitySet="QUY_CT_PHIEU_CHI" />
-          </AssociationSet>
-          <AssociationSet Name="FK__QUY_PHIEU__MA_DO__3552E9B6" Association="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3552E9B6">
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-            <End Role="QUY_PHIEU_CHI" EntitySet="QUY_PHIEU_CHI" />
-          </AssociationSet>
-          <AssociationSet Name="FK__QUY_PHIEU__MA_DO__3CF40B7E" Association="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3CF40B7E">
-            <End Role="DM_DOI_TUONG" EntitySet="DM_DOI_TUONG" />
-            <End Role="QUY_PHIEU_THU" EntitySet="QUY_PHIEU_THU" />
-          </AssociationSet>
+          <FunctionImport Name="HopLong_LocKHTheoSale" ReturnType="Collection(ERP_DATABASEModel.HopLong_LocKHTheoSale_Result)">
+          <Parameter Name="sale" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="HopLong_GetAllSale" ReturnType="Collection(ERP_DATABASEModel.HopLong_GetAllSale_Result)" />
+          <FunctionImport Name="HopLong_DS_TONKHO" ReturnType="Collection(ERP_DATABASEModel.HopLong_DS_TONKHO_Result)">
+          <Parameter Name="MA_CHUAN" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="XL_TimKiemHangHoa_Result">
           <Property Type="String" Name="MA_HANG" Nullable="false" MaxLength="128" />
@@ -5039,6 +5298,81 @@
           <Property Type="String" Name="TEN_DANH_MUC" Nullable="false" MaxLength="128" />
           <Property Type="String" Name="MA_DANH_MUC" Nullable="false" MaxLength="64" />
         </ComplexType>
+        <ComplexType Name="GetAll_KhachHang_Result">
+          <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_CONG_TY" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="VAN_PHONG_GIAO_DICH" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="DIA_CHI_XUAT_HOA_DON" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="TINH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="QUOC_GIA" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="MST" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="HOTLINE" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="FAX" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="LOGO" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="WEBSITE" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="DIEU_KHOAN_THANH_TOAN" Nullable="true" MaxLength="64" />
+          <Property Type="Int32" Name="SO_NGAY_DUOC_NO" Nullable="true" />
+          <Property Type="Int32" Name="SO_NO_TOI_DA" Nullable="true" />
+          <Property Type="String" Name="GHI_CHU" Nullable="true" />
+          <Property Type="String" Name="TRUC_THUOC" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_LOAI_KHACH" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="MA_LOAI_KHACH" Nullable="true" MaxLength="64" />
+          <Property Type="Int32" Name="ID" Nullable="true" />
+          <Property Type="String" Name="HO_VA_TEN" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="LocKHTheoSale_Result">
+          <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_CONG_TY" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="VAN_PHONG_GIAO_DICH" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="DIA_CHI_XUAT_HOA_DON" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="TINH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="QUOC_GIA" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="MST" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="HOTLINE" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="FAX" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="LOGO" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="WEBSITE" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="DIEU_KHOAN_THANH_TOAN" Nullable="true" MaxLength="64" />
+          <Property Type="Int32" Name="SO_NGAY_DUOC_NO" Nullable="true" />
+          <Property Type="Int32" Name="SO_NO_TOI_DA" Nullable="true" />
+          <Property Type="String" Name="GHI_CHU" Nullable="true" />
+          <Property Type="String" Name="TRUC_THUOC" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="MA_LOAI_KHACH" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="NHOM_NGANH" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="TEN_LOAI_KHACH" Nullable="false" MaxLength="128" />
+        </ComplexType>
+        <ComplexType Name="GetAll_KhachHang_Result1">
+          <Property Type="Int32" Name="ID" Nullable="true" />
+          <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_CONG_TY" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="VAN_PHONG_GIAO_DICH" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="DIA_CHI_XUAT_HOA_DON" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="TINH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="QUOC_GIA" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="MST" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="HOTLINE" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="FAX" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="LOGO" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="MA_LOAI_KHACH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="WEBSITE" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="DIEU_KHOAN_THANH_TOAN" Nullable="true" MaxLength="64" />
+          <Property Type="Int32" Name="SO_NGAY_DUOC_NO" Nullable="true" />
+          <Property Type="Int32" Name="SO_NO_TOI_DA" Nullable="true" />
+          <Property Type="String" Name="GHI_CHU" Nullable="true" />
+          <Property Type="String" Name="TRUC_THUOC" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_LOAI_KHACH" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="ALES_PHU_TRACH" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="TimKiemKhachHang_Result">
+          <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_CONG_TY" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="TINH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="QUOC_GIA" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="SALES_PHU_TRACH" Nullable="true" MaxLength="64" />
+        </ComplexType>
         <EntityType Name="BH_BAO_GIA">
           <Key>
             <PropertyRef Name="SO_BAO_GIA" />
@@ -5052,10 +5386,7 @@
           <Property Name="HAN_THANH_TOAN" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="HIEU_LUC_BAO_GIA" Type="Int32" />
           <Property Name="DIEU_KHOAN_THANH_TOAN" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="THANH_TIEN" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
           <Property Name="PHI_VAN_CHUYEN" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CK_VAT" Type="Double" Nullable="false" />
-          <Property Name="TIEN_VAT" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
           <Property Name="TONG_TIEN" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
           <Property Name="DA_DUYET" Type="Boolean" />
           <Property Name="NGUOI_DUYET" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
@@ -5082,6 +5413,8 @@
           <Property Name="CHIET_KHAU" Type="Double" Nullable="false" />
           <Property Name="CACH_TINH_THANH_TIEN" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="THANH_TIEN" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="CK_VAT" Type="Double" />
+          <Property Name="TIEN_VAT" Type="Decimal" Precision="28" Scale="2" />
           <Property Name="TINH_TRANG_HANG" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="THOI_GIAN_GIAO_HANG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NGAY_GIAO_HANG" Type="DateTime" Precision="0" />
@@ -5213,14 +5546,17 @@
           <NavigationProperty Name="XL_DANG_KY_PHE_DUYET" Relationship="ERP_DATABASEModel.FK__CN_DANG_K__TRUC___60283922" FromRole="CCTC_CONG_TY" ToRole="XL_DANG_KY_PHE_DUYET" />
           <NavigationProperty Name="CN_NHOM_NGHIEP_VU" Relationship="ERP_DATABASEModel.FK__CN_NHOM_N__TRUC___5C57A83E" FromRole="CCTC_CONG_TY" ToRole="CN_NHOM_NGHIEP_VU" />
           <NavigationProperty Name="DM_CHUNG_TU" Relationship="ERP_DATABASEModel.FK__DM_CHUNG___MA_CO__7849DB76" FromRole="CCTC_CONG_TY" ToRole="DM_CHUNG_TU" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__DM_DOI_TU__MA_CO__7E02B4CC" FromRole="CCTC_CONG_TY" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="KHs" Relationship="ERP_DATABASEModel.FK__DM_KHACH___TRUC___1A69E950" FromRole="CCTC_CONG_TY" ToRole="KH" />
           <NavigationProperty Name="DM_KHO" Relationship="ERP_DATABASEModel.FK__DM_KHO__TRUC_THU__6D0D32F4" FromRole="CCTC_CONG_TY" ToRole="DM_KHO" />
           <NavigationProperty Name="DM_TK_NGAN_HANG_NOI_BO" Relationship="ERP_DATABASEModel.FK__DM_TK_NGA__MA_CO__1BC821DD" FromRole="CCTC_CONG_TY" ToRole="DM_TK_NGAN_HANG_NOI_BO" />
           <NavigationProperty Name="HT_NGUOI_DUNG" Relationship="ERP_DATABASEModel.FK__HT_NGUOI___MA_CO__09A971A2" FromRole="CCTC_CONG_TY" ToRole="HT_NGUOI_DUNG" />
+          <NavigationProperty Name="KHO_CHUYEN_KHO" Relationship="ERP_DATABASEModel.FK__KHO_CHUYE__TRUC___270FB757" FromRole="CCTC_CONG_TY" ToRole="KHO_CHUYEN_KHO" />
           <NavigationProperty Name="KHO_DNXH" Relationship="ERP_DATABASEModel.FK__KHO_DNXH__TRUC_T__7A1D154F" FromRole="CCTC_CONG_TY" ToRole="KHO_DNXH" />
           <NavigationProperty Name="KHO_GIU_HANG" Relationship="ERP_DATABASEModel.FK__KHO_GIU_H__TRUC___5CACADF9" FromRole="CCTC_CONG_TY" ToRole="KHO_GIU_HANG" />
           <NavigationProperty Name="KHO_NHAP_KHO" Relationship="ERP_DATABASEModel.FK__KHO_NHAP___TRUC___25A691D2" FromRole="CCTC_CONG_TY" ToRole="KHO_NHAP_KHO" />
           <NavigationProperty Name="KHO_XUAT_KHO" Relationship="ERP_DATABASEModel.FK__KHO_XUAT___TRUC___269AB60B" FromRole="CCTC_CONG_TY" ToRole="KHO_XUAT_KHO" />
+          <NavigationProperty Name="MH_MDV" Relationship="ERP_DATABASEModel.FK__MH_MDV__TRUC_THU__2803DB90" FromRole="CCTC_CONG_TY" ToRole="MH_MDV" />
           <NavigationProperty Name="CCTC_CONG_TY1" Relationship="ERP_DATABASEModel.FK__NB_CONG_T__CONG___1273C1CD" FromRole="CCTC_CONG_TY" ToRole="CCTC_CONG_TY1" />
           <NavigationProperty Name="CCTC_CONG_TY2" Relationship="ERP_DATABASEModel.FK__NB_CONG_T__CONG___1273C1CD" FromRole="CCTC_CONG_TY1" ToRole="CCTC_CONG_TY" />
           <NavigationProperty Name="CCTC_MO_HINH_CONG_TY" Relationship="ERP_DATABASEModel.FK__NB_CONG_T__MO_HI__1367E606" FromRole="CCTC_CONG_TY" ToRole="CCTC_MO_HINH_CONG_TY" />
@@ -5231,7 +5567,6 @@
           <NavigationProperty Name="QUY_PHIEU_CHI" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__TRUC___2E3BD7D3" FromRole="CCTC_CONG_TY" ToRole="QUY_PHIEU_CHI" />
           <NavigationProperty Name="QUY_PHIEU_THU" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__TRUC___2F2FFC0C" FromRole="CCTC_CONG_TY" ToRole="QUY_PHIEU_THU" />
           <NavigationProperty Name="CN_NGHIEP_VU" Relationship="ERP_DATABASEModel.FK_CN_NGHIEP_VU_CCTC_CONG_TY" FromRole="CCTC_CONG_TY" ToRole="CN_NGHIEP_VU" />
-          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__DM_DOI_TU__MA_CO__7E02B4CC" FromRole="CCTC_CONG_TY" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="CCTC_MO_HINH_CONG_TY">
           <Key>
@@ -5264,6 +5599,10 @@
           <NavigationProperty Name="HT_NGUOI_DUNG" Relationship="ERP_DATABASEModel.FK__CCTC_NHAN__USERN__5224328E" FromRole="CCTC_NHAN_VIEN" ToRole="HT_NGUOI_DUNG" />
           <NavigationProperty Name="XL_DANG_KY_PHE_DUYET" Relationship="ERP_DATABASEModel.FK__CN_DANG_K__NGUOI__5F3414E9" FromRole="CCTC_NHAN_VIEN" ToRole="XL_DANG_KY_PHE_DUYET" />
           <NavigationProperty Name="KH_SALES_PHU_TRACH" Relationship="ERP_DATABASEModel.FK__DM_PHU_TR__SALES__473C8FC7" FromRole="CCTC_NHAN_VIEN" ToRole="KH_SALES_PHU_TRACH" />
+          <NavigationProperty Name="KH_CHUYEN_SALES" Relationship="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___2FA4FD58" FromRole="CCTC_NHAN_VIEN" ToRole="KH_CHUYEN_SALES" />
+          <NavigationProperty Name="KH_CHUYEN_SALES1" Relationship="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___30992191" FromRole="CCTC_NHAN_VIEN" ToRole="KH_CHUYEN_SALES" />
+          <NavigationProperty Name="KH_CHUYEN_SALES2" Relationship="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___318D45CA" FromRole="CCTC_NHAN_VIEN" ToRole="KH_CHUYEN_SALES" />
+          <NavigationProperty Name="KH_CHUYEN_SALES3" Relationship="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___32816A03" FromRole="CCTC_NHAN_VIEN" ToRole="KH_CHUYEN_SALES" />
           <NavigationProperty Name="KHO_CHUYEN_KHO" Relationship="ERP_DATABASEModel.FK__KHO_CHUYE__NGUOI__2CBDA3B5" FromRole="CCTC_NHAN_VIEN" ToRole="KHO_CHUYEN_KHO" />
           <NavigationProperty Name="KHO_DNXH" Relationship="ERP_DATABASEModel.FK__KHO_DNXH__NGUOI___7C055DC1" FromRole="CCTC_NHAN_VIEN" ToRole="KHO_DNXH" />
           <NavigationProperty Name="KHO_DNXH1" Relationship="ERP_DATABASEModel.FK__KHO_DNXH__NGUOI___7CF981FA" FromRole="CCTC_NHAN_VIEN" ToRole="KHO_DNXH" />
@@ -5372,10 +5711,10 @@
           <Property Name="NGAY_CHUNG_TU" Type="DateTime" Precision="0" />
           <Property Name="DOI_TUONG" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__DM_CHUNG___MA_CO__7849DB76" FromRole="DM_CHUNG_TU" ToRole="CCTC_CONG_TY" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__DM_CHUNG___DOI_T__4EC8A2F6" FromRole="DM_CHUNG_TU" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="DM_LOAI_CHUNG_TU" Relationship="ERP_DATABASEModel.FK__DM_CHUNG___MA_LO__7755B73D" FromRole="DM_CHUNG_TU" ToRole="DM_LOAI_CHUNG_TU" />
           <NavigationProperty Name="XL_THAM_CHIEU_CHUNG_TU" Relationship="ERP_DATABASEModel.FK__XL_THAM_C__SO_CH__0FB750B3" FromRole="DM_CHUNG_TU" ToRole="XL_THAM_CHIEU_CHUNG_TU" />
           <NavigationProperty Name="XL_THAM_CHIEU_CHUNG_TU1" Relationship="ERP_DATABASEModel.FK__XL_THAM_C__SO_CH__10AB74EC" FromRole="DM_CHUNG_TU" ToRole="XL_THAM_CHIEU_CHUNG_TU" />
-          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__DM_CHUNG___DOI_T__4EC8A2F6" FromRole="DM_CHUNG_TU" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="DM_DINH_KHOAN_TU_DONG">
           <Key>
@@ -5390,6 +5729,28 @@
           <NavigationProperty Name="DM_LOAI_CHUNG_TU" Relationship="ERP_DATABASEModel.FK__DM_DINH_K__MA_LO__320C68B7" FromRole="DM_DINH_KHOAN_TU_DONG" ToRole="DM_LOAI_CHUNG_TU" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN" Relationship="ERP_DATABASEModel.FK__DM_DINH_K__TK_CO__33F4B129" FromRole="DM_DINH_KHOAN_TU_DONG" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN1" Relationship="ERP_DATABASEModel.FK__DM_DINH_K__TK_NO__33008CF0" FromRole="DM_DINH_KHOAN_TU_DONG" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
+        </EntityType>
+        <EntityType Name="DM_DOI_TUONG">
+          <Key>
+            <PropertyRef Name="MA_DOI_TUONG" />
+          </Key>
+          <Property Name="MA_DOI_TUONG" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="TEN_DOI_TUONG" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="DIA_CHI" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MA_LOAI_DOI_TUONG" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="MA_CONG_TY" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__DM_DOI_TU__MA_CO__7E02B4CC" FromRole="DM_DOI_TUONG" ToRole="CCTC_CONG_TY" />
+          <NavigationProperty Name="DM_CHUNG_TU" Relationship="ERP_DATABASEModel.FK__DM_CHUNG___DOI_T__4EC8A2F6" FromRole="DM_DOI_TUONG" ToRole="DM_CHUNG_TU" />
+          <NavigationProperty Name="DM_LOAI_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__DM_DOI_TU__MA_LO__7D0E9093" FromRole="DM_DOI_TUONG" ToRole="DM_LOAI_DOI_TUONG" />
+          <NavigationProperty Name="KHO_NHAP_KHO" Relationship="ERP_DATABASEModel.FK__KHO_NHAP___MA_DO__00DF2177" FromRole="DM_DOI_TUONG" ToRole="KHO_NHAP_KHO" />
+          <NavigationProperty Name="MH_CT_MDV" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__MA_DO__7A8729A3" FromRole="DM_DOI_TUONG" ToRole="MH_CT_MDV" />
+          <NavigationProperty Name="NH_CT_NTTK" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__50FB042B" FromRole="DM_DOI_TUONG" ToRole="NH_CT_NTTK" />
+          <NavigationProperty Name="NH_NTTK" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__5C6CB6D7" FromRole="DM_DOI_TUONG" ToRole="NH_NTTK" />
+          <NavigationProperty Name="NH_UNC" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__65F62111" FromRole="DM_DOI_TUONG" ToRole="NH_UNC" />
+          <NavigationProperty Name="NH_CT_UNC" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__66EA454A" FromRole="DM_DOI_TUONG" ToRole="NH_CT_UNC" />
+          <NavigationProperty Name="QUY_CT_PHIEU_CHI" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__MA_DO__44952D46" FromRole="DM_DOI_TUONG" ToRole="QUY_CT_PHIEU_CHI" />
+          <NavigationProperty Name="QUY_PHIEU_CHI" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3552E9B6" FromRole="DM_DOI_TUONG" ToRole="QUY_PHIEU_CHI" />
+          <NavigationProperty Name="QUY_PHIEU_THU" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3CF40B7E" FromRole="DM_DOI_TUONG" ToRole="QUY_PHIEU_THU" />
         </EntityType>
         <EntityType Name="DM_KHO">
           <Key>
@@ -5424,7 +5785,6 @@
           </Key>
           <Property Name="MA_LOAI_DOI_TUONG" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="TEN_LOAI_DOI_TUONG" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="KHO_NHAP_KHO" Relationship="ERP_DATABASEModel.FK__KHO_NHAP___MA_DO__00DF2177" FromRole="DM_LOAI_DOI_TUONG" ToRole="KHO_NHAP_KHO" />
           <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__DM_DOI_TU__MA_LO__7D0E9093" FromRole="DM_LOAI_DOI_TUONG" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="DM_LOAI_TK_NGAN_HANG">
@@ -5452,10 +5812,12 @@
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN1" Relationship="ERP_DATABASEModel.FK__DM_TAI_KH__TK_CA__3D5E1FD2" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="DM_TAI_KHOAN_HACH_TOAN1" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN2" Relationship="ERP_DATABASEModel.FK__DM_TAI_KH__TK_CA__3D5E1FD2" FromRole="DM_TAI_KHOAN_HACH_TOAN1" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="KHO_CT_NHAP_KHO" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_CO__0A688BB1" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="KHO_CT_NHAP_KHO" />
-          <NavigationProperty Name="KHO_CT_NHAP_KHO1" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_NO__09746778" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="KHO_CT_NHAP_KHO" />
-          <NavigationProperty Name="KHO_CT_NHAP_KHO2" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_TH__02284B6B" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="KHO_CT_NHAP_KHO" />
+          <NavigationProperty Name="KHO_CT_NHAP_KHO1" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_KH__14F1071C" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="KHO_CT_NHAP_KHO" />
+          <NavigationProperty Name="KHO_CT_NHAP_KHO2" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_NO__09746778" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="KHO_CT_NHAP_KHO" />
+          <NavigationProperty Name="KHO_CT_NHAP_KHO3" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_TH__02284B6B" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="KHO_CT_NHAP_KHO" />
           <NavigationProperty Name="KHO_CT_XUAT_KHO" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__TK_CO__1B9317B3" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="KHO_CT_XUAT_KHO" />
-          <NavigationProperty Name="KHO_CT_XUAT_KHO1" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__TK_NO__1A9EF37A" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="KHO_CT_XUAT_KHO" />
+          <NavigationProperty Name="KHO_CT_XUAT_KHO1" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__TK_KH__15E52B55" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="KHO_CT_XUAT_KHO" />
+          <NavigationProperty Name="KHO_CT_XUAT_KHO2" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__TK_NO__1A9EF37A" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="KHO_CT_XUAT_KHO" />
           <NavigationProperty Name="MH_CT_MDV" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__TK_CH__789EE131" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="MH_CT_MDV" />
           <NavigationProperty Name="MH_CT_MDV1" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__TK_CO__7993056A" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="MH_CT_MDV" />
           <NavigationProperty Name="MH_CT_MDV2" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__TK_TH__004002F9" FromRole="DM_TAI_KHOAN_HACH_TOAN" ToRole="MH_CT_MDV" />
@@ -5543,6 +5905,7 @@
           <NavigationProperty Name="TONKHO_GIU_TAHCM" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__6576FE24" FromRole="HH" ToRole="TONKHO_GIU_TAHCM" />
           <NavigationProperty Name="TONKHO_GIU_TADN" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__69478F08" FromRole="HH" ToRole="TONKHO_GIU_TADN" />
           <NavigationProperty Name="TONKHO_GIU_TAHP" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__6D181FEC" FromRole="HH" ToRole="TONKHO_GIU_TAHP" />
+          <NavigationProperty Name="TONKHO_HANG_DANG_VE" Relationship="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__3EE740E8" FromRole="HH" ToRole="TONKHO_HANG_DANG_VE" />
           <NavigationProperty Name="TONKHO_HANG" Relationship="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__5DD5DC5C" FromRole="HH" ToRole="TONKHO_HANG" />
           <NavigationProperty Name="TONKHO_HOPLONG" Relationship="ERP_DATABASEModel.FK__TONKHO_HO__MA_HA__4E9398CC" FromRole="HH" ToRole="TONKHO_HOPLONG" />
           <NavigationProperty Name="TONKHO_KYGUI_HL" Relationship="ERP_DATABASEModel.FK__TONKHO_KY__MA_HA__70E8B0D0" FromRole="HH" ToRole="TONKHO_KYGUI_HL" />
@@ -5643,11 +6006,28 @@
           <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__DM_KHACH___TRUC___1A69E950" FromRole="KH" ToRole="CCTC_CONG_TY" />
           <NavigationProperty Name="KH_LIEN_HE" Relationship="ERP_DATABASEModel.FK__DM_LIEN_H__MA_KH__7B264821" FromRole="KH" ToRole="KH_LIEN_HE" />
           <NavigationProperty Name="KH_TK_NGAN_HANG" Relationship="ERP_DATABASEModel.FK__DM_TK_NGA__MA_NH__17036CC0" FromRole="KH" ToRole="KH_TK_NGAN_HANG" />
+          <NavigationProperty Name="KH_CHUYEN_SALES" Relationship="ERP_DATABASEModel.FK__KH_CHUYEN__MA_KH__2EB0D91F" FromRole="KH" ToRole="KH_CHUYEN_SALES" />
           <NavigationProperty Name="KH_DC_XUAT_HANG" Relationship="ERP_DATABASEModel.FK__KH_DC_XUA__MA_KH__5F141958" FromRole="KH" ToRole="KH_DC_XUAT_HANG" />
           <NavigationProperty Name="KHO_DNXH" Relationship="ERP_DATABASEModel.FK__KHO_DNXH__MA_KHA__7928F116" FromRole="KH" ToRole="KHO_DNXH" />
           <NavigationProperty Name="KHO_GIU_HANG" Relationship="ERP_DATABASEModel.FK__KHO_GIU_H__MA_KH__1EAF7B80" FromRole="KH" ToRole="KHO_GIU_HANG" />
           <NavigationProperty Name="KHO_XUAT_KHO" Relationship="ERP_DATABASEModel.FK__KHO_XUAT___KHACH__4DD47EBD" FromRole="KH" ToRole="KHO_XUAT_KHO" />
           <NavigationProperty Name="KH_PHAN_LOAI_KHACH" Relationship="ERP_DATABASEModel.FK__XULY_PHAN__MA_KH__5B438874" FromRole="KH" ToRole="KH_PHAN_LOAI_KHACH" />
+        </EntityType>
+        <EntityType Name="KH_CHUYEN_SALES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MA_KHACH_HANG" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="SALE_HIEN_THOI" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="SALE_SAP_CHUYEN" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="SALE_CU" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="SALE_CU_2" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CCTC_NHAN_VIEN" Relationship="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___2FA4FD58" FromRole="KH_CHUYEN_SALES" ToRole="CCTC_NHAN_VIEN" />
+          <NavigationProperty Name="CCTC_NHAN_VIEN1" Relationship="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___30992191" FromRole="KH_CHUYEN_SALES" ToRole="CCTC_NHAN_VIEN" />
+          <NavigationProperty Name="CCTC_NHAN_VIEN2" Relationship="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___318D45CA" FromRole="KH_CHUYEN_SALES" ToRole="CCTC_NHAN_VIEN" />
+          <NavigationProperty Name="CCTC_NHAN_VIEN3" Relationship="ERP_DATABASEModel.FK__KH_CHUYEN__SALE___32816A03" FromRole="KH_CHUYEN_SALES" ToRole="CCTC_NHAN_VIEN" />
+          <NavigationProperty Name="KH" Relationship="ERP_DATABASEModel.FK__KH_CHUYEN__MA_KH__2EB0D91F" FromRole="KH_CHUYEN_SALES" ToRole="KH" />
         </EntityType>
         <EntityType Name="KH_DC_XUAT_HANG">
           <Key>
@@ -5667,7 +6047,7 @@
           <Property Name="MA_KHACH_HANG" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="NGUOI_LIEN_HE" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="CHUC_VU" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="PHONG_BAN" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="PHONG_BAN" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="NGAY_SINH" Type="DateTime" Precision="0" />
           <Property Name="GIOI_TINH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="EMAIL_CA_NHAN" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
@@ -5700,7 +6080,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MA_KHACH_HANG" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="MA_LOAI_KHACH" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="NHOM_NGANH" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="NHOM_NGANH" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="KH" Relationship="ERP_DATABASEModel.FK__XULY_PHAN__MA_KH__5B438874" FromRole="KH_PHAN_LOAI_KHACH" ToRole="KH" />
           <NavigationProperty Name="KH_LOAI" Relationship="ERP_DATABASEModel.FK__XULY_PHAN__MA_LO__5C37ACAD" FromRole="KH_PHAN_LOAI_KHACH" ToRole="KH_LOAI" />
         </EntityType>
@@ -5714,6 +6094,8 @@
           <Property Name="NGAY_BAT_DAU_PHU_TRACH" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="NGAY_KET_THUC_PHU_TRACH" Type="DateTime" Precision="0" />
           <Property Name="TRANG_THAI" Type="Boolean" />
+          <Property Name="SALES_MOI" Type="Boolean" Nullable="false" />
+          <Property Name="SALES_CU" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CCTC_NHAN_VIEN" Relationship="ERP_DATABASEModel.FK__DM_PHU_TR__SALES__473C8FC7" FromRole="KH_SALES_PHU_TRACH" ToRole="CCTC_NHAN_VIEN" />
           <NavigationProperty Name="KH_LIEN_HE" Relationship="ERP_DATABASEModel.FK__KH_SALES___ID_LI__689D8392" FromRole="KH_SALES_PHU_TRACH" ToRole="KH_LIEN_HE" />
         </EntityType>
@@ -5741,6 +6123,8 @@
           <Property Name="NGAY_HACH_TOAN" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DIEN_GIAI" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="NGUOI_LAP_PHIEU" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="TRUC_THUOC" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__KHO_CHUYE__TRUC___270FB757" FromRole="KHO_CHUYEN_KHO" ToRole="CCTC_CONG_TY" />
           <NavigationProperty Name="CCTC_NHAN_VIEN" Relationship="ERP_DATABASEModel.FK__KHO_CHUYE__NGUOI__2CBDA3B5" FromRole="KHO_CHUYEN_KHO" ToRole="CCTC_NHAN_VIEN" />
           <NavigationProperty Name="KHO_CT_CHUYEN_KHO" Relationship="ERP_DATABASEModel.FK__KHO_CT_CH__SO_CH__2F9A1060" FromRole="KHO_CHUYEN_KHO" ToRole="KHO_CT_CHUYEN_KHO" />
         </EntityType>
@@ -5790,11 +6174,15 @@
           <Property Name="MA_GIU_KHO" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="SL_GIU" Type="Int32" Nullable="false" />
+          <Property Name="DON_GIA" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="THANH_TIEN" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
           <Property Name="NGAY_XUAT" Type="DateTime" Precision="0" />
           <Property Name="DA_XUAT" Type="Boolean" Nullable="false" />
           <Property Name="GHI_CHU" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__KHO_CT_GI__MA_HA__255C790F" FromRole="KHO_CT_GIU_HANG" ToRole="HH" />
           <NavigationProperty Name="KHO_GIU_HANG" Relationship="ERP_DATABASEModel.FK__KHO_CT_GI__MA_GI__246854D6" FromRole="KHO_CT_GIU_HANG" ToRole="KHO_GIU_HANG" />
+          <Property Name="DVT" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="XUAT_XU" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="KHO_CT_NHAP_KHO">
           <Key>
@@ -5818,10 +6206,12 @@
           <Property Name="SO_HOA_DON" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="NGAY_HOA_DON" Type="DateTime" Precision="0" />
           <Property Name="GIA_TRI_NHAP_KHO" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="TK_KHO" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DM_KHO" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__NHAP___0A338187" FromRole="KHO_CT_NHAP_KHO" ToRole="DM_KHO" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_CO__0A688BB1" FromRole="KHO_CT_NHAP_KHO" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
-          <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN1" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_NO__09746778" FromRole="KHO_CT_NHAP_KHO" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
-          <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN2" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_TH__02284B6B" FromRole="KHO_CT_NHAP_KHO" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
+          <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN1" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_KH__14F1071C" FromRole="KHO_CT_NHAP_KHO" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
+          <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN2" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_NO__09746778" FromRole="KHO_CT_NHAP_KHO" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
+          <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN3" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__TK_TH__02284B6B" FromRole="KHO_CT_NHAP_KHO" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__MA_HA__078C1F06" FromRole="KHO_CT_NHAP_KHO" ToRole="HH" />
           <NavigationProperty Name="KHO_NHAP_KHO" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__SO_CH__0697FACD" FromRole="KHO_CT_NHAP_KHO" ToRole="KHO_NHAP_KHO" />
         </EntityType>
@@ -5841,9 +6231,11 @@
           <Property Name="THANH_TIEN" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
           <Property Name="DON_GIA_VON" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
           <Property Name="QUY_DOI" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="TK_KHO" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DM_KHO" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__XUAT___18B6AB08" FromRole="KHO_CT_XUAT_KHO" ToRole="DM_KHO" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__TK_CO__1B9317B3" FromRole="KHO_CT_XUAT_KHO" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
-          <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN1" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__TK_NO__1A9EF37A" FromRole="KHO_CT_XUAT_KHO" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
+          <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN1" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__TK_KH__15E52B55" FromRole="KHO_CT_XUAT_KHO" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
+          <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN2" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__TK_NO__1A9EF37A" FromRole="KHO_CT_XUAT_KHO" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__MA_HA__17C286CF" FromRole="KHO_CT_XUAT_KHO" ToRole="HH" />
           <NavigationProperty Name="KHO_XUAT_KHO" Relationship="ERP_DATABASEModel.FK__KHO_CT_XU__SO_CH__16CE6296" FromRole="KHO_CT_XUAT_KHO" ToRole="KHO_XUAT_KHO" />
         </EntityType>
@@ -5887,9 +6279,10 @@
           <Property Name="MA_KHACH_HANG" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="NGAY_GIU" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="HUY_DON_GIU" Type="Boolean" Nullable="false" />
+          <Property Name="GIU_PO" Type="Boolean" Nullable="false" />
           <Property Name="DON_DANG_XUAT" Type="Boolean" Nullable="false" />
           <Property Name="DON_DA_HOAN_THANH" Type="Boolean" Nullable="false" />
-          <Property Name="TRUC_THUOC" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="TRUC_THUOC" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__KHO_GIU_H__TRUC___5CACADF9" FromRole="KHO_GIU_HANG" ToRole="CCTC_CONG_TY" />
           <NavigationProperty Name="CCTC_NHAN_VIEN" Relationship="ERP_DATABASEModel.FK__KHO_GIU_H__SALES__1DBB5747" FromRole="KHO_GIU_HANG" ToRole="CCTC_NHAN_VIEN" />
           <NavigationProperty Name="KH" Relationship="ERP_DATABASEModel.FK__KHO_GIU_H__MA_KH__1EAF7B80" FromRole="KHO_GIU_HANG" ToRole="KH" />
@@ -5913,7 +6306,7 @@
           <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__KHO_NHAP___TRUC___25A691D2" FromRole="KHO_NHAP_KHO" ToRole="CCTC_CONG_TY" />
           <NavigationProperty Name="CCTC_NHAN_VIEN" Relationship="ERP_DATABASEModel.FK__KHO_NHAP___NGUOI__278EDA44" FromRole="KHO_NHAP_KHO" ToRole="CCTC_NHAN_VIEN" />
           <NavigationProperty Name="CCTC_NHAN_VIEN1" Relationship="ERP_DATABASEModel.FK__KHO_NHAP___NHAN___01D345B0" FromRole="KHO_NHAP_KHO" ToRole="CCTC_NHAN_VIEN" />
-          <NavigationProperty Name="DM_LOAI_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__KHO_NHAP___MA_DO__00DF2177" FromRole="KHO_NHAP_KHO" ToRole="DM_LOAI_DOI_TUONG" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__KHO_NHAP___MA_DO__00DF2177" FromRole="KHO_NHAP_KHO" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="KHO_CT_NHAP_KHO" Relationship="ERP_DATABASEModel.FK__KHO_CT_NH__SO_CH__0697FACD" FromRole="KHO_NHAP_KHO" ToRole="KHO_CT_NHAP_KHO" />
         </EntityType>
         <EntityType Name="KHO_XUAT_KHO">
@@ -5993,12 +6386,12 @@
           <Property Name="TK_THUE" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="SO_HOA_DON" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="NGAY_HOA_DON" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__MA_DO__7A8729A3" FromRole="MH_CT_MDV" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__TK_CH__789EE131" FromRole="MH_CT_MDV" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN1" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__TK_CO__7993056A" FromRole="MH_CT_MDV" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN2" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__TK_TH__004002F9" FromRole="MH_CT_MDV" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="DV" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__MA_DI__77AABCF8" FromRole="MH_CT_MDV" ToRole="DV" />
           <NavigationProperty Name="MH_MDV" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__SO_CH__76B698BF" FromRole="MH_CT_MDV" ToRole="MH_MDV" />
-          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__MA_DO__7A8729A3" FromRole="MH_CT_MDV" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="MH_MDV">
           <Key>
@@ -6010,6 +6403,8 @@
           <Property Name="DIEN_GIAI" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="NV_MUA_HANG" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="TONG_TIEN" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="TRUC_THUOC" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__MH_MDV__TRUC_THU__2803DB90" FromRole="MH_MDV" ToRole="CCTC_CONG_TY" />
           <NavigationProperty Name="CCTC_NHAN_VIEN" Relationship="ERP_DATABASEModel.FK__MH_MDV__NV_MUA_H__72E607DB" FromRole="MH_MDV" ToRole="CCTC_NHAN_VIEN" />
           <NavigationProperty Name="MH_CT_MDV" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__SO_CH__76B698BF" FromRole="MH_MDV" ToRole="MH_CT_MDV" />
         </EntityType>
@@ -6149,10 +6544,10 @@
           <Property Name="MA_DOI_TUONG" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="DON_VI" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CCTC_PHONG_BAN" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__DON_V__31B762FC" FromRole="NH_CT_NTTK" ToRole="CCTC_PHONG_BAN" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__50FB042B" FromRole="NH_CT_NTTK" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__TK_CO__2A164134" FromRole="NH_CT_NTTK" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN1" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__TK_NO__29221CFB" FromRole="NH_CT_NTTK" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="NH_NTTK" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__SO_CH__2645B050" FromRole="NH_CT_NTTK" ToRole="NH_NTTK" />
-          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__50FB042B" FromRole="NH_CT_NTTK" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="NH_CT_UNC">
           <Key>
@@ -6180,10 +6575,10 @@
           <Property Name="KY_HIEU_HD" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="MA_NHA_CUNG_CAP" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CCTC_PHONG_BAN" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__DON_V__681373AD" FromRole="NH_CT_UNC" ToRole="CCTC_PHONG_BAN" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__66EA454A" FromRole="NH_CT_UNC" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__TK_CO__65370702" FromRole="NH_CT_UNC" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN1" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__TK_NO__6442E2C9" FromRole="NH_CT_UNC" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="NH_NTTK" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__SO_CH__6166761E" FromRole="NH_CT_UNC" ToRole="NH_NTTK" />
-          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__66EA454A" FromRole="NH_CT_UNC" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="NH_NTTK">
           <Key>
@@ -6201,12 +6596,12 @@
           <Property Name="NGUOI_LAP_BIEU" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="TRUC_THUOC" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__NH_NTTK__TRUC_TH__2C538F61" FromRole="NH_NTTK" ToRole="CCTC_CONG_TY" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__5C6CB6D7" FromRole="NH_NTTK" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="DM_TK_NGAN_HANG_NOI_BO" Relationship="ERP_DATABASEModel.FK_NGAN_HANG_NTTK_DM_TK_NGAN_HANG_NOI_BO" FromRole="NH_NTTK" ToRole="DM_TK_NGAN_HANG_NOI_BO" />
           <NavigationProperty Name="HT_NGUOI_DUNG" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__NGUOI__2CF2ADDF" FromRole="NH_NTTK" ToRole="HT_NGUOI_DUNG" />
           <NavigationProperty Name="HT_NGUOI_DUNG1" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__NHAN___22751F6C" FromRole="NH_NTTK" ToRole="HT_NGUOI_DUNG" />
           <NavigationProperty Name="NH_CT_NTTK" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__SO_CH__2645B050" FromRole="NH_NTTK" ToRole="NH_CT_NTTK" />
           <NavigationProperty Name="NH_CT_UNC" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__SO_CH__6166761E" FromRole="NH_NTTK" ToRole="NH_CT_UNC" />
-          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__5C6CB6D7" FromRole="NH_NTTK" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="NH_UNC">
           <Key>
@@ -6225,10 +6620,10 @@
           <Property Name="TONG_TIEN" Type="Decimal" Nullable="false" Precision="28" Scale="0" />
           <Property Name="TRUC_THUOC" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__NH_UNC__TRUC_THU__2D47B39A" FromRole="NH_UNC" ToRole="CCTC_CONG_TY" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__65F62111" FromRole="NH_UNC" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="DM_TK_NGAN_HANG_NOI_BO" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__TAI_K__5BAD9CC8" FromRole="NH_UNC" ToRole="DM_TK_NGAN_HANG_NOI_BO" />
           <NavigationProperty Name="HT_NGUOI_DUNG" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__NGUOI__5D95E53A" FromRole="NH_UNC" ToRole="HT_NGUOI_DUNG" />
           <NavigationProperty Name="HT_NGUOI_DUNG1" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__NHAN___5CA1C101" FromRole="NH_UNC" ToRole="HT_NGUOI_DUNG" />
-          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__65F62111" FromRole="NH_UNC" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="NV_GIAO_VIEC">
           <Key>
@@ -6322,12 +6717,12 @@
           <Property Name="MAU_SO_HD" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="KY_HIEU_HD" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="MA_NHA_CUNG_CAP" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__MA_DO__44952D46" FromRole="QUY_CT_PHIEU_CHI" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__TK_CO__71D1E811" FromRole="QUY_CT_PHIEU_CHI" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN1" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__TK_NO__72C60C4A" FromRole="QUY_CT_PHIEU_CHI" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="DM_TAI_KHOAN_HACH_TOAN2" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__TK_TH__73BA3083" FromRole="QUY_CT_PHIEU_CHI" ToRole="DM_TAI_KHOAN_HACH_TOAN" />
           <NavigationProperty Name="NCC" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__MA_NH__6FE99F9F" FromRole="QUY_CT_PHIEU_CHI" ToRole="NCC" />
           <NavigationProperty Name="QUY_PHIEU_CHI" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__SO_CH__70DDC3D8" FromRole="QUY_CT_PHIEU_CHI" ToRole="QUY_PHIEU_CHI" />
-          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__MA_DO__44952D46" FromRole="QUY_CT_PHIEU_CHI" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="QUY_CT_PHIEU_THU">
           <Key>
@@ -6364,10 +6759,10 @@
           <Property Name="NGUOI_LAP_BIEU" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="TRUC_THUOC" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__TRUC___2E3BD7D3" FromRole="QUY_PHIEU_CHI" ToRole="CCTC_CONG_TY" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3552E9B6" FromRole="QUY_PHIEU_CHI" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="HT_NGUOI_DUNG" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__NGUOI__2FCF1A8A" FromRole="QUY_PHIEU_CHI" ToRole="HT_NGUOI_DUNG" />
           <NavigationProperty Name="HT_NGUOI_DUNG1" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__NHAN___778AC167" FromRole="QUY_PHIEU_CHI" ToRole="HT_NGUOI_DUNG" />
           <NavigationProperty Name="QUY_CT_PHIEU_CHI" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__SO_CH__70DDC3D8" FromRole="QUY_PHIEU_CHI" ToRole="QUY_CT_PHIEU_CHI" />
-          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3552E9B6" FromRole="QUY_PHIEU_CHI" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="QUY_PHIEU_THU">
           <Key>
@@ -6385,17 +6780,17 @@
           <Property Name="NGUOI_LAP_BIEU" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="TRUC_THUOC" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__TRUC___2F2FFC0C" FromRole="QUY_PHIEU_THU" ToRole="CCTC_CONG_TY" />
+          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3CF40B7E" FromRole="QUY_PHIEU_THU" ToRole="DM_DOI_TUONG" />
           <NavigationProperty Name="HT_NGUOI_DUNG" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__NGUOI__30C33EC3" FromRole="QUY_PHIEU_THU" ToRole="HT_NGUOI_DUNG" />
           <NavigationProperty Name="HT_NGUOI_DUNG1" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__NHAN___787EE5A0" FromRole="QUY_PHIEU_THU" ToRole="HT_NGUOI_DUNG" />
           <NavigationProperty Name="QUY_CT_PHIEU_THU" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__SO_CH__74AE54BC" FromRole="QUY_PHIEU_THU" ToRole="QUY_CT_PHIEU_THU" />
-          <NavigationProperty Name="DM_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3CF40B7E" FromRole="QUY_PHIEU_THU" ToRole="DM_DOI_TUONG" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_HL">
           <Key>
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_GIU" Type="Int32" Nullable="false" />
+          <Property Name="SL_GIU_HL" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__61A66D40" FromRole="TONKHO_GIU_HL" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TADN">
@@ -6403,7 +6798,7 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_GIU" Type="Int32" Nullable="false" />
+          <Property Name="SL_GIU_TADN" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__69478F08" FromRole="TONKHO_GIU_TADN" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TAHCM">
@@ -6411,7 +6806,7 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_GIU" Type="Int32" Nullable="false" />
+          <Property Name="SL_GIU_TAHCM" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__6576FE24" FromRole="TONKHO_GIU_TAHCM" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_GIU_TAHP">
@@ -6419,7 +6814,7 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_GIU" Type="Int32" Nullable="false" />
+          <Property Name="SL_GIU_TAHP" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__6D181FEC" FromRole="TONKHO_GIU_TAHP" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_HANG">
@@ -6431,6 +6826,16 @@
           <Property Name="SL_HANG" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__5DD5DC5C" FromRole="TONKHO_HANG" ToRole="HH" />
           <NavigationProperty Name="HH_NHOM_VTHH" Relationship="ERP_DATABASEModel.FK__TONKHO_HA__MA_NH__7F36D027" FromRole="TONKHO_HANG" ToRole="HH_NHOM_VTHH" />
+          <Property Name="THOI_GIAN_CAP_HANG" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TONKHO_HANG_DANG_VE">
+          <Key>
+            <PropertyRef Name="MA_HANG" />
+          </Key>
+          <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="SL_DANG_VE" Type="Int32" Nullable="false" />
+          <Property Name="NGAY_VE_DU_KIEN" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_HA__MA_HA__3EE740E8" FromRole="TONKHO_HANG_DANG_VE" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_HOPLONG">
           <Key>
@@ -6445,8 +6850,8 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_KYGUI_DEN" Type="Int32" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="Int32" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_HL" Type="Int32" Nullable="false" />
+          <Property Name="SL_HL_KYGUI_DI" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_KY__MA_HA__70E8B0D0" FromRole="TONKHO_KYGUI_HL" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TADN">
@@ -6454,8 +6859,8 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_KYGUI_DEN" Type="Int32" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="Int32" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TADN" Type="Int32" Nullable="false" />
+          <Property Name="SL_TADN_KYGUI_DI" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_KY__MA_HA__7889D298" FromRole="TONKHO_KYGUI_TADN" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TAHCM">
@@ -6463,8 +6868,8 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_KYGUI_DEN" Type="Int32" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="Int32" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TAHCM" Type="Int32" Nullable="false" />
+          <Property Name="SL_TAHCM_KYGUI_DI" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_KY__MA_HA__74B941B4" FromRole="TONKHO_KYGUI_TAHCM" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_KYGUI_TAHP">
@@ -6472,8 +6877,8 @@
             <PropertyRef Name="MA_HANG" />
           </Key>
           <Property Name="MA_HANG" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="SL_KYGUI_DEN" Type="Int32" Nullable="false" />
-          <Property Name="SL_KYGUI_DI" Type="Int32" Nullable="false" />
+          <Property Name="SL_KYGUI_DEN_TAHP" Type="Int32" Nullable="false" />
+          <Property Name="SL_TAHP_KYGUI_DI" Type="Int32" Nullable="false" />
           <NavigationProperty Name="HH" Relationship="ERP_DATABASEModel.FK__TONKHO_KY__MA_HA__7C5A637C" FromRole="TONKHO_KYGUI_TAHP" ToRole="HH" />
         </EntityType>
         <EntityType Name="TONKHO_TADN">
@@ -6750,6 +7155,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__DM_DOI_TU__MA_CO__7E02B4CC">
+          <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_CONG_TY">
+              <PropertyRef Name="MA_CONG_TY" />
+            </Principal>
+            <Dependent Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_CONG_TY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__DM_KHACH___TRUC___1A69E950">
           <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="1" />
           <End Type="ERP_DATABASEModel.KH" Role="KH" Multiplicity="*" />
@@ -6798,6 +7215,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__KHO_CHUYE__TRUC___270FB757">
+          <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.KHO_CHUYEN_KHO" Role="KHO_CHUYEN_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_CONG_TY">
+              <PropertyRef Name="MA_CONG_TY" />
+            </Principal>
+            <Dependent Role="KHO_CHUYEN_KHO">
+              <PropertyRef Name="TRUC_THUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__KHO_DNXH__TRUC_T__7A1D154F">
           <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="1" />
           <End Type="ERP_DATABASEModel.KHO_DNXH" Role="KHO_DNXH" Multiplicity="*" />
@@ -6811,7 +7240,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__KHO_GIU_H__TRUC___5CACADF9">
-          <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="1" />
           <End Type="ERP_DATABASEModel.KHO_GIU_HANG" Role="KHO_GIU_HANG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CCTC_CONG_TY">
@@ -6842,6 +7271,18 @@
               <PropertyRef Name="MA_CONG_TY" />
             </Principal>
             <Dependent Role="KHO_XUAT_KHO">
+              <PropertyRef Name="TRUC_THUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MH_MDV__TRUC_THU__2803DB90">
+          <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.MH_MDV" Role="MH_MDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_CONG_TY">
+              <PropertyRef Name="MA_CONG_TY" />
+            </Principal>
+            <Dependent Role="MH_MDV">
               <PropertyRef Name="TRUC_THUOC" />
             </Dependent>
           </ReferentialConstraint>
@@ -7011,6 +7452,54 @@
             </Principal>
             <Dependent Role="KH_SALES_PHU_TRACH">
               <PropertyRef Name="SALES_PHU_TRACH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KH_CHUYEN__SALE___2FA4FD58">
+          <End Type="ERP_DATABASEModel.CCTC_NHAN_VIEN" Role="CCTC_NHAN_VIEN" Multiplicity="1" />
+          <End Type="ERP_DATABASEModel.KH_CHUYEN_SALES" Role="KH_CHUYEN_SALES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_NHAN_VIEN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="KH_CHUYEN_SALES">
+              <PropertyRef Name="SALE_HIEN_THOI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KH_CHUYEN__SALE___30992191">
+          <End Type="ERP_DATABASEModel.CCTC_NHAN_VIEN" Role="CCTC_NHAN_VIEN" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.KH_CHUYEN_SALES" Role="KH_CHUYEN_SALES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_NHAN_VIEN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="KH_CHUYEN_SALES">
+              <PropertyRef Name="SALE_SAP_CHUYEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KH_CHUYEN__SALE___318D45CA">
+          <End Type="ERP_DATABASEModel.CCTC_NHAN_VIEN" Role="CCTC_NHAN_VIEN" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.KH_CHUYEN_SALES" Role="KH_CHUYEN_SALES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_NHAN_VIEN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="KH_CHUYEN_SALES">
+              <PropertyRef Name="SALE_CU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KH_CHUYEN__SALE___32816A03">
+          <End Type="ERP_DATABASEModel.CCTC_NHAN_VIEN" Role="CCTC_NHAN_VIEN" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.KH_CHUYEN_SALES" Role="KH_CHUYEN_SALES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_NHAN_VIEN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="KH_CHUYEN_SALES">
+              <PropertyRef Name="SALE_CU_2" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7326,6 +7815,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__DM_CHUNG___DOI_T__4EC8A2F6">
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.DM_CHUNG_TU" Role="DM_CHUNG_TU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="DM_CHUNG_TU">
+              <PropertyRef Name="DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__DM_CHUNG___MA_LO__7755B73D">
           <End Type="ERP_DATABASEModel.DM_LOAI_CHUNG_TU" Role="DM_LOAI_CHUNG_TU" Multiplicity="0..1" />
           <End Type="ERP_DATABASEModel.DM_CHUNG_TU" Role="DM_CHUNG_TU" Multiplicity="*" />
@@ -7398,6 +7899,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__DM_DOI_TU__MA_LO__7D0E9093">
+          <End Type="ERP_DATABASEModel.DM_LOAI_DOI_TUONG" Role="DM_LOAI_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_LOAI_DOI_TUONG">
+              <PropertyRef Name="MA_LOAI_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_LOAI_DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KHO_NHAP___MA_DO__00DF2177">
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.KHO_NHAP_KHO" Role="KHO_NHAP_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="KHO_NHAP_KHO">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MH_CT_MDV__MA_DO__7A8729A3">
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.MH_CT_MDV" Role="MH_CT_MDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="MH_CT_MDV">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NGAN_HANG__MA_DO__50FB042B">
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.NH_CT_NTTK" Role="NH_CT_NTTK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="NH_CT_NTTK">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NGAN_HANG__MA_DO__5C6CB6D7">
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.NH_NTTK" Role="NH_NTTK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="NH_NTTK">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NGAN_HANG__MA_DO__65F62111">
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.NH_UNC" Role="NH_UNC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="NH_UNC">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NGAN_HANG__MA_DO__66EA454A">
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.NH_CT_UNC" Role="NH_CT_UNC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="NH_CT_UNC">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QUY_CT_PH__MA_DO__44952D46">
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.QUY_CT_PHIEU_CHI" Role="QUY_CT_PHIEU_CHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="QUY_CT_PHIEU_CHI">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QUY_PHIEU__MA_DO__3552E9B6">
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.QUY_PHIEU_CHI" Role="QUY_PHIEU_CHI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="QUY_PHIEU_CHI">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QUY_PHIEU__MA_DO__3CF40B7E">
+          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.QUY_PHIEU_THU" Role="QUY_PHIEU_THU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_DOI_TUONG">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Principal>
+            <Dependent Role="QUY_PHIEU_THU">
+              <PropertyRef Name="MA_DOI_TUONG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__DM_KHO__MA_KHO_C__619B8048">
           <End Type="ERP_DATABASEModel.DM_KHO" Role="DM_KHO" Multiplicity="0..1" />
           <End Type="ERP_DATABASEModel.DM_KHO" Role="DM_KHO1" Multiplicity="*" />
@@ -7455,18 +8076,6 @@
             </Principal>
             <Dependent Role="KHO_CT_XUAT_KHO">
               <PropertyRef Name="XUAT_TAI_KHO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__KHO_NHAP___MA_DO__00DF2177">
-          <End Type="ERP_DATABASEModel.DM_LOAI_DOI_TUONG" Role="DM_LOAI_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.KHO_NHAP_KHO" Role="KHO_NHAP_KHO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_LOAI_DOI_TUONG">
-              <PropertyRef Name="MA_LOAI_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="KHO_NHAP_KHO">
-              <PropertyRef Name="MA_DOI_TUONG" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7530,6 +8139,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__KHO_CT_NH__TK_KH__14F1071C">
+          <End Type="ERP_DATABASEModel.DM_TAI_KHOAN_HACH_TOAN" Role="DM_TAI_KHOAN_HACH_TOAN" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.KHO_CT_NHAP_KHO" Role="KHO_CT_NHAP_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_TAI_KHOAN_HACH_TOAN">
+              <PropertyRef Name="SO_TK" />
+            </Principal>
+            <Dependent Role="KHO_CT_NHAP_KHO">
+              <PropertyRef Name="TK_KHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__KHO_CT_NH__TK_NO__09746778">
           <End Type="ERP_DATABASEModel.DM_TAI_KHOAN_HACH_TOAN" Role="DM_TAI_KHOAN_HACH_TOAN" Multiplicity="1" />
           <End Type="ERP_DATABASEModel.KHO_CT_NHAP_KHO" Role="KHO_CT_NHAP_KHO" Multiplicity="*" />
@@ -7563,6 +8184,18 @@
             </Principal>
             <Dependent Role="KHO_CT_XUAT_KHO">
               <PropertyRef Name="TK_CO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KHO_CT_XU__TK_KH__15E52B55">
+          <End Type="ERP_DATABASEModel.DM_TAI_KHOAN_HACH_TOAN" Role="DM_TAI_KHOAN_HACH_TOAN" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.KHO_CT_XUAT_KHO" Role="KHO_CT_XUAT_KHO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_TAI_KHOAN_HACH_TOAN">
+              <PropertyRef Name="SO_TK" />
+            </Principal>
+            <Dependent Role="KHO_CT_XUAT_KHO">
+              <PropertyRef Name="TK_KHO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7974,6 +8607,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TONKHO_HA__MA_HA__3EE740E8">
+          <End Type="ERP_DATABASEModel.HH" Role="HH" Multiplicity="1" />
+          <End Type="ERP_DATABASEModel.TONKHO_HANG_DANG_VE" Role="TONKHO_HANG_DANG_VE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="HH">
+              <PropertyRef Name="MA_HANG" />
+            </Principal>
+            <Dependent Role="TONKHO_HANG_DANG_VE">
+              <PropertyRef Name="MA_HANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TONKHO_HA__MA_HA__5DD5DC5C">
           <End Type="ERP_DATABASEModel.HH" Role="HH" Multiplicity="1" />
           <End Type="ERP_DATABASEModel.TONKHO_HANG" Role="TONKHO_HANG" Multiplicity="0..1" />
@@ -8258,6 +8903,18 @@
               <PropertyRef Name="MA_KHACH_HANG" />
             </Principal>
             <Dependent Role="KH_TK_NGAN_HANG">
+              <PropertyRef Name="MA_KHACH_HANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__KH_CHUYEN__MA_KH__2EB0D91F">
+          <End Type="ERP_DATABASEModel.KH" Role="KH" Multiplicity="1" />
+          <End Type="ERP_DATABASEModel.KH_CHUYEN_SALES" Role="KH_CHUYEN_SALES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KH">
+              <PropertyRef Name="MA_KHACH_HANG" />
+            </Principal>
+            <Dependent Role="KH_CHUYEN_SALES">
               <PropertyRef Name="MA_KHACH_HANG" />
             </Dependent>
           </ReferentialConstraint>
@@ -8586,159 +9243,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="DM_DOI_TUONG">
-          <Key>
-            <PropertyRef Name="MA_DOI_TUONG" />
-          </Key>
-          <Property Name="MA_DOI_TUONG" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="TEN_DOI_TUONG" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="DIA_CHI" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="MA_LOAI_DOI_TUONG" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="MA_CONG_TY" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__DM_DOI_TU__MA_CO__7E02B4CC" FromRole="DM_DOI_TUONG" ToRole="CCTC_CONG_TY" />
-          <NavigationProperty Name="DM_CHUNG_TU" Relationship="ERP_DATABASEModel.FK__DM_CHUNG___DOI_T__4EC8A2F6" FromRole="DM_DOI_TUONG" ToRole="DM_CHUNG_TU" />
-          <NavigationProperty Name="DM_LOAI_DOI_TUONG" Relationship="ERP_DATABASEModel.FK__DM_DOI_TU__MA_LO__7D0E9093" FromRole="DM_DOI_TUONG" ToRole="DM_LOAI_DOI_TUONG" />
-          <NavigationProperty Name="MH_CT_MDV" Relationship="ERP_DATABASEModel.FK__MH_CT_MDV__MA_DO__7A8729A3" FromRole="DM_DOI_TUONG" ToRole="MH_CT_MDV" />
-          <NavigationProperty Name="NH_CT_NTTK" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__50FB042B" FromRole="DM_DOI_TUONG" ToRole="NH_CT_NTTK" />
-          <NavigationProperty Name="NH_NTTK" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__5C6CB6D7" FromRole="DM_DOI_TUONG" ToRole="NH_NTTK" />
-          <NavigationProperty Name="NH_UNC" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__65F62111" FromRole="DM_DOI_TUONG" ToRole="NH_UNC" />
-          <NavigationProperty Name="NH_CT_UNC" Relationship="ERP_DATABASEModel.FK__NGAN_HANG__MA_DO__66EA454A" FromRole="DM_DOI_TUONG" ToRole="NH_CT_UNC" />
-          <NavigationProperty Name="QUY_CT_PHIEU_CHI" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__MA_DO__44952D46" FromRole="DM_DOI_TUONG" ToRole="QUY_CT_PHIEU_CHI" />
-          <NavigationProperty Name="QUY_PHIEU_CHI" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3552E9B6" FromRole="DM_DOI_TUONG" ToRole="QUY_PHIEU_CHI" />
-          <NavigationProperty Name="QUY_PHIEU_THU" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__MA_DO__3CF40B7E" FromRole="DM_DOI_TUONG" ToRole="QUY_PHIEU_THU" />
-        </EntityType>
-        <Association Name="FK__DM_DOI_TU__MA_CO__7E02B4CC">
-          <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CCTC_CONG_TY">
-              <PropertyRef Name="MA_CONG_TY" />
-            </Principal>
-            <Dependent Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_CONG_TY" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DM_CHUNG___DOI_T__4EC8A2F6">
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.DM_CHUNG_TU" Role="DM_CHUNG_TU" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="DM_CHUNG_TU">
-              <PropertyRef Name="DOI_TUONG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__DM_DOI_TU__MA_LO__7D0E9093">
-          <End Type="ERP_DATABASEModel.DM_LOAI_DOI_TUONG" Role="DM_LOAI_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_LOAI_DOI_TUONG">
-              <PropertyRef Name="MA_LOAI_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_LOAI_DOI_TUONG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__MH_CT_MDV__MA_DO__7A8729A3">
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.MH_CT_MDV" Role="MH_CT_MDV" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="MH_CT_MDV">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__NGAN_HANG__MA_DO__50FB042B">
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.NH_CT_NTTK" Role="NH_CT_NTTK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="NH_CT_NTTK">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__NGAN_HANG__MA_DO__5C6CB6D7">
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.NH_NTTK" Role="NH_NTTK" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="NH_NTTK">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__NGAN_HANG__MA_DO__65F62111">
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.NH_UNC" Role="NH_UNC" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="NH_UNC">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__NGAN_HANG__MA_DO__66EA454A">
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.NH_CT_UNC" Role="NH_CT_UNC" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="NH_CT_UNC">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__QUY_CT_PH__MA_DO__44952D46">
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.QUY_CT_PHIEU_CHI" Role="QUY_CT_PHIEU_CHI" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="QUY_CT_PHIEU_CHI">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__QUY_PHIEU__MA_DO__3552E9B6">
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.QUY_PHIEU_CHI" Role="QUY_PHIEU_CHI" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="QUY_PHIEU_CHI">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__QUY_PHIEU__MA_DO__3CF40B7E">
-          <End Type="ERP_DATABASEModel.DM_DOI_TUONG" Role="DM_DOI_TUONG" Multiplicity="0..1" />
-          <End Type="ERP_DATABASEModel.QUY_PHIEU_THU" Role="QUY_PHIEU_THU" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_DOI_TUONG">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Principal>
-            <Dependent Role="QUY_PHIEU_THU">
-              <PropertyRef Name="MA_DOI_TUONG" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <ComplexType Name="HopLong_LocKHTheoSale_Result">
+          <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_CONG_TY" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="VAN_PHONG_GIAO_DICH" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="DIA_CHI_XUAT_HOA_DON" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="TINH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="QUOC_GIA" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="MST" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="HOTLINE" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="FAX" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="LOGO" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="WEBSITE" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="DIEU_KHOAN_THANH_TOAN" Nullable="true" MaxLength="64" />
+          <Property Type="Int32" Name="SO_NGAY_DUOC_NO" Nullable="true" />
+          <Property Type="Int32" Name="SO_NO_TOI_DA" Nullable="true" />
+          <Property Type="String" Name="GHI_CHU" Nullable="true" />
+          <Property Type="String" Name="TRUC_THUOC" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="MA_LOAI_KHACH" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="NHOM_NGANH" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="TEN_LOAI_KHACH" Nullable="true" MaxLength="128" />
+        </ComplexType>
+        <ComplexType Name="HopLong_GetAllSale_Result">
+          <Property Type="String" Name="USERNAME" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="HO_VA_TEN" Nullable="false" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="HopLong_DS_TONKHO_Result">
+          <Property Type="String" Name="MA_HANG" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="TEN_HANG" Nullable="true" />
+          <Property Type="String" Name="MA_CHUAN" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="THONG_SO" Nullable="true" />
+          <Property Type="String" Name="XUAT_XU" Nullable="true" MaxLength="64" />
+          <Property Type="Decimal" Name="GIA_LIST" Nullable="true" Precision="28" Scale="2" />
+          <Property Type="Boolean" Name="DISCONTINUE" Nullable="true" />
+          <Property Type="String" Name="MA_CHUYEN_DOI" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="TON_HOPLONG" Nullable="true" />
+          <Property Type="Int32" Name="TON_DANANG" Nullable="true" />
+          <Property Type="Int32" Name="TON_HCM" Nullable="true" />
+          <Property Type="Int32" Name="TON_HAIPHONG" Nullable="true" />
+          <Property Type="Int32" Name="SL_DANG_GIU" Nullable="true" />
+          <Property Type="Int32" Name="SL_NHAN_KY_GUI" Nullable="true" />
+          <Property Type="Int32" Name="SL_KY_GUI_DI" Nullable="true" />
+          <Property Type="Int32" Name="TON_TAI_HANG" Nullable="true" />
+          <Property Type="String" Name="THOI_GIAN_CAP_HANG" Nullable="true" MaxLength="128" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8788,6 +9337,44 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="XL_LayMaKhachMoiNhat" FunctionName="ERP_DATABASEModel.Store.XL_LayMaKhachMoiNhat" />
           <FunctionImportMapping FunctionImportName="XL_LayMaGiuHangMoiNhat" FunctionName="ERP_DATABASEModel.Store.XL_LayMaGiuHangMoiNhat" />
+          <FunctionImportMapping FunctionImportName="GetAll_KhachHang" FunctionName="ERP_DATABASEModel.Store.GetAll_KhachHang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_KhachHang_Result1">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+                <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+                <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+                <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+                <ScalarProperty Name="TINH" ColumnName="TINH" />
+                <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+                <ScalarProperty Name="MST" ColumnName="MST" />
+                <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+                <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+                <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+                <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+                <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
+                <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
+                <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+                <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+                <ScalarProperty Name="TEN_LOAI_KHACH" ColumnName="TEN_LOAI_KHACH" />
+                <ScalarProperty Name="ALES_PHU_TRACH" ColumnName="ALES_PHU_TRACH" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TimKiemKhachHang" FunctionName="ERP_DATABASEModel.Store.TimKiemKhachHang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.TimKiemKhachHang_Result">
+                <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+                <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+                <ScalarProperty Name="TINH" ColumnName="TINH" />
+                <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+                <ScalarProperty Name="SALES_PHU_TRACH" ColumnName="SALES_PHU_TRACH" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="BH_BAO_GIA">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.BH_BAO_GIA">
               <MappingFragment StoreEntitySet="BH_BAO_GIA">
@@ -8799,10 +9386,7 @@
                 <ScalarProperty Name="NGUOI_DUYET" ColumnName="NGUOI_DUYET" />
                 <ScalarProperty Name="DA_DUYET" ColumnName="DA_DUYET" />
                 <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
-                <ScalarProperty Name="TIEN_VAT" ColumnName="TIEN_VAT" />
-                <ScalarProperty Name="CK_VAT" ColumnName="CK_VAT" />
                 <ScalarProperty Name="PHI_VAN_CHUYEN" ColumnName="PHI_VAN_CHUYEN" />
-                <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
                 <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
                 <ScalarProperty Name="HIEU_LUC_BAO_GIA" ColumnName="HIEU_LUC_BAO_GIA" />
                 <ScalarProperty Name="HAN_THANH_TOAN" ColumnName="HAN_THANH_TOAN" />
@@ -8823,6 +9407,8 @@
                 <ScalarProperty Name="NGAY_GIAO_HANG" ColumnName="NGAY_GIAO_HANG" />
                 <ScalarProperty Name="THOI_GIAN_GIAO_HANG" ColumnName="THOI_GIAN_GIAO_HANG" />
                 <ScalarProperty Name="TINH_TRANG_HANG" ColumnName="TINH_TRANG_HANG" />
+                <ScalarProperty Name="TIEN_VAT" ColumnName="TIEN_VAT" />
+                <ScalarProperty Name="CK_VAT" ColumnName="CK_VAT" />
                 <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
                 <ScalarProperty Name="CACH_TINH_THANH_TIEN" ColumnName="CACH_TINH_THANH_TIEN" />
                 <ScalarProperty Name="CHIET_KHAU" ColumnName="CHIET_KHAU" />
@@ -9060,6 +9646,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DM_DOI_TUONG">
+            <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_DOI_TUONG">
+              <MappingFragment StoreEntitySet="DM_DOI_TUONG">
+                <ScalarProperty Name="MA_CONG_TY" ColumnName="MA_CONG_TY" />
+                <ScalarProperty Name="MA_LOAI_DOI_TUONG" ColumnName="MA_LOAI_DOI_TUONG" />
+                <ScalarProperty Name="DIA_CHI" ColumnName="DIA_CHI" />
+                <ScalarProperty Name="TEN_DOI_TUONG" ColumnName="TEN_DOI_TUONG" />
+                <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DM_KHO">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_KHO">
               <MappingFragment StoreEntitySet="DM_KHO">
@@ -9226,6 +9823,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="KH_CHUYEN_SALES">
+            <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_CHUYEN_SALES">
+              <MappingFragment StoreEntitySet="KH_CHUYEN_SALES">
+                <ScalarProperty Name="SALE_CU_2" ColumnName="SALE_CU_2" />
+                <ScalarProperty Name="SALE_CU" ColumnName="SALE_CU" />
+                <ScalarProperty Name="SALE_SAP_CHUYEN" ColumnName="SALE_SAP_CHUYEN" />
+                <ScalarProperty Name="SALE_HIEN_THOI" ColumnName="SALE_HIEN_THOI" />
+                <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="KH_DC_XUAT_HANG">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_DC_XUAT_HANG">
               <MappingFragment StoreEntitySet="KH_DC_XUAT_HANG">
@@ -9279,6 +9888,8 @@
           <EntitySetMapping Name="KH_SALES_PHU_TRACH">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.KH_SALES_PHU_TRACH">
               <MappingFragment StoreEntitySet="KH_SALES_PHU_TRACH">
+                <ScalarProperty Name="SALES_CU" ColumnName="SALES_CU" />
+                <ScalarProperty Name="SALES_MOI" ColumnName="SALES_MOI" />
                 <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
                 <ScalarProperty Name="NGAY_KET_THUC_PHU_TRACH" ColumnName="NGAY_KET_THUC_PHU_TRACH" />
                 <ScalarProperty Name="NGAY_BAT_DAU_PHU_TRACH" ColumnName="NGAY_BAT_DAU_PHU_TRACH" />
@@ -9305,6 +9916,7 @@
           <EntitySetMapping Name="KHO_CHUYEN_KHO">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CHUYEN_KHO">
               <MappingFragment StoreEntitySet="KHO_CHUYEN_KHO">
+                <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
                 <ScalarProperty Name="NGUOI_LAP_PHIEU" ColumnName="NGUOI_LAP_PHIEU" />
                 <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
                 <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
@@ -9350,9 +9962,13 @@
           <EntitySetMapping Name="KHO_CT_GIU_HANG">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CT_GIU_HANG">
               <MappingFragment StoreEntitySet="KHO_CT_GIU_HANG">
+                <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+                <ScalarProperty Name="DVT" ColumnName="DVT" />
                 <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
                 <ScalarProperty Name="DA_XUAT" ColumnName="DA_XUAT" />
                 <ScalarProperty Name="NGAY_XUAT" ColumnName="NGAY_XUAT" />
+                <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
+                <ScalarProperty Name="DON_GIA" ColumnName="DON_GIA" />
                 <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
                 <ScalarProperty Name="MA_GIU_KHO" ColumnName="MA_GIU_KHO" />
@@ -9363,6 +9979,7 @@
           <EntitySetMapping Name="KHO_CT_NHAP_KHO">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CT_NHAP_KHO">
               <MappingFragment StoreEntitySet="KHO_CT_NHAP_KHO">
+                <ScalarProperty Name="TK_KHO" ColumnName="TK_KHO" />
                 <ScalarProperty Name="GIA_TRI_NHAP_KHO" ColumnName="GIA_TRI_NHAP_KHO" />
                 <ScalarProperty Name="NGAY_HOA_DON" ColumnName="NGAY_HOA_DON" />
                 <ScalarProperty Name="SO_HOA_DON" ColumnName="SO_HOA_DON" />
@@ -9387,6 +10004,7 @@
           <EntitySetMapping Name="KHO_CT_XUAT_KHO">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.KHO_CT_XUAT_KHO">
               <MappingFragment StoreEntitySet="KHO_CT_XUAT_KHO">
+                <ScalarProperty Name="TK_KHO" ColumnName="TK_KHO" />
                 <ScalarProperty Name="QUY_DOI" ColumnName="QUY_DOI" />
                 <ScalarProperty Name="DON_GIA_VON" ColumnName="DON_GIA_VON" />
                 <ScalarProperty Name="THANH_TIEN" ColumnName="THANH_TIEN" />
@@ -9434,6 +10052,7 @@
                 <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
                 <ScalarProperty Name="DON_DA_HOAN_THANH" ColumnName="DON_DA_HOAN_THANH" />
                 <ScalarProperty Name="DON_DANG_XUAT" ColumnName="DON_DANG_XUAT" />
+                <ScalarProperty Name="GIU_PO" ColumnName="GIU_PO" />
                 <ScalarProperty Name="HUY_DON_GIU" ColumnName="HUY_DON_GIU" />
                 <ScalarProperty Name="NGAY_GIU" ColumnName="NGAY_GIU" />
                 <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
@@ -9532,6 +10151,7 @@
           <EntitySetMapping Name="MH_MDV">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.MH_MDV">
               <MappingFragment StoreEntitySet="MH_MDV">
+                <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
                 <ScalarProperty Name="TONG_TIEN" ColumnName="TONG_TIEN" />
                 <ScalarProperty Name="NV_MUA_HANG" ColumnName="NV_MUA_HANG" />
                 <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
@@ -9873,7 +10493,7 @@
           <EntitySetMapping Name="TONKHO_GIU_HL">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_HL">
               <MappingFragment StoreEntitySet="TONKHO_GIU_HL">
-                <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+                <ScalarProperty Name="SL_GIU_HL" ColumnName="SL_GIU_HL" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9881,7 +10501,7 @@
           <EntitySetMapping Name="TONKHO_GIU_TADN">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_TADN">
               <MappingFragment StoreEntitySet="TONKHO_GIU_TADN">
-                <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+                <ScalarProperty Name="SL_GIU_TADN" ColumnName="SL_GIU_TADN" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9889,7 +10509,7 @@
           <EntitySetMapping Name="TONKHO_GIU_TAHCM">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_TAHCM">
               <MappingFragment StoreEntitySet="TONKHO_GIU_TAHCM">
-                <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+                <ScalarProperty Name="SL_GIU_TAHCM" ColumnName="SL_GIU_TAHCM" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9897,7 +10517,7 @@
           <EntitySetMapping Name="TONKHO_GIU_TAHP">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_GIU_TAHP">
               <MappingFragment StoreEntitySet="TONKHO_GIU_TAHP">
-                <ScalarProperty Name="SL_GIU" ColumnName="SL_GIU" />
+                <ScalarProperty Name="SL_GIU_TAHP" ColumnName="SL_GIU_TAHP" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9905,8 +10525,18 @@
           <EntitySetMapping Name="TONKHO_HANG">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_HANG">
               <MappingFragment StoreEntitySet="TONKHO_HANG">
+                <ScalarProperty Name="THOI_GIAN_CAP_HANG" ColumnName="THOI_GIAN_CAP_HANG" />
                 <ScalarProperty Name="SL_HANG" ColumnName="SL_HANG" />
                 <ScalarProperty Name="MA_NHOM_HANG" ColumnName="MA_NHOM_HANG" />
+                <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TONKHO_HANG_DANG_VE">
+            <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_HANG_DANG_VE">
+              <MappingFragment StoreEntitySet="TONKHO_HANG_DANG_VE">
+                <ScalarProperty Name="NGAY_VE_DU_KIEN" ColumnName="NGAY_VE_DU_KIEN" />
+                <ScalarProperty Name="SL_DANG_VE" ColumnName="SL_DANG_VE" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9922,8 +10552,8 @@
           <EntitySetMapping Name="TONKHO_KYGUI_HL">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_HL">
               <MappingFragment StoreEntitySet="TONKHO_KYGUI_HL">
-                <ScalarProperty Name="SL_KYGUI_DI" ColumnName="SL_KYGUI_DI" />
-                <ScalarProperty Name="SL_KYGUI_DEN" ColumnName="SL_KYGUI_DEN" />
+                <ScalarProperty Name="SL_HL_KYGUI_DI" ColumnName="SL_HL_KYGUI_DI" />
+                <ScalarProperty Name="SL_KYGUI_DEN_HL" ColumnName="SL_KYGUI_DEN_HL" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9931,8 +10561,8 @@
           <EntitySetMapping Name="TONKHO_KYGUI_TADN">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_TADN">
               <MappingFragment StoreEntitySet="TONKHO_KYGUI_TADN">
-                <ScalarProperty Name="SL_KYGUI_DI" ColumnName="SL_KYGUI_DI" />
-                <ScalarProperty Name="SL_KYGUI_DEN" ColumnName="SL_KYGUI_DEN" />
+                <ScalarProperty Name="SL_TADN_KYGUI_DI" ColumnName="SL_TADN_KYGUI_DI" />
+                <ScalarProperty Name="SL_KYGUI_DEN_TADN" ColumnName="SL_KYGUI_DEN_TADN" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9940,8 +10570,8 @@
           <EntitySetMapping Name="TONKHO_KYGUI_TAHCM">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_TAHCM">
               <MappingFragment StoreEntitySet="TONKHO_KYGUI_TAHCM">
-                <ScalarProperty Name="SL_KYGUI_DI" ColumnName="SL_KYGUI_DI" />
-                <ScalarProperty Name="SL_KYGUI_DEN" ColumnName="SL_KYGUI_DEN" />
+                <ScalarProperty Name="SL_TAHCM_KYGUI_DI" ColumnName="SL_TAHCM_KYGUI_DI" />
+                <ScalarProperty Name="SL_KYGUI_DEN_TAHCM" ColumnName="SL_KYGUI_DEN_TAHCM" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9949,8 +10579,8 @@
           <EntitySetMapping Name="TONKHO_KYGUI_TAHP">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.TONKHO_KYGUI_TAHP">
               <MappingFragment StoreEntitySet="TONKHO_KYGUI_TAHP">
-                <ScalarProperty Name="SL_KYGUI_DI" ColumnName="SL_KYGUI_DI" />
-                <ScalarProperty Name="SL_KYGUI_DEN" ColumnName="SL_KYGUI_DEN" />
+                <ScalarProperty Name="SL_TAHP_KYGUI_DI" ColumnName="SL_TAHP_KYGUI_DI" />
+                <ScalarProperty Name="SL_KYGUI_DEN_TAHP" ColumnName="SL_KYGUI_DEN_TAHP" />
                 <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9999,17 +10629,63 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DM_DOI_TUONG">
-            <EntityTypeMapping TypeName="ERP_DATABASEModel.DM_DOI_TUONG">
-              <MappingFragment StoreEntitySet="DM_DOI_TUONG">
-                <ScalarProperty Name="MA_CONG_TY" ColumnName="MA_CONG_TY" />
-                <ScalarProperty Name="MA_LOAI_DOI_TUONG" ColumnName="MA_LOAI_DOI_TUONG" />
-                <ScalarProperty Name="DIA_CHI" ColumnName="DIA_CHI" />
-                <ScalarProperty Name="TEN_DOI_TUONG" ColumnName="TEN_DOI_TUONG" />
-                <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="HopLong_LocKHTheoSale" FunctionName="ERP_DATABASEModel.Store.HopLong_LocKHTheoSale">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_LocKHTheoSale_Result">
+                <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+                <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+                <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
+                <ScalarProperty Name="DIA_CHI_XUAT_HOA_DON" ColumnName="DIA_CHI_XUAT_HOA_DON" />
+                <ScalarProperty Name="TINH" ColumnName="TINH" />
+                <ScalarProperty Name="QUOC_GIA" ColumnName="QUOC_GIA" />
+                <ScalarProperty Name="MST" ColumnName="MST" />
+                <ScalarProperty Name="HOTLINE" ColumnName="HOTLINE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+                <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
+                <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
+                <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
+                <ScalarProperty Name="SO_NO_TOI_DA" ColumnName="SO_NO_TOI_DA" />
+                <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+                <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
+                <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+                <ScalarProperty Name="NHOM_NGANH" ColumnName="NHOM_NGANH" />
+                <ScalarProperty Name="TEN_LOAI_KHACH" ColumnName="TEN_LOAI_KHACH" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HopLong_GetAllSale" FunctionName="ERP_DATABASEModel.Store.HopLong_GetAllSale">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_GetAllSale_Result">
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="HO_VA_TEN" ColumnName="HO_VA_TEN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HopLong_DS_TONKHO" FunctionName="ERP_DATABASEModel.Store.HopLong_DS_TONKHO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.HopLong_DS_TONKHO_Result">
+                <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+                <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
+                <ScalarProperty Name="MA_CHUAN" ColumnName="MA_CHUAN" />
+                <ScalarProperty Name="THONG_SO" ColumnName="THONG_SO" />
+                <ScalarProperty Name="XUAT_XU" ColumnName="XUAT_XU" />
+                <ScalarProperty Name="GIA_LIST" ColumnName="GIA_LIST" />
+                <ScalarProperty Name="DISCONTINUE" ColumnName="DISCONTINUE" />
+                <ScalarProperty Name="MA_CHUYEN_DOI" ColumnName="MA_CHUYEN_DOI" />
+                <ScalarProperty Name="TON_HOPLONG" ColumnName="TON_HOPLONG" />
+                <ScalarProperty Name="TON_DANANG" ColumnName="TON_DANANG" />
+                <ScalarProperty Name="TON_HCM" ColumnName="TON_HCM" />
+                <ScalarProperty Name="TON_HAIPHONG" ColumnName="TON_HAIPHONG" />
+                <ScalarProperty Name="SL_DANG_GIU" ColumnName="SL_DANG_GIU" />
+                <ScalarProperty Name="SL_NHAN_KY_GUI" ColumnName="SL_NHAN_KY_GUI" />
+                <ScalarProperty Name="SL_KY_GUI_DI" ColumnName="SL_KY_GUI_DI" />
+                <ScalarProperty Name="TON_TAI_HANG" ColumnName="TON_TAI_HANG" />
+                <ScalarProperty Name="THOI_GIAN_CAP_HANG" ColumnName="THOI_GIAN_CAP_HANG" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

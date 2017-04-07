@@ -25,7 +25,9 @@ namespace ERP.Web.Models.Database
         public System.DateTime NGAY_HACH_TOAN { get; set; }
         public string DIEN_GIAI { get; set; }
         public string NGUOI_LAP_PHIEU { get; set; }
+        public string TRUC_THUOC { get; set; }
     
+        public virtual CCTC_CONG_TY CCTC_CONG_TY { get; set; }
         public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHO_CT_CHUYEN_KHO> KHO_CT_CHUYEN_KHO { get; set; }

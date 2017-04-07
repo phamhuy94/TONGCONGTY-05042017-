@@ -32,11 +32,13 @@ namespace ERP.Web.Models.Database
         public string SO_HOA_DON { get; set; }
         public Nullable<System.DateTime> NGAY_HOA_DON { get; set; }
         public decimal GIA_TRI_NHAP_KHO { get; set; }
+        public string TK_KHO { get; set; }
     
         public virtual DM_KHO DM_KHO { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN1 { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN2 { get; set; }
+        public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN3 { get; set; }
         public virtual HH HH { get; set; }
         public virtual KHO_NHAP_KHO KHO_NHAP_KHO { get; set; }
     }

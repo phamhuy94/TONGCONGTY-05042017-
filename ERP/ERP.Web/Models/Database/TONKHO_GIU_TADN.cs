@@ -15,7 +15,7 @@ namespace ERP.Web.Models.Database
     public partial class TONKHO_GIU_TADN
     {
         public string MA_HANG { get; set; }
-        public int SL_GIU { get; set; }
+        public int SL_GIU_TADN { get; set; }
     
         public virtual HH HH { get; set; }
     }
