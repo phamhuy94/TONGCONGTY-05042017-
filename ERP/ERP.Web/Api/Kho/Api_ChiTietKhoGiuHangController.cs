@@ -174,8 +174,14 @@ namespace ERP.Web.Api.Kho
             {
                 return NotFound();
             }
+            
 
             db.KHO_CT_GIU_HANG.Remove(kHO_CT_GIU_HANG);
+            var tonkho = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == kHO_CT_GIU_HANG.MA_HANG).FirstOrDefault();
+            if (kHO_CT_GIU_HANG.SL_GIU < tonkho.SL_HOPLONG)
+            {
+                tonkho.SL_HOPLONG = tonkho.SL_HOPLONG + kHO_CT_GIU_HANG.SL_GIU;
+            }
             db.SaveChanges();
 
             return Ok(kHO_CT_GIU_HANG);

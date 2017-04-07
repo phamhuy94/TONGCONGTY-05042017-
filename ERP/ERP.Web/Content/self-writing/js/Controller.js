@@ -368,12 +368,16 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         });
     };
 
-    $scope.load_khachhang = function () {
-        khachhangService.get_khachhang().then(function (a) {
+
+    //Load khách Hàng
+   
+    $scope.load_khachhang = function (tukhoa) {
+        var salehienthoi = $('#salehienthoi').val();
+        khachhangService.get_khachhang(salehienthoi, tukhoa).then(function (a) {
             $scope.list_kh = a;
         });
     };
-    $scope.load_khachhang();
+    $scope.load_khachhang('A');
 
     $scope.load_phanloaikhach = function () {
         khachhangService.get_phanloaikhach().then(function (b) {
