@@ -33,6 +33,9 @@ namespace ERP.Web.Api.KhachHang
                 SALE_CU_2 = x.SALE_CU_2,
                 SALE_CU = x.SALE_CU,
                 HO_VA_TEN = x.TEN_SALE_HIEN_THOI,
+                TEN_SALE_CU_HON = x.TEN_SALE_CU_HON,
+                TEN_SALE_CU = x.TEN_SALE_CU,
+                TEN_SALE_SAP_CHUYEN = x.TEN_SALE_SAP_CHUYEN,
 
             }).ToList();
             //var vData = (from t1 in db.KHs
