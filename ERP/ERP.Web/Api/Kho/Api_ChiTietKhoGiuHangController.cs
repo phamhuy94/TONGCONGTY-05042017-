@@ -107,46 +107,26 @@ namespace ERP.Web.Api.Kho
             return mkh;
         }
 
-        // POST: api/Api_ChiTietKhoGiuHang
-        //[HttpPost]
-        //[Route("api/Api_ChiTietKhoGiuHang/{ma_giu_kho}")]
-        //public async Task<IHttpActionResult> PostMultiKHO_CT_GIU_HANG(string ma_giu_kho, [FromBody] List<KHO_CT_GIU_HANG> giuhang)
-        //{
-        //    for (int i = 0; i < giuhang.Count(); i++)
-        //    {
-        //        //nH_NTTKs[i].ID = (index + i + 1).ToString();
-        //        db.KHO_CT_GIU_HANG.Add(giuhang[i]);
-        //    }
-        //    try
-        //    {
-        //        await db.SaveChangesAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Ok(ex.Message);
-        //    }
-        //    return Ok(giuhang);
-        //}
-
+        //Thêm mới chi tiết giữ kho
         [HttpPost]
         [Route("api/Api_ChiTietKhoGiuHang/PostKhoCT_GiuKho")]
         public async Task<IHttpActionResult> PostKhoCT_GiuKho([FromBody] List<KHO_CT_GIU_HANG> ChiTietGiuKho)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-            //int index = _context.NH_CT_NTTK.ToList().Count();
+       
             foreach (var item in ChiTietGiuKho)
             {
-                item.THANH_TIEN = item.SL_GIU * item.DON_GIA;
-                db.KHO_CT_GIU_HANG.Add(item);
+                var tonkho = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG).FirstOrDefault();
+                if(item.SL_GIU<tonkho.SL_HOPLONG)
+                {
+                    
+                    item.THANH_TIEN = item.SL_GIU * item.DON_GIA;
+                    db.KHO_CT_GIU_HANG.Add(item);
+
+                    tonkho.SL_HOPLONG = tonkho.SL_HOPLONG - item.SL_GIU;
+                }
+
+                
             }
-            //for (int i = 0; i < qUY_CT_PHIEU_CHI.Count(); i++)
-            //{
-            //    //nH_NTTKs[i].ID = (index + i + 1).ToString();
-            //    db.QUY_CT_PHIEU_CHI.Add(qUY_CT_PHIEU_CHI[i]);
-            //}
             try
             {
                 await db.SaveChangesAsync();

@@ -197,5 +197,14 @@ namespace ERP.Web.Models.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_DS_TONKHO_Result>("HopLong_DS_TONKHO", mA_CHUANParameter);
         }
+    
+        public virtual ObjectResult<HopLong_PhanTrang_TonKho_Result> HopLong_PhanTrang_TonKho(Nullable<int> sotrang)
+        {
+            var sotrangParameter = sotrang.HasValue ?
+                new ObjectParameter("sotrang", sotrang) :
+                new ObjectParameter("sotrang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_PhanTrang_TonKho_Result>("HopLong_PhanTrang_TonKho", sotrangParameter);
+        }
     }
 }
