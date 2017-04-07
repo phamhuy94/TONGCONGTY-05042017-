@@ -118,8 +118,11 @@ namespace ERP.Web.Api.Kho
                 var tonkho = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG).FirstOrDefault();
                 if(item.SL_GIU<tonkho.SL_HOPLONG)
                 {
+                    
                     item.THANH_TIEN = item.SL_GIU * item.DON_GIA;
                     db.KHO_CT_GIU_HANG.Add(item);
+
+                    tonkho.SL_HOPLONG = tonkho.SL_HOPLONG - item.SL_GIU;
                 }
 
                 
