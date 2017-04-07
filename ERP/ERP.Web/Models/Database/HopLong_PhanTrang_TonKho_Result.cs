@@ -11,12 +11,14 @@ namespace ERP.Web.Models.Database
 {
     using System;
     
-    public partial class HopLong_DS_TONKHO_Result
+    public partial class HopLong_PhanTrang_TonKho_Result
     {
         public string MA_HANG { get; set; }
         public string TEN_HANG { get; set; }
         public string MA_CHUAN { get; set; }
         public string THONG_SO { get; set; }
+        public string MA_NHOM_HANG { get; set; }
+        public string DVT { get; set; }
         public string XUAT_XU { get; set; }
         public Nullable<decimal> GIA_LIST { get; set; }
         public Nullable<bool> DISCONTINUE { get; set; }
@@ -30,7 +32,5 @@ namespace ERP.Web.Models.Database
         public Nullable<int> SL_KY_GUI_DI { get; set; }
         public Nullable<int> TON_TAI_HANG { get; set; }
         public string THOI_GIAN_CAP_HANG { get; set; }
-        public string MA_NHOM_HANG { get; set; }
-        public string DVT { get; set; }
     }
 }
