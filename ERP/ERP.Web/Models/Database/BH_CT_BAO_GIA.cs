@@ -26,7 +26,7 @@ namespace ERP.Web.Models.Database
         public Nullable<decimal> TIEN_VAT { get; set; }
         public string TINH_TRANG_HANG { get; set; }
         public string THOI_GIAN_GIAO_HANG { get; set; }
-        public Nullable<System.DateTime> NGAY_GIAO_HANG { get; set; }
+        public DateTime NGAY_GIAO_HANG { get; set; }
         public string DIA_DIEM_GIAO_HANG { get; set; }
         public string GHI_CHU { get; set; }
     
