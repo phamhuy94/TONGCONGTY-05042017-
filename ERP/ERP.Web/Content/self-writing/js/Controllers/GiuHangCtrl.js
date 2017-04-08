@@ -1,5 +1,13 @@
 ﻿
 app.controller('GiuHangHopLongCtrl', function ($scope, $http) {
+
+    //xóa dòng
+    $scope.Remove = function (index) {
+        $scope.Detail.ListAdd.splice(index, 1);
+    }
+
+
+
     //Mảng chi tiết giữ hàng
     $scope.Detail = {
         ListAdd: []
@@ -143,7 +151,7 @@ app.controller('GiuHangHopLongCtrl', function ($scope, $http) {
             }).then(function successCallback(response) {
                 alert("Hoàn Thành Lưu");
             }, function errorCallback(response) {
-                alert('Không lưu được chi tiết giữ kho');
+                alert('Không lưu được chi tiết giữ kho, Bạn vui lòng kiểm tra lại số lượng tồn trong kho');
             });
             return;
         }

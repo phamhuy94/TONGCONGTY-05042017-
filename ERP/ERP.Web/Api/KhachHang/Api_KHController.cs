@@ -26,10 +26,10 @@ namespace ERP.Web.Api.HeThong
             var result = query.ToList();
             return result;
         }
-        [Route("api/Api_KH/KH_THEO_SALES/{username}")]
-        public List<LocKHTheoSale_Result> KH_THEO_SALES( string username)
+        [Route("api/Api_KH/KH_THEO_SALES/{username}/{tukhoa}")]
+        public List<HopLong_LocKHTheoSale_Result> KH_THEO_SALES( string username, string tukhoa)
         {
-            var query = db.Database.SqlQuery<LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale", new SqlParameter("sale", username));
+            var query = db.Database.SqlQuery<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale, @sdt", new SqlParameter("sale", username), new SqlParameter("sdt", tukhoa));
             var result = query.ToList();
             return result;
         }

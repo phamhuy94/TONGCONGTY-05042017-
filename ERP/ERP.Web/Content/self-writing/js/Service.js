@@ -752,8 +752,8 @@ app.service('productdetailsService', function ($http) {
 
 // Khach hang
 app.service('khachhangService', function ($http) {
-    this.get_khachhang = function () {
-        return $http.get('/api/Api_KH').then(function (response) {
+    this.get_khachhang = function (username, tukhoa) {
+        return $http.post('/api/Api_KH/KH_THEO_SALES/'+username+'/'+tukhoa).then(function (response) {
             return response.data;
         });
     };

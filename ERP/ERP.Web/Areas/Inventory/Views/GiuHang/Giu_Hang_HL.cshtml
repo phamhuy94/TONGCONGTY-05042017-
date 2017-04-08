@@ -161,7 +161,7 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped table-hover ">
                                         <thead>
-                                            <tr class="bg-primary-300">
+                                            <tr class="bg-primary-300" style="background: #64B5F6;">
                                                 <th style="width:15%" class="text-center">Mã hàng</th>
                                                 <th style="width:15%" class="text-center">Tên hàng</th>
                                                 <th style="width:5%" class="text-center !important">ĐVT</th>
@@ -172,6 +172,7 @@
                                                 <th style="width:10%" class="text-center !important">Ngày xuất</th>
                                                 <th style="width:5%" class="text-center !important">Đã xuất</th>
                                                 <th style="width:20%" class="text-center">Ghi chú</th>
+                                                <th style="width:1%" class="text-center"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -217,11 +218,16 @@
                                                         <input type="text" ng-model="item.GHI_CHU" class="form-control">
                                                     </div>
                                                 </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <center><i class="fa fa-minus-circle" style="color:red;" ng-click="Remove($index)" aria-hidden="true"></i></center>
+                                                    </div>
+                                                </td>
                                             </tr>
 
-                                            @*<tr >
+                                            <tr >
                                                 <td colspan="10" style="text-align:center; cursor:pointer" ng-click="AddNew()">Bấm vào đây để thêm mới</td>
-                                            </tr>*@
+                                            </tr>
 
                                         </tbody>
                                     </table>

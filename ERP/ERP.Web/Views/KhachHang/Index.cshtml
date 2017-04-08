@@ -12,18 +12,22 @@
 </style>
 <div ng-app="myApp" ng-controller="khachhangCtrl">
     <div class="content">
+        <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
+
+        <!--Form tìm kiếm-->
         <div id="quick-access">
             <form class="form-inline quick-search-form" role="form" action="#">
                 <div class="form-group" style="width: 100%">
                     <input type="text" style="width: 60%" class="form-control" placeholder="Type Customer Name You Want To Search Here" ng-model="search_text">
+                    <input type="button" class="btn btn-info" ng-click="load_khachhang(search_text)" value="Tìm kiếm khách" />
                 </div>
             </form>
         </div>
-
+        <!--End Form tìm kiếm-->
 
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add New Customer</button>
         <input type="button" class="btn btn-info" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
-        <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách" />
+        <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
 
         <!-- Modal Add New khách hàng -->
         <div class="modal fade" id="myModal" role="dialog" tabindex="-1">
@@ -918,7 +922,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate="item in filtered = (list_kh | filter: {TEN_CONG_TY:search_text}) | itemsPerPage:15 | orderBy: 'item.TEN_CONG_TY'" ng-click="transfer(item);get_lienhe(item.MA_KHACH_HANG);get_taikhoan(item.MA_KHACH_HANG)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                <tr dir-paginate="item in filtered = list_kh  | itemsPerPage:20 | orderBy: 'item.TEN_CONG_TY'" ng-click="transfer(item);get_lienhe(item.MA_KHACH_HANG);get_taikhoan(item.MA_KHACH_HANG)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.MA_KHACH_HANG}}</td>
                     <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_CONG_TY}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.EMAIL}}</td>

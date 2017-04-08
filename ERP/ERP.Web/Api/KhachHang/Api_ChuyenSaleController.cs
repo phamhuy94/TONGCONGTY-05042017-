@@ -33,6 +33,9 @@ namespace ERP.Web.Api.KhachHang
                 SALE_CU_2 = x.SALE_CU_2,
                 SALE_CU = x.SALE_CU,
                 HO_VA_TEN = x.TEN_SALE_HIEN_THOI,
+                TEN_SALE_CU_HON = x.TEN_SALE_CU_HON,
+                TEN_SALE_CU = x.TEN_SALE_CU,
+                TEN_SALE_SAP_CHUYEN = x.TEN_SALE_SAP_CHUYEN,
 
             }).ToList();
             //var vData = (from t1 in db.KHs
@@ -93,8 +96,22 @@ namespace ERP.Web.Api.KhachHang
             {
                 query.SALE_HIEN_THOI = kH_CHUYEN_SALES.SALE_HIEN_THOI;
                 query.SALE_SAP_CHUYEN = kH_CHUYEN_SALES.SALE_SAP_CHUYEN;
-                query.SALE_CU = kH_CHUYEN_SALES.SALE_CU;
-                query.SALE_CU_2 = kH_CHUYEN_SALES.SALE_CU_2;
+                if(kH_CHUYEN_SALES.SALE_CU == "None")
+                {
+                    query.SALE_CU = null;
+                } else
+                {
+                    query.SALE_CU = kH_CHUYEN_SALES.SALE_CU;
+                }
+
+                if (kH_CHUYEN_SALES.SALE_CU_2 == "None")
+                {
+                    query.SALE_CU_2 = null;
+                }
+                else
+                {
+                    query.SALE_CU_2 = kH_CHUYEN_SALES.SALE_CU_2;
+                }
             }
             
           //  db.Entry(kH_CHUYEN_SALES).State = EntityState.Modified;

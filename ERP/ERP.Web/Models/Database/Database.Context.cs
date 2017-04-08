@@ -102,6 +102,7 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<QUY_CT_PHIEU_THU> QUY_CT_PHIEU_THU { get; set; }
         public virtual DbSet<QUY_PHIEU_CHI> QUY_PHIEU_CHI { get; set; }
         public virtual DbSet<QUY_PHIEU_THU> QUY_PHIEU_THU { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TONKHO_GIU_HL> TONKHO_GIU_HL { get; set; }
         public virtual DbSet<TONKHO_GIU_TADN> TONKHO_GIU_TADN { get; set; }
         public virtual DbSet<TONKHO_GIU_TAHCM> TONKHO_GIU_TAHCM { get; set; }
@@ -175,13 +176,17 @@ namespace ERP.Web.Models.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TimKiemKhachHang_Result>("TimKiemKhachHang", sdtParameter);
         }
     
-        public virtual ObjectResult<HopLong_LocKHTheoSale_Result> HopLong_LocKHTheoSale(string sale)
+        public virtual ObjectResult<HopLong_LocKHTheoSale_Result> HopLong_LocKHTheoSale(string sale, string sdt)
         {
             var saleParameter = sale != null ?
                 new ObjectParameter("sale", sale) :
                 new ObjectParameter("sale", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale", saleParameter);
+            var sdtParameter = sdt != null ?
+                new ObjectParameter("sdt", sdt) :
+                new ObjectParameter("sdt", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale", saleParameter, sdtParameter);
         }
     
         public virtual ObjectResult<HopLong_GetAllSale_Result> HopLong_GetAllSale()
@@ -196,6 +201,15 @@ namespace ERP.Web.Models.Database
                 new ObjectParameter("MA_CHUAN", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_DS_TONKHO_Result>("HopLong_DS_TONKHO", mA_CHUANParameter);
+        }
+    
+        public virtual ObjectResult<HopLong_PhanTrang_TonKho_Result> HopLong_PhanTrang_TonKho(Nullable<int> sotrang)
+        {
+            var sotrangParameter = sotrang.HasValue ?
+                new ObjectParameter("sotrang", sotrang) :
+                new ObjectParameter("sotrang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_PhanTrang_TonKho_Result>("HopLong_PhanTrang_TonKho", sotrangParameter);
         }
     }
 }
