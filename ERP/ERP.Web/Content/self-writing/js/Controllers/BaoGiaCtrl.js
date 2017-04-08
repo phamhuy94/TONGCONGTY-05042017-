@@ -18,20 +18,21 @@ app.controller('baogiaCtrl', function ($scope, $http) {
         var tong_tien_VAT = 0;
         var tong_tien_chua_van_chuyen = 0;
         var tong_tien_da_tinh_van_chuyen = 0;
-        for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
-            tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
-            tong_tien_VAT = parseFloat($scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_VAT)
-            tong_tien_chua_van_chuyen = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + $scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_chua_van_chuyen);
-        }
-        $scope.tong_thanh_tien = tong_thanh_tien;
-        $scope.tong_tien_VAT = tong_tien_VAT;
-        $scope.tong_tien_chua_van_chuyen = tong_tien_chua_van_chuyen;
+            for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
+                tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
+                tong_tien_VAT = parseFloat($scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_VAT)
+                tong_tien_chua_van_chuyen = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + $scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_chua_van_chuyen);
+            }
+            $scope.tong_thanh_tien = tong_thanh_tien;
+            $scope.tong_tien_VAT = tong_tien_VAT;
+            $scope.tong_tien_chua_van_chuyen = tong_tien_chua_van_chuyen;
 
 
 
-        tong_tien_da_tinh_van_chuyen = parseFloat(tong_tien_chua_van_chuyen + $scope.BangBaoGia.phi_van_chuyen);
-        $scope.BangBaoGia.tong_tien = tong_tien_da_tinh_van_chuyen;
+            tong_tien_da_tinh_van_chuyen = parseFloat(tong_tien_chua_van_chuyen + $scope.BangBaoGia.phi_van_chuyen);
+            $scope.BangBaoGia.tong_tien = tong_tien_da_tinh_van_chuyen;
         
+          
     };
 
 
@@ -148,8 +149,8 @@ app.controller('baogiaCtrl', function ($scope, $http) {
         $scope.Bao_Gia = {
             SALES_BAO_GIA: $scope.arraySaleGiu.username,
             MA_KHACH_HANG: $scope.arrayKhachHang.ma_khach_hang,
-            NGAY_BAO_GIA: $scope.BangBaoGia.ngay_bao_gia,
-            MA_DU_KIEN: $scope.arrayDuKien.ma_du_kien,
+            NGAY_BAO_GIA: $scope.BangBaoGia.ngay_bao_gia.format('DD-MM-YYYY'),
+            MA_DU_KIEN: $scope.arrayIDDuKien.ma_du_kien,
             LIEN_HE_KHACH_HANG: $scope.arrayLienHe.id_lien_he,
             PHUONG_THUC_THANH_TOAN: $scope.BangBaoGia.phuong_thuc_thanh_toan,
             HAN_THANH_TOAN: $scope.BangBaoGia.han_thanh_toan,
@@ -248,7 +249,9 @@ app.controller('baogiaCtrl', function ($scope, $http) {
     $scope.showtable_ma_khach_hang = false;
 
     //get data khách hàng
+
     $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi)
+
          .then(function (response) {
              if (response.data) {
                  $scope.arrayKH = response.data;
@@ -261,7 +264,7 @@ app.controller('baogiaCtrl', function ($scope, $http) {
          });
 
     //hàm tìm kiếm
-    $scope.onKhachHangFind = function () {
+    $scope.onKHFind = function () {
         if (!$scope.TEN_CONG_TY) {
             $scope.arrayKHFinded = $scope.arrayKH.map(function (item) {
                 return item;
@@ -285,7 +288,7 @@ app.controller('baogiaCtrl', function ($scope, $http) {
     //End Show thông tin khách hàng--------------------------------------------------------------------------------------------
 
     //Show thông tin don hang du kien---------------------------------------------------------------------------------------------------------------
-    $scope.arrayDuKien = {
+    $scope.arrayIDDuKien = {
         ma_du_kien: '',
     };
 
@@ -309,14 +312,14 @@ app.controller('baogiaCtrl', function ($scope, $http) {
          });
 
     //hàm tìm kiếm
-    $scope.onKhachHangFind = function () {
+    $scope.onDuKienFind = function () {
         if (!$scope.MA_DU_KIEN) {
             $scope.arrayDuKienFinded = $scope.arrayDuKien.map(function (item) {
                 return item;
             });
         }
         $scope.arrayDuKienFinded = $scope.arrayDuKien.filter(function (item) {
-            if (item.MA_DU_KIEN.toLowerCase().indexOf($scope.arrayDuKien.ma_du_kien.toLowerCase()) >= 0) {
+            if (item.MA_DU_KIEN.toLowerCase().indexOf($scope.arrayIDDuKien.ma_du_kien.toLowerCase()) >= 0) {
                 return true;
             } else {
                 return false;
@@ -326,8 +329,8 @@ app.controller('baogiaCtrl', function ($scope, $http) {
 
     // hiển thị danh sách ma du kien(LẤY THEO MÃ)
     $scope.showInfoDuKien = function (p_dt) {
-        $scope.arrayDuKien.ma_du_kien = p_dt.MA_DU_KIEN;
-        $scope.arrayDuKien.ngay_tao = p_dt.NGAY_TAO;
+        $scope.arrayIDDuKien.ma_du_kien = p_dt.MA_DU_KIEN;
+        $scope.arrayIDDuKien.ngay_tao = p_dt.NGAY_TAO;
         $scope.showtable_DuKien = false;
     }
     //End Show thông tin don hang du kien--------------------------------------------------------------------------------------------
@@ -475,7 +478,7 @@ app.controller('baogiaCtrl', function ($scope, $http) {
         //End Tìm Kiếm Thông Tin hàng Hóa
 
 
-    $scope.phuongthuctt = ["Chuyển khoản", "Tiền mặt"];
-    $scope.cachtinhthanhtien = [{ 'name': 'Giá nhập' }, {'name': 'Giá list'}];
+    $scope.phuongthuctt = ["Chuyển khoản", "Tiền mặt","Trả tiền sau khi nhận hàng"];
+    $scope.cachtinhthanhtien = ['Giá nhập','Giá list'];
     $scope.dieukhoantt = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
 });

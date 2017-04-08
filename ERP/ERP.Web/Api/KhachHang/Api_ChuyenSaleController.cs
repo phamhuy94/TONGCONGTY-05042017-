@@ -94,6 +94,7 @@ namespace ERP.Web.Api.KhachHang
             var query = db.KH_CHUYEN_SALES.Where(x => x.MA_KHACH_HANG == makh).FirstOrDefault();
             if (query != null)
             {
+
               
                 if (query.SALE_SAP_CHUYEN == kH_CHUYEN_SALES.SALE_HIEN_THOI)
                 {
@@ -120,6 +121,7 @@ namespace ERP.Web.Api.KhachHang
                         query.SALE_SAP_CHUYEN = null;
                     }
                 }
+
 
 
             }

@@ -9,13 +9,14 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
+using ERP.Web.Models.BusinessModel;
 
 namespace ERP.Web.Api.BaoGia
 {
     public class Api_ChiTietBaoGiaController : ApiController
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
-
+        XuLyNgayThang xlnt = new XuLyNgayThang();
         // GET: api/Api_ChiTietBaoGia
         public IQueryable<BH_CT_BAO_GIA> GetBH_CT_BAO_GIA()
         {
@@ -92,7 +93,7 @@ namespace ERP.Web.Api.BaoGia
                 lienhe.TIEN_VAT = item.TIEN_VAT;
                 lienhe.TINH_TRANG_HANG = item.TINH_TRANG_HANG;
                 lienhe.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
-                lienhe.NGAY_GIAO_HANG = item.NGAY_GIAO_HANG;
+                lienhe.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString("dd/MM/yyyy"));
                 lienhe.DIA_DIEM_GIAO_HANG = item.DIA_DIEM_GIAO_HANG;
                 lienhe.GHI_CHU = item.GHI_CHU;
                 db.BH_CT_BAO_GIA.Add(lienhe);
