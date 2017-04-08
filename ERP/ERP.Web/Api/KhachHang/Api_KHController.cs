@@ -34,6 +34,14 @@ namespace ERP.Web.Api.HeThong
             return result;
         }
 
+        [Route("api/Api_KH/LocKH/{username}")]
+        public List<GetAll_KhachCuaSale_Result> LocKH(string username)
+        {
+            var query = db.Database.SqlQuery<GetAll_KhachCuaSale_Result>("GetAll_KhachCuaSale @macongty, @sale", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("sale", username));
+            var result = query.ToList();
+            return result;
+        }
+
 
         [Route("api/Api_KH/GetAllSale")]
         public List<HopLong_GetAllSale_Result> GetAllSale()

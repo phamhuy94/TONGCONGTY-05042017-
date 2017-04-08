@@ -10,6 +10,9 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
 using ERP.Web.Models.BusinessModel;
+using ERP.Web.Models.NewModels;
+using System.Web.Http.Results;
+using System.Data.SqlClient;
 
 namespace ERP.Web.Api.BaoGia
 {
@@ -18,9 +21,12 @@ namespace ERP.Web.Api.BaoGia
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
         XuLyNgayThang xlnt = new XuLyNgayThang();
         // GET: api/Api_ChiTietBaoGia
-        public IQueryable<BH_CT_BAO_GIA> GetBH_CT_BAO_GIA()
+        [Route("api/Api_ChiTietBaoGia/CT_BAO_GIA/{so_bao_gia}")]
+        public List<GetAll_ChiTietBaoGia_Result> CT_BAO_GIA(string so_bao_gia)
         {
-            return db.BH_CT_BAO_GIA;
+            var query = db.Database.SqlQuery<GetAll_ChiTietBaoGia_Result>("GetAll_ChiTietBaoGia  @so_bao_gia, @ma_cong_ty", new SqlParameter("so_bao_gia", so_bao_gia),new SqlParameter("ma_cong_ty", "HOPLONG"));
+            var result = query.ToList();
+            return result;
         }
 
         // GET: api/Api_ChiTietBaoGia/5
