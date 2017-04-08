@@ -3502,7 +3502,14 @@
         <Function Name="BaiVietTheoDanhMuc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tukhoa" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="GetAll_KhachCuaSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="macongty" Type="varchar" Mode="In" />
+          <Parameter Name="sale" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="GetAll_KhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAll_LienHeTheoKhach" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="makhachhang" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="HopLong_DS_TONKHO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MA_CHUAN" Type="nvarchar" Mode="In" />
         </Function>
@@ -5284,6 +5291,15 @@
             <End Role="QUY_PHIEU_THU" EntitySet="QUY_PHIEU_THU" />
             <End Role="QUY_CT_PHIEU_THU" EntitySet="QUY_CT_PHIEU_THU" />
           </AssociationSet>
+
+          <FunctionImport Name="GetAll_LienHeTheoKhach" ReturnType="Collection(ERP_DATABASEModel.GetAll_LienHeTheoKhach_Result)">
+          <Parameter Name="makhachhang" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAll_KhachCuaSale" ReturnType="Collection(ERP_DATABASEModel.GetAll_KhachCuaSale_Result)">
+            <Parameter Name="macongty" Mode="In" Type="String" />
+            <Parameter Name="sale" Mode="In" Type="String" />
+          </FunctionImport>
+
           </EntityContainer>
         <ComplexType Name="XL_TimKiemHangHoa_Result">
           <Property Type="String" Name="MA_HANG" Nullable="false" MaxLength="128" />
@@ -9343,6 +9359,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+
+        <ComplexType Name="GetAll_LienHeTheoKhach_Result">
+          <Property Type="Int32" Name="ID_LIEN_HE" Nullable="false" />
+          <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="NGUOI_LIEN_HE" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="CHUC_VU" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="PHONG_BAN" Nullable="true" MaxLength="64" />
+          <Property Type="DateTime" Name="NGAY_SINH" Nullable="true" />
+          <Property Type="String" Name="GIOI_TINH" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="EMAIL_CA_NHAN" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="EMAIL_CONG_TY" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="SKYPE" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="FACEBOOK" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="GHI_CHU" Nullable="true" />
+          <Property Type="String" Name="SDT1" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="SDT2" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="GetAll_KhachCuaSale_Result">
+          <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_CONG_TY" Nullable="false" MaxLength="128" />
+        </ComplexType>
+
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10781,6 +10819,36 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
+          <FunctionImportMapping FunctionImportName="GetAll_LienHeTheoKhach" FunctionName="ERP_DATABASEModel.Store.GetAll_LienHeTheoKhach">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_LienHeTheoKhach_Result">
+                <ScalarProperty Name="ID_LIEN_HE" ColumnName="ID_LIEN_HE" />
+                <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+                <ScalarProperty Name="NGUOI_LIEN_HE" ColumnName="NGUOI_LIEN_HE" />
+                <ScalarProperty Name="CHUC_VU" ColumnName="CHUC_VU" />
+                <ScalarProperty Name="PHONG_BAN" ColumnName="PHONG_BAN" />
+                <ScalarProperty Name="NGAY_SINH" ColumnName="NGAY_SINH" />
+                <ScalarProperty Name="GIOI_TINH" ColumnName="GIOI_TINH" />
+                <ScalarProperty Name="EMAIL_CA_NHAN" ColumnName="EMAIL_CA_NHAN" />
+                <ScalarProperty Name="EMAIL_CONG_TY" ColumnName="EMAIL_CONG_TY" />
+                <ScalarProperty Name="SKYPE" ColumnName="SKYPE" />
+                <ScalarProperty Name="FACEBOOK" ColumnName="FACEBOOK" />
+                <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+                <ScalarProperty Name="SDT1" ColumnName="SDT1" />
+                <ScalarProperty Name="SDT2" ColumnName="SDT2" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAll_KhachCuaSale" FunctionName="ERP_DATABASEModel.Store.GetAll_KhachCuaSale">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_KhachCuaSale_Result">
+                <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
+                <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

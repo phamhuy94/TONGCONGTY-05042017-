@@ -211,5 +211,27 @@ namespace ERP.Web.Models.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_PhanTrang_TonKho_Result>("HopLong_PhanTrang_TonKho", sotrangParameter);
         }
+    
+        public virtual ObjectResult<GetAll_LienHeTheoKhach_Result> GetAll_LienHeTheoKhach(string makhachhang)
+        {
+            var makhachhangParameter = makhachhang != null ?
+                new ObjectParameter("makhachhang", makhachhang) :
+                new ObjectParameter("makhachhang", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_LienHeTheoKhach_Result>("GetAll_LienHeTheoKhach", makhachhangParameter);
+        }
+    
+        public virtual ObjectResult<GetAll_KhachCuaSale_Result> GetAll_KhachCuaSale(string macongty, string sale)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            var saleParameter = sale != null ?
+                new ObjectParameter("sale", sale) :
+                new ObjectParameter("sale", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_KhachCuaSale_Result>("GetAll_KhachCuaSale", macongtyParameter, saleParameter);
+        }
     }
 }

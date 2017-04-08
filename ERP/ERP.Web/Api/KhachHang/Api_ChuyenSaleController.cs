@@ -94,24 +94,36 @@ namespace ERP.Web.Api.KhachHang
             var query = db.KH_CHUYEN_SALES.Where(x => x.MA_KHACH_HANG == makh).FirstOrDefault();
             if (query != null)
             {
-                query.SALE_HIEN_THOI = kH_CHUYEN_SALES.SALE_HIEN_THOI;
-                query.SALE_SAP_CHUYEN = kH_CHUYEN_SALES.SALE_SAP_CHUYEN;
-                if(kH_CHUYEN_SALES.SALE_CU == "None")
-                {
-                    query.SALE_CU = null;
-                } else
-                {
-                    query.SALE_CU = kH_CHUYEN_SALES.SALE_CU;
-                }
 
-                if (kH_CHUYEN_SALES.SALE_CU_2 == "None")
+              
+                if (query.SALE_SAP_CHUYEN == kH_CHUYEN_SALES.SALE_HIEN_THOI)
                 {
-                    query.SALE_CU_2 = null;
+                    query.SALE_CU_2 = query.SALE_CU;
+                    query.SALE_CU = query.SALE_HIEN_THOI;
+                    query.SALE_HIEN_THOI = kH_CHUYEN_SALES.SALE_HIEN_THOI;
+                    if (kH_CHUYEN_SALES.SALE_SAP_CHUYEN != query.SALE_SAP_CHUYEN)
+                    {
+                        query.SALE_SAP_CHUYEN = kH_CHUYEN_SALES.SALE_SAP_CHUYEN;
+                    }
+                    else
+                    {
+                        query.SALE_SAP_CHUYEN = null;
+                    }
                 }
                 else
                 {
-                    query.SALE_CU_2 = kH_CHUYEN_SALES.SALE_CU_2;
+                    if (kH_CHUYEN_SALES.SALE_SAP_CHUYEN != "None")
+                    {
+                        query.SALE_SAP_CHUYEN = kH_CHUYEN_SALES.SALE_SAP_CHUYEN;
+                    }
+                    else
+                    {
+                        query.SALE_SAP_CHUYEN = null;
+                    }
                 }
+
+
+
             }
             
           //  db.Entry(kH_CHUYEN_SALES).State = EntityState.Modified;
