@@ -124,7 +124,7 @@ namespace ERP.Web.Api.BaoGia
             baogia.SO_BAO_GIA = sobaogia;
             baogia.MA_KHACH_HANG = bH_BAO_GIA.MA_KHACH_HANG;
             baogia.MA_DU_KIEN = bH_BAO_GIA.MA_DU_KIEN;
-            baogia.NGAY_BAO_GIA = xlnt.Xulydatetime(bH_BAO_GIA.NGAY_BAO_GIA.ToString("dd/MM/yyyy"));
+            baogia.NGAY_BAO_GIA = DateTime.Today.Date;
             baogia.LIEN_HE_KHACH_HANG = bH_BAO_GIA.LIEN_HE_KHACH_HANG;
             baogia.PHUONG_THUC_THANH_TOAN = bH_BAO_GIA.PHUONG_THUC_THANH_TOAN;
             baogia.HAN_THANH_TOAN = bH_BAO_GIA.HAN_THANH_TOAN;
