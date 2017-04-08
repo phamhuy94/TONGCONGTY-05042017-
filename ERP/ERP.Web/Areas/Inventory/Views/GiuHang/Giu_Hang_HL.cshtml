@@ -3,8 +3,9 @@
 
 <div ng-app="myApp" ng-controller="GiuHangHopLongCtrl">
     <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]"/>
+    
     <!-- Dashboard content -->
-    <div class="row">
+    <div class="row" id="Grid">
         <div class="col-lg-12">
             <div class="panel panel-white">
                 <div class="panel-heading color-heading">
@@ -392,5 +393,29 @@
         </div>
   
     <!-- /dashboard content -->
+
+    <input type="button" value="PrintQuotation" onclick="javascript:printDiv('Grid')" />
  
 </div>
+
+<script language="javascript" type="text/javascript">
+        function printDiv(divID) {
+            //Get the HTML of div
+            var divElements = document.getElementById(divID).innerHTML;
+            //Get the HTML of whole page
+            var oldPage = document.body.innerHTML;
+
+            //Reset the page's HTML with div's HTML only
+            document.body.innerHTML =
+              "<html><head><title></title></head><body>" +
+              divElements + "</body>";
+
+            //Print Page
+            window.print();
+
+            //Restore orignal HTML
+            document.body.innerHTML = oldPage;
+
+
+        }
+    </script>
