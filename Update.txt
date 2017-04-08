@@ -1,0 +1,1 @@
+﻿1. Update Chuyển Sale(Thao tác chuyển sale hiện thời => sale cũ, sale cũ 2 sẽ thay đổi theo)

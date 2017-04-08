@@ -248,17 +248,17 @@ app.controller('baogiaCtrl', function ($scope, $http) {
     $scope.showtable_ma_khach_hang = false;
 
     //get data khách hàng
-    //$http.post(window.location.origin + '/api/Api_KH/KH_THEO_SALES/' + salehienthoi)
-    //     .then(function (response) {
-    //         if (response.data) {
-    //             $scope.arrayKH = response.data;
-    //             $scope.arrayKHFinded = $scope.arrayKH.map(function (item) {
-    //                 return item;
-    //             });
-    //         }
-    //     }, function (error) {
-    //         console.log(error);
-    //     });
+    $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi)
+         .then(function (response) {
+             if (response.data) {
+                 $scope.arrayKH = response.data;
+                 $scope.arrayKHFinded = $scope.arrayKH.map(function (item) {
+                     return item;
+                 });
+             }
+         }, function (error) {
+             console.log(error);
+         });
 
     //hàm tìm kiếm
     $scope.onKhachHangFind = function () {
