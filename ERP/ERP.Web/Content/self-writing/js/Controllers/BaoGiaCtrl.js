@@ -249,6 +249,10 @@ app.controller('baogiaCtrl', function ($scope, $http) {
     $scope.showtable_ma_khach_hang = false;
 
     //get data khách hàng
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/hien
     $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi)
 
          .then(function (response) {
