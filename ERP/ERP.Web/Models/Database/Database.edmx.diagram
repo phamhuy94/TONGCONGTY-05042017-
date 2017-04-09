@@ -290,6 +290,7 @@
         <AssociationConnector Association="ERP_DATABASEModel.FK__POST_CATE__MA_BA__0CA5D9DE" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__QUY_CT_PH__SO_CH__70DDC3D8" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__QUY_CT_PH__SO_CH__74AE54BC" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__NCC__TRUC_THUOC__0B3292B8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
