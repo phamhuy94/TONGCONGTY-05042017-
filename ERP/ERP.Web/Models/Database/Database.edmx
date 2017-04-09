@@ -761,6 +761,7 @@
           <Property Name="DANH_GIA" Type="nvarchar(max)" />
           <Property Name="GHI_CHU" Type="nvarchar(max)" />
           <Property Name="LOGO" Type="varchar" MaxLength="64" />
+          <Property Name="TRUC_THUOC" Type="varchar" MaxLength="64" />
         </EntityType>
         <EntityType Name="NCC_LIEN_HE">
           <Key>
@@ -2575,6 +2576,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__NCC__TRUC_THUOC__0B3292B8">
+          <End Role="CCTC_CONG_TY" Type="Self.CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Role="NCC" Type="Self.NCC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_CONG_TY">
+              <PropertyRef Name="MA_CONG_TY" />
+            </Principal>
+            <Dependent Role="NCC">
+              <PropertyRef Name="TRUC_THUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__NCC_PUR_P__ID_LI__3E723F9C">
           <End Role="NCC_LIEN_HE" Type="Self.NCC_LIEN_HE" Multiplicity="1" />
           <End Role="NCC_PUR_PHU_TRACH" Type="Self.NCC_PUR_PHU_TRACH" Multiplicity="*" />
@@ -3510,6 +3523,28 @@
         <Function Name="GetAll_LienHeTheoKhach" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="makhachhang" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="GetAllChungTu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="macongty" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetAllChungTu_WithDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FromDate" Type="date" Mode="In" />
+          <Parameter Name="ToDate" Type="date" Mode="In" />
+          <Parameter Name="macongty" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetAllDoiTuong" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="macongty" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetAllHangHoaVaTon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetChungTuFromDoiTuong" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaDoiTuong" Type="varchar" Mode="In" />
+          <Parameter Name="macongty" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetChungTuFromDoiTuong_WithDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaDoiTuong" Type="varchar" Mode="In" />
+          <Parameter Name="FromDate" Type="date" Mode="In" />
+          <Parameter Name="ToDate" Type="date" Mode="In" />
+          <Parameter Name="macongty" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="HopLong_DS_TONKHO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MA_CHUAN" Type="nvarchar" Mode="In" />
         </Function>
@@ -3520,6 +3555,16 @@
         </Function>
         <Function Name="HopLong_PhanTrang_TonKho" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sotrang" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Search_SearchByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LoaiChungTu" Type="varchar" Mode="In" />
+          <Parameter Name="macongty" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Search_SearchByTypeWithDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LoaiChungTu" Type="varchar" Mode="In" />
+          <Parameter Name="FromDate" Type="date" Mode="In" />
+          <Parameter Name="ToDate" Type="date" Mode="In" />
+          <Parameter Name="macongty" Type="varchar" Mode="In" />
         </Function>
         <Function Name="TimKiemKhachHang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sdt" Type="varchar" Mode="In" />
@@ -4086,6 +4131,10 @@
             <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
             <End Role="CCTC_PHONG_BAN" EntitySet="CCTC_PHONG_BAN" />
           </AssociationSet>
+          <AssociationSet Name="FK__NCC__TRUC_THUOC__0B3292B8" Association="Self.FK__NCC__TRUC_THUOC__0B3292B8">
+            <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
+            <End Role="NCC" EntitySet="NCC" />
+          </AssociationSet>
           <AssociationSet Name="FK__NCC_PUR_P__ID_LI__3E723F9C" Association="Self.FK__NCC_PUR_P__ID_LI__3E723F9C">
             <End Role="NCC_LIEN_HE" EntitySet="NCC_LIEN_HE" />
             <End Role="NCC_PUR_PHU_TRACH" EntitySet="NCC_PUR_PHU_TRACH" />
@@ -4412,7 +4461,7 @@
           <FunctionImport Name="LocKHTheoSale" ReturnType="Collection(ERP_DATABASEModel.LocKHTheoSale_Result)">
           <Parameter Name="sale" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="GetAll_KhachHang" ReturnType="Collection(ERP_DATABASEModel.GetAll_KhachHang_Result1)" />
+          <FunctionImport Name="GetAll_KhachHang" ReturnType="Collection(ERP_DATABASEModel.GetAll_KhachHang_Result)" />
           <FunctionImport Name="TimKiemKhachHang" ReturnType="Collection(ERP_DATABASEModel.TimKiemKhachHang_Result)">
           <Parameter Name="sdt" Mode="In" Type="String" />
           </FunctionImport>
@@ -5299,6 +5348,42 @@
             <Parameter Name="macongty" Mode="In" Type="String" />
             <Parameter Name="sale" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="GetAllChungTu" ReturnType="Collection(ERP_DATABASEModel.GetAllChungTu_Result)">
+          <Parameter Name="macongty" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllChungTu_WithDate" ReturnType="Collection(ERP_DATABASEModel.GetAllChungTu_WithDate_Result)">
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+            <Parameter Name="macongty" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllHangHoaVaTon" ReturnType="Collection(ERP_DATABASEModel.GetAllHangHoaVaTon_Result)" />
+          <FunctionImport Name="GetChungTuFromDoiTuong" ReturnType="Collection(ERP_DATABASEModel.GetChungTuFromDoiTuong_Result)">
+            <Parameter Name="MaDoiTuong" Mode="In" Type="String" />
+            <Parameter Name="macongty" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetChungTuFromDoiTuong_WithDate" ReturnType="Collection(ERP_DATABASEModel.GetChungTuFromDoiTuong_WithDate_Result)">
+            <Parameter Name="MaDoiTuong" Mode="In" Type="String" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+            <Parameter Name="macongty" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Search_SearchByType" ReturnType="Collection(ERP_DATABASEModel.Search_SearchByType_Result)">
+            <Parameter Name="LoaiChungTu" Mode="In" Type="String" />
+            <Parameter Name="macongty" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Search_SearchByTypeWithDate" ReturnType="Collection(ERP_DATABASEModel.Search_SearchByTypeWithDate_Result)">
+            <Parameter Name="LoaiChungTu" Mode="In" Type="String" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+            <Parameter Name="macongty" Mode="In" Type="String" />
+          </FunctionImport>
+          <AssociationSet Name="FK__NCC__TRUC_THUOC__0B3292B8" Association="ERP_DATABASEModel.FK__NCC__TRUC_THUOC__0B3292B8">
+            <End Role="CCTC_CONG_TY" EntitySet="CCTC_CONG_TY" />
+            <End Role="NCC" EntitySet="NCCs" />
+          </AssociationSet>
+          <FunctionImport Name="GetAllDoiTuong" ReturnType="Collection(ERP_DATABASEModel.GetAllDoiTuong_Result)">
+            <Parameter Name="macongty" Mode="In" Type="String" />
+          </FunctionImport>
 
           </EntityContainer>
         <ComplexType Name="XL_TimKiemHangHoa_Result">
@@ -5355,7 +5440,7 @@
           <Property Type="String" Name="TEN_LOAI_KHACH" Nullable="true" MaxLength="128" />
           <Property Type="String" Name="MA_LOAI_KHACH" Nullable="true" MaxLength="64" />
           <Property Type="Int32" Name="ID" Nullable="true" />
-          <Property Type="String" Name="HO_VA_TEN" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="SALES_PHU_TRACH" Nullable="true" MaxLength="64" />
         </ComplexType>
         <ComplexType Name="LocKHTheoSale_Result">
           <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
@@ -5673,6 +5758,7 @@
           <NavigationProperty Name="QUY_PHIEU_CHI" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__TRUC___2E3BD7D3" FromRole="CCTC_CONG_TY" ToRole="QUY_PHIEU_CHI" />
           <NavigationProperty Name="QUY_PHIEU_THU" Relationship="ERP_DATABASEModel.FK__QUY_PHIEU__TRUC___2F2FFC0C" FromRole="CCTC_CONG_TY" ToRole="QUY_PHIEU_THU" />
           <NavigationProperty Name="CN_NGHIEP_VU" Relationship="ERP_DATABASEModel.FK_CN_NGHIEP_VU_CCTC_CONG_TY" FromRole="CCTC_CONG_TY" ToRole="CN_NGHIEP_VU" />
+          <NavigationProperty Name="NCCs" Relationship="ERP_DATABASEModel.FK__NCC__TRUC_THUOC__0B3292B8" FromRole="CCTC_CONG_TY" ToRole="NCC" />
         </EntityType>
         <EntityType Name="CCTC_MO_HINH_CONG_TY">
           <Key>
@@ -6539,6 +6625,8 @@
           <NavigationProperty Name="NCC_LOAI" Relationship="ERP_DATABASEModel.FK__DM_NHA_CU__PHAN___7E37BEF6" FromRole="NCC" ToRole="NCC_LOAI" />
           <NavigationProperty Name="NCC_TK_NGAN_HANG" Relationship="ERP_DATABASEModel.FK__DM_TK_NGA__MA_NH__14270015" FromRole="NCC" ToRole="NCC_TK_NGAN_HANG" />
           <NavigationProperty Name="QUY_CT_PHIEU_CHI" Relationship="ERP_DATABASEModel.FK__QUY_CT_PH__MA_NH__6FE99F9F" FromRole="NCC" ToRole="QUY_CT_PHIEU_CHI" />
+          <Property Name="TRUC_THUOC" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__NCC__TRUC_THUOC__0B3292B8" FromRole="NCC" ToRole="CCTC_CONG_TY" />
         </EntityType>
         <EntityType Name="NCC_LIEN_HE">
           <Key>
@@ -9380,6 +9468,66 @@
           <Property Type="String" Name="MA_KHACH_HANG" Nullable="false" MaxLength="64" />
           <Property Type="String" Name="TEN_CONG_TY" Nullable="false" MaxLength="128" />
         </ComplexType>
+        <ComplexType Name="GetAllChungTu_Result">
+          <Property Type="DateTime" Name="NGAY_CHUNG_TU" Nullable="false" />
+          <Property Type="DateTime" Name="NGAY_HACH_TOAN" Nullable="false" />
+          <Property Type="String" Name="SO_CHUNG_TU" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="DIEN_GIAI" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllChungTu_WithDate_Result">
+          <Property Type="DateTime" Name="NGAY_CHUNG_TU" Nullable="false" />
+          <Property Type="DateTime" Name="NGAY_HACH_TOAN" Nullable="false" />
+          <Property Type="String" Name="SO_CHUNG_TU" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="DIEN_GIAI" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllHangHoaVaTon_Result">
+          <Property Type="String" Name="MA_HANG" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="TEN_HANG" Nullable="true" />
+          <Property Type="Int32" Name="TON_HOPLONG" Nullable="true" />
+          <Property Type="Int32" Name="TON_DANANG" Nullable="true" />
+          <Property Type="Int32" Name="TON_HCM" Nullable="true" />
+          <Property Type="Int32" Name="TON_HAIPHONG" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetChungTuFromDoiTuong_Result">
+          <Property Type="DateTime" Name="NGAY_CHUNG_TU" Nullable="false" />
+          <Property Type="DateTime" Name="NGAY_HACH_TOAN" Nullable="false" />
+          <Property Type="String" Name="SO_CHUNG_TU" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="DIEN_GIAI" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetChungTuFromDoiTuong_WithDate_Result">
+          <Property Type="DateTime" Name="NGAY_CHUNG_TU" Nullable="false" />
+          <Property Type="DateTime" Name="NGAY_HACH_TOAN" Nullable="false" />
+          <Property Type="String" Name="SO_CHUNG_TU" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="DIEN_GIAI" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Search_SearchByType_Result">
+          <Property Type="DateTime" Name="NGAY_CHUNG_TU" Nullable="false" />
+          <Property Type="DateTime" Name="NGAY_HACH_TOAN" Nullable="false" />
+          <Property Type="String" Name="SO_CHUNG_TU" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="DIEN_GIAI" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Search_SearchByTypeWithDate_Result">
+          <Property Type="DateTime" Name="NGAY_CHUNG_TU" Nullable="false" />
+          <Property Type="DateTime" Name="NGAY_HACH_TOAN" Nullable="false" />
+          <Property Type="String" Name="SO_CHUNG_TU" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="DIEN_GIAI" Nullable="true" />
+        </ComplexType>
+        <Association Name="FK__NCC__TRUC_THUOC__0B3292B8">
+          <End Type="ERP_DATABASEModel.CCTC_CONG_TY" Role="CCTC_CONG_TY" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.NCC" Role="NCC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CCTC_CONG_TY">
+              <PropertyRef Name="MA_CONG_TY" />
+            </Principal>
+            <Dependent Role="NCC">
+              <PropertyRef Name="TRUC_THUOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetAllDoiTuong_Result">
+          <Property Type="String" Name="MA_DOI_TUONG" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_DOI_TUONG" Nullable="false" MaxLength="128" />
+        </ComplexType>
 
         </Schema>
     </edmx:ConceptualModels>
@@ -9431,9 +9579,8 @@
           <FunctionImportMapping FunctionImportName="XL_LayMaKhachMoiNhat" FunctionName="ERP_DATABASEModel.Store.XL_LayMaKhachMoiNhat" />
           <FunctionImportMapping FunctionImportName="XL_LayMaGiuHangMoiNhat" FunctionName="ERP_DATABASEModel.Store.XL_LayMaGiuHangMoiNhat" />
           <FunctionImportMapping FunctionImportName="GetAll_KhachHang" FunctionName="ERP_DATABASEModel.Store.GetAll_KhachHang">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_KhachHang_Result1">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_KhachHang_Result">
                 <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
                 <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
                 <ScalarProperty Name="VAN_PHONG_GIAO_DICH" ColumnName="VAN_PHONG_GIAO_DICH" />
@@ -9445,7 +9592,6 @@
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="FAX" ColumnName="FAX" />
                 <ScalarProperty Name="LOGO" ColumnName="LOGO" />
-                <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
                 <ScalarProperty Name="WEBSITE" ColumnName="WEBSITE" />
                 <ScalarProperty Name="DIEU_KHOAN_THANH_TOAN" ColumnName="DIEU_KHOAN_THANH_TOAN" />
                 <ScalarProperty Name="SO_NGAY_DUOC_NO" ColumnName="SO_NGAY_DUOC_NO" />
@@ -9453,7 +9599,9 @@
                 <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
                 <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
                 <ScalarProperty Name="TEN_LOAI_KHACH" ColumnName="TEN_LOAI_KHACH" />
-                <ScalarProperty Name="ALES_PHU_TRACH" ColumnName="ALES_PHU_TRACH" />
+                <ScalarProperty Name="MA_LOAI_KHACH" ColumnName="MA_LOAI_KHACH" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SALES_PHU_TRACH" ColumnName="SALES_PHU_TRACH" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -10343,6 +10491,7 @@
           <EntitySetMapping Name="NCCs">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.NCC">
               <MappingFragment StoreEntitySet="NCC">
+                <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
                 <ScalarProperty Name="LOGO" ColumnName="LOGO" />
                 <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
                 <ScalarProperty Name="DANH_GIA" ColumnName="DANH_GIA" />
@@ -10845,6 +10994,86 @@
               <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAll_KhachCuaSale_Result">
                 <ScalarProperty Name="MA_KHACH_HANG" ColumnName="MA_KHACH_HANG" />
                 <ScalarProperty Name="TEN_CONG_TY" ColumnName="TEN_CONG_TY" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllChungTu" FunctionName="ERP_DATABASEModel.Store.GetAllChungTu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAllChungTu_Result">
+                <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+                <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+                <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+                <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllChungTu_WithDate" FunctionName="ERP_DATABASEModel.Store.GetAllChungTu_WithDate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAllChungTu_WithDate_Result">
+                <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+                <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+                <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+                <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllHangHoaVaTon" FunctionName="ERP_DATABASEModel.Store.GetAllHangHoaVaTon">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAllHangHoaVaTon_Result">
+                <ScalarProperty Name="MA_HANG" ColumnName="MA_HANG" />
+                <ScalarProperty Name="TEN_HANG" ColumnName="TEN_HANG" />
+                <ScalarProperty Name="TON_HOPLONG" ColumnName="TON_HOPLONG" />
+                <ScalarProperty Name="TON_DANANG" ColumnName="TON_DANANG" />
+                <ScalarProperty Name="TON_HCM" ColumnName="TON_HCM" />
+                <ScalarProperty Name="TON_HAIPHONG" ColumnName="TON_HAIPHONG" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetChungTuFromDoiTuong" FunctionName="ERP_DATABASEModel.Store.GetChungTuFromDoiTuong">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetChungTuFromDoiTuong_Result">
+                <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+                <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+                <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+                <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetChungTuFromDoiTuong_WithDate" FunctionName="ERP_DATABASEModel.Store.GetChungTuFromDoiTuong_WithDate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetChungTuFromDoiTuong_WithDate_Result">
+                <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+                <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+                <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+                <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Search_SearchByType" FunctionName="ERP_DATABASEModel.Store.Search_SearchByType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.Search_SearchByType_Result">
+                <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+                <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+                <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+                <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Search_SearchByTypeWithDate" FunctionName="ERP_DATABASEModel.Store.Search_SearchByTypeWithDate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.Search_SearchByTypeWithDate_Result">
+                <ScalarProperty Name="NGAY_CHUNG_TU" ColumnName="NGAY_CHUNG_TU" />
+                <ScalarProperty Name="NGAY_HACH_TOAN" ColumnName="NGAY_HACH_TOAN" />
+                <ScalarProperty Name="SO_CHUNG_TU" ColumnName="SO_CHUNG_TU" />
+                <ScalarProperty Name="DIEN_GIAI" ColumnName="DIEN_GIAI" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllDoiTuong" FunctionName="ERP_DATABASEModel.Store.GetAllDoiTuong">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.GetAllDoiTuong_Result">
+                <ScalarProperty Name="MA_DOI_TUONG" ColumnName="MA_DOI_TUONG" />
+                <ScalarProperty Name="TEN_DOI_TUONG" ColumnName="TEN_DOI_TUONG" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

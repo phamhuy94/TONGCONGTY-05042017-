@@ -20,9 +20,9 @@ namespace ERP.Web.Api.HeThong
 
         // GET: api/Api_KH
         string mkh;
-        public List<GetAll_KhachHang_Result1> GetKH()
+        public List<GetAll_KhachHang_Result> GetKH()
         {
-            var query = db.Database.SqlQuery<GetAll_KhachHang_Result1>("GetAll_KhachHang");
+            var query = db.Database.SqlQuery<GetAll_KhachHang_Result>("GetAll_KhachHang");
             var result = query.ToList();
             return result;
         }

@@ -39,6 +39,7 @@ namespace ERP.Web.Models.Database
         public string DANH_GIA { get; set; }
         public string GHI_CHU { get; set; }
         public string LOGO { get; set; }
+        public string TRUC_THUOC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NCC_LIEN_HE> NCC_LIEN_HE { get; set; }
@@ -49,5 +50,6 @@ namespace ERP.Web.Models.Database
         public virtual ICollection<NCC_TK_NGAN_HANG> NCC_TK_NGAN_HANG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QUY_CT_PHIEU_CHI> QUY_CT_PHIEU_CHI { get; set; }
+        public virtual CCTC_CONG_TY CCTC_CONG_TY { get; set; }
     }
 }
