@@ -143,12 +143,12 @@ namespace ERP.Web.Controllers
                 Session["AVATAR"] = user.AVATAR;
                 Session["MA_CONG_TY"] = user.MA_CONG_TY;
                 Session["LOAI_USER"] = user.CCTC_CONG_TY.CAP_TO_CHUC;
-                HT_LICH_SU_DANG_NHAP lsdn = new HT_LICH_SU_DANG_NHAP();
-                lsdn.USERNAME = user.USERNAME;
-                lsdn.THOI_GIAN_DANG_NHAP = DateTime.Now.ToString("dd/MM/yyyy:hh:mm:ss");
-                lsdn.THOI_GIAN_DANG_XUAT = "";
-                db.HT_LICH_SU_DANG_NHAP.Add(lsdn);
-                db.SaveChanges();
+                //HT_LICH_SU_DANG_NHAP lsdn = new HT_LICH_SU_DANG_NHAP();
+                //lsdn.USERNAME = user.USERNAME;
+                //lsdn.THOI_GIAN_DANG_NHAP = DateTime.Now.ToString("dd/MM/yyyy:hh:mm:ss");
+                //lsdn.THOI_GIAN_DANG_XUAT = "";
+                //db.HT_LICH_SU_DANG_NHAP.Add(lsdn);
+                //db.SaveChanges();
                 return RedirectToAction("Index","Home");
 
                

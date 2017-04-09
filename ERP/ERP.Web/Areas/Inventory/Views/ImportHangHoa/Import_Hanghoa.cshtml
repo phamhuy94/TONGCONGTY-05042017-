@@ -117,48 +117,69 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
+                    <table>
 
-                    <br />
-                    @using (Html.BeginForm("Import_Hanghoa", "ImportHangHoa", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
 
+                        <tr>
+
+                            <td>
+                                <h1>Stock</h1>
+
+                            </td>
+                            <td>
+                                <a href="~/Content/Files/IMPORT_HANGTONKHO.xlsx" class="fa fa-file-excel-o"> Get sample file</a>
+
+                            </td>
+                        </tr>
+                        <tr>
                             <!-- Form Name -->
-                        <table>
-                            <tr>
-                                <th><h1>Product</h1></th>
-                                <th>
-                                    <a href="~/Content/Files/IMPORT_HANGHOA.xlsx" class="fa fa-file-excel-o"> Get sample file</a>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
+
+                            <td class="col-md-6">
+                                @using (Html.BeginForm("Import_Hanghoa", "ImportHangHoa", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+
+                                    <h3>New import</h3>
                                     <hr />
                                     <input type="file" name="UploadedFile" class="file" value="Choose File From Your Computer">
                                     <br />
                                     <input type="submit" class="btn btn-success" value="Add" />
 
-                                </td>
+                                }
+                            </td>
+                            <td class="col-md-6">
+                                @using (Html.BeginForm("Update_Hanghoa", "ImportHangHoa", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
 
-                            </tr>
-                            <tr>
-                                <td colspan="2">Dữ liệu trên tệp mà chưa có trong hệ thống thì sẽ được thêm vào, các dữ liệu khác sẽ giữ nguyên</td>
+                                    <h3>Update</h3>
+                                    <hr />
+                                    <input type="file" name="UpFile" class="file" value="Choose File From Your Computer">
+                                    <br />
+                                    <input type="submit" class="btn btn-success" value="Update" />
 
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <p style="color:blue">@ViewBag.Message</p>
-                                    <p style="color:blue">@ViewBag.Information</p>
-                                    <p style="color:red">@ViewBag.Error</p>
-                                </td>
+                                }
+                            </td>
 
-                            </tr>
-                        </table>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 12px; padding-left:12px">
+                                Dữ liệu trên tệp mà chưa có trong hệ thống thì sẽ được thêm vào, các dữ liệu khác sẽ giữ nguyên
+                            </td>
+                            <td style="padding-left:12px">
+                                Toàn bộ dữ liệu trên tệp sẽ được cập nhật trên hệ thống
+                            </td>
+                        </tr>
 
+                        <tr>
+                            <td colspan="2">
+                                <p style="color:blue">@ViewBag.Message</p>
+                                <p style="color:red">@ViewBag.Dongloi</p>
 
-
-
-                    }
-
+                                <p style="color:blue">@ViewBag.Information</p>
+                                <p style="color:red">@ViewBag.Error</p>
+                            </td>
+                        </tr>
+                    </table>
+                 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
@@ -256,19 +277,19 @@
                                     <hr />
                                     <input type="file" name="UploadedFile" class="file" value="Choose File From Your Computer">
                                     <br />
-                                        <input type="submit" class="btn btn-success" value="Add" />
+                                    <input type="submit" class="btn btn-success" value="Add" />
 
                                 }
                             </td>
                             <td class="col-md-6">
-                                @using (Html.BeginForm("Update_Hangtonkho", "ImportExcel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                @using (Html.BeginForm("Update_Hangtonkho", "ImportHangHoa", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
 
                                     <h3>Update</h3>
                                     <hr />
                                     <input type="file" name="UpFile" class="file" value="Choose File From Your Computer">
                                     <br />
-                                        <input type="submit" class="btn btn-success" value="Update" />
+                                    <input type="submit" class="btn btn-success" value="Update" />
 
                                 }
                             </td>
@@ -286,11 +307,13 @@
                         <tr>
                             <td colspan="2">
                                 <p style="color:blue">@ViewBag.Message</p>
+                                <p style="color:red">@ViewBag.Dongloi</p>
+                             
                                 <p style="color:blue">@ViewBag.Information</p>
                                 <p style="color:red">@ViewBag.Error</p>
-                            </td>
-                        </tr>
-                    </table>
+                                </td>
+                                </tr>
+                            </table>
 
                 </div>
 
@@ -360,6 +383,11 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <br />
+
+
+
+
+
 
 
                     @using (Html.BeginForm("Import_Hangsp", "ImportHangHoa", FormMethod.Post, new { enctype = "multipart/form-data" }))
