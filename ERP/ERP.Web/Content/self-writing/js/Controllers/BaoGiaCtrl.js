@@ -249,10 +249,7 @@ app.controller('baogiaCtrl', function ($scope, $http) {
     $scope.showtable_ma_khach_hang = false;
 
     //get data khách hàng
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/hien
     $http.get(window.location.origin + '/api/Api_KH/GET_KHACH_CUA_SALE/' + salehienthoi)
 
          .then(function (response) {
@@ -286,6 +283,8 @@ app.controller('baogiaCtrl', function ($scope, $http) {
     $scope.showInfoKH = function (p_dt) {
         $scope.arrayKhachHang.ma_khach_hang = p_dt.MA_KHACH_HANG;
         $scope.arrayKhachHang.ten_cong_ty = p_dt.TEN_CONG_TY;
+        $scope.arrayKhachHang.VAN_PHONG_GIAO_DICH = p_dt.VAN_PHONG_GIAO_DICH;
+        $scope.arrayKhachHang.DIA_CHI_XUAT_HOA_DON = p_dt.DIA_CHI_XUAT_HOA_DON;
         $scope.showtable_ma_khach_hang = false;
     }
     //End Show thông tin khách hàng--------------------------------------------------------------------------------------------
