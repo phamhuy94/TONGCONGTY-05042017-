@@ -43,6 +43,9 @@ namespace ERP.Web.Models.Database
         public decimal CONG_DOAN { get; set; }
         public decimal LUONG_LAO_CONG { get; set; }
         public decimal THUC_LINH { get; set; }
+        public decimal PHAT_QUEN_DONG_PHUC { get; set; }
+        public decimal PHAT_QUEN_DEO_THE { get; set; }
+        public decimal PHU_CAP_THEM { get; set; }
     
         public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
     }

@@ -71,8 +71,6 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<KHO_CT_CHUYEN_KHO> KHO_CT_CHUYEN_KHO { get; set; }
         public virtual DbSet<KHO_CT_DNXH> KHO_CT_DNXH { get; set; }
         public virtual DbSet<KHO_CT_GIU_HANG> KHO_CT_GIU_HANG { get; set; }
-        public virtual DbSet<KHO_CT_NHAP_KHO> KHO_CT_NHAP_KHO { get; set; }
-        public virtual DbSet<KHO_CT_XUAT_KHO> KHO_CT_XUAT_KHO { get; set; }
         public virtual DbSet<KHO_DNXH> KHO_DNXH { get; set; }
         public virtual DbSet<KHO_GIU_HANG> KHO_GIU_HANG { get; set; }
         public virtual DbSet<KHO_NHAP_KHO> KHO_NHAP_KHO { get; set; }
@@ -119,6 +117,8 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<TONKHO_TAHP> TONKHO_TAHP { get; set; }
         public virtual DbSet<XL_DANG_KY_PHE_DUYET> XL_DANG_KY_PHE_DUYET { get; set; }
         public virtual DbSet<XL_THAM_CHIEU_CHUNG_TU> XL_THAM_CHIEU_CHUNG_TU { get; set; }
+        public virtual DbSet<KHO_CT_NHAP_KHO> KHO_CT_NHAP_KHO { get; set; }
+        public virtual DbSet<KHO_CT_XUAT_KHO> KHO_CT_XUAT_KHO { get; set; }
     
         public virtual int PROD_HANGHOA()
         {
@@ -340,6 +340,37 @@ namespace ERP.Web.Models.Database
                 new ObjectParameter("macongty", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllDoiTuong_Result>("GetAllDoiTuong", macongtyParameter);
+        }
+    
+        public virtual ObjectResult<Query_DS_KhachHang_ChuaPhatSinhGiaoDich_Result> Query_DS_KhachHang_ChuaPhatSinhGiaoDich(string macongty, string sale)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            var saleParameter = sale != null ?
+                new ObjectParameter("sale", sale) :
+                new ObjectParameter("sale", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_DS_KhachHang_ChuaPhatSinhGiaoDich_Result>("Query_DS_KhachHang_ChuaPhatSinhGiaoDich", macongtyParameter, saleParameter);
+        }
+    
+        public virtual ObjectResult<Query_DS_KhachHang_DaPhatSinhGiaoDich_Result> Query_DS_KhachHang_DaPhatSinhGiaoDich(string macongty, string sale)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            var saleParameter = sale != null ?
+                new ObjectParameter("sale", sale) :
+                new ObjectParameter("sale", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_DS_KhachHang_DaPhatSinhGiaoDich_Result>("Query_DS_KhachHang_DaPhatSinhGiaoDich", macongtyParameter, saleParameter);
+        }
+    
+        public virtual ObjectResult<XL_CHUYEN_SALES_Result> XL_CHUYEN_SALES()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<XL_CHUYEN_SALES_Result>("XL_CHUYEN_SALES");
         }
     }
 }

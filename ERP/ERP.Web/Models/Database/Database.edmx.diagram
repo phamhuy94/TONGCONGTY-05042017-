@@ -49,8 +49,6 @@
         <EntityTypeShape EntityType="ERP_DATABASEModel.KHO_CT_CHUYEN_KHO" Width="1.5" PointX="11.25" PointY="50.625" />
         <EntityTypeShape EntityType="ERP_DATABASEModel.KHO_CT_DNXH" Width="1.5" PointX="8.25" PointY="48" />
         <EntityTypeShape EntityType="ERP_DATABASEModel.KHO_CT_GIU_HANG" Width="1.5" PointX="11.25" PointY="61.375" />
-        <EntityTypeShape EntityType="ERP_DATABASEModel.KHO_CT_NHAP_KHO" Width="1.5" PointX="11.25" PointY="54.5" />
-        <EntityTypeShape EntityType="ERP_DATABASEModel.KHO_CT_XUAT_KHO" Width="1.5" PointX="8.25" PointY="53.25" />
         <EntityTypeShape EntityType="ERP_DATABASEModel.KHO_DNXH" Width="1.5" PointX="6" PointY="42.125" />
         <EntityTypeShape EntityType="ERP_DATABASEModel.KHO_GIU_HANG" Width="1.5" PointX="9" PointY="105.375" />
         <EntityTypeShape EntityType="ERP_DATABASEModel.KHO_NHAP_KHO" Width="1.5" PointX="9" PointY="110.5" />
@@ -191,19 +189,10 @@
         <AssociationConnector Association="ERP_DATABASEModel.FK__DM_KHO__MA_KHO_C__619B8048" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_CH__NHAP___32767D0B" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_CH__XUAT___318258D2" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__NHAP___0A338187" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__XUAT___18B6AB08" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__DM_TK_NGA__LOAI___1CBC4616" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__DM_TK_NGA__LOAI___1DB06A4F" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__DM_TK_NGA__LOAI___1EA48E88" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__DM_TAI_KH__TK_CA__3D5E1FD2" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_CO__0A688BB1" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_KH__14F1071C" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_NO__09746778" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_TH__02284B6B" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__TK_CO__1B9317B3" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__TK_KH__15E52B55" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__TK_NO__1A9EF37A" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__MH_CT_MDV__TK_CH__789EE131" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__MH_CT_MDV__TK_CO__7993056A" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__MH_CT_MDV__TK_TH__004002F9" />
@@ -231,8 +220,6 @@
         <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_CH__MA_HA__308E3499" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_DN__MA_HA__00CA12DE" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_GI__MA_HA__255C790F" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__MA_HA__078C1F06" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__MA_HA__17C286CF" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__61A66D40" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__6576FE24" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__TONKHO_GI__MA_HA__69478F08" />
@@ -274,8 +261,6 @@
         <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_CH__SO_CH__2F9A1060" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_DN__SO_DN__7FD5EEA5" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_GI__MA_GI__246854D6" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__SO_CH__0697FACD" />
-        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__SO_CH__16CE6296" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__MENU__MENU_CHA__7A521F79" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__MENU_USER__MA_ME__6462DE5A" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__MH_CT_MDV__SO_CH__76B698BF" />
@@ -291,6 +276,20 @@
         <AssociationConnector Association="ERP_DATABASEModel.FK__QUY_CT_PH__SO_CH__70DDC3D8" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__QUY_CT_PH__SO_CH__74AE54BC" />
         <AssociationConnector Association="ERP_DATABASEModel.FK__NCC__TRUC_THUOC__0B3292B8" />
+        <EntityTypeShape EntityType="ERP_DATABASEModel.KHO_CT_NHAP_KHO" Width="1.5" PointX="14.25" PointY="78" />
+        <EntityTypeShape EntityType="ERP_DATABASEModel.KHO_CT_XUAT_KHO" Width="1.5" PointX="11.25" PointY="56.25" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KH__SALES_TAO__4376EBDB" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_CO__0A688BB1" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_KH__14F1071C" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_NO__09746778" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__TK_TH__02284B6B" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__TK_CO__1B9317B3" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__TK_KH__15E52B55" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__TK_NO__1A9EF37A" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__MA_HA__078C1F06" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__MA_HA__17C286CF" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_NH__SO_CH__0697FACD" />
+        <AssociationConnector Association="ERP_DATABASEModel.FK__KHO_CT_XU__SO_CH__16CE6296" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

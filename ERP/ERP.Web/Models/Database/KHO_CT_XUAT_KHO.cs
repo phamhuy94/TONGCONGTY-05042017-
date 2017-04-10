@@ -17,7 +17,6 @@ namespace ERP.Web.Models.Database
         public int ID { get; set; }
         public string SO_CHUNG_TU { get; set; }
         public string MA_HANG { get; set; }
-        public string XUAT_TAI_KHO { get; set; }
         public string TK_NO { get; set; }
         public string TK_CO { get; set; }
         public string DVT { get; set; }
@@ -28,7 +27,6 @@ namespace ERP.Web.Models.Database
         public decimal QUY_DOI { get; set; }
         public string TK_KHO { get; set; }
     
-        public virtual DM_KHO DM_KHO { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN1 { get; set; }
         public virtual DM_TAI_KHOAN_HACH_TOAN DM_TAI_KHOAN_HACH_TOAN2 { get; set; }

@@ -38,6 +38,7 @@
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add New Customer</button>
         <input type="button" class="btn btn-info" onclick="location.href='/ChuyenSale/Index';" value="Chuyển Sale" />
         <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/TimKiem_KhachHang';" value="Tìm kiếm khách trên toàn hệ thống" />
+        <input type="button" class="btn btn-info" onclick="location.href = '/KhachHang/KhachChuaGiaoDich';" value="Danh sách khách chưa có giao dịch" />
 
         <!-- Modal Add New khách hàng -->
         <div class="modal fade" id="myModal" role="dialog" tabindex="-1">
@@ -947,11 +948,13 @@
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.MA_KHACH_HANG}}</td>
                     <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_CONG_TY}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.EMAIL}}</td>
-                    <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{ item.TINH}}</td>
+                    <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{ item.TINH}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.QUOC_GIA}}</td>
+
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_LOAI_KHACH}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TINH_TRANG_HOAT_DONG}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.SALES_PHU_TRACH}}</td>
+
                 </tr>
                 <!--Detail row-->
 

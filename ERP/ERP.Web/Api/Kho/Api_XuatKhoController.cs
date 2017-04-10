@@ -100,7 +100,7 @@ namespace ERP.Web.Api.Kho
         }
 
         // POST: api/Api_XuatKho
-        [Route("api/Api_XuatKho/PostKHO_XUAT_KHO")]
+        [Route("api/Api_XuatKho/")]
         [ResponseType(typeof(KHO_XUAT_KHO))]
         public IHttpActionResult PostKHO_XUAT_KHO(XuatKho kho_xuatkho)
         {
@@ -117,8 +117,10 @@ namespace ERP.Web.Api.Kho
             xk.SO_CHUNG_TU = GeneralChungTu();
             xk.NGUOI_NHAN = kho_xuatkho.NGUOI_NHAN;
             xk.KHACH_HANG = kho_xuatkho.KHACH_HANG;
-            xk.NGUOI_LAP_PHIEU = "";
-            xk.TRUC_THUOC = "";
+
+            xk.NGUOI_LAP_PHIEU = SessionPersister.UserName;
+            xk.TRUC_THUOC = SessionPersister.CongTy;
+
             xk.LOAI_XUAT_KHO = kho_xuatkho.LOAI_XUAT_KHO;
             db.KHO_XUAT_KHO.Add(xk);
            
