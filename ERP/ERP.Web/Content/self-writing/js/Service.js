@@ -823,7 +823,9 @@ app.service('khachhangService', function ($http) {
         return $http.put('/api/Api_SalePhuTrach/' + username + '/' + idlienhe, data_savesalesphutrach);
     };
 
-
+    this.add_saletao = function (data_add) {
+        return $http.post('/api/Api_ChuyenSale', data_add);
+    };
 });
 //end khach hang
 

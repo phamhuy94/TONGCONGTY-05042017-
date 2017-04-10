@@ -13,6 +13,7 @@
     }
 </style>
 <div ng-app="myApp" ng-controller="chuyensaleCtrl">
+    <input type="hidden" value="@Session["USERNAME"]" id="username"/>
     <div class="content">
         <table id="example" class="table" cellspacing="0">
             <thead>
@@ -33,7 +34,7 @@
                     <td >{{entry.TEN_CONG_TY}}</td>
                     <td>{{entry.TINH}}</td>
                     <td class="text-left">
-                        <p ng-hide="editMode" ng-model="entry.SALE_HIEN_THOI">{{entry.HO_VA_TEN}}</p>
+                        <p ng-hide="editMode" ng-model="entry.SALE_HIEN_THOI">{{entry.TEN_SALE_HIEN_THOI}}</p>
                         <md-input-container ng-show="editMode">
                             <label>Sale</label>
                             <md-select ng-model="entry.SALE_HIEN_THOI">
@@ -82,8 +83,7 @@
                     </td>
                     <td>                    
                         <button type="submit" ng-hide="editMode" ng-click="editMode = true; editAppKey(entry)" class="btn btn-default">Edit</button>
-                        <button type="submit" ng-show="check1()" ng-click="editMode = false; save(entry)" class="btn btn-default">Save</button>
-                        <button type="submit" ng-show="check2()" ng-click="editMode = false; add(entry)" class="btn btn-default">Thêm</button>
+                        <button type="submit" ng-show="editMode" ng-click="editMode = false; save(entry)" class="btn btn-default">Save</button>
                         <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
                     </td>
                 </tr>

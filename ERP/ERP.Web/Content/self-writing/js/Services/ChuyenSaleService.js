@@ -1,12 +1,12 @@
 ﻿app.service('chuyensaleService', function ($http) {
-    this.get_listchuyensale = function () {
-        return $http.get('/api/Api_ChuyenSale').then(function (response) {
+    this.get_listchuyensale = function (username) {
+        return $http.get('/api/Api_ChuyenSale/KH_CHUYEN_SALES/' + username).then(function (response) {
             return response.data;
         });
     };
 
-    this.save_listchuyensale = function (makh,data_save) {
-        return $http.put('/api/Api_ChuyenSale/' + makh, data_save);
+    this.save_listchuyensale = function (data_save) {
+        return $http.post('/api/Api_ChuyenSale/XuLyChyenSale', data_save);
     };
 
     this.add_listchuyensale = function (data_add) {
