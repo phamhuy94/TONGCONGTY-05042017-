@@ -134,21 +134,21 @@ namespace ERP.Web.Controllers
 
 
                 
-                Session["USERNAME"] = user.USERNAME;
+                Session["UserName"] = user.USERNAME;
                 Session["PASSWORD"] = user.PASSWORD;
                 Session["MA_PHONG_BAN"] = user.CCTC_NHAN_VIEN.MA_PHONG_BAN;
                 Session["HO_VA_TEN"] = user.HO_VA_TEN;
                 Session["ALLOWED"] = user.ALLOWED;
                 Session["IS_AMIN"] = user.IS_ADMIN;
                 Session["AVATAR"] = user.AVATAR;
-                Session["MA_CONG_TY"] = user.MA_CONG_TY;
+                Session["CongTy"] = user.MA_CONG_TY;
                 Session["LOAI_USER"] = user.CCTC_CONG_TY.CAP_TO_CHUC;
-                HT_LICH_SU_DANG_NHAP lsdn = new HT_LICH_SU_DANG_NHAP();
-                lsdn.USERNAME = user.USERNAME;
-                lsdn.THOI_GIAN_DANG_NHAP = DateTime.Now.ToString("dd/MM/yyyy:hh:mm:ss");
-                lsdn.THOI_GIAN_DANG_XUAT = "";
-                db.HT_LICH_SU_DANG_NHAP.Add(lsdn);
-                db.SaveChanges();
+                //HT_LICH_SU_DANG_NHAP lsdn = new HT_LICH_SU_DANG_NHAP();
+                //lsdn.USERNAME = user.USERNAME;
+                //lsdn.THOI_GIAN_DANG_NHAP = DateTime.Now.ToString("dd/MM/yyyy:hh:mm:ss");
+                //lsdn.THOI_GIAN_DANG_XUAT = "";
+                //db.HT_LICH_SU_DANG_NHAP.Add(lsdn);
+                //db.SaveChanges();
                 return RedirectToAction("Index","Home");
 
                

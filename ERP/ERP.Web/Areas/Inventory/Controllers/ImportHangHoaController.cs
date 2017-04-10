@@ -15,6 +15,8 @@ namespace ERP.Web.Areas.Inventory.Controllers
         XuLyNgayThang xulydate = new XuLyNgayThang();
         int so_dong_thanh_cong;
         int dong;
+        string result = " ";
+        
         ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         #region "Import Hàng Hóa"
@@ -122,6 +124,96 @@ namespace ERP.Web.Areas.Inventory.Controllers
 
         #endregion
 
+        #region "Update Hàng Hóa"
+        [HttpPost]
+        public ActionResult Update_Hanghoa(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase filetonkho = Request.Files["UploadedFile"];
+                    if ((filetonkho != null) && (filetonkho.ContentLength > 0) && !string.IsNullOrEmpty(filetonkho.FileName))
+                    {
+                        string fileName = filetonkho.FileName;
+                        string fileContentType = filetonkho.ContentType;
+                        byte[] fileBytes = new byte[filetonkho.ContentLength];
+                        var data = filetonkho.InputStream.Read(fileBytes, 0, Convert.ToInt32(filetonkho.ContentLength));
+                        //var usersList = new List<Users>();
+                        using (var package = new ExcelPackage(filetonkho.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+
+                                var mahang = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                var hanghoa = db.HHs.Where(x => x.MA_HANG == mahang).FirstOrDefault();
+                                if (hanghoa != null)
+                                {
+                                    
+                                    if (workSheet.Cells[rowIterator, 4].Value != null)
+                                        hanghoa.THONG_SO = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    
+                                    if (workSheet.Cells[rowIterator, 6].Value != null)
+                                        hanghoa.TEN_HANG = workSheet.Cells[rowIterator, 6].Value.ToString();
+
+                                   
+                                    if (workSheet.Cells[rowIterator, 8].Value != null)
+                                        hanghoa.DON_VI_TINH = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 9].Value != null)
+                                        hanghoa.KHOI_LUONG = Convert.ToInt32(workSheet.Cells[rowIterator, 9].Value);
+                                    if (workSheet.Cells[rowIterator, 10].Value != null)
+                                        hanghoa.XUAT_XU = workSheet.Cells[rowIterator, 10].Value.ToString();
+                                  
+                                    if (workSheet.Cells[rowIterator, 14].Value != null)
+                                        hanghoa.THONG_SO_KY_THUAT = workSheet.Cells[rowIterator, 14].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 15].Value != null)
+                                        hanghoa.QUY_CACH_DONG_GOI = workSheet.Cells[rowIterator, 15].Value.ToString();
+
+                                    if (workSheet.Cells[rowIterator, 16].Value != null)
+                                        hanghoa.DISCONTINUE = Convert.ToBoolean(workSheet.Cells[rowIterator, 16].Value);
+                                    if (workSheet.Cells[rowIterator, 17].Value != null)
+                                        hanghoa.MA_CHUYEN_DOI = workSheet.Cells[rowIterator, 17].Value.ToString();
+
+                                    if (workSheet.Cells[rowIterator, 18].Value != null)
+                                        hanghoa.HINH_ANH = workSheet.Cells[rowIterator, 18].Value.ToString();
+                                    if (workSheet.Cells[rowIterator, 19].Value != null)
+                                        hanghoa.GHI_CHU = workSheet.Cells[rowIterator, 19].Value.ToString();
+                                    so_dong_thanh_cong++;
+                                }
+                                else
+                                {
+                                    result = result + ", " + ((rowIterator - 1).ToString());
+                                }
+                                db.SaveChanges();
+                                
+                                //dong = rowIterator;
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
+                //ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+
+            }
+            finally
+            {
+                ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+                ViewBag.Dongloi = "Các dòng bị lỗi là: " + result;
+            }
+
+            return View();
+        }
+
+        #endregion
+
         #region "Import hàng tồn kho"
 
         [HttpPost]
@@ -185,6 +277,7 @@ namespace ERP.Web.Areas.Inventory.Controllers
         [HttpPost]
         public ActionResult Update_Hangtonkho(HttpPostedFileBase file)
         {
+            
             try
             {
                 if (Request != null)
@@ -207,13 +300,23 @@ namespace ERP.Web.Areas.Inventory.Controllers
                             {
                                 var mahang = workSheet.Cells[rowIterator, 2].Value.ToString();
                                 var tonkho = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == mahang).FirstOrDefault();
-                                tonkho.SL_HOPLONG = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
+                                if(tonkho != null)
+                                {
+                                    tonkho.SL_HOPLONG = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
+                                    so_dong_thanh_cong++;
+                                }
+                                else
+                                {
+                                    result = result + " " + ((rowIterator - 1).ToString())+", ";
+                                }
+
+                                
 
                                 //db.DM_HANG_TON_KHO.Add(tonkho);
 
                                 db.SaveChanges();
-                                so_dong_thanh_cong++;
-                                dong = rowIterator;
+                                
+                               // dong = rowIterator;
                             }
 
                         }
@@ -223,12 +326,17 @@ namespace ERP.Web.Areas.Inventory.Controllers
             catch (Exception Ex)
             {
                 ViewBag.Error = " Đã xảy ra lỗi, Liên hệ ngay với admin. " + Environment.NewLine + " Thông tin chi tiết về lỗi:" + Environment.NewLine + Ex;
-                ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
+               // ViewBag.Information = "Lỗi tại dòng thứ: " + dong;
 
             }
             finally
             {
                 ViewBag.Message = "Đã import thành công " + so_dong_thanh_cong + " dòng";
+                ViewBag.Dongloi = "Các dòng bị lỗi là: "+ result;
+                
+                    
+                
+                
             }
 
             return View("Import_Hanghoa");

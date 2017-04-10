@@ -17,14 +17,14 @@ namespace ERP.Web.Models.Database
         public int ID { get; set; }
         public string MA_GIU_KHO { get; set; }
         public string MA_HANG { get; set; }
+        public string DVT { get; set; }
+        public string XUAT_XU { get; set; }
         public int SL_GIU { get; set; }
         public decimal DON_GIA { get; set; }
         public decimal THANH_TIEN { get; set; }
         public Nullable<System.DateTime> NGAY_XUAT { get; set; }
         public bool DA_XUAT { get; set; }
         public string GHI_CHU { get; set; }
-        public string DVT { get; set; }
-        public string XUAT_XU { get; set; }
     
         public virtual HH HH { get; set; }
         public virtual KHO_GIU_HANG KHO_GIU_HANG { get; set; }

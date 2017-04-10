@@ -30,5 +30,7 @@ namespace ERP.Web.Models.Database
         public Nullable<int> SL_KY_GUI_DI { get; set; }
         public Nullable<int> TON_TAI_HANG { get; set; }
         public string THOI_GIAN_CAP_HANG { get; set; }
+        public string MA_NHOM_HANG { get; set; }
+        public string DVT { get; set; }
     }
 }

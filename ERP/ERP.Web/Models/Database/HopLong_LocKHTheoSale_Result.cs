@@ -31,7 +31,9 @@ namespace ERP.Web.Models.Database
         public string GHI_CHU { get; set; }
         public string TRUC_THUOC { get; set; }
         public string MA_LOAI_KHACH { get; set; }
-        public string NHOM_NGANH { get; set; }
         public string TEN_LOAI_KHACH { get; set; }
+        public Nullable<int> ID { get; set; }
+        public string SALES_PHU_TRACH { get; set; }
+        public string NHOM_NGANH { get; set; }
     }
 }

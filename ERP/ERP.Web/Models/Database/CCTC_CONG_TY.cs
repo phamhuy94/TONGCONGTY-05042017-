@@ -40,6 +40,7 @@ namespace ERP.Web.Models.Database
             this.QUY_PHIEU_CHI = new HashSet<QUY_PHIEU_CHI>();
             this.QUY_PHIEU_THU = new HashSet<QUY_PHIEU_THU>();
             this.CN_NGHIEP_VU = new HashSet<CN_NGHIEP_VU>();
+            this.NCCs = new HashSet<NCC>();
         }
     
         public string MA_CONG_TY { get; set; }
@@ -104,5 +105,7 @@ namespace ERP.Web.Models.Database
         public virtual ICollection<QUY_PHIEU_THU> QUY_PHIEU_THU { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CN_NGHIEP_VU> CN_NGHIEP_VU { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NCC> NCCs { get; set; }
     }
 }

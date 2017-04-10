@@ -23,6 +23,12 @@
         chuyensaleService.save_listchuyensale($scope.entry.MA_KHACH_HANG, data_save).then(function () {
             $scope.load_listchuyensale();
         });
+        $scope.check2 = function () {
+            return false;
+        };
+        $scope.check1 = function () {
+            return false;
+        };
     };
 
 
@@ -39,6 +45,12 @@
         chuyensaleService.add_listchuyensale(data_add).then(function () {
             $scope.load_listchuyensale();
         });
+        $scope.check2 = function () {
+            return false;
+        };
+        $scope.check1 = function () {
+            return false;
+        };
     };
     var tmpDate = new Date();
 
@@ -47,9 +59,17 @@
     $scope.editing = false;
 
     $scope.editAppKey = function (field) {
-        $scope.editing = $scope.appkeys.indexOf(field);
-        $scope.newField = angular.copy(field);
-
+        
+        $scope.entry = field;
+        if ($scope.entry.SALE_HIEN_THOI != null || $scope.entry.SALE_SAP_CHUYEN != null || $scope.entry.SALE_CU != null || $scope.entry.SALE_CU_2 != null) {
+            $scope.check1 = function () {
+                return true;
+            };
+        } else {
+            $scope.check2 = function () {
+                return true;
+            };
+        }
     }
 
     $scope.saveField = function (index) {
@@ -57,14 +77,7 @@
             $scope.appkeys[$scope.editing] = $scope.newField;
             $scope.editing = false;
         }
-
-        $scope.check = function (entry) {
-            if (entry != "") {
-                return false;
-            } else {
-                return true;
-            }
-        };
+        
     };
 
     $scope.cancel = function (index) {
@@ -73,6 +86,12 @@
         //    $scope.editing = false;
         //}
         $scope.load_listchuyensale();
+        $scope.check2 = function () {
+            return false;
+        };
+        $scope.check1 = function () {
+            return false;
+        };
     };
 
     $scope.load_nhanvienkd = function () {

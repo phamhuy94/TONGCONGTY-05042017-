@@ -33,6 +33,6 @@ namespace ERP.Web.Models.Database
         public string TEN_LOAI_KHACH { get; set; }
         public string MA_LOAI_KHACH { get; set; }
         public Nullable<int> ID { get; set; }
-        public string HO_VA_TEN { get; set; }
+        public string SALES_PHU_TRACH { get; set; }
     }
 }

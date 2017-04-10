@@ -19,7 +19,9 @@ namespace ERP.Web.Api.Kho
         public List<HopLong_DS_TONKHO_Result> Get(string pg)
         {
             int sotrang = Convert.ToInt32(pg);
-            var query = db.Database.SqlQuery<HopLong_DS_TONKHO_Result>("HopLong_DS_TONKHO @sotrang", new SqlParameter("@sotrang", pg));
+
+            var query = db.Database.SqlQuery<HopLong_DS_TONKHO_Result>("HopLong_DS_TONKHO @sotrang", new SqlParameter("@sotrang", sotrang));
+
             var result = query.ToList();
             return result;
         }

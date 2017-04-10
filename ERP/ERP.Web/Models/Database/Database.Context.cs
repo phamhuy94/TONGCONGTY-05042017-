@@ -102,6 +102,7 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<QUY_CT_PHIEU_THU> QUY_CT_PHIEU_THU { get; set; }
         public virtual DbSet<QUY_PHIEU_CHI> QUY_PHIEU_CHI { get; set; }
         public virtual DbSet<QUY_PHIEU_THU> QUY_PHIEU_THU { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TONKHO_GIU_HL> TONKHO_GIU_HL { get; set; }
         public virtual DbSet<TONKHO_GIU_TADN> TONKHO_GIU_TADN { get; set; }
         public virtual DbSet<TONKHO_GIU_TAHCM> TONKHO_GIU_TAHCM { get; set; }
@@ -161,9 +162,9 @@ namespace ERP.Web.Models.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<LocKHTheoSale_Result>("LocKHTheoSale", saleParameter);
         }
     
-        public virtual ObjectResult<GetAll_KhachHang_Result1> GetAll_KhachHang()
+        public virtual ObjectResult<GetAll_KhachHang_Result> GetAll_KhachHang()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_KhachHang_Result1>("GetAll_KhachHang");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_KhachHang_Result>("GetAll_KhachHang");
         }
     
         public virtual ObjectResult<TimKiemKhachHang_Result> TimKiemKhachHang(string sdt)
@@ -175,13 +176,17 @@ namespace ERP.Web.Models.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TimKiemKhachHang_Result>("TimKiemKhachHang", sdtParameter);
         }
     
-        public virtual ObjectResult<HopLong_LocKHTheoSale_Result> HopLong_LocKHTheoSale(string sale)
+        public virtual ObjectResult<HopLong_LocKHTheoSale_Result> HopLong_LocKHTheoSale(string sale, string sdt)
         {
             var saleParameter = sale != null ?
                 new ObjectParameter("sale", sale) :
                 new ObjectParameter("sale", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale", saleParameter);
+            var sdtParameter = sdt != null ?
+                new ObjectParameter("sdt", sdt) :
+                new ObjectParameter("sdt", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale", saleParameter, sdtParameter);
         }
     
         public virtual ObjectResult<HopLong_GetAllSale_Result> HopLong_GetAllSale()
@@ -196,6 +201,145 @@ namespace ERP.Web.Models.Database
                 new ObjectParameter("MA_CHUAN", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_DS_TONKHO_Result>("HopLong_DS_TONKHO", mA_CHUANParameter);
+        }
+    
+        public virtual ObjectResult<HopLong_PhanTrang_TonKho_Result> HopLong_PhanTrang_TonKho(Nullable<int> sotrang)
+        {
+            var sotrangParameter = sotrang.HasValue ?
+                new ObjectParameter("sotrang", sotrang) :
+                new ObjectParameter("sotrang", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_PhanTrang_TonKho_Result>("HopLong_PhanTrang_TonKho", sotrangParameter);
+        }
+    
+        public virtual ObjectResult<GetAll_LienHeTheoKhach_Result> GetAll_LienHeTheoKhach(string makhachhang)
+        {
+            var makhachhangParameter = makhachhang != null ?
+                new ObjectParameter("makhachhang", makhachhang) :
+                new ObjectParameter("makhachhang", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_LienHeTheoKhach_Result>("GetAll_LienHeTheoKhach", makhachhangParameter);
+        }
+    
+        public virtual ObjectResult<GetAll_KhachCuaSale_Result> GetAll_KhachCuaSale(string macongty, string sale)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            var saleParameter = sale != null ?
+                new ObjectParameter("sale", sale) :
+                new ObjectParameter("sale", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_KhachCuaSale_Result>("GetAll_KhachCuaSale", macongtyParameter, saleParameter);
+        }
+    
+        public virtual ObjectResult<GetAllChungTu_Result> GetAllChungTu(string macongty)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllChungTu_Result>("GetAllChungTu", macongtyParameter);
+        }
+    
+        public virtual ObjectResult<GetAllChungTu_WithDate_Result> GetAllChungTu_WithDate(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, string macongty)
+        {
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllChungTu_WithDate_Result>("GetAllChungTu_WithDate", fromDateParameter, toDateParameter, macongtyParameter);
+        }
+    
+        public virtual ObjectResult<GetAllHangHoaVaTon_Result> GetAllHangHoaVaTon()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllHangHoaVaTon_Result>("GetAllHangHoaVaTon");
+        }
+    
+        public virtual ObjectResult<GetChungTuFromDoiTuong_Result> GetChungTuFromDoiTuong(string maDoiTuong, string macongty)
+        {
+            var maDoiTuongParameter = maDoiTuong != null ?
+                new ObjectParameter("MaDoiTuong", maDoiTuong) :
+                new ObjectParameter("MaDoiTuong", typeof(string));
+    
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetChungTuFromDoiTuong_Result>("GetChungTuFromDoiTuong", maDoiTuongParameter, macongtyParameter);
+        }
+    
+        public virtual ObjectResult<GetChungTuFromDoiTuong_WithDate_Result> GetChungTuFromDoiTuong_WithDate(string maDoiTuong, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, string macongty)
+        {
+            var maDoiTuongParameter = maDoiTuong != null ?
+                new ObjectParameter("MaDoiTuong", maDoiTuong) :
+                new ObjectParameter("MaDoiTuong", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetChungTuFromDoiTuong_WithDate_Result>("GetChungTuFromDoiTuong_WithDate", maDoiTuongParameter, fromDateParameter, toDateParameter, macongtyParameter);
+        }
+    
+        public virtual ObjectResult<Search_SearchByType_Result> Search_SearchByType(string loaiChungTu, string macongty)
+        {
+            var loaiChungTuParameter = loaiChungTu != null ?
+                new ObjectParameter("LoaiChungTu", loaiChungTu) :
+                new ObjectParameter("LoaiChungTu", typeof(string));
+    
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Search_SearchByType_Result>("Search_SearchByType", loaiChungTuParameter, macongtyParameter);
+        }
+    
+        public virtual ObjectResult<Search_SearchByTypeWithDate_Result> Search_SearchByTypeWithDate(string loaiChungTu, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, string macongty)
+        {
+            var loaiChungTuParameter = loaiChungTu != null ?
+                new ObjectParameter("LoaiChungTu", loaiChungTu) :
+                new ObjectParameter("LoaiChungTu", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Search_SearchByTypeWithDate_Result>("Search_SearchByTypeWithDate", loaiChungTuParameter, fromDateParameter, toDateParameter, macongtyParameter);
+        }
+    
+        public virtual ObjectResult<GetAllDoiTuong_Result> GetAllDoiTuong(string macongty)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllDoiTuong_Result>("GetAllDoiTuong", macongtyParameter);
         }
     }
 }

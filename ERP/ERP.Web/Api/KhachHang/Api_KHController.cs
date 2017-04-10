@@ -20,19 +20,37 @@ namespace ERP.Web.Api.HeThong
 
         // GET: api/Api_KH
         string mkh;
-        public List<GetAll_KhachHang_Result1> GetKH()
+        public List<GetAll_KhachHang_Result> GetKH()
         {
-            var query = db.Database.SqlQuery<GetAll_KhachHang_Result1>("GetAll_KhachHang");
+            var query = db.Database.SqlQuery<GetAll_KhachHang_Result>("GetAll_KhachHang");
             var result = query.ToList();
             return result;
         }
-        [Route("api/Api_KH/KH_THEO_SALES/{username}")]
-        public List<LocKHTheoSale_Result> KH_THEO_SALES( string username)
+        [Route("api/Api_KH/KH_THEO_SALES/{username}/{tukhoa}")]
+        public List<HopLong_LocKHTheoSale_Result> KH_THEO_SALES( string username, string tukhoa)
         {
-            var query = db.Database.SqlQuery<LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale", new SqlParameter("sale", username));
+            var query = db.Database.SqlQuery<HopLong_LocKHTheoSale_Result>("HopLong_LocKHTheoSale @sale, @sdt", new SqlParameter("sale", username), new SqlParameter("sdt", tukhoa));
             var result = query.ToList();
             return result;
         }
+
+        [Route("api/Api_KH/LocKH/{username}")]
+        public List<GetAll_KhachCuaSale_Result> LocKH(string username)
+        {
+            var query = db.Database.SqlQuery<GetAll_KhachCuaSale_Result>("GetAll_KhachCuaSale @macongty, @sale", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("sale", username));
+            var result = query.ToList();
+            return result;
+        }
+
+
+        [Route("api/Api_KH/GET_KHACH_CUA_SALE/{username}")]
+        public List<GetAll_KhachCuaSale_Result> GET_KHACH_CUA_SALE(string username)
+        {
+            var query = db.Database.SqlQuery<GetAll_KhachCuaSale_Result>("GetAll_KhachCuaSale  @macongty, @sale", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("sale", username));
+            var result = query.ToList();
+            return result;
+        }
+
 
 
         [Route("api/Api_KH/GetAllSale")]
