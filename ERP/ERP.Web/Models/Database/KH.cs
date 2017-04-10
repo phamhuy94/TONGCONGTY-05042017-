@@ -43,11 +43,11 @@ namespace ERP.Web.Models.Database
         public string LOGO { get; set; }
         public string WEBSITE { get; set; }
         public string DIEU_KHOAN_THANH_TOAN { get; set; }
+        public string TINH_TRANG_HOAT_DONG { get; set; }
         public Nullable<int> SO_NGAY_DUOC_NO { get; set; }
         public Nullable<int> SO_NO_TOI_DA { get; set; }
         public string GHI_CHU { get; set; }
         public string TRUC_THUOC { get; set; }
-        public string TINH_TRANG_HOAT_DONG { get; set; }
         public string SALES_TAO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -57,6 +57,7 @@ namespace ERP.Web.Models.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BH_DON_HANG_DU_KIEN> BH_DON_HANG_DU_KIEN { get; set; }
         public virtual CCTC_CONG_TY CCTC_CONG_TY { get; set; }
+        public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KH_LIEN_HE> KH_LIEN_HE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -73,6 +74,5 @@ namespace ERP.Web.Models.Database
         public virtual ICollection<KHO_XUAT_KHO> KHO_XUAT_KHO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KH_PHAN_LOAI_KHACH> KH_PHAN_LOAI_KHACH { get; set; }
-        public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
     }
 }
