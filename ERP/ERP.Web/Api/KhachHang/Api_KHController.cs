@@ -34,6 +34,14 @@ namespace ERP.Web.Api.HeThong
             return result;
         }
 
+        [Route("api/Api_KH/LocKH/{username}")]
+        public List<GetAll_KhachCuaSale_Result> LocKH(string username)
+        {
+            var query = db.Database.SqlQuery<GetAll_KhachCuaSale_Result>("GetAll_KhachCuaSale @macongty, @sale", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("sale", username));
+            var result = query.ToList();
+            return result;
+        }
+
 
         [Route("api/Api_KH/GET_KHACH_CUA_SALE/{username}")]
         public List<GetAll_KhachCuaSale_Result> GET_KHACH_CUA_SALE(string username)
@@ -173,9 +181,10 @@ namespace ERP.Web.Api.HeThong
                 khach.DIEU_KHOAN_THANH_TOAN = kH.DIEU_KHOAN_THANH_TOAN;
                 khach.SO_NGAY_DUOC_NO = kH.SO_NGAY_DUOC_NO;
                 khach.SO_NO_TOI_DA = kH.SO_NO_TOI_DA;
+                khach.TINH_TRANG_HOAT_DONG = kH.TINH_TRANG_HOAT_DONG;
                 khach.GHI_CHU = kH.GHI_CHU;
                 khach.TRUC_THUOC = kH.TRUC_THUOC;
-
+                khach.SALES_TAO = kH.SALES_TAO;
                 db.KHs.Add(khach);
 
 
