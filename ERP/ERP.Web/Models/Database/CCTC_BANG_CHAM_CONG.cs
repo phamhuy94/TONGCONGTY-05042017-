@@ -27,6 +27,9 @@ namespace ERP.Web.Models.Database
         public decimal VAY_TIN_DUNG { get; set; }
         public decimal UNG_LUONG { get; set; }
         public string GHI_CHU { get; set; }
+        public int SO_LAN_QUEN_DONG_PHUC { get; set; }
+        public int SO_LAN_QUEN_DEO_THE { get; set; }
+        public decimal PHU_CAP_THEM { get; set; }
     
         public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
     }

@@ -16,9 +16,9 @@ namespace ERP.Web.Areas.Settings.Controllers
         int so_dong_thanh_cong;
         int dong;
         string thangchamcong, username, ghichu;
-        int ngaychuan;
+        int ngaychuan, solanviphamdongphuc, solanquendeothe;
         double giodimuon, giovesom, tangcangaythuong, tangcangayle, solanquencham, songaynghi, congthucte;
-        decimal vaytindung, ungluong;
+        decimal vaytindung, ungluong, phucapthem;
         ERP_DATABASEEntities db = new ERP_DATABASEEntities();
         // GET: HopLong/ImportExcel
 
@@ -53,17 +53,56 @@ namespace ERP.Web.Areas.Settings.Controllers
                                 thangchamcong = workSheet.Cells[rowIterator, 15].Value.ToString();
                                 username = workSheet.Cells[rowIterator, 3].Value.ToString();
                                 ngaychuan = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value);
-                                giodimuon = Convert.ToDouble(workSheet.Cells[rowIterator, 5].Value);
-                                giovesom = Convert.ToDouble(workSheet.Cells[rowIterator, 6].Value);
-                                tangcangaythuong = Convert.ToDouble(workSheet.Cells[rowIterator, 7].Value);
-                                tangcangayle = Convert.ToDouble(workSheet.Cells[rowIterator, 8].Value);
-                                solanquencham = Convert.ToDouble(workSheet.Cells[rowIterator, 9].Value);
-                                songaynghi = Convert.ToDouble(workSheet.Cells[rowIterator, 10].Value);
-                                congthucte = Convert.ToDouble(workSheet.Cells[rowIterator, 11].Value);
-                                vaytindung = Convert.ToDecimal(workSheet.Cells[rowIterator, 12].Value);
-                                ungluong = Convert.ToDecimal(workSheet.Cells[rowIterator, 13].Value);
+                                if (workSheet.Cells[rowIterator, 5].Value != null)
+                                    giodimuon = Convert.ToDouble(workSheet.Cells[rowIterator, 5].Value);
+                                else
+                                    giodimuon = 0;
+                                if (workSheet.Cells[rowIterator, 6].Value != null)
+                                    giovesom = Convert.ToDouble(workSheet.Cells[rowIterator, 6].Value);
+                                else
+                                    giovesom = 0;
+                                if (workSheet.Cells[rowIterator, 7].Value != null)
+                                    tangcangaythuong = Convert.ToDouble(workSheet.Cells[rowIterator, 7].Value);
+                                else
+                                    tangcangaythuong = 0;
+                                if (workSheet.Cells[rowIterator, 8].Value != null)
+                                    tangcangayle = Convert.ToDouble(workSheet.Cells[rowIterator, 8].Value);
+                                else
+                                    tangcangayle = 0;
+                                if (workSheet.Cells[rowIterator, 9].Value != null)
+                                    solanquencham = Convert.ToDouble(workSheet.Cells[rowIterator, 9].Value);
+                                else
+                                    solanquencham = 0;
+                                if (workSheet.Cells[rowIterator, 10].Value != null)
+                                    solanviphamdongphuc = Convert.ToInt32(workSheet.Cells[rowIterator, 10].Value);
+                                else
+                                    solanviphamdongphuc = 0;
+                                if (workSheet.Cells[rowIterator, 11].Value != null)
+                                    solanquendeothe = Convert.ToInt32(workSheet.Cells[rowIterator, 11].Value);
+                                else
+                                    solanquendeothe = 0;
+                                if (workSheet.Cells[rowIterator, 12].Value != null)
+                                    songaynghi = Convert.ToDouble(workSheet.Cells[rowIterator, 12].Value);
+                                else
+                                    songaynghi = 0;
+                                if (workSheet.Cells[rowIterator, 13].Value != null)
+                                    congthucte = Convert.ToDouble(workSheet.Cells[rowIterator, 13].Value);
+                                else
+                                    congthucte = 0;
                                 if (workSheet.Cells[rowIterator, 14].Value != null)
-                                   ghichu = workSheet.Cells[rowIterator, 14].Value.ToString();
+                                    vaytindung = Convert.ToDecimal(workSheet.Cells[rowIterator, 14].Value);
+                                else
+                                    vaytindung = 0;
+                                if (workSheet.Cells[rowIterator, 15].Value != null)
+                                    ungluong = Convert.ToDecimal(workSheet.Cells[rowIterator, 15].Value);
+                                else
+                                    ungluong = 0;
+                                if (workSheet.Cells[rowIterator, 16].Value != null)
+                                   ghichu = workSheet.Cells[rowIterator, 16].Value.ToString();
+                                if (workSheet.Cells[rowIterator, 15].Value != null)
+                                    phucapthem = Convert.ToDecimal(workSheet.Cells[rowIterator, 16].Value);
+                                else
+                                    ungluong = 0;
 
 
 
@@ -83,6 +122,9 @@ namespace ERP.Web.Areas.Settings.Controllers
                                 bcc.VAY_TIN_DUNG = vaytindung;
                                 bcc.UNG_LUONG = ungluong;
                                 bcc.GHI_CHU = ghichu;
+                                bcc.SO_LAN_QUEN_DONG_PHUC = solanviphamdongphuc;
+                                bcc.SO_LAN_QUEN_DEO_THE = solanquendeothe;
+                                bcc.PHU_CAP_THEM = phucapthem;
 
                                 CCTC_BANG_LUONG bangluong = new CCTC_BANG_LUONG();
                                 var querytinhluong = db.NV_TINH_LUONG.Where(x => x.USERNAME == username).FirstOrDefault();
@@ -114,9 +156,12 @@ namespace ERP.Web.Areas.Settings.Controllers
                                     bangluong.VAY_TIN_DUNG = vaytindung;
                                     bangluong.GIO_DI_TRE = (giodimuon * 3) + giovesom;
                                     bangluong.PHAT_DI_TRE = Convert.ToDecimal(bangluong.GIO_DI_TRE) * bangluong.LUONG_CO_BAN_GIO;
+                                    bangluong.PHAT_QUEN_DONG_PHUC = Convert.ToDecimal(solanviphamdongphuc) * 20000;
+                                    bangluong.PHAT_QUEN_DEO_THE = Convert.ToDecimal(solanquendeothe) * 20000;
+                                    bangluong.PHU_CAP_THEM = phucapthem;
                                     bangluong.CONG_DOAN = querytinhluong.LUONG_CO_BAN * Convert.ToDecimal(0.02);
                                     bangluong.LUONG_LAO_CONG = querytinhluong.LUONG_LAO_CONG;
-                                    bangluong.THUC_LINH = (bangluong.PHU_CAP_AN_TRUA + bangluong.PHU_CAP_DI_LAI_DIEN_THOAI + bangluong.PHU_CAP_THUONG_DOANH_SO + bangluong.PHU_CAP_TRACH_NHIEM + bangluong.LUONG_THUC_TE_SO_TIEN + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_LE) - (bangluong.TAM_UNG + bangluong.VAY_TIN_DUNG + bangluong.PHAT_DI_TRE + bangluong.CONG_DOAN + bangluong.LUONG_LAO_CONG+ bangluong.BAO_HIEM_NHAN_VIEN_DONG);
+                                    bangluong.THUC_LINH = (bangluong.PHU_CAP_AN_TRUA + bangluong.PHU_CAP_DI_LAI_DIEN_THOAI + bangluong.PHU_CAP_THUONG_DOANH_SO + bangluong.PHU_CAP_TRACH_NHIEM + bangluong.LUONG_THUC_TE_SO_TIEN + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_THUONG + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_NGHI + bangluong.LUONG_LAM_THEM_TIEN_CONG_NGAY_LE+phucapthem) - (bangluong.TAM_UNG + bangluong.VAY_TIN_DUNG + bangluong.PHAT_DI_TRE + bangluong.CONG_DOAN + bangluong.LUONG_LAO_CONG+ bangluong.BAO_HIEM_NHAN_VIEN_DONG+bangluong.PHAT_QUEN_DEO_THE+bangluong.PHAT_QUEN_DONG_PHUC);
                                     db.CCTC_BANG_LUONG.Add(bangluong);
                                 }
                                 

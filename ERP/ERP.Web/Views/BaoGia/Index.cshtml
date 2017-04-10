@@ -13,16 +13,50 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-white">
-                <div class="panel-heading color-heading">
-                    <h6 class="panel-title">Giữ Hàng</h6>
-                </div>
 
                 <div class="panel-body">
+                    <!--Thông tin về đơn hàng dự kiến-->
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title">Thông tin đơn dự kiến<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                                    </div>
+                                    <div class="panel-body">
+                                        
+                                            <label class="control-label">Đơn dự kiến:  </label><br/>
+                                            <label class="control-label">Sale báo giá:  </label><br />
+                                            <label class="control-label">Khách hàng:  </label><br />
+                                            <label class="control-label">Tên Liên hệ:  </label>
+                                        
+
+                                       
+                                    </div>
+                                   
+
+                                </div>
+                               
+                            </div>
+                        
+                        <div class="col-md-8">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h6 class="panel-title">Danh sách báo giá <a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                                </div>
+                                <div class="panel-body">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Thông tin về đơn hàng dự kiến-->
+
                     <!--Thông tin chung-->
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h6 class="panel-title">Thông tin chung<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                                <h6 class="panel-title">Thông tin chung Báo Giá<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                             </div>
                             <div class="panel-body">
                                 <form class="form-horizontal">
@@ -34,6 +68,7 @@
                                             <div class="col-md-4">
                                                 <label class="control-label">Khách hàng </label>
                                             </div>
+
                                             <div class="col-md-8">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" ng-model="arrayKhachHang.ten_cong_ty" ng-change="onKHFind()" ng-focus="showtable_ma_khach_hang = true">
@@ -73,7 +108,6 @@
 
                                     </div>
                                     <!--End khách hàng-->
-
                                     <!--Mã dự kiến-->
                                     <div class="form-group">
                                         <!--Mã khách-->
@@ -109,31 +143,29 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>  
+                                        </div>
                                         <div class="col-md-6">
-                                            <input type="text" readonly class="form-control " ng-value="(arrayDuKien.ngay_tao | date: 'dd/MM/yyyy')" >
-                                        </div>                                                                           
+                                            <input type="text" readonly class="form-control " ng-value="(arrayDuKien.ngay_tao | date: 'dd/MM/yyyy')">
+                                        </div>
                                     </div>
                                     <!--End mã dự kiến-->
-
                                     <!--Ngày báo giá-->
                                     @*<div class="form-group">
-                                        <div class="col-md-6">
-                                            <div class="col-md-4">
-                                                <label class="control-label">Ngày báo giá </label>
-                                            </div>
-                                            <div class="col-md-8">
+                            <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label class="control-label">Ngày báo giá </label>
+                                </div>
+                                <div class="col-md-8">
 
-                                                <input type="text" datepicker class="form-control datetimepickerKT" ng-model="BangBaoGia.ngay_bao_gia">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
+                                    <input type="text" datepicker class="form-control datetimepickerKT" ng-model="BangBaoGia.ngay_bao_gia">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
 
-                                        </div>
+                            </div>
 
-                                    </div>*@
+                        </div>*@
                                     <!--end ngày báo giá-->
-
                                     <!--Người báo giá-->
                                     <div class="form-group">
                                         <!--Mã khách-->
@@ -179,9 +211,8 @@
 
                                     </div>
                                     <!--End người báo giá-->
-
                                     <!--Liên hệ-->
-                                    <div  class="form-group">
+                                    <div class="form-group">
                                         <!--Mã khách-->
                                         <div class="col-md-6">
                                             <div class="col-md-4">
@@ -225,7 +256,6 @@
 
                                     </div>
                                     <!--End Liên hệ-->
-
                                     <!--Phương thức thanh toán-->
                                     <div class="form-group">
                                         <div class="col-md-6">
@@ -273,7 +303,7 @@
                                                 <label class="control-label">Phí vận chuyển </label>
                                             </div>
                                             <div class="col-md-3">
-                                                <input type="number" class="form-control" ng-model="BangBaoGia.phi_van_chuyen" value="0" ng-change="kiemtra(item)"/>
+                                                <input type="number" class="form-control" ng-model="BangBaoGia.phi_van_chuyen" value="0" ng-change="kiemtra(item)" />
                                             </div>
                                         </div>
                                     </div>
@@ -282,6 +312,7 @@
                         </div>
                     </div>
                     <!--End Thông tin chung-->
+
                     <!--Thông tin trạng thái-->
                     @*<div class="col-md-4">
                         <div class="panel panel-default">
@@ -410,6 +441,7 @@
                             </table>                            
                         </div>
                     </div>
+
                     <div class="col-md-12 text-center">
                         <button type="button" class="btn btn-primary" ng-click="onSave()"><i class="icon-floppy-disk"></i> Lưu</button>
                         <a href="/" class="btn bg-orange-400"><i class="icon-blocked"></i> Bỏ qua</a>

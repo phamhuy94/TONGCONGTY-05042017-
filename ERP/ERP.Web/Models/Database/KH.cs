@@ -47,6 +47,8 @@ namespace ERP.Web.Models.Database
         public Nullable<int> SO_NO_TOI_DA { get; set; }
         public string GHI_CHU { get; set; }
         public string TRUC_THUOC { get; set; }
+        public string TINH_TRANG_HOAT_DONG { get; set; }
+        public string SALES_TAO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BH_BAO_GIA> BH_BAO_GIA { get; set; }
@@ -71,5 +73,6 @@ namespace ERP.Web.Models.Database
         public virtual ICollection<KHO_XUAT_KHO> KHO_XUAT_KHO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KH_PHAN_LOAI_KHACH> KH_PHAN_LOAI_KHACH { get; set; }
+        public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
     }
 }
