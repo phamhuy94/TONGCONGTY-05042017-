@@ -241,6 +241,7 @@ app.controller('khogiuhangCtrl', function (khogiuhangService, $scope, $location,
 app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $location) {
 
     $scope.createnew = function () {
+        var salestao = $('#salehienthoi').val();
         var logo = $('#imgInp').val();
         var name_without_ext = (logo.split('\\').pop().split('/').pop().split())[0];
         $scope.Thong_tin_KH = {
@@ -259,8 +260,10 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             EMAIL: $scope.arraythongtin.email,
             GHI_CHU: $scope.arraythongtin.ghi_chu,
             TINH: $scope.arraythongtin.tinh,
+            TINH_TRANG_HOAT_DONG: $scope.arraythongtin.tinh_trang_hoat_dong,
             QUOC_GIA: $scope.arraythongtin.quoc_gia,
             TRUC_THUOC: 'HOPLONG',
+            SALES_TAO: salestao,
         }
 
 
@@ -323,7 +326,15 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                     NHOM_NGANH : $scope.nhom_nganh
                 }
                 khachhangService.add_phanloaikh(phanloaikh_add).then(function (response) {
-                    $scope.load_khachhang();
+                    $scope.load_khachhang('A');
+                });
+
+                var chuyensale_add = {
+                    MA_KHACH_HANG: $scope.lastmakh,
+                    SALE_HIEN_THOI : salestao,
+                }
+                khachhangService.add_saletao(chuyensale_add).then(function (response) {
+                    $scope.load_khachhang('A');
                 });
 
                 if (!$scope.Thong_tin_KH) {
@@ -443,6 +454,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             EMAIL: $scope.kh.EMAIL,
             FAX: $scope.kh.FAX,
             LOGO: name_without_ext,
+            TINH_TRANG_HOAT_DONG: $scope.kh.TINH_TRANG_HOAT_DONG,
             WEBSITE: $scope.kh.WEBSITE,
             DIEU_KHOAN_THANH_TOAN: $scope.kh.DIEU_KHOAN_THANH_TOAN,
             SO_NGAY_DUOC_NO: $scope.kh.SO_NGAY_DUOC_NO,
@@ -451,14 +463,14 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             TRUC_THUOC: "HOPLONG"
         }
         khachhangService.save_khachhang(makh, kh_save).then(function (response) {
-            $scope.load_khachhang();
+            $scope.load_khachhang('A');
             var phanloai_save = {
                 ID: id,
                 MA_KHACH_HANG: makh,
                 MA_LOAI_KHACH: $scope.kh.MA_LOAI_KHACH
             }
             khachhangService.save_phanloaikh(id, phanloai_save).then(function (response) {
-                $scope.load_khachhang();
+                $scope.load_khachhang('A');
             });
         });
     };
@@ -539,6 +551,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     };
 
     $scope.dieukhoantt = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
+    $scope.tinhtranghoatdong = ['Cầm chừng', 'Bình thường', 'Sắp phá sản', 'Đã phá sản'];
 
     $scope.range = function (min, max, step) {
         step = step || 1;
@@ -563,6 +576,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         email: '',
         ghi_chu: '',
         tinh: '',
+        tinh_trang_hoat_dong: '',
         quoc_gia: '',
         truc_thuoc: 'HOPLONG',
     };
