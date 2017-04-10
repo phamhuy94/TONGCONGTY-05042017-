@@ -121,6 +121,10 @@ namespace ERP.Web.Api.Kho
             xk.NGUOI_LAP_PHIEU = SessionPersister.UserName;
             xk.TRUC_THUOC = SessionPersister.CongTy;
 
+            xk.NGUOI_LAP_PHIEU = SessionPersister.UserName;
+            xk.TRUC_THUOC = SessionPersister.CongTy;
+
+
             xk.LOAI_XUAT_KHO = kho_xuatkho.LOAI_XUAT_KHO;
             db.KHO_XUAT_KHO.Add(xk);
            
