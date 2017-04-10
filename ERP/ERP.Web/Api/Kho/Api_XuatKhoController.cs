@@ -118,11 +118,18 @@ namespace ERP.Web.Api.Kho
             xk.NGUOI_NHAN = kho_xuatkho.NGUOI_NHAN;
             xk.KHACH_HANG = kho_xuatkho.KHACH_HANG;
 <<<<<<< HEAD
+<<<<<<< HEAD
             xk.NGUOI_LAP_PHIEU = SessionPersister.UserName;
             xk.TRUC_THUOC = SessionPersister.CongTy;
 =======
             xk.NGUOI_LAP_PHIEU = "";
             xk.TRUC_THUOC = "";
+>>>>>>> refs/remotes/origin/master
+=======
+
+            xk.NGUOI_LAP_PHIEU = SessionPersister.UserName;
+            xk.TRUC_THUOC = SessionPersister.CongTy;
+
 >>>>>>> refs/remotes/origin/master
             xk.LOAI_XUAT_KHO = kho_xuatkho.LOAI_XUAT_KHO;
             db.KHO_XUAT_KHO.Add(xk);
