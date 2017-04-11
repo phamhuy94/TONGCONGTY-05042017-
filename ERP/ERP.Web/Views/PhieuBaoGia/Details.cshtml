@@ -23,34 +23,62 @@
         list-style-type: none;
     }
 </style>
-<html>
-<head>
 
-</head>
-<body>
-    <div ng-app="myApp" ng-controller="PhieuBaoGiaCtrl" id="Grid">
-        <input type="hidden" id="username" name="salehienthoi" value="@Session["USERNAME"]" />
-
-        <div class="content" ng-repeat="item in list_duyetbaogia">
+<div ng-app="myApp" ng-controller="PhieuBaoGiaCtrl">
+    <input type="hidden" id="username" name="salehienthoi" value="@Session["USERNAME"]" />
+    <div class="content" ng-repeat="item in list_duyetbaogia">
+        <div class="col-md-12">
             <div class="col-md-12">
-                <div class="col-md-12">
-                    <div class="col-md-8" style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;">
-                        <label class="col-md-2">Khách hàng:</label>
-                        <label class="col-md-10">{{item.TEN_CONG_TY}}</label>
-                        <p class="col-md-2">Người liên hệ:</p>
-                        <p class="col-md-10">{{item.NGUOI_LIEN_HE}}</p>
-                        <p class="col-md-2">Văn phòng giao dịch:</p>
-                        <p class="col-md-10">{{item.VAN_PHONG_GIAO_DICH}}</p>
-                        <p class="col-md-2">Địa chỉ xuất hóa đơn:</p>
-                        <p class="col-md-10">{{item.DIA_CHI_XUAT_HOA_DON}}</p>
-                        <p class="col-md-1">Tel:</p>
-                        <p class="col-md-3">{{item.HOTLINE}}</p>
-                        <p class="col-md-1">Fax:</p>
-                        <p class="col-md-3">{{item.FAX}}</p>
-                        <p class="col-md-2">Email: </p>
-                        <p class="col-md-2">{{EMAIL_CA_NHAN}}</p>
+                <div class="col-md-3"></div>
+                <div class="col-md-2">
+                    <img src="~/logo_hoplong.png" height="100" width="150"/>
+                </div>
+                <div class="col-md-7">
+                    <h4><b>CÔNG TY CỔ PHẦN CÔNG NGHỆ HỢP LONG</b></h4>
+                    <p>Head office: 412 Trần Khát Chân-Hai Bà Trưng-Hà Nội - Tel: 043.661.7545 - Fax: 043.661.7560</p>
+                    <p>HCM office: 68 Nguyễn Huệ - Quận 1 - TP.Hồ Chí Minh</p>
+                    <p>ĐN office: 178 Trường Sơn - Cẩm Lệ - TP.Đà Nẵng</p>
+                    <p>Email: info@hoplongtech.com.vn  -  https://hoplongtech.com</p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <hr style="border: 2px solid lightskyblue"/>
+                <h2 class="text-center"><b>QUOTATION</b></h2>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="col-md-12"  style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;">
+                    <div class="col-md-8" style="border-right: 1px solid black">
+                        <div class="col-md-12">
+                            <label class="col-md-2">Khách hàng:</label>
+                            <label class="col-md-10">{{item.TEN_CONG_TY}}</label>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="col-md-2">Người liên hệ:</p>
+                            <p class="col-md-10">{{item.NGUOI_LIEN_HE}}</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="col-md-2">Văn phòng giao dịch:</p>
+                            <p class="col-md-10">{{item.VAN_PHONG_GIAO_DICH}}</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="col-md-2">Địa chỉ xuất hóa đơn:</p>
+                            <p class="col-md-10">{{item.DIA_CHI_XUAT_HOA_DON}}</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="col-md-1">Tel:</p>
+                            <p class="col-md-3">{{item.HOTLINE}}</p>
+                            <p class="col-md-1">Fax:</p>
+                            <p class="col-md-3">{{item.FAX}}</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="col-md-2">Email: </p>
+                            <p class="col-md-2">{{EMAIL_CA_NHAN}}</p>
+                        </div>
                     </div>
-                    <div class="col-md-4" style="border-top: 1px solid black;border-right: 1px solid black;">
+                    <div class="col-md-4">
+
                         <label class="col-md-4">Quotation Number:</label>
                         <div class="col-md-2"></div>
                         <p class="col-md-6">{{item.SO_BAO_GIA}}</p>
@@ -66,11 +94,13 @@
                 </div>
             </div>
             <div class="col-md-12">
+
                 <div class="col-md-12">
                     <div class="col-md-12 supplier">
                         <span>We are the leading supplier for industrial products.Hereby we would like to qoute for your inquiry as follow:</span>
                     </div>
                 </div>
+
             </div>
             <div class="col-md-12">
                 <div class="col-md-12">

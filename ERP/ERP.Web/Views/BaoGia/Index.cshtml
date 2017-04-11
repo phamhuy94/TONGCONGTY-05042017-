@@ -22,12 +22,12 @@
                                     <div class="panel-heading" style="padding-top:4px;font-family:'Times New Roman'; font-weight:bold; font-style:italic">
                                         <h6 class="panel-title">Thông tin đơn dự kiến<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                                     </div>
-                                    <div class="panel-body" style="font-size:12px;">
+                                    <div class="panel-body" style="font-size:12px;" ng-repeat="dondukien in list_dondukien">
                                         
-                                            <label class="control-label">Đơn dự kiến:  </label><br/>
-                                            <label class="control-label">Sale báo giá:  </label><br />
-                                            <label class="control-label">Khách hàng:  </label><br />
-                                            <label class="control-label">Tên Liên hệ:  </label>
+                                            <label class="control-label">Đơn dự kiến: {{dondukien.MA_DU_KIEN}} </label><br/>
+                                            <label class="control-label">Sale báo giá: {{dondukien.HO_VA_TEN}} </label><br />
+                                            <label class="control-label">Khách hàng: {{dondukien.TEN_CONG_TY}} </label><br />
+                                            <label class="control-label">Tên Liên hệ: {{dondukien.NGUOI_LIEN_HE}} </label>
                                     </div>
                                 </div>
                             </div>
@@ -38,11 +38,12 @@
                                     <h6 class="panel-title">Danh sách báo giá <a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                                 </div>
                                 <div class="panel-body" style="font-size:12px; margin-top: -12px;">
-                                    <div class="col-md-12 content-group" style="height: 27px; font-size:12px">
+                                    <div class="col-md-12 content-group">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered table-striped table-hover ">
+                                            <table class="table table-hover ">
                                                 <thead>
                                                     <tr class="bg-primary-300" style="background:#64B5F6; color:white">
+                                                        <th style="width:2%"></th>
                                                         <th style="width:5%" class="text-center">Số báo giá</th>
                                                         <th style="width:5%" class="text-center">Ngày báo giá</th>
                                                         <th style="width:5%" class="text-center">Đã duyệt</th>
@@ -53,7 +54,29 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                   
+                                                   <tr ng-repeat="baogia in list_baogiatheodukien">
+                                                       <td>
+                                                           <div>
+                                                               <input type="checkbox" ng-model="addbaogia">
+                                                               <div ng-if="addbaogia">
+                                                                   <label ng-init="thembaogia(baogia)"></label>
+                                                               </div>
+                                                           </div>
+                                                       </td>
+                                                       <td>{{baogia.SO_BAO_GIA}}
+                                                       <p id="phivanchuyen">{{baogia.PHI_VAN_CHUYEN}}</p>
+                                                       </td>
+                                                       <td>{{baogia.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
+                                                       <td>
+                                                           <div>
+                                                           <input readonly type="checkbox" ng-model="item.DA_DUYET" />
+                                                           </div>
+                                                       </td>
+                                                       <td>{{baogia.NGUOI_DUYET}}</td>
+                                                       <td><input readonly type="checkbox" ng-model="item.DA_TRUNG" /></td>
+                                                       <td><input readonly type="checkbox" ng-model="item.DA_HUY" /></td>
+                                                       <td>{{baogia.LY_DOHUY}}</td>
+                                                   </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -71,59 +94,54 @@
                                 <h6 class="panel-title">Thông tin chung Báo Giá<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                             </div>
                             <div class="panel-body" style="padding: 5px !important; font-size:12px">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" ng-repeat="item in BangBaoGia">
                                     <div class="col-md-12">
                                         <div class="col-md-6">
-                                            <!--Điều khoản thanh toán-->
                                             <div class="form-group">
-                                                <div class="col-md-3">
-                                                    <label class="control-label">Điều khoản thanh toán </label>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <select class="form-control" style="height: 27px;" ng-model="BangBaoGia.dieu_khoan_thanh_toan" id="adddieukhoanthanhtoan"
-                                                            data-ng-options="item as item for item in dieukhoantt"></select>
+                                                <div class="col-md-12">
+                                                    <label class="col-md-3">Phương thức thanh toán</label>
+                                                    <div class="col-md-5">
+                                                        <input ng-model="item.PHUONG_THUC_THANH_TOAN" type="text" class="form-control" />
+                                                        <input ng-model="item.MA_KHACH_HANG" style="display: none;">
+                                                        <input ng-model="item.SO_BAO_GIA" style="display: none;">
+                                                        <input ng-model="item.NGAY_BAO_GIA" style="display: none;">
+                                                        <input ng-model="item.MA_DU_KIEN" style="display: none;">
+                                                        <input ng-model="item.LIEN_HE_KHACH_HANG" style="display: none;">
+                                                        <input ng-model="item.DA_DUYET" style="display: none;">
+                                                        <input ng-model="item.NGUOI_DUYET" style="display: none;">
+                                                        <input ng-model="item.DA_TRUNG" style="display: none;">
+                                                        <input ng-model="item.DA_HUY" style="display: none;">
+                                                        <input ng-model="item.LY_DO_HUY" style="display: none;">
+                                                        <input ng-model="item.SALES_BAO_GIA" style="display: none;">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <!--End Điều khoản thanh toán-->
-                                            <!--Hạn thanh toán-->
                                             <div class="form-group">
-                                                <div class="col-md-3">
-                                                    <label class="control-label">Hạn thanh toán </label>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <input type="text" style="height: 27px;" class="form-control" ng-model="BangBaoGia.han_thanh_toan" />
+                                                <div class="col-md-12">
+                                                    <label class="col-md-3">Điều khoản thanh toán</label>
+                                                    <div class="col-md-5"><input ng-model="item.DIEU_KHOAN_THANH_TOAN" type="text" class="form-control" /></div>
                                                 </div>
                                             </div>
-                                            <!-- end Hạn thanh toán-->
                                         </div>
                                         <div class="col-md-6">
-                                            <!--Phương thức thanh toán-->
                                             <div class="form-group">
-                                                <div class="col-md-3">
-                                                    <label class="control-label">Phương thức thanh toán </label>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <select class="form-control" style="height: 27px;" ng-model="BangBaoGia.phuong_thuc_thanh_toan" id="adddieukhoanthanhtoan"
-                                                            data-ng-options="item as item for item in phuongthuctt"></select>
+                                                <div class="col-md-12">
+                                                    <label class="col-md-3">Hạn thanh toán</label>
+                                                    <div class="col-md-5"><input ng-model="item.HAN_THANH_TOAN" type="text" class="form-control" /></div>
                                                 </div>
                                             </div>
-                                            <!-- end phương thức thanh toán-->
-                                            <!--Hiệu lực báo giá-->
                                             <div class="form-group">
-                                                <div class="col-md-3">
-                                                    <label class="control-label">Hiệu lực báo giá </label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <input type="number" style="height: 27px;" class="form-control" ng-model="BangBaoGia.hieu_luc_bao_gia" />
-                                                </div>
-                                                <div class="col-md-3" style="margin-right: -96px;">
-                                                    <label class="control-label">Phí vận chuyển :</label> 
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <input type="number" style="height: 27px; width:100px" class="form-control" ng-model="BangBaoGia.phi_van_chuyen" value="0" ng-change="kiemtra(item)" placeholder="vnđ"/>
+                                                <div class="col-md-12">
+                                                    <label class="col-md-3">Hiệu lực báo giá</label>
+                                                    <div class="col-md-5"><input ng-model="item.HIEU_LUC_BAO_GIA" type="number" class="form-control" /></div>
                                                 </div>
                                             </div>
-                                            <!--End hiệu lực báo giá và phí vận chuyển-->
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <label class="col-md-3">Phí vận chuyển</label>
+                                                    <div class="col-md-5"><input ng-model="item.PHI_VAN_CHUYEN" value="0" type="number" id="phi_van_chuyen" class="form-control" ng-change="kiemtra(item)"/></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     
@@ -163,6 +181,7 @@
                                                         </td>
                                                         <td class="text-center">
                                                             <input type="number" style="height: 27px;" ng-model="item.CHIET_KHAU" class="form-control" ng-change="kiemtra(item)">
+                                                            <input type="number" style="height: 27px;display: none;" ng-model="item.DON_GIA_SAU_CHIET_KHAU" class="form-control" ng-change="kiemtra(item)">
                                                         </td>
                                                         <td class="text-center">
                                                             <select class="form-control" style="height: 27px;" ng-model="item.CACH_TINH_THANH_TIEN" ng-change="kiemtra(item)"
@@ -217,7 +236,7 @@
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <label class="col-md-3">Tổng tiền(đã tính phí vận chuyển): </label>
-                                                                <p class="col-md-6" style="text-align:left" id="tong_tien">{{BangBaoGia.tong_tien | currency: '':0}} vnd</p>
+                                                                <p class="col-md-6" style="text-align:left" id="tong_tien" ng-model="tong_tien">{{tong_tien | currency: '':0}} vnd</p>
                                                             </div>
                                                         </td>
                                                         <td colspan="9"></td>

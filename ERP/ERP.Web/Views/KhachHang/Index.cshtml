@@ -144,11 +144,21 @@
                             </div>
                             <div>
                                 <div class="col-md-12">
-                                    <div class="col-sm-12">
-                                        <input class="form-control" rows="3" placeholder="Ghi chú" id="addghichu" ng-model="arraythongtin.ghi_chu" style="height: 27px;padding-left: 5px; width:100%">
+
+                                    <div class="col-md-1">
+                                        <label class="col-md-12">Ghi chú</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea id="themghichu" name="themghichu" placeholder="Ghi chú" class="form-control input-md" ng-model="arraythongtin.ghi_chu"></textarea>
+
                                     </div>
                                 </div>
+                                <script>
+                                    CKEDITOR.replace('themghichu', {
+                                        height: 150
+                                    });
 
+                                </script>
                             </div>
 
 
@@ -385,11 +395,18 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label for="addghichu" class="col-sm-2 control-label">Ghi chú</label>
+                                    <div class="col-md-1">
+                                        <label class="col-md-12">Ghi chú</label>
+                                    </div>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" rows="3" id="addghichu" ng-model="kh.GHI_CHU"></textarea>
+                                        <textarea id="editghichu" name="editghichu"  class="form-control input-md" ng-model="kh.GHI_CHU"></textarea>
                                     </div>
                                 </div>
+                                <script>
+                                    CKEDITOR.replace('editghichu', {
+                                        height: 150
+                                    });
+                                </script>
                             </div>
                         </form>
                     </div>
@@ -619,8 +636,9 @@
                             <div>
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a data-toggle="tab" href="#chitiet">Thông tin chi tiết</a></li>
-                                    <li><a data-toggle="tab" href="#lienhe">Liên hệ</a></li>
-                                    <li><a data-toggle="tab" href="#taikhoan">Tài khoản</a></li>
+                                    <li><a data-toggle="tab" href="#lienhekhachhang">Liên hệ</a></li>
+                                    <li><a data-toggle="tab" href="#taikhoankhachhang">Tài khoản</a></li>
+                                    <li><a data-toggle="tab" href="#phanhoikhachhang">Phản hồi khách hàng</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <!--Tab chi tiết hàng hóa-->
@@ -674,14 +692,14 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Ghi chú</td>
-                                                        <td>{{item.GHI_CHU}}</td>
+                                                        <td ng-bind-html="item.GHI_CHU | unsafe" class="{{item.MA_KHACH_HANG}}-1"></td>
                                                     </tr>
                                                 </table>
                                             </div>
                                         </div>
                                         <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#myEdit" ng-click="edit(item)" class="btn btn-default">Sửa</button>
                                     </div>
-                                    <div id="lienhe" class="tab-pane fade">
+                                    <div id="lienhekhachhang" class="tab-pane fade">
                                         <div class="col-md-12">
                                             <table class="table">
                                                 <thead class="table-header-popup">
@@ -717,8 +735,7 @@
                                             </table>                                           
                                         </div>                                     
                                     </div>
-
-                                    <div id="taikhoan" class="tab-pane fade">
+                                    <div id="taikhoankhachhang" class="tab-pane fade">
                                         <table class="table">
                                             <thead class="table-header-popup">
                                                 <tr>
@@ -744,6 +761,27 @@
                                             </tbody>
                                         </table>
                                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newtaikhoan">Thêm mới</button>
+                                    </div>
+                                    <div id="phanhoikhachhang" class="tab-pane fade">
+                                        <div class="col-md-12" ng-repeat="khachphanhoi in list_phanhoi" style="border: 1px solid black;margin: 10px 0px;">
+                                            <div class="col-md-3" style="border-right: 1px solid black">
+                                                <div class="col-md-12">
+                                                   <p>{{khachphanhoi.NGAY_PHAN_HOI}}</p> 
+                                                </div>
+                                               
+                                            </div>
+                                            <div class="col-md-3" style="border-right: 1px solid black">
+                                                <div class="col-md-12">
+                                                    <p>{{khachphanhoi.HO_VA_TEN}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-md-12">
+                                                    <p  ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newphanhoi">Thêm mới</button>
                                     </div>
                                 </div>
                             </div>
@@ -941,7 +979,37 @@
         </div>
         <!--end modal-->
 
+        <!-- Modal thêm mới tài khoản -->
+        <div class="modal fade" id="newphanhoi" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
 
+                    <div class="modal-body">
+                                <div class="col-md-12">
+                                    <label class="col-md-2">Phản hồi mới</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="phanhoimoi" name="phanhoimoi" class="form-control input-md"></textarea>
+                                    </div>
+                                </div>
+                                <script>
+                                        CKEDITOR.replace('phanhoimoi', {
+                                        height: 150
+                                    });
+                                </script>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="anmelden"></label>
+                            <div class="col-md-8 addnew" style="text-align: left;margin-top: 30px;">
+                                <button id="addnew" name="addnew" class="btn" ng-click="addnewphanhoi(item.MA_KHACH_HANG)" data-dismiss="modal">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end modal-->
 
         <table id="example" class="table" cellspacing="0">
             <thead>
@@ -957,7 +1025,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate="item in filtered = list_kh  | itemsPerPage:20 | orderBy: 'item.TEN_CONG_TY'" ng-click="transfer(item);get_lienhe(item.MA_KHACH_HANG);get_taikhoan(item.MA_KHACH_HANG)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                <tr dir-paginate="item in filtered = list_kh  | itemsPerPage:20 | orderBy: 'item.TEN_CONG_TY'" ng-click="transfer(item);get_lienhe(item.MA_KHACH_HANG);get_taikhoan(item.MA_KHACH_HANG);get_phanhoi(item.MA_KHACH_HANG)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.MA_KHACH_HANG}}</td>
                     <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_CONG_TY}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.EMAIL}}</td>
