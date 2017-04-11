@@ -5,12 +5,15 @@ app.controller('baogiaCtrl', function ($scope, $http) {
         $scope.item = item;
         var cachtinh = $scope.item.CACH_TINH_THANH_TIEN;       
         if (cachtinh == "Giá nhập") {
+            $scope.item.DON_GIA_SAU_CHIET_KHAU = $scope.item.DON_GIA + ($scope.item.DON_GIA * ($scope.item.CHIET_KHAU / 100));
             $scope.item.THANH_TIEN = (($scope.item.SO_LUONG * $scope.item.DON_GIA) + (($scope.item.SO_LUONG * $scope.item.DON_GIA) * ($scope.item.CHIET_KHAU / 100)));
             $scope.item.TIEN_VAT = (($scope.item.THANH_TIEN * $scope.item.CK_VAT) / 100);
         } else if (cachtinh == "Giá list") {
+            $scope.item.DON_GIA_SAU_CHIET_KHAU = $scope.item.DON_GIA - ($scope.item.DON_GIA * ($scope.item.CHIET_KHAU / 100));
             $scope.item.THANH_TIEN = (($scope.item.SO_LUONG * $scope.item.DON_GIA) - (($scope.item.SO_LUONG * $scope.item.DON_GIA) * ($scope.item.CHIET_KHAU / 100)));
             $scope.item.TIEN_VAT = (($scope.item.THANH_TIEN * $scope.item.CK_VAT) / 100);
         } else {
+            $scope.item.DON_GIA_SAU_CHIET_KHAU = $scope.item.DON_GIA;
             $scope.item.THANH_TIEN = $scope.item.SO_LUONG * $scope.item.DON_GIA;
             $scope.item.TIEN_VAT = (($scope.item.THANH_TIEN * $scope.item.CK_VAT) / 100);
         }        
@@ -48,6 +51,7 @@ app.controller('baogiaCtrl', function ($scope, $http) {
         DON_GIA: 0,
         CHIET_KHAU: 0,
         CACH_TINH_THANH_TIEN: '',
+        DON_GIA_SAU_CHIET_KHAU : '',
         THANH_TIEN: 0,
         CK_VAT: 0,
         TIEN_VAT: 0,
@@ -177,6 +181,7 @@ app.controller('baogiaCtrl', function ($scope, $http) {
             CHIET_KHAU: $scope.Detail.ListAdd[i].CHIET_KHAU,
             CACH_TINH_THANH_TIEN: $scope.Detail.ListAdd[i].CACH_TINH_THANH_TIEN,
             THANH_TIEN: $scope.Detail.ListAdd[i].THANH_TIEN,
+            DON_GIA_SAU_CHIET_KHAU: $scope.Detail.ListAdd[i].DON_GIA_SAU_CHIET_KHAU,
             CK_VAT: $scope.Detail.ListAdd[i].CK_VAT,
             TIEN_VAT: $scope.Detail.ListAdd[i].TIEN_VAT,
             TINH_TRANG_HANG: $scope.Detail.ListAdd[i].TINH_TRANG_HANG,
