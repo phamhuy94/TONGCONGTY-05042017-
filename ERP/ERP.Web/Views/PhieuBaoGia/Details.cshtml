@@ -26,7 +26,7 @@
 
 <div ng-app="myApp" ng-controller="PhieuBaoGiaCtrl">
     <input type="hidden" id="username" name="salehienthoi" value="@Session["USERNAME"]" />
-    <div class="content" ng-repeat="item in list_duyetbaogia">
+    <div class="content" ng-repeat="item in list_duyetbaogia" id="Grid">
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="col-md-3"></div>
@@ -93,7 +93,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            </div>
+        <div class="col-md-12">
 
                 <div class="col-md-12">
                     <div class="col-md-12 supplier">
@@ -102,7 +103,7 @@
                 </div>
 
             </div>
-            <div class="col-md-12">
+        <div class="col-md-12">
                 <div class="col-md-12">
                     <table class="table">
                         <thead>
@@ -203,7 +204,7 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-12">
+        <div class="col-md-12">
                 <div class="col-md-12">
                     <h3><i><b style="text-decoration: underline">TERM & CONDITION:</b></i></h3>
                 </div>
@@ -266,8 +267,7 @@
 
         <input type="button" value="PrintQuotation" onclick="javascript:printDiv('Grid')" />
     </div>
-</body>
-</html>
+
 
 <script language="javascript" type="text/javascript">
         function printDiv(divID) {

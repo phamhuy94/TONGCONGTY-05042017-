@@ -12,20 +12,15 @@ namespace ERP.Web.Models.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class NV_LICH_LAM_VIEC
+    public partial class KH_PHAN_HOI_KHACH_HANG
     {
         public int ID { get; set; }
-        public string TIEU_DE_CONG_VIEC { get; set; }
-        public System.DateTime NGAY_THUC_HIEN { get; set; }
-        public string NOI_DUNG_CONG_VIEC { get; set; }
-        public string DIA_DIEM_LAM_VIEC { get; set; }
-        public Nullable<System.DateTime> THOI_GIAN_BAT_DAU { get; set; }
-        public Nullable<System.DateTime> THOI_GIAN_KET_THUC { get; set; }
-        public string NHAN_VIEN_THUC_HIEN { get; set; }
-        public bool HUY_CONG_VIEC { get; set; }
-        public string TRANG_THAI { get; set; }
-        public string GHI_CHU { get; set; }
+        public string MA_KHACH_HANG { get; set; }
+        public string NGUOI_PHAN_HOI { get; set; }
+        public System.DateTime NGAY_PHAN_HOI { get; set; }
+        public string THONG_TIN_PHAN_HOI { get; set; }
     
         public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
+        public virtual KH KH { get; set; }
     }
 }

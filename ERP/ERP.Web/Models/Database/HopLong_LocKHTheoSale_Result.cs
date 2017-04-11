@@ -35,5 +35,6 @@ namespace ERP.Web.Models.Database
         public Nullable<int> ID { get; set; }
         public string SALES_PHU_TRACH { get; set; }
         public string NHOM_NGANH { get; set; }
+        public string TINH_TRANG_HOAT_DONG { get; set; }
     }
 }
