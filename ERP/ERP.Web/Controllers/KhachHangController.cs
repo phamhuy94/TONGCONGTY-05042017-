@@ -329,6 +329,17 @@ namespace ERP.Web.Controllers
 
         #endregion
 
+        #region "Thêm mới khách hàng"
+
+        public ActionResult ThemMoiKhach()
+        {
+
+            return View();
+        }
+
+        #endregion
+
+
 
     }
 }

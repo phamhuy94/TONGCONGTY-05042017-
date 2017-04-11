@@ -19,6 +19,7 @@ namespace ERP.Web.Models.Database
         {
             this.BH_BAO_GIA = new HashSet<BH_BAO_GIA>();
             this.KH_SALES_PHU_TRACH = new HashSet<KH_SALES_PHU_TRACH>();
+            this.BH_DON_HANG_DU_KIEN = new HashSet<BH_DON_HANG_DU_KIEN>();
         }
     
         public int ID_LIEN_HE { get; set; }
@@ -41,5 +42,7 @@ namespace ERP.Web.Models.Database
         public virtual KH KH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KH_SALES_PHU_TRACH> KH_SALES_PHU_TRACH { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BH_DON_HANG_DU_KIEN> BH_DON_HANG_DU_KIEN { get; set; }
     }
 }

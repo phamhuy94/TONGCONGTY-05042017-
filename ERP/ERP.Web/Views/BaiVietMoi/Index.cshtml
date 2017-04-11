@@ -19,7 +19,9 @@
             </div>
         </div>
         <script>
-            CKEDITOR.replace('noidung');
+            CKEDITOR.replace('noidung', {
+                height: 600,
+            });
         </script>
     </div>
     <input type="hidden" id="username" value="@Session["USERNAME"]" />
@@ -33,7 +35,7 @@
             @Html.AntiForgeryToken()
             <input type='file' name="files" id="imgInp"/>
             <img id="blah" src="#" height="250" width="400" />
-            <input type="submit" value="Upload File/Image" ng-click="save()" style="margin-top: 30px;" />
+            <input type="submit" value="Đăng bài viết" ng-click="save()" style="margin-top: 30px;" />
         </form>
         
     </div>
