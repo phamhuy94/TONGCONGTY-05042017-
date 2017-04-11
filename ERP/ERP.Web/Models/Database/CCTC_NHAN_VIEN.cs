@@ -19,10 +19,12 @@ namespace ERP.Web.Models.Database
         {
             this.BH_BAO_GIA = new HashSet<BH_BAO_GIA>();
             this.BH_DE_NGHI_GIU_HANG = new HashSet<BH_DE_NGHI_GIU_HANG>();
+            this.BH_DON_HANG_DU_KIEN = new HashSet<BH_DON_HANG_DU_KIEN>();
             this.CCTC_BANG_CHAM_CONG = new HashSet<CCTC_BANG_CHAM_CONG>();
             this.CCTC_BANG_LUONG = new HashSet<CCTC_BANG_LUONG>();
             this.XL_DANG_KY_PHE_DUYET = new HashSet<XL_DANG_KY_PHE_DUYET>();
             this.KH_SALES_PHU_TRACH = new HashSet<KH_SALES_PHU_TRACH>();
+            this.KHs = new HashSet<KH>();
             this.KH_CHUYEN_SALES = new HashSet<KH_CHUYEN_SALES>();
             this.KH_CHUYEN_SALES1 = new HashSet<KH_CHUYEN_SALES>();
             this.KH_CHUYEN_SALES2 = new HashSet<KH_CHUYEN_SALES>();
@@ -59,6 +61,8 @@ namespace ERP.Web.Models.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BH_DE_NGHI_GIU_HANG> BH_DE_NGHI_GIU_HANG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BH_DON_HANG_DU_KIEN> BH_DON_HANG_DU_KIEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CCTC_BANG_CHAM_CONG> CCTC_BANG_CHAM_CONG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CCTC_BANG_LUONG> CCTC_BANG_LUONG { get; set; }
@@ -68,6 +72,8 @@ namespace ERP.Web.Models.Database
         public virtual ICollection<XL_DANG_KY_PHE_DUYET> XL_DANG_KY_PHE_DUYET { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KH_SALES_PHU_TRACH> KH_SALES_PHU_TRACH { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KH> KHs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KH_CHUYEN_SALES> KH_CHUYEN_SALES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

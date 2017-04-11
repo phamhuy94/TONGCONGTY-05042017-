@@ -9,7 +9,7 @@ namespace ERP.Web.Security
     public static class SessionPersister
     {
         public static string idSession = "ID";
-        public static string userSession = "USERNAME";
+        public static string userSession = "UserName";
         public static string nameSession = "FullName";
         public static string birthdaySession = "Birthday";
         public static string addressSession = "Address";
@@ -20,7 +20,7 @@ namespace ERP.Web.Security
         public static string serverPasswordSession = "ServerPassword";
         public static string idNhanvien = "IDNhanVien";
         public static string quyenhanSession = "QuyenHan";
-        public static string congtySession = "MA_CONG_TY";
+        public static string congtySession = "CongTy";
         public static int ID
         {
             get

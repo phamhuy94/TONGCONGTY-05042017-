@@ -44,7 +44,6 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<CN_NGHIEP_VU_NHAN_VIEN> CN_NGHIEP_VU_NHAN_VIEN { get; set; }
         public virtual DbSet<CN_NHOM_NGHIEP_VU> CN_NHOM_NGHIEP_VU { get; set; }
         public virtual DbSet<CN_NHOM_NGUOI_DUNG_NGHIEP_VU> CN_NHOM_NGUOI_DUNG_NGHIEP_VU { get; set; }
-        public virtual DbSet<DM_CHUNG_TU> DM_CHUNG_TU { get; set; }
         public virtual DbSet<DM_DINH_KHOAN_TU_DONG> DM_DINH_KHOAN_TU_DONG { get; set; }
         public virtual DbSet<DM_DOI_TUONG> DM_DOI_TUONG { get; set; }
         public virtual DbSet<DM_KHO> DM_KHO { get; set; }
@@ -102,7 +101,6 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<QUY_CT_PHIEU_THU> QUY_CT_PHIEU_THU { get; set; }
         public virtual DbSet<QUY_PHIEU_CHI> QUY_PHIEU_CHI { get; set; }
         public virtual DbSet<QUY_PHIEU_THU> QUY_PHIEU_THU { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TONKHO_GIU_HL> TONKHO_GIU_HL { get; set; }
         public virtual DbSet<TONKHO_GIU_TADN> TONKHO_GIU_TADN { get; set; }
         public virtual DbSet<TONKHO_GIU_TAHCM> TONKHO_GIU_TAHCM { get; set; }
@@ -340,6 +338,76 @@ namespace ERP.Web.Models.Database
                 new ObjectParameter("macongty", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllDoiTuong_Result>("GetAllDoiTuong", macongtyParameter);
+        }
+    
+        public virtual ObjectResult<Query_DS_KhachHang_ChuaPhatSinhGiaoDich_Result> Query_DS_KhachHang_ChuaPhatSinhGiaoDich(string macongty, string sale)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            var saleParameter = sale != null ?
+                new ObjectParameter("sale", sale) :
+                new ObjectParameter("sale", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_DS_KhachHang_ChuaPhatSinhGiaoDich_Result>("Query_DS_KhachHang_ChuaPhatSinhGiaoDich", macongtyParameter, saleParameter);
+        }
+    
+        public virtual ObjectResult<Query_DS_KhachHang_DaPhatSinhGiaoDich_Result> Query_DS_KhachHang_DaPhatSinhGiaoDich(string macongty, string sale)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            var saleParameter = sale != null ?
+                new ObjectParameter("sale", sale) :
+                new ObjectParameter("sale", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_DS_KhachHang_DaPhatSinhGiaoDich_Result>("Query_DS_KhachHang_DaPhatSinhGiaoDich", macongtyParameter, saleParameter);
+        }
+    
+        public virtual ObjectResult<XL_CHUYEN_SALES_Result> XL_CHUYEN_SALES(string sale)
+        {
+            var saleParameter = sale != null ?
+                new ObjectParameter("sale", sale) :
+                new ObjectParameter("sale", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<XL_CHUYEN_SALES_Result>("XL_CHUYEN_SALES", saleParameter);
+        }
+    
+        public virtual ObjectResult<GetAll_ChiTietBaoGia_Result> GetAll_ChiTietBaoGia(string so_bao_gia, string ma_cong_ty)
+        {
+            var so_bao_giaParameter = so_bao_gia != null ?
+                new ObjectParameter("so_bao_gia", so_bao_gia) :
+                new ObjectParameter("so_bao_gia", typeof(string));
+    
+            var ma_cong_tyParameter = ma_cong_ty != null ?
+                new ObjectParameter("ma_cong_ty", ma_cong_ty) :
+                new ObjectParameter("ma_cong_ty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_ChiTietBaoGia_Result>("GetAll_ChiTietBaoGia", so_bao_giaParameter, ma_cong_tyParameter);
+        }
+    
+        public virtual ObjectResult<GetAll_ThongTinBaoGia_Result> GetAll_ThongTinBaoGia(string sobaogia, string macongty)
+        {
+            var sobaogiaParameter = sobaogia != null ?
+                new ObjectParameter("sobaogia", sobaogia) :
+                new ObjectParameter("sobaogia", typeof(string));
+    
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_ThongTinBaoGia_Result>("GetAll_ThongTinBaoGia", sobaogiaParameter, macongtyParameter);
+        }
+    
+        public virtual ObjectResult<GetAll_ThongTinChiTietBaoGia_Result> GetAll_ThongTinChiTietBaoGia(string sobaogia)
+        {
+            var sobaogiaParameter = sobaogia != null ?
+                new ObjectParameter("sobaogia", sobaogia) :
+                new ObjectParameter("sobaogia", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_ThongTinChiTietBaoGia_Result>("GetAll_ThongTinChiTietBaoGia", sobaogiaParameter);
         }
     }
 }

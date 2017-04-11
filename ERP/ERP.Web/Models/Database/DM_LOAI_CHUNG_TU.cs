@@ -17,15 +17,12 @@ namespace ERP.Web.Models.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DM_LOAI_CHUNG_TU()
         {
-            this.DM_CHUNG_TU = new HashSet<DM_CHUNG_TU>();
             this.DM_DINH_KHOAN_TU_DONG = new HashSet<DM_DINH_KHOAN_TU_DONG>();
         }
     
         public string MA_LOAI_CHUNG_TU { get; set; }
         public string TEN_LOAI_CHUNG_TU { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DM_CHUNG_TU> DM_CHUNG_TU { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DM_DINH_KHOAN_TU_DONG> DM_DINH_KHOAN_TU_DONG { get; set; }
     }
