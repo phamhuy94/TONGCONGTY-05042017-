@@ -409,5 +409,10 @@ namespace ERP.Web.Models.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_ThongTinChiTietBaoGia_Result>("GetAll_ThongTinChiTietBaoGia", sobaogiaParameter);
         }
+    
+        public virtual ObjectResult<Get_BaiViet_ThongBaoKinhDoanh_Result> Get_BaiViet_ThongBaoKinhDoanh()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_BaiViet_ThongBaoKinhDoanh_Result>("Get_BaiViet_ThongBaoKinhDoanh");
+        }
     }
 }

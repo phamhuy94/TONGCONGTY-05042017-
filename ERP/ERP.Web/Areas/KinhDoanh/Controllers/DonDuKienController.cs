@@ -7,13 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ERP.Web.Models.Database;
+using ERP.Web.Models.BusinessModel;
 
 namespace ERP.Web.Areas.KinhDoanh.Controllers
 {
     public class DonDuKienController : Controller
     {
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
-
+        XuLyNgayThang XLNT = new XuLyNgayThang();
         // GET: KinhDoanh/DonDuKien
         public ActionResult Index()
         {
@@ -40,8 +41,7 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
         public ActionResult Create()
         {
             ViewBag.MA_KHACH_HANG = new SelectList(db.KHs, "MA_KHACH_HANG", "TEN_CONG_TY");
-            ViewBag.SALES_QUAN_LY = new SelectList(db.CCTC_NHAN_VIEN, "USERNAME", "GIOI_TINH");
-            ViewBag.TRUC_THUOC = new SelectList(db.CCTC_CONG_TY, "MA_CONG_TY", "TEN_CONG_TY");
+            ViewBag.ID_LIEN_HE = new SelectList(db.KH_LIEN_HE, "ID_LIEN_HE", "NGUOI_LIEN_HE");
             return View();
         }
 
@@ -50,19 +50,23 @@ namespace ERP.Web.Areas.KinhDoanh.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MA_DU_KIEN,NGAY_TAO,MA_KHACH_HANG,THANH_CONG,THAT_BAI,LY_DO_THAT_BAI,TRUC_THUOC,SALES_QUAN_LY")] BH_DON_HANG_DU_KIEN bH_DON_HANG_DU_KIEN)
+        public ActionResult Create([Bind(Include = "NGAY_TAO,MA_KHACH_HANG,THANH_CONG,THAT_BAI,LY_DO_THAT_BAI")] BH_DON_HANG_DU_KIEN bH_DON_HANG_DU_KIEN)
         {
             if (ModelState.IsValid)
             {
+
+
+                var ngaytao = bH_DON_HANG_DU_KIEN.NGAY_TAO.ToString("dd/MM/yyyy");
+                bH_DON_HANG_DU_KIEN.NGAY_TAO = XLNT.Xulydatetime(ngaytao);
+                bH_DON_HANG_DU_KIEN.TRUC_THUOC = "HOPLONG";
+                bH_DON_HANG_DU_KIEN.SALES_QUAN_LY = Session["USERNAME"].ToString();
                 db.BH_DON_HANG_DU_KIEN.Add(bH_DON_HANG_DU_KIEN);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.MA_KHACH_HANG = new SelectList(db.KHs, "MA_KHACH_HANG", "TEN_CONG_TY", bH_DON_HANG_DU_KIEN.MA_KHACH_HANG);
-            ViewBag.SALES_QUAN_LY = new SelectList(db.CCTC_NHAN_VIEN, "USERNAME", "GIOI_TINH", bH_DON_HANG_DU_KIEN.SALES_QUAN_LY);
-            ViewBag.TRUC_THUOC = new SelectList(db.CCTC_CONG_TY, "MA_CONG_TY", "TEN_CONG_TY", bH_DON_HANG_DU_KIEN.TRUC_THUOC);
-            return View(bH_DON_HANG_DU_KIEN);
+            return View("Index");
         }
 
         // GET: KinhDoanh/DonDuKien/Edit/5

@@ -1084,6 +1084,7 @@ app.controller('danhmucCtrl', function (danhmucService, $scope) {
             }
             danhmucService.add_postcategories(postcate).then(function (response) {
                 $scope.loadDanhMuc();
+                reload();
 
             });
         });
