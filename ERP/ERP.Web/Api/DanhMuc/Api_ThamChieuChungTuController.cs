@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
+using System.Data.SqlClient;
 
 namespace ERP.Web.Api.HeThong
 {
@@ -28,6 +29,16 @@ namespace ERP.Web.Api.HeThong
             }).ToList();
             return result;
         }
+
+        //
+        [Route("api/Api_ThamChieuChungTu/GetThamChieuChungTu/{sct}")]
+        public List<Get_XL_ThamChieuChungTu_Result> GetThamChieuChungTu(string sct)
+        {
+            var query = db.Database.SqlQuery<Get_XL_ThamChieuChungTu_Result>("Get_XL_ThamChieuChungTu @sochungtu", new SqlParameter("sochungtu", sct));
+
+            return query.ToList();
+        }
+
 
         // GET: api/Api_ThamChieuChungTu/5
         [ResponseType(typeof(XL_THAM_CHIEU_CHUNG_TU))]

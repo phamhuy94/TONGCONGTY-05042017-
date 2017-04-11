@@ -11,24 +11,18 @@ namespace ERP.Web.Models.Database
 {
     using System;
     
-    public partial class GetAll_ThongTinChiTietBaoGia_Result
+    public partial class DS_HANG_HOA_Result
     {
         public string MA_HANG { get; set; }
         public string MA_CHUAN { get; set; }
-
-        public double CHIET_KHAU { get; set; }
         public string THONG_SO { get; set; }
-        public string CACH_TINH_THANH_TIEN { get; set; }
-
         public string TEN_HANG { get; set; }
         public string MA_NHOM_HANG { get; set; }
-        public string XUAT_XU { get; set; }
         public string DON_VI_TINH { get; set; }
-        public int SO_LUONG { get; set; }
-        public decimal DON_GIA { get; set; }
-        public Nullable<decimal> TIEN_VAT { get; set; }
-        public decimal THANH_TIEN { get; set; }
-        public string THOI_GIAN_GIAO_HANG { get; set; }
-        public string GHI_CHU { get; set; }
+        public string XUAT_XU { get; set; }
+        public Nullable<decimal> GIA_LIST { get; set; }
+        public Nullable<bool> DISCONTINUE { get; set; }
+        public string MA_CHUYEN_DOI { get; set; }
+        public string HINH_ANH { get; set; }
     }
 }
