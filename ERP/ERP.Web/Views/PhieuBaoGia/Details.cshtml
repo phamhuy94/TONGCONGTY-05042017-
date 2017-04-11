@@ -28,6 +28,25 @@
     <div class="content" ng-repeat="item in list_duyetbaogia">
         <div class="col-md-12">
             <div class="col-md-12">
+                <div class="col-md-3"></div>
+                <div class="col-md-2">
+                    <img src="~/logo_hoplong.png" height="100" width="150"/>
+                </div>
+                <div class="col-md-7">
+                    <h4><b>CÔNG TY CỔ PHẦN CÔNG NGHỆ HỢP LONG</b></h4>
+                    <p>Head office: 412 Trần Khát Chân-Hai Bà Trưng-Hà Nội - Tel: 043.661.7545 - Fax: 043.661.7560</p>
+                    <p>HCM office: 68 Nguyễn Huệ - Quận 1 - TP.Hồ Chí Minh</p>
+                    <p>ĐN office: 178 Trường Sơn - Cẩm Lệ - TP.Đà Nẵng</p>
+                    <p>Email: info@hoplongtech.com.vn  -  https://hoplongtech.com</p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <hr style="border: 2px solid lightskyblue"/>
+                <h2 class="text-center"><b>QUOTATION</b></h2>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12">
                 <div class="col-md-12"  style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;">
                     <div class="col-md-8" style="border-right: 1px solid black">
                         <div class="col-md-12">
@@ -85,15 +104,15 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
+                                    <th class="text-center" style="vertical-align: middle">No.</th>
                                     <th>Description of goods<br /><span style="font-weight:normal">(Mô tả chi tiết hàng hóa)</span></th>
-                                    <th>Model<br /><span style="font-weight:normal">(Mã hàng)</span></th>
-                                    <th>Maker<br /><span style="font-weight:normal">(Nhà sản xuất)</span></th>
-                                    <th>Qty<br /><span style="font-weight:normal">(Số lượng)</span></th>
-                                    <th>UOM<br />   <span style="font-weight:normal">(Đơn vị)</span></th>
-                                    <th>U.price<br />(VNĐ)</th>
-                                    <th>Total Amount<br />(VNĐ)</th>
-                                    <th>Delivery time</th>
+                                    <th class="text-center">Model<br /><span style="font-weight:normal">(Mã hàng)</span></th>
+                                    <th class="text-center">Maker<br /><span style="font-weight:normal">(Nhà sản xuất)</span></th>
+                                    <th class="text-center">Qty<br /><span style="font-weight:normal">(Số lượng)</span></th>
+                                    <th class="text-center">UOM<br />   <span style="font-weight:normal">(Đơn vị)</span></th>
+                                    <th class="text-center">U.price<br />(VNĐ)</th>
+                                    <th class="text-center">Total Amount<br />(VNĐ)</th>
+                                    <th class="text-center" style="vertical-align: middle">Delivery time</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,7 +150,7 @@
                                         <input type="text" ng-model="detail.CACH_TINH_THANH_TIEN" readonly class="form-control" style="display:none">
                                     </td>
                                     <td class="text-center">
-                                        {{detail.GIA_SAU_CK}}                                   
+                                        {{detail.DON_GIA_SAU_CHIET_KHAU | currency: '':0}}                                   
                                     </td>
                                     <td class="text-center">
                                         {{detail.THANH_TIEN | currency: '':0}}

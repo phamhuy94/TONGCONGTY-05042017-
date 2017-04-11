@@ -101,18 +101,16 @@ app.controller('DuyetBaoGiaCtrl', function (DuyetBaoGiaService, $scope, $http) {
     
     //khai báo thông tin chung
     
-    $('#da_huy').change(function () {
-        if ($(this).is(":checked")) {
+    $scope.test = function () {
+        if ($scope.da_huy = true) {
             $("#lydohuy").show();
         }
-        else {
+        else if ($scope.da_huy = false) {
             $("#lydohuy").hide();
         }
-    });
-
-    $scope.adbc = function (item) {
-        console.log(item);
     };
+
+
     //Khai báo đối tượng lưu vào cơ sở dữ liệu-------------------------------------
     $scope.onSave = function () {
         //this gets the full url

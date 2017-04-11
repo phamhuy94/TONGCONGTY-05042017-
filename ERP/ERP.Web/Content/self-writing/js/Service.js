@@ -560,6 +560,7 @@ app.service('DonhangdukienService', function ($http) {
             return response.data;
         });
     }
+
     this.add = function (data_add) {
         return $http.post("/api/Api_Donhangdukien", data_add);
     };
@@ -772,7 +773,11 @@ app.service('khachhangService', function ($http) {
             return response.data;
         });
     };
-
+    this.get_phanhoi = function (makh) {
+        return $http.get('/api/Api_PhanHoiKhachHang/GetKhachHanghl/' + makh).then(function (response) {
+            return response.data;
+        });
+    };
     this.get_taikhoankh = function (makh) {
         return $http.get('/api/Api_TaiKhoanKH/' + makh).then(function (response) {
             return response.data;
@@ -825,6 +830,10 @@ app.service('khachhangService', function ($http) {
 
     this.add_saletao = function (data_add) {
         return $http.post('/api/Api_ChuyenSale', data_add);
+    };
+
+    this.add_phanhoi = function (data_add) {
+        return $http.post('/api/Api_PhanHoiKhachHang', data_add);
     };
 });
 //end khach hang
