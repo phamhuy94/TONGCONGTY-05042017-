@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ERP.Web.Models.Database.BH_DON_HANG_DU_KIEN>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NGAY_TAO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.THANH_CONG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.THAT_BAI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LY_DO_THAT_BAI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KH.TEN_CONG_TY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CCTC_NHAN_VIEN.GIOI_TINH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CCTC_CONG_TY.TEN_CONG_TY)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NGAY_TAO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.THANH_CONG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.THAT_BAI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LY_DO_THAT_BAI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KH.TEN_CONG_TY)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CCTC_NHAN_VIEN.GIOI_TINH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CCTC_CONG_TY.TEN_CONG_TY)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MA_DU_KIEN }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MA_DU_KIEN }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MA_DU_KIEN })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,173 @@
+﻿@model ERP.Web.Models.Database.BH_DON_HANG_DU_KIEN
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>BH_DON_HANG_DU_KIEN</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.MA_DU_KIEN, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MA_DU_KIEN, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MA_DU_KIEN, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NGAY_TAO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NGAY_TAO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NGAY_TAO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MA_KHACH_HANG, "MA_KHACH_HANG", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("MA_KHACH_HANG", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MA_KHACH_HANG, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.THANH_CONG, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.THANH_CONG)
+                    @Html.ValidationMessageFor(model => model.THANH_CONG, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.THAT_BAI, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.THAT_BAI)
+                    @Html.ValidationMessageFor(model => model.THAT_BAI, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LY_DO_THAT_BAI, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LY_DO_THAT_BAI, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LY_DO_THAT_BAI, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TRUC_THUOC, "TRUC_THUOC", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TRUC_THUOC", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TRUC_THUOC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SALES_QUAN_LY, "SALES_QUAN_LY", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SALES_QUAN_LY", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SALES_QUAN_LY, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+
+<!--Thông tin chung-->
+<div class="col-md-12">
+    <div class="panel panel-default" style="margin-bottom: 10px;">
+        <div class="panel-heading" style="padding-top:4px;font-family:'Times New Roman'; font-weight:bold; font-style:italic">
+            <h6 class="panel-title">Thông tin chung Báo Giá<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+        </div>
+        <div class="panel-body" style="padding: 5px !important; font-size:12px">
+            <form class="form-horizontal" action="DonDuKien/Create">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <!--Điều khoản thanh toán-->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label class="control-label">Mã khách hàng </label>
+                            </div>
+                            <div class="col-md-9">
+                                <select class="form-control" style="height: 27px;" ng-model="BangBaoGia.dieu_khoan_thanh_toan" id="adddieukhoanthanhtoan"
+                                        data-ng-options="item as item for item in dieukhoantt"></select>
+                            </div>
+                        </div>
+                        <!--End Điều khoản thanh toán-->
+
+
+
+                        <!--Hạn thanh toán-->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label class="control-label">Hạn thanh toán </label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" style="height: 27px;" class="form-control" ng-model="BangBaoGia.han_thanh_toan" />
+                            </div>
+                        </div>
+                        <!-- end Hạn thanh toán-->
+                    </div>
+                    <div class="col-md-6">
+                        <!--Phương thức thanh toán-->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label class="control-label">Phương thức thanh toán </label>
+                            </div>
+                            <div class="col-md-8">
+                                <select class="form-control" style="height: 27px;" ng-model="BangBaoGia.phuong_thuc_thanh_toan" id="adddieukhoanthanhtoan"
+                                        data-ng-options="item as item for item in phuongthuctt"></select>
+                            </div>
+                        </div>
+                        <!-- end phương thức thanh toán-->
+                        <!--Hiệu lực báo giá-->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label class="control-label">Hiệu lực báo giá </label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" style="height: 27px;" class="form-control" ng-model="BangBaoGia.hieu_luc_bao_gia" />
+                            </div>
+                            <div class="col-md-3" style="margin-right: -96px;">
+                                <label class="control-label">Phí vận chuyển :</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" style="height: 27px; width:100px" class="form-control" ng-model="BangBaoGia.phi_van_chuyen" value="0" ng-change="kiemtra(item)" placeholder="vnđ" />
+                            </div>
+                        </div>
+                        <!--End hiệu lực báo giá và phí vận chuyển-->
+                    </div>
+                </div>
+
+             
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<!--End Thông tin chung-->
