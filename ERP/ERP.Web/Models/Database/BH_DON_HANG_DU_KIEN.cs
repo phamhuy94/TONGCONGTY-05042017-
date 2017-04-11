@@ -39,5 +39,6 @@ namespace ERP.Web.Models.Database
         public virtual CCTC_CONG_TY CCTC_CONG_TY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHO_DNXH> KHO_DNXH { get; set; }
+        public virtual KH_LIEN_HE KH_LIEN_HE { get; set; }
     }
 }

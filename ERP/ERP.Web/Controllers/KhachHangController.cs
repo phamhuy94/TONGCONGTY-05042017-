@@ -295,6 +295,8 @@ namespace ERP.Web.Controllers
 
         #endregion
 
+        #region "Upload logo khách hàng"
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public void Index(IEnumerable<HttpPostedFileBase> files)
@@ -315,6 +317,29 @@ namespace ERP.Web.Controllers
                 }
             }
         }
+        #endregion
+
+        #region "Khách hàng chưa phát sinh giao dịch"
+
+        public ActionResult KhachChuaGiaoDich()
+        {
+
+            return View();
+        }
+
+        #endregion
+
+        #region "Thêm mới khách hàng"
+
+        public ActionResult ThemMoiKhach()
+        {
+
+            return View();
+        }
+
+        #endregion
+
+
 
     }
 }

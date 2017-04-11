@@ -10,14 +10,15 @@
 namespace ERP.Web.Models.Database
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class Get_BaiViet_ThongBaoKinhDoanh_Result
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int MA_BAI_VIET { get; set; }
+        public string TIEU_DE_BAI_VIET { get; set; }
+        public System.DateTime NGAY_DANG_BAI { get; set; }
+        public string NOI_DUNG_BAI_VIET { get; set; }
+        public string ANH_BAI_VIET { get; set; }
+        public string NGUOI_DANG_BAI { get; set; }
+        public string TEN_DANH_MUC { get; set; }
     }
 }

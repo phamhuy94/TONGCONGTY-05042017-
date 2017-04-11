@@ -177,11 +177,10 @@
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <div class="col-md-3">
-                                                <input type="checkbox" id="da_huy" ng-model="da_huy" ng-change="test()"> Đã hủy
+                                                <input type="checkbox" id="da_huy" ng-model="da_huy" ng-click="test()"> Đã hủy
                                             </div>
 
-                                            <div class="col-md-3"><input type="checkbox" ng-model="da_duyet" ng-change="test()"> Đã duyệt</div>
-                                            <div class="col-md-3"><input type="checkbox" ng-model="da_trung" ng-change="test()"> Đã trúng</div>
+                                            <div class="col-md-3"><input type="checkbox" ng-model="da_duyet"> Đã duyệt</div>
                                         </div>
                                         <div class="col-md-12" id="lydohuy" style="display:none">
                                             <textarea ng-model="ly_do_huy" placeholder="Lý do hủy" class="form-control"></textarea>
