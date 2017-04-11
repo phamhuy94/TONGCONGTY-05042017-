@@ -7,10 +7,9 @@ namespace ERP.Web.Models.NewModels.All
 {
     public class ThamChieu
     {
-        public string NgayHachToan { set; get; }
-        public string NgayChungTu { set; get; }
-        public string SoChungTu { set; get; }
-        public string DienGiai { set; get; }
-        public bool Action { set; get; }
+        public string  NGAY_HACH_TOAN { set; get; }
+        public string NGAY_CHUNG_TU { set; get; }
+        public string SO_CHUNG_TU { set; get; }
+        public string DIEN_GIAI { set; get; }
     }
 }

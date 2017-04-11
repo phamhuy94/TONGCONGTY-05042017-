@@ -14,6 +14,8 @@ using ERP.Web.Models.NewModels.XuatKho;
 using ERP.Web.Common;
 using ERP.Web.Security;
 using ERP.Web.Models.NewModels.All;
+using ERP.Web.Controllers;
+using System.Data.SqlClient;
 
 namespace ERP.Web.Api.Kho
 {
@@ -22,9 +24,11 @@ namespace ERP.Web.Api.Kho
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: api/Api_XuatKho
-        public IQueryable<KHO_XUAT_KHO> GetKHO_XUAT_KHO()
+        [Route("api/Api_XuatKho/GetDSPhieuXuatKho")]
+        public List<GetAll_DS_PhieuXuatKho_NoDate_Result> GetDSPhieuXuatKho()
         {
-            return db.KHO_XUAT_KHO;
+            var query = db.Database.SqlQuery<GetAll_DS_PhieuXuatKho_NoDate_Result>("GetAll_DS_PhieuXuatKho_NoDate @macongty", new SqlParameter("macongty", "HOPLONG"));
+            return query.ToList();
         }
 
         // GET: api/Api_XuatKho/5
@@ -41,20 +45,91 @@ namespace ERP.Web.Api.Kho
         }
 
         // PUT: api/Api_XuatKho/5
+        [Route("api/Api_XuatKho/PutKHO_XUAT_KHO")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutKHO_XUAT_KHO(string id, KHO_XUAT_KHO kHO_XUAT_KHO)
+        public IHttpActionResult PutKHO_XUAT_KHO(XuatKho kho_xuatkho)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != kHO_XUAT_KHO.SO_CHUNG_TU)
+            //Lưu thông tin nhập kho
+            var xk = db.KHO_XUAT_KHO.Where(x => x.SO_CHUNG_TU == kho_xuatkho.SO_CHUNG_TU).FirstOrDefault();
+   
+            xk.NGAY_CHUNG_TU = GeneralFunction.ConvertToTime(kho_xuatkho.NGAY_CHUNG_TU);
+            xk.NGAY_HACH_TOAN = GeneralFunction.ConvertToTime(kho_xuatkho.NGAY_HACH_TOAN);
+            xk.SO_CHUNG_TU = kho_xuatkho.SO_CHUNG_TU;
+            xk.NGUOI_NHAN = kho_xuatkho.NGUOI_NHAN;
+            xk.KHACH_HANG = kho_xuatkho.KHACH_HANG;
+            xk.NGUOI_LAP_PHIEU = kho_xuatkho.NGUOI_LAP_PHIEU;
+            xk.TRUC_THUOC = kho_xuatkho.TRUC_THUOC;
+            xk.LOAI_XUAT_KHO = kho_xuatkho.LOAI_XUAT_KHO;
+
+            //Lưu thông tin tham chiếu
+            if (kho_xuatkho.ThamChieu.Count > 0)
             {
-                return BadRequest();
+                foreach (ThamChieu item in kho_xuatkho.ThamChieu)
+                {
+                    var newItem = db.XL_THAM_CHIEU_CHUNG_TU.Where(x => x.SO_CHUNG_TU_GOC == xk.SO_CHUNG_TU).FirstOrDefault();
+                    if (newItem != null)
+                    {
+                        //newItem.SO_CHUNG_TU_GOC = xk.SO_CHUNG_TU;
+                        newItem.SO_CHUNG_TU_THAM_CHIEU = item.SO_CHUNG_TU;
+                    }
+                        
+                }
+            }
+            //Lưu chi tiết
+            decimal tongtien = 0;
+            //TONKHO_HOPLONG HHTon = new TONKHO_HOPLONG();
+            //HH_NHOM_VTHH NhomHang = new HH_NHOM_VTHH();
+            if (kho_xuatkho.ChiTietPX != null && kho_xuatkho.ChiTietPX.Count > 0)
+            {
+                foreach (ChiTietPhieuXuatKho item in kho_xuatkho.ChiTietPX)
+                {
+                    var newItem = db.KHO_CT_XUAT_KHO.Where(x => x.SO_CHUNG_TU == xk.SO_CHUNG_TU).FirstOrDefault();
+                    int sl_cu = newItem.SO_LUONG;
+                    if (newItem != null)
+                    {
+                        newItem.SO_CHUNG_TU = xk.SO_CHUNG_TU;
+                        newItem.MA_HANG = item.MA_HANG;
+                        newItem.TK_CO = item.TK_CO;
+                        newItem.TK_NO = item.TK_NO;
+                        newItem.DVT = item.DVT;
+                        newItem.DON_GIA_BAN = Convert.ToDecimal(item.DON_GIA_BAN);
+                        newItem.DON_GIA_VON = Convert.ToDecimal(item.DON_GIA_VON);
+                        newItem.SO_LUONG = Convert.ToInt32(item.SO_LUONG);
+                        newItem.THANH_TIEN = newItem.DON_GIA_BAN * newItem.SO_LUONG;
+                        tongtien += newItem.THANH_TIEN;
+                        newItem.TK_KHO = item.TK_KHO;
+                    }
+                    
+                    //Cập nhật hàng tồn
+                    TONKHO_HOPLONG newHangTon = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG).FirstOrDefault();
+                    newHangTon.SL_HOPLONG = newHangTon.SL_HOPLONG + sl_cu;
+                    if (newHangTon == null || newHangTon.SL_HOPLONG < item.SO_LUONG)
+                    {
+                        return BadRequest("Hàng không có trong kho hoặc SL tồn không đủ");
+                    }
+                    else
+                    newHangTon.SL_HOPLONG -= Convert.ToInt32(item.SO_LUONG);
+                    //if (newHangTon == null)
+                    //{
+                    //    db.TONKHO_HOPLONG.Add(newHangTon);
+                    //}
+                    ////Cập nhật nhóm hàng
+                    //TONKHO_HANG hangton = NhomHang.GetNhomHang(item.MaHang);
+                    //if (hangton != null)
+                    //{
+                    //    hangton.SL_HANG = Convert.ToInt32(item.SoLuong);
+                    //}
+
+                }
             }
 
-            db.Entry(kHO_XUAT_KHO).State = EntityState.Modified;
+            xk.TONG_TIEN = tongtien;
+          
 
             try
             {
@@ -62,17 +137,13 @@ namespace ERP.Web.Api.Kho
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!KHO_XUAT_KHOExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
+               
+                
                     throw;
-                }
+                
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(xk.SO_CHUNG_TU);
         }
         public string GeneralChungTu()
         {
@@ -102,6 +173,7 @@ namespace ERP.Web.Api.Kho
         // POST: api/Api_XuatKho
         [Route("api/Api_XuatKho/PostKHO_XUAT_KHO")]
         [ResponseType(typeof(KHO_XUAT_KHO))]
+
         public IHttpActionResult PostKHO_XUAT_KHO(XuatKho kho_xuatkho)
         {
             if (!ModelState.IsValid)
@@ -117,19 +189,19 @@ namespace ERP.Web.Api.Kho
             xk.SO_CHUNG_TU = GeneralChungTu();
             xk.NGUOI_NHAN = kho_xuatkho.NGUOI_NHAN;
             xk.KHACH_HANG = kho_xuatkho.KHACH_HANG;
-            xk.NGUOI_LAP_PHIEU = SessionPersister.USERNAME;
-            xk.TRUC_THUOC = SessionPersister.MA_CONG_TY;
+            xk.NGUOI_LAP_PHIEU = kho_xuatkho.NGUOI_LAP_PHIEU;
+            xk.TRUC_THUOC = kho_xuatkho.TRUC_THUOC;
             xk.LOAI_XUAT_KHO = kho_xuatkho.LOAI_XUAT_KHO;
             db.KHO_XUAT_KHO.Add(xk);
-           
+
             //Lưu thông tin tham chiếu
-            if (kho_xuatkho.ThamChieu != null && kho_xuatkho.ThamChieu.Count > 0)
+            if (kho_xuatkho.ThamChieu.Count > 0)
             {
                 foreach (ThamChieu item in kho_xuatkho.ThamChieu)
                 {
                     XL_THAM_CHIEU_CHUNG_TU newItem = new XL_THAM_CHIEU_CHUNG_TU();
                     newItem.SO_CHUNG_TU_GOC = xk.SO_CHUNG_TU;
-                    newItem.SO_CHUNG_TU_THAM_CHIEU = item.SoChungTu;
+                    newItem.SO_CHUNG_TU_THAM_CHIEU = item.SO_CHUNG_TU;
                     db.XL_THAM_CHIEU_CHUNG_TU.Add(newItem);
                 }
             }
@@ -174,25 +246,28 @@ namespace ERP.Web.Api.Kho
 
                 }
             }
+           
             xk.TONG_TIEN = tongtien;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (KHO_XUAT_KHOExists(kho_xuatkho.SO_CHUNG_TU))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            db.SaveChanges();
+           
             return Ok(xk.SO_CHUNG_TU);
+            //try
+            //{
+            //    db.SaveChanges();
+            //}
+            //catch (DbUpdateException)
+            //{
+            //    if (KHO_XUAT_KHOExists(kho_xuatkho.SO_CHUNG_TU))
+            //    {
+            //        return Conflict();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+
+            //return Ok(xk.SO_CHUNG_TU);
         }
 
         // DELETE: api/Api_XuatKho/5

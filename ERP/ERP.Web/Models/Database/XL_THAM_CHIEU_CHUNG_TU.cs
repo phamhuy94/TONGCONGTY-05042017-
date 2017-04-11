@@ -17,8 +17,5 @@ namespace ERP.Web.Models.Database
         public int ID { get; set; }
         public string SO_CHUNG_TU_GOC { get; set; }
         public string SO_CHUNG_TU_THAM_CHIEU { get; set; }
-    
-        public virtual DM_CHUNG_TU DM_CHUNG_TU { get; set; }
-        public virtual DM_CHUNG_TU DM_CHUNG_TU1 { get; set; }
     }
 }

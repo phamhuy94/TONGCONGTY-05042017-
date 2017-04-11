@@ -29,6 +29,7 @@ namespace ERP.Web.Models.Database
         public DateTime NGAY_GIAO_HANG { get; set; }
         public string DIA_DIEM_GIAO_HANG { get; set; }
         public string GHI_CHU { get; set; }
+        public decimal DON_GIA_SAU_CHIET_KHAU { get; set; }
     
         public virtual BH_BAO_GIA BH_BAO_GIA { get; set; }
         public virtual HH HH { get; set; }
