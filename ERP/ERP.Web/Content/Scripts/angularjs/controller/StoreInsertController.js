@@ -1,6 +1,10 @@
 ﻿
 app.controller('StoreInsertController', function ($rootScope, $scope, $http,config) {
-
+    $rootScope.PageSetting = {
+        PageCount: 0,
+        NumberPerPage: 10,
+        CurrentPage: 1
+    }
     $rootScope.title = "Nhập kho";
     $rootScope.dashboard = false;
     $scope.StoreType = 1;
@@ -9,10 +13,10 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
     $scope.GiaTriThamChieu = [];
     $scope.Searching = false;
     $scope.DonHangTra = [];
-    //$scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
-    //$scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
-    //$scope.DonHangnumPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
-    //$scope.DonHangcurrentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+    $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+    $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+    $scope.DonHangnumPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+    $scope.DonHangcurrentPage = angular.copy($rootScope.PageSetting.CurrentPage);
     $scope.GiaTriChungTu = {
         Search: null,
         Date: null
@@ -174,7 +178,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
 
         $http({
             method: 'GET',
-            url: '/Khach_Hang/GetAll'
+            url: '/api/Api_KH'
         }).then(function (response) {
             if (typeof (response.data) == "object") {
                 $scope.KhachHang.KhachHang = response.data;
@@ -186,37 +190,11 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             ConnectFail();
         });
 
-        //$http({
-        //    method: 'GET',
-        //    url: '/HangHoa/'
-        //}).then(function (response) {
-        //    if (typeof (response.data) == "object") {
-        //        $scope.Detail.ListHangHoa = response.data;
-        //    }
-        //    else {
-        //        ErrorSystem();
-        //    }
-        //}, function (error) {
-        //    ConnectFail();
-        //});
+
 
         $http({
             method: 'GET',
-            url: '/Kho/GetAll'
-        }).then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.Detail.ListKho = response.data;
-            }
-            else {
-                ErrorSystem();
-            }
-        }, function (error) {
-            ConnectFail();
-        });
-
-        $http({
-            method: 'GET',
-            url: '/TaiKhoan/GetAll'
+            url: '/api/Api_TaiKhoanHachToan'
         }).then(function (response) {
             if (typeof (response.data) == "object") {
                 $scope.Detail.ListTaiKhoan = response.data;
@@ -229,27 +207,13 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         });
 
 
-        $http({
-            method: 'GET',
-            url: '/DoiTuong/GetAllCongTy'
-        }).then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.KhachHang.DoiTuong = response.data;
-                console.log($scope.KhachHang.DoiTuong);
-            }
-            else {
-                ErrorSystem();
-            }
-        }, function (error) {
-            ConnectFail();
-        });
     }
     Init();
 
     function init() {
         $http({
             method: 'GET',
-            url: '/NhanVien/GetAllNhanVien'
+            url: '/api/Api_NhanvienHL/GetListNhanvien'
         }).then(function (response) {
             if (typeof (response.data) == "object") {
                 $scope.NguoiGiaoHang.List = response.data;
@@ -264,7 +228,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
 
         $http({
             method: 'GET',
-            url: '/Kho/GetHangTra'
+            url: '/api/Api_XuatNhapKho/GetCTTra'
         }).then(function (response) {
             if (typeof (response.data) == "object") {
                 $scope.DonHangTra = response.data;
@@ -278,22 +242,24 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
     }
 
     init();
+    //Thay đổi loại chứng từ
     $scope.ChangeLoaiChungTu = function () {
 
         if ($scope.LoaiChungTu == 1) {
             $("#Select_DataGiaTriChungTu").css({ "display": "block" });
             $("#Input_DataGiaTriChungTu").css({ "display": "none" });
+            $("#Input_MaChungTu").css({ "display": "none" });
             $("#DataGiaTriChungTu").css({ "display": "none" });
             $http({
                 method: 'GET',
-                url: '/ChungTu/GetLoaiChungTu'
+                url: '/api/Api_Loaichungtu'
             }).then(function (response) {
                 if (typeof (response.data) == "object") {
                     $scope.GiaTriThamChieu = [];
                     for (var i = 0; i < response.data.length; i++) {
                         $scope.GiaTriThamChieu.push({
-                            value: response.data[i].MA_LOAI_CHUNG_TU,
-                            show: response.data[i].TEN_LOAI_CHUNG_TU
+                            "value": response.data[i].MA_LOAI_CHUNG_TU,
+                            "show": response.data[i].TEN_LOAI_CHUNG_TU
                         });
                     }
                 }
@@ -307,27 +273,26 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         else if ($scope.LoaiChungTu == 2) {
             $("#Select_DataGiaTriChungTu").css({ "display": "none" });
             $("#Input_DataGiaTriChungTu").css({ "display": "block" });
+            $("#Input_MaChungTu").css({ "display": "none" });
             $("#DataGiaTriChungTu").css({ "display": "block" });
             $http({
                 method: 'GET',
-                url: '/DoiTuong/GetAll'
+                url: '/api/Api_XuatNhapKho/GetAllDoiTuong'
             }).then(function (response) {
                 if (typeof (response.data) == "object") {
                     var data = response.data.DoiTuong;
                     var colength = 5;
-                    var madoituong = "", tendoituong = "", diachi = "";
+                    var madoituong = "", tendoituong = "";
                     var max = 0;
-                    var maxlength = response.data.MaxLength;
-                    for (var i = 0; i < data.length; i++) {
-                        madoituong = data[i].MA_DOI_TUONG;
-                        tendoituong = data[i].TEN_DOI_TUONG;
-                        diachi = data[i].DIA_CHI;
+                    var maxlength = response.data.Length;
+                    for (var i = 0; i < response.data.length; i++) {
+                        madoituong = response.data[i].MA_DOI_TUONG;
+                        tendoituong = response.data[i].TEN_DOI_TUONG;
                         $scope.GiaTriThamChieu.push({
-                            value: data[i].MA_DOI_TUONG,
+                            value: response.data[i].MA_DOI_TUONG,
                             show: "",
                             madoituong: madoituong,
                             tendoituong: tendoituong,
-                            diachi: diachi
                         });
                     }
                 }
@@ -339,30 +304,32 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             });
         }
         else if ($scope.LoaiChungTu == 3) {
-            $("#Select_DataGiaTriChungTu").css({ "display": "block" });
+            $("#Select_DataGiaTriChungTu").css({ "display": "none" });
             $("#Input_DataGiaTriChungTu").css({ "display": "none" });
+            $("#Input_MaChungTu").css({ "display": "block" });
             $("#DataGiaTriChungTu").css({ "display": "none" });
-            $http({
-                method: 'GET',
-                url: '/ChungTu/GetAllMa'
-            }).then(function (response) {
-                if (typeof (response.data) == "object") {
-                    $scope.GiaTriThamChieu = [];
-                    for (var i = 0; i < response.data.length; i++) {
-                        $scope.GiaTriThamChieu.push({
-                            value: response.data[i].SoChungTu,
-                            show: response.data[i].SoChungTu
-                        });
-                    }
-                }
-                else {
-                    ErrorSystem();
-                }
-            }, function (error) {
-                ConnectFail();
-            });
+            //$http({
+            //    method: 'POST',
+            //    url: '/api/Api_XuatNhapKho/SearchAllMa/A/A'
+            //}).then(function (response) {
+            //    if (typeof (response.data) == "object") {
+            //        $scope.GiaTriThamChieu = [];
+            //        for (var i = 0; i < response.data.length; i++) {
+            //            $scope.GiaTriThamChieu.push({
+            //                "value": response.data[i].SO_CHUNG_TU,
+            //                "show": response.data[i].SO_CHUNG_TU
+            //            });
+            //        }
+            //    }
+            //    else {
+            //        ErrorSystem();
+            //    }
+            //}, function (error) {
+            //    ConnectFail();
+            //});
         }
-    }
+    };
+    //End
     $scope.ShowDataGiaTriChungTu = function () {
         if ($scope.LoaiChungTu == 2 && $("#DataGiaTriChungTu").css("display") == "none") {
             $("#DataGiaTriChungTu").css({ "display": "block" });
@@ -393,66 +360,90 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
     $("#SlectNguoiGiaoHang").focusout(function () {
         $("#DataGiaTriChungTu").css({ "display": "none" });
     });
+    // Tìm tham chiếu
     $scope.SearchThamChieu = function () {
         if (CheckSearchThamChieu() == false) {
             return;
         }
-        $scope.Searching = true;
+
         if ($scope.LoaiChungTu == 1) {
-            $http({
-                method: 'POST',
-                url: '/Kho/SearchByType',
-                data: { FromTime: $scope.ThamChieu.From, ToTime: $scope.ThamChieu.To, GiaTriChungTu: $scope.GiaTriLoaiChungTu }
-            }).then(function (response) {
+            var data = {
+                GiaTriChungTu: $scope.GiaTriLoaiChungTu,
+                FromTime: $scope.ThamChieu.From,
+                ToTime: $scope.ThamChieu.To
+
+            }
+
+            $http.post('/api/Api_XuatNhapKho/SearchByTypeWithDate', data)
+            .then(function (response) {
+                console.log(response);
                 if (typeof (response.data) == "object") {
                     $scope.ThamChieu.ListResult = response.data;
-                    if($scope.ThamChieu.ListResult.length==0)
-                    {
-                        Norecord();
-                    }
-                    $scope.Searching = false;
-                }
-                else {
-                    ErrorSystem();
-                    $scope.Searching = false;
-                }
-            }, function (error) {
-                ConnectFail();
-                $scope.Searching = false;
-            });
-        }
-        else if ($scope.LoaiChungTu == 2) {
-            $http({
-                method: 'POST',
-                url: '/Kho/SearchByDoiTuong',
-                data: { FromTime: $scope.ThamChieu.From, ToTime: $scope.ThamChieu.To, GiaTriChungTu: $scope.GiaTriChungTu.Data.madoituong }
-            }).then(function (response) {
-                if (typeof (response.data) == "object") {
-                    $scope.ThamChieu.ListResult = response.data;
-                    $scope.Searching = false;
                     if ($scope.ThamChieu.ListResult.length == 0) {
                         Norecord();
                     }
                 }
                 else {
                     ErrorSystem();
-                    $scope.Searching = false;
                 }
             }, function (error) {
                 ConnectFail();
-                $scope.Searching = false;
+            });
+
+
+
+
+
+            //$http({
+            //    method: 'POST',
+            //    url: '/api/Api_XuatNhapKho/SearchByType/' + GiaTriChungTu + '/' + FromTime + '/' + ToTime,
+            //    data: { FromTime: $scope.ThamChieu.From, ToTime: $scope.ThamChieu.To, GiaTriChungTu: $scope.GiaTriLoaiChungTu }
+            //}).then(function (response) {
+            //    console.log(response);
+            //    if (typeof (response.data) == "object") {
+            //        $scope.ThamChieu.ListResult = response.data;
+            //        if ($scope.ThamChieu.ListResult.length == 0) {
+            //            Norecord();
+            //        }
+            //    }
+            //    else {
+            //        ErrorSystem();
+            //    }
+            //}, function (error) {
+            //    ConnectFail();
+            //});
+        }
+        else if ($scope.LoaiChungTu == 2) {
+            var data = {
+                GiaTriChungTu: $scope.GiaTriChungTu.Data.madoituong,
+                FromTime: $scope.ThamChieu.From,
+                ToTime: $scope.ThamChieu.To
+
+            }
+
+            $http.post('/api/Api_XuatNhapKho/SearchByDoiTuongWithDate', data)
+            .then(function (response) {
+                console.log(response);
+                if (typeof (response.data) == "object") {
+                    $scope.ThamChieu.ListResult = response.data;
+                    if ($scope.ThamChieu.ListResult.length == 0) {
+                        Norecord();
+                    }
+                }
+                else {
+                    ErrorSystem();
+                }
+            }, function (error) {
+                ConnectFail();
             });
         }
         else {
-            $http({
-                method: 'POST',
-                url: '/Kho/SearchByMa',
-                data: { FromTime: $scope.ThamChieu.From, ToTime: $scope.ThamChieu.To, GiaTriChungTu: $scope.GiaTriLoaiChungTu }
-            }).then(function (response) {
+            var mact = $scope.MaChungTu.Search;
+            $http.get('/api/Api_XuatNhapKho/GetbyMa/' + mact)
+            .then(function (response) {
+                console.log(response);
                 if (typeof (response.data) == "object") {
-                    $scope.ThamChieu.ListResult = [];
-                    $scope.ThamChieu.ListResult.push(response.data);
-                    console.log($scope.ThamChieu.ListResult);
+                    $scope.ThamChieu.ListResult = response.data;
                     if ($scope.ThamChieu.ListResult.length == 0) {
                         Norecord();
                     }
@@ -460,13 +451,12 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
                 else {
                     ErrorSystem();
                 }
-                $scope.Searching = false;
             }, function (error) {
                 ConnectFail();
-                $scope.Searching = false;
             });
         }
-    }
+    };
+    //End
     function CheckSearchThamChieu() {
         $scope.ThamChieu.From = $("#ThamChieuFrom").val();
         $scope.ThamChieu.To = $("#ThamChieuTo").val();
@@ -478,14 +468,14 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         else {
             $scope.Validate.LoaiChungTu = true;
         }
-        if (($scope.LoaiChungTu == 2 && $scope.GiaTriChungTu.Data == null) || ($scope.LoaiChungTu == 1 && $scope.GiaTriLoaiChungTu == null) || ($scope.LoaiChungTu == 3 && $scope.GiaTriLoaiChungTu == null)) {
+        if (($scope.LoaiChungTu == 2 && $scope.GiaTriChungTu.Data == null) || ($scope.LoaiChungTu == 1 && $scope.GiaTriLoaiChungTu == null) || ($scope.LoaiChungTu == 3 && $scope.MaChungTu.Search == null)) {
             $scope.Validate.GiaTriChungTu = false;
             check = false;
         }
         else {
             $scope.Validate.GiaTriChungTu = true;
         }
-        if ($scope.ThamChieu.From != "" && $scope.ThamChieu.To!="" && ConvertToDate($scope.ThamChieu.From) > ConvertToDate($scope.ThamChieu.To)) {
+        if ($scope.ThamChieu.From != "" && $scope.ThamChieu.To != "" && ConvertToDate($scope.ThamChieu.From) > ConvertToDate($scope.ThamChieu.To)) {
             $scope.Validate.ToDateThamChieuLess = false;
             check = false;
         }
@@ -493,7 +483,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             $scope.Validate.ToDateThamChieuLess = true;
         }
         return check;
-    }
+    };
     $scope.SelectThamChieu = function (item, index) {
         if (item.Action == true)
         {
@@ -509,19 +499,15 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         //$scope.ThamChieu.ListSelect = [];
         var check = false;
         for (var i = 0; i < length; i++) {
-            if ($scope.ThamChieu.ListResult[i].Action == true)
-            {
+            if ($scope.ThamChieu.ListResult[i].Action == true) {
                 check = false;
-                for (var j = 0; j < $scope.ThamChieu.ListSelect.length; j++)
-                {
-                    if($scope.ThamChieu.ListSelect[j].SoChungTu == $scope.ThamChieu.ListResult[i].SoChungTu)
-                    {
+                for (var j = 0; j < $scope.ThamChieu.ListSelect.length; j++) {
+                    if ($scope.ThamChieu.ListSelect[j].SO_CHUNG_TU == $scope.ThamChieu.ListResult[i].SO_CHUNG_TU) {
                         check = true;
                         break;
                     }
                 }
-                if (!check)
-                {
+                if (!check) {
 
                     $scope.ThamChieu.ListSelect.push(angular.copy($scope.ThamChieu.ListResult[i]));
                 }
@@ -529,7 +515,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         }
         $("#modal_theme_primary").modal("toggle");
         ResetThamChieu();
-    }
+    };
     function ResetThamChieu()
     {
         $("#ThamChieuFrom").val("");
@@ -545,15 +531,15 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
     }
     $scope.AddNew = function () {
         $scope.Detail.ListAdd.push({
-            MaHang: null,
-            TenHang: null,
+            MA_HANG: null,
+            TEN_HANG: null,
             Kho: null,
-            TKKho:null,
-            DonGia: null,
-            SoLuong: null,
+            TK_KHO:null,
+            DON_GIA: null,
+            SO_LUONG: null,
             DVT: null,
-            TKNo: null,
-            TKCo: null,
+            TK_NO: null,
+            TK_CO: null,
         });
     }
     // Hàng hóa
@@ -567,8 +553,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         }
     }
     $scope.SelectHangHoa = function (index, childIndex) {
-        $scope.Detail.ListAdd[index].MaHang = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
-        $scope.Detail.ListAdd[index].TenHang = $scope.Detail.ListHangHoa[childIndex].TEN_HANG;
+        $scope.Detail.ListAdd[index].MA_HANG = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
+        $scope.Detail.ListAdd[index].TEN_HANG = $scope.Detail.ListHangHoa[childIndex].TEN_HANG;
         $scope.Detail.ListAdd[index].SearchHang = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
         $scope.Detail.ListAdd[index].KhoList = $scope.Detail.ListHangHoa[childIndex].KHO;
         $(".tableselect").css({ "display": "none" });
@@ -583,8 +569,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             $(".tableselect").css({ "display": "none" });
         }
     };
-    $scope.SelectTKCo = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TKCo = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+    $scope.SelectTK_CO = function (index, tkindex) {
+        $scope.Detail.ListAdd[index].TK_CO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
         $(".tableselect").css({ "display": "none" });
     };
     $scope.ShowTaiKhoanNo = function (index) {
@@ -596,8 +582,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             $(".tableselect").css({ "display": "none" });
         }
     };
-    $scope.SelectTKNo = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TKNo = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+    $scope.SelectTK_NO = function (index, tkindex) {
+        $scope.Detail.ListAdd[index].TK_NO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
         $("#DataTaiKhoanNo" + index).css({ "display": "none" });
     };
 
@@ -610,8 +596,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             $(".tableselect").css({ "display": "none" });
         }
     };
-    $scope.SelectTKKho = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TKKho = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+    $scope.SelectTK_KHO = function (index, tkindex) {
+        $scope.Detail.ListAdd[index].TK_KHO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
         $(".tableselect").css({ "display": "none" });
     };
     //Khách hàng
@@ -685,6 +671,8 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         }
         return check;
     }
+    var a = $('#username').val();
+    var b = $('#macongty').val();
     $scope.SaveNhapKho = function () {
         if (CheckAll() == false) {
             return;
@@ -700,7 +688,7 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         }
         $http({
             method: 'POST',
-            url: '/Kho/SaveNhapKho',
+            url: '/api/Api_NhapKho/PostKHO_NHAP_KHO',
             data: {
                 SO_CHUNG_TU: $scope.GeneralInfo.SoChungTu,
                 NGAY_CHUNG_TU: $scope.GeneralInfo.NgayChungTu,
@@ -709,7 +697,9 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
                 ChiTiet: $scope.Detail.ListAdd,
                 ThamChieu: $scope.ThamChieu.ListSelect,
                 NGUOI_GIAO_HANG: $scope.GeneralInfo.NguoiGiaoHang,
-                LOAI_NHAP_KHO: loainhapkho
+                LOAI_NHAP_KHO: loainhapkho,
+                NGUOI_LAP_PHIEU: a,
+                TRUC_THUOC: b,
             }
         }).then(function (response) {
             response.data = jQuery.parseJSON(response.data);
@@ -751,24 +741,28 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         {
             return;
         }
-        $http({
-            method: 'POST',
-            url: '/XuatKho/SearchHangTraByKH',
-            data: {
-                NgayBatDau: $scope.SearchDonHangTra.NgayBatDau,
-                NgayKetThuc: $scope.SearchDonHangTra.NgayKetThuc,
-                GiaTri: $scope.SearchDonHangTra.KhachHang
-            }
-        }).then(function (response) {
-            if (typeof (response.data) == "object") {
-                $scope.SearchDonHangTra.ListResult = response.data;
-            }
-            else {
-                ErrorSystem();
-            }
-        }, function (error) {
-            ConnectFail();
-        });
+
+        var data = {
+            makh: $scope.SearchDonHangTra.KhachHang,
+            tungay: $scope.SearchDonHangTra.NgayBatDau,
+            denngay: $scope.SearchDonHangTra.NgayKetThuc
+
+        }
+        $http.post('/api/Api_XuatNhapKho/GetCTTraByKhach', data)
+         .then(function (response) {
+             console.log(response);
+             if (typeof (response.data) == "object") {
+                 $scope.SearchDonHangTra.ListResult = response.data;
+                 if ($scope.SearchDonHangTra.ListResult.length == 0) {
+                     Norecord();
+                 }
+             }
+             else {
+                 ErrorSystem();
+             }
+         }, function (error) {
+             ConnectFail();
+         });
     }
     $scope.SelectSearchDonHang = function (item,index)
     {
@@ -782,14 +776,14 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
         $scope.ThamChieu.ListSelect.push($scope.SearchDonHangTra.DonHangSelect);
         $http({
             method: 'GET',
-            url: '/XuatKho/GetByChungTu?ChungTu=' + $scope.SearchDonHangTra.DonHangSelect.SO_CHUNG_TU,
+            url: '/api/Api_NhapKho/GetDetailKHO_NHAP_KHO/' + $scope.SearchDonHangTra.DonHangSelect.SO_CHUNG_TU,
         }).then(function (response) {
             if (typeof (response.data) == "object") {
-                $scope.Detail.ListAdd = response.data.ChiTiet;
-                $scope.GeneralInfo.DoiTuong = response.data.KHACH_HANG,
-                $scope.GeneralInfo.TenDoiTuong = response.data.TEN_KHACH_HANG,
-                $scope.GeneralInfo.DienGiai = response.data.LY_DO_XUAT,
-                $scope.GeneralInfo.KemTheo = response.data.KEM_THEO
+                $scope.Detail.ListAdd = response.data.ctxuatkho;
+                $scope.GeneralInfo.DoiTuong = response.data.xuatkho.KHACH_HANG,
+                $scope.GeneralInfo.TenDoiTuong = response.data.xuatkho.TEN_KHACH_HANG,
+                $scope.GeneralInfo.DienGiai = response.data.xuatkho.LY_DO_XUAT,
+                $scope.GeneralInfo.KemTheo = response.data.xuatkho.KEM_THEO
                 $scope.LoadHangTra = true;
                 $("#SearchDonHangTra").modal("toggle");
             }
@@ -803,19 +797,19 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
     $scope.SelectDonTraHang=function(item)
     {
         $scope.ThamChieu.ListSelect = [];
-        $scope.ThamChieu.ListSelect.push({SoChungTu:item.SO_CHUNG_TU});
+        $scope.ThamChieu.ListSelect.push({SO_CHUNG_TU:item.SO_CHUNG_TU});
         $scope.ThamChieu.TraHang = item.SO_CHUNG_TU;
         $(".tableselect").css({ "display": "none" });
         $http({
             method: 'GET',
-            url: '/XuatKho/GetByChungTu?ChungTu=' + item.SO_CHUNG_TU,
+            url: '/api/Api_NhapKho/GetDetailKHO_NHAP_KHO/' + item.SO_CHUNG_TU,
         }).then(function (response) {
             if (typeof (response.data) == "object") {
-                $scope.Detail.ListAdd = response.data.ChiTiet;
-                $scope.GeneralInfo.DoiTuong = response.data.KHACH_HANG,
-                $scope.GeneralInfo.TenDoiTuong = response.data.TEN_KHACH_HANG,
-                $scope.GeneralInfo.DienGiai = response.data.LY_DO_XUAT,
-                $scope.GeneralInfo.KemTheo = response.data.KEM_THEO
+                $scope.Detail.ListAdd = response.data.ctxuatkho;
+                $scope.GeneralInfo.DoiTuong = response.data.xuatkho.KHACH_HANG,
+                $scope.GeneralInfo.TenDoiTuong = response.data.xuatkho.TEN_KHACH_HANG,
+                $scope.GeneralInfo.DienGiai = response.data.xuatkho.LY_DO_XUAT,
+                $scope.GeneralInfo.KemTheo = response.data.xuatkho.KEM_THEO
                 $scope.LoadHangTra = true;
             }
             else {
@@ -837,4 +831,30 @@ app.controller('StoreInsertController', function ($rootScope, $scope, $http,conf
             $(".tableselect").css({ "display": "none" });
         }
     }
+
+
+    //Tìm Kiếm Thông Tin hàng Hóa
+    $scope.FindProduct = function (machuan) {
+
+        $http({
+            method: 'GET',
+            data: machuan,
+            url: window.location.origin + '/api/Api_TonKhoHL/GetHH_TON_KHO/' + machuan
+        }).then(function successCallback(response) {
+            $scope.danhsachhanghoa = response.data;
+
+        });
+    }
+
+
+    //button add check
+    $scope.check = function (mahang, tenhang) {
+        $scope.Detail.ListAdd.push({
+            MA_HANG: mahang,
+            TEN_HANG: tenhang,
+        });
+    }
+    //End Tìm Kiếm Thông Tin hàng Hóa
+
+
 });
