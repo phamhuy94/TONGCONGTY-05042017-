@@ -103,15 +103,30 @@ namespace ERP.Web.Api.KhachHang
                 }
                 else
                 {
-                    if (datachuyensale.SALE_SAP_CHUYEN != "None")
+
+                    if (datachuyensale.SALE_SAP_CHUYEN != "None" && datachuyensale.SALE_SAP_CHUYEN != null)
                     {
                         query.SALE_SAP_CHUYEN = datachuyensale.SALE_SAP_CHUYEN;
                     }
                     else
                     {
+                        query.SALE_CU_2 = query.SALE_CU;
+                        query.SALE_CU = query.SALE_HIEN_THOI;
+                        query.SALE_HIEN_THOI = datachuyensale.SALE_HIEN_THOI;
                         query.SALE_SAP_CHUYEN = null;
+
                     }
                 }
+
+
+
+
+              
+
+
+
+
+
             }
             try
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ERP.Web.Models.Database;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,11 +10,30 @@ namespace ERP.Web.Controllers
 {
     public class BaiVietMoiController : Controller
     {
+        ERP_DATABASEEntities db = new ERP_DATABASEEntities();
+
         // GET: BaiVietMoi
         public ActionResult Index()
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Delete_BaiViet(int id)
+        {
+            var query = db.POST_CATEGORIES.Where(x => x.ID == id).ToList();
+            foreach (var item in query)
+            {
+                db.POST_CATEGORIES.Remove(item);
+            }
+            var datapost = db.POSTS.Where(x => x.MA_BAI_VIET == id).FirstOrDefault();
+            if(datapost != null)
+            {
+                db.POSTS.Remove(datapost);
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         public string UploadFiles()
         {

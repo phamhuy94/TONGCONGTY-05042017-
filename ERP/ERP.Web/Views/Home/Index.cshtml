@@ -16,6 +16,11 @@
                     <p style="height: 60px; overflow: hidden;word-wrap: break-word" class="col-md-12" ng-bind-html="item.NOI_DUNG_BAI_VIET | unsafe"></p>
                     <p class="col-md-4" style="color: #097be0"><i class="fa fa-clock-o" aria-hidden="true" style="margin-right: 5px;"></i>{{item.NGAY_DANG_BAI | date : 'dd/MM/yyyy'}}</p>
                     <a class="col-md-4" style="color: #097be0" href="/UserDetails/Details/{{item.NGUOI_DANG_BAI}}"><i class="fa fa-user" aria-hidden="true" style="margin-right: 5px;"></i>{{item.HO_VA_TEN}}</a>
+                    <form action="BaiVietMoi/Delete_BaiViet">
+                        <input type="hidden" value="{{item.MA_BAI_VIET}}" id="id" name="id"/>
+                        <input type="submit" value="xóa"/>
+                    </form>
+                   
                 </div>
             </div>
         </div>
@@ -29,3 +34,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    this.DeleteBaiViet = function (idBaiViet) {
+        var response = $http({
+            method: "post",
+            url: "BaiVietMoi/Delete_BaiViet",
+            params: {
+                employeeId: JSON.stringify(employeeId)
+            }
+        });
+        return response;
+    }
+</script>
