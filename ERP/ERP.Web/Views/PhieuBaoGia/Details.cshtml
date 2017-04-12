@@ -25,12 +25,13 @@
 </style>
 <div ng-app="myApp" ng-controller="PhieuBaoGiaCtrl">
     <input type="hidden" id="username" name="salehienthoi" value="@Session["USERNAME"]" />
+
     <div class="content" ng-repeat="item in list_duyetbaogia">
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="col-md-3"></div>
                 <div class="col-md-2">
-                    <img src="~/logo_hoplong.png" height="100" width="150"/>
+                    <img src="~/logo_hoplong.png" height="100" width="150" />
                 </div>
                 <div class="col-md-7">
                     <h4><b>CÔNG TY CỔ PHẦN CÔNG NGHỆ HỢP LONG</b></h4>
@@ -40,11 +41,7 @@
                     <p>Email: info@hoplongtech.com.vn  -  https://hoplongtech.com</p>
                 </div>
             </div>
-            <div class="col-md-12">
-                <hr style="border: 2px solid lightskyblue"/>
-                <h2 class="text-center"><b>QUOTATION</b></h2>
-            </div>
-        </div>
+        </div>   
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="col-md-12"  style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;">
@@ -89,6 +86,7 @@
                         <p id="phivanchuyen" style="display: none;">{{item.PHI_VAN_CHUYEN}}</p>
                         <div class="col-md-12">&nbsp;</div>
                     </div>
+>>>>>>> refs/remotes/origin/master
                 </div>
             </div>            
         </div>
@@ -104,15 +102,15 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="text-center" style="vertical-align: middle">No.</th>
+                                    <th>No.</th>
                                     <th>Description of goods<br /><span style="font-weight:normal">(Mô tả chi tiết hàng hóa)</span></th>
-                                    <th class="text-center">Model<br /><span style="font-weight:normal">(Mã hàng)</span></th>
-                                    <th class="text-center">Maker<br /><span style="font-weight:normal">(Nhà sản xuất)</span></th>
-                                    <th class="text-center">Qty<br /><span style="font-weight:normal">(Số lượng)</span></th>
-                                    <th class="text-center">UOM<br />   <span style="font-weight:normal">(Đơn vị)</span></th>
-                                    <th class="text-center">U.price<br />(VNĐ)</th>
-                                    <th class="text-center">Total Amount<br />(VNĐ)</th>
-                                    <th class="text-center" style="vertical-align: middle">Delivery time</th>
+                                    <th>Model<br /><span style="font-weight:normal">(Mã hàng)</span></th>
+                                    <th>Maker<br /><span style="font-weight:normal">(Nhà sản xuất)</span></th>
+                                    <th>Qty<br /><span style="font-weight:normal">(Số lượng)</span></th>
+                                    <th>UOM<br />   <span style="font-weight:normal">(Đơn vị)</span></th>
+                                    <th>U.price<br />(VNĐ)</th>
+                                    <th>Total Amount<br />(VNĐ)</th>
+                                    <th>Delivery time</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -150,7 +148,7 @@
                                         <input type="text" ng-model="detail.CACH_TINH_THANH_TIEN" readonly class="form-control" style="display:none">
                                     </td>
                                     <td class="text-center">
-                                        {{detail.DON_GIA_SAU_CHIET_KHAU | currency: '':0}}                                   
+                                        {{detail.GIA_SAU_CK}}                                   
                                     </td>
                                     <td class="text-center">
                                         {{detail.THANH_TIEN | currency: '':0}}
@@ -254,7 +252,11 @@
                     (Sign & write full name)
                 </div>
             </div>
+            <div class="col-md-12">
+                <hr style="border: 2px solid lightskyblue"/>
+                <h2 class="text-center"><b>QUOTATION</b></h2>
+            </div>
         </div>
     </div>
-    <!-- /dashboard content -->
+
 </div>
