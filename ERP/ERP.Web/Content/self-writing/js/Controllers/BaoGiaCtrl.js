@@ -15,9 +15,11 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         baogiaService.load_baogiatheodukien(url).then(function (bcd) {
             $scope.list_baogiatheodukien = bcd;
             if ($scope.list_baogiatheodukien.length > 0) {
-                $('#thongtinchungthemmoi').hide();
+                $('.thongtinchungthemmoi').hide();
+                $('.savethongtin').show();
             } else {              
-                $('#thongtinchungthemmoi').show();
+                $('.thongtinchungthemmoi').show();
+                $('.savethongtin').hide();
             }
         });
         

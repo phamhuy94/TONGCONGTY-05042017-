@@ -255,7 +255,7 @@
 
                                     </div>
 
-                                    <div id="thongtinchungthemmoi" style="display:none">
+                                    <div class="thongtinchungthemmoi" style="display:none">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="col-md-6">
@@ -401,7 +401,6 @@
                                                                     <label class="col-md-3">Tổng tiền(đã tính phí vận chuyển): </label>
                                                                     <p class="col-md-6" style="text-align:left"><span  id="tongtienbaogia" ng-model="baogia">{{baogia | currency: '':0}}</span>vnd</p> 
                                                                 </div>
-                                                                <button type="button" ng-click="kiemtien()">test</button>
                                                             </td>
                                                             <td colspan="9"></td>
                                                         </tr>
@@ -415,9 +414,9 @@
                         </div>
                         <!--End Thông tin chung-->
                         <div class="col-md-12 text-center">
-                            <button type="button" class="btn btn-primary" onclick="myFunction()"><i class="icon-floppy-disk"></i>Xóa trắng</button>
-                            <button type="button" class="btn btn-primary" ng-click="AddNew()"><i class="icon-floppy-disk"></i>Thêm mới</button>
-                            <button type="button" class="btn btn-primary" ng-click="onSave()"><i class="icon-floppy-disk"></i>Lưu</button>
+                            <button type="button" class="btn btn-primary thongtinchungthemmoi" onclick="myFunction()"><i class="icon-floppy-disk"></i>Xóa trắng</button>
+                            <button type="button" class="btn btn-primary thongtinchungthemmoi" ng-click="AddNew()" style="display:none;"><i class="icon-floppy-disk"></i>Thêm mới</button>
+                            <button type="button" class="btn btn-primary savethongtin" style="display:none;" ng-click="onSave()"><i class="icon-floppy-disk"></i>Lưu</button>
                             <a href="/" class="btn bg-orange-400"><i class="icon-blocked"></i> Bỏ qua</a>
                         </div>
                     </form>                   
