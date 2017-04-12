@@ -36,7 +36,7 @@ namespace ERP.Web.Models.NewModels
         public decimal? TIEN_VAT { set; get; }
         public string TINH_TRANG_HANG { set; get; }
         public string THOI_GIAN_GIAO_HANG { set; get; }
-        public DateTime NGAY_GIAO_HANG { set; get; }
+        public string NGAY_GIAO_HANG { set; get; }
         public string DIA_DIEM_GIAO_HANG { set; get; }
         public string GHI_CHU { set; get; }
         public string HO_VA_TEN { set; get; }
@@ -45,5 +45,7 @@ namespace ERP.Web.Models.NewModels
         public string NGUOI_LIEN_HE { set; get; }
         public string TEN_CONG_TY { set; get; }
         public DateTime NGAY_TAO { set; get; }
+
+        public decimal DON_GIA_SAU_CHIET_KHAU { set; get; }
     }
 }

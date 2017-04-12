@@ -209,7 +209,7 @@ namespace ERP.Web.Areas.Inventory.Controllers
                 ViewBag.Dongloi = "Các dòng bị lỗi là: " + result;
             }
 
-            return View();
+            return View("Import_Hanghoa");
         }
 
         #endregion

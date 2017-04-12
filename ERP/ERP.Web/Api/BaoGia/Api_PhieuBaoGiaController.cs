@@ -31,7 +31,7 @@ namespace ERP.Web.Api.BaoGia
             return result;
         }
 
-        [Route("api/Api_BaoGia/GetThongTinChiTiet/{so_bao_gia}")]
+        [Route("api/Api_PhieuBaoGia/GetThongTinChiTiet/{so_bao_gia}")]
         public List<GetAll_ThongTinChiTietBaoGia_Result> GetThongTinChiTiet(string so_bao_gia)
         {
             var query = db.Database.SqlQuery<GetAll_ThongTinChiTietBaoGia_Result>("GetAll_ThongTinChiTietBaoGia @so_bao_gia", new SqlParameter("so_bao_gia", so_bao_gia));

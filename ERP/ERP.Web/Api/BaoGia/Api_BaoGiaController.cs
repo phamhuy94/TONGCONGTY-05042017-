@@ -32,6 +32,14 @@ namespace ERP.Web.Api.BaoGia
             return result;
         }
 
+        [Route("api/Api_BaoGia/BaoGiaTheoDuKien/{sodukien}")]
+        public List<Get_BaoGia_TheoDuKien_Result> GetBaoGiaTheoDuKien(string sodukien)
+        {
+            var query = db.Database.SqlQuery<Get_BaoGia_TheoDuKien_Result>("Get_BaoGia_TheoDuKien @sodukien,@macongty", new SqlParameter("sodukien", sodukien), new SqlParameter("macongty", "HOPLONG"));
+            var result = query.ToList();
+            return result;
+        }
+
         // GET: api/Api_BaoGia/5
         [ResponseType(typeof(BH_BAO_GIA))]
         public IHttpActionResult GetBH_BAO_GIA(string id)
@@ -58,9 +66,17 @@ namespace ERP.Web.Api.BaoGia
             {
                 return BadRequest();
             }
-
-            db.Entry(bH_BAO_GIA).State = EntityState.Modified;
-
+            var baogia = db.BH_BAO_GIA.Where(x => x.SO_BAO_GIA == id).FirstOrDefault();
+            if(baogia != null)
+            {
+                baogia.PHUONG_THUC_THANH_TOAN = bH_BAO_GIA.PHUONG_THUC_THANH_TOAN;
+                baogia.HAN_THANH_TOAN = bH_BAO_GIA.HAN_THANH_TOAN;
+                baogia.HIEU_LUC_BAO_GIA = bH_BAO_GIA.HIEU_LUC_BAO_GIA;
+                baogia.DIEU_KHOAN_THANH_TOAN = bH_BAO_GIA.DIEU_KHOAN_THANH_TOAN;
+                baogia.PHI_VAN_CHUYEN = bH_BAO_GIA.PHI_VAN_CHUYEN;
+                baogia.TONG_TIEN = bH_BAO_GIA.TONG_TIEN;
+            }
+            
             try
             {
                 db.SaveChanges();
@@ -77,7 +93,7 @@ namespace ERP.Web.Api.BaoGia
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(bH_BAO_GIA);
         }
 
         // POST: api/Api_BaoGia

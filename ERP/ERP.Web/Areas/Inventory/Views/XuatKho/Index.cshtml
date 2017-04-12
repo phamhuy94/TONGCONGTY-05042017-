@@ -236,29 +236,31 @@
                                     <tr ng-repeat="(index,item) in Detail.ListAdd">
                                         <td>
                                             @*<div class="has-feedback" ng-click="ShowHangHoa(index)">
-                                                    <input type="text" ng-model="item.MaHang" class="form-control showtableselect">
-                                                    <div class="form-control-feedback">
-                                                        <i class="icon-arrow-down5"></i>
-                                                    </div>
+
+                                                <input type="text" ng-model="item.MaHang" class="form-control showtableselect">
+                                                <div class="form-control-feedback">
+                                                    <i class="icon-arrow-down5"></i>
                                                 </div>
-                                                <div class="tableselect" id="DataHangHoa{{index}}" style="display:none;max-width: 500px;top: 90px;">
-                                                    <table class="table-hover ">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Mã hàng</th>
-                                                                <th>Tên hàng</th>
-                                                                <th ng-repeat="(khoindex,khoitem) in Detail.ListKho">{{khoitem.TEN_KHO}}</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr ng-repeat="(hindex,itemHangHoa) in Detail.ListHangHoa" ng-click="SelectHangHoa(index,hindex)">
-                                                                <td>{{itemHangHoa.MA_HANG}}</td>
-                                                                <td>{{itemHangHoa.TEN_HANG}}</td>
-                                                                <td ng-repeat="(khohangindex, khohangitem) in itemHangHoa.KHO"> {{khohangitem.SL_TON}}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>*@
+                                            </div>
+                                            <div class="tableselect" id="DataHangHoa{{index}}" style="display:none;max-width: 500px;top: 90px;">
+                                                <table class="table-hover ">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Mã hàng</th>
+                                                            <th>Tên hàng</th>
+                                                            <th ng-repeat="(khoindex,khoitem) in Detail.ListKho">{{khoitem.TEN_KHO}}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="(hindex,itemHangHoa) in Detail.ListHangHoa" ng-click="SelectHangHoa(index,hindex)">
+                                                            <td>{{itemHangHoa.MA_HANG}}</td>
+                                                            <td>{{itemHangHoa.TEN_HANG}}</td>
+                                                            <td ng-repeat="(khohangindex, khohangitem) in itemHangHoa.KHO"> {{khohangitem.SL_TON}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>*@
+
                                             <input type="text" ng-model="item.MaHang" class="form-control">
                                         </td>
                                         <td>
@@ -537,6 +539,7 @@
 
 
             </div>
+
             <!--End tìm kiếm hàng hóa-->
 
 

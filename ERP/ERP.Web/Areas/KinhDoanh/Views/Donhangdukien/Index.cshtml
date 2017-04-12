@@ -8,7 +8,7 @@
 <link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/self-writing/css/Donhangdukien.css" rel="stylesheet" />
 
-<div class="panel-heading title">Bạn đang xem danh mục Tài khoản ngân hàng nội bộ</div>
+<div class="panel-heading title">Bạn đang trong mục Đơn Hàng Dự Kiến</div>
 <br />
 <div ng-app="myApp" ng-controller="DonhangdukienCtrl">
     <div class="content">
@@ -201,6 +201,7 @@
                     <th>Thất bại</th>
                     <th>Lý do thất bại</th>
                     <th>Trực thuộc</th>
+                    <th>Tạo báo giá</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -214,6 +215,7 @@
                     <td class="text-left">{{item.THAT_BAI}}</td>
                     <td class="text-left">{{item.LY_DO_THAT_BAI}}</td>
                     <td class="text-left">{{item.TRUC_THUOC}}</td>
+                    <td><a href="/BaoGia/Index/{{item.MA_DU_KIEN}}">Báo giá</a></td>
                     <td>
                         <button class="btn btn-circle" ng-click="edit(item)" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
                     </td>

@@ -302,12 +302,12 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         if (CheckSearchThamChieu() == false) {
             return;
         }
-
         if ($scope.LoaiChungTu == 1) {
             var data = {
                 GiaTriChungTu: $scope.GiaTriLoaiChungTu,
                 FromTime: $scope.ThamChieu.From,
                 ToTime: $scope.ThamChieu.To
+
 
             }
 
@@ -326,8 +326,6 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
             }, function (error) {
                 ConnectFail();
             });
-
-
 
 
 
