@@ -36,7 +36,9 @@ namespace ERP.Web.Api.Kho
         [Route("api/Api_XuatNhapKho/SearchByTypeWithDate")]
         public List<Search_SearchByType_Result> SearchByTypeWithDate(DataCondition data)
         {
+
             if(data.ToTime == "" && data.FromTime =="")
+
             {
                 var query = db.Database.SqlQuery<Search_SearchByType_Result>("Search_SearchByType @LoaiChungTu,@macongty", new SqlParameter("LoaiChungTu", data.GiaTriChungTu), new SqlParameter("macongty", "HOPLONG"));
                 result = query.ToList();
@@ -87,7 +89,7 @@ namespace ERP.Web.Api.Kho
             resulByMa = query.ToList();
             return resulByMa;
         }
-        
+
         #endregion
 
 
@@ -97,10 +99,10 @@ namespace ERP.Web.Api.Kho
         public List<GetAllDoiTuong_Result> GetAllDoiTuong()
         {
 
-           
-                var query = db.Database.SqlQuery<GetAllDoiTuong_Result>("GetAllDoiTuong @macongty", new SqlParameter("macongty", "HOPLONG"));
-            var    resultAllDT = query.ToList();
-            
+
+            var query = db.Database.SqlQuery<GetAllDoiTuong_Result>("GetAllDoiTuong @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var resultAllDT = query.ToList();
+
             return resultAllDT;
         }
         #endregion
@@ -111,10 +113,11 @@ namespace ERP.Web.Api.Kho
         [Route("api/Api_XuatNhapKho/GetAllDSPhieuXuatKho")]
         public List<GetAll_DS_PhieuXuatKho_Result> GetAllDSPhieuXuatKho(DataDSXuatKho data)
         {
-           
+
                 string FromDate = data.tungay;
                 string ToDate = data.denngay;
                 var query = db.Database.SqlQuery<GetAll_DS_PhieuXuatKho_Result>("GetAll_DS_PhieuXuatKho @tungay,@denngay, @macongty", new SqlParameter("tungay", FromDate), new SqlParameter("denngay", ToDate), new SqlParameter("macongty", "HOPLONG"));
+
             //var resultDSXuatKho = query.ToList();
 
 
