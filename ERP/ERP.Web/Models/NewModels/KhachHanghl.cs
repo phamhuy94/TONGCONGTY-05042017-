@@ -28,5 +28,9 @@ namespace ERP.Web.Models.NewModels
         public string TRUC_THUOC { set; get; }
         public string TEN_LOAI_KHACH { set; get; }
         public string SALES_PHU_TRACH { set; get; }
+        public string HO_VA_TEN { set; get; }
+        public string NGUOI_PHAN_HOI { set; get; }
+        public string NGAY_PHAN_HOI { set; get; }
+        public string THONG_TIN_PHAN_HOI { set; get; }
     }
 }
