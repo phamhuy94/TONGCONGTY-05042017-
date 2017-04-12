@@ -28,10 +28,14 @@ namespace ERP.Web.Models.Database
         public bool THAT_BAI { get; set; }
         public string LY_DO_THAT_BAI { get; set; }
         public string TRUC_THUOC { get; set; }
+        public string SALES_QUAN_LY { get; set; }
+        public Nullable<int> ID_LIEN_HE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BH_BAO_GIA> BH_BAO_GIA { get; set; }
+        public virtual KH_LIEN_HE KH_LIEN_HE { get; set; }
         public virtual KH KH { get; set; }
+        public virtual CCTC_NHAN_VIEN CCTC_NHAN_VIEN { get; set; }
         public virtual CCTC_CONG_TY CCTC_CONG_TY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KHO_DNXH> KHO_DNXH { get; set; }
