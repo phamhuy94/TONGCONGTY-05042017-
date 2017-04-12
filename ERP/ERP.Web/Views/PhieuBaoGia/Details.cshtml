@@ -22,17 +22,20 @@
     li{
         list-style-type: none;
     }
+    .content{
+        font-size: 12px;
+    }
 </style>
 <div ng-app="myApp" ng-controller="PhieuBaoGiaCtrl">
     <input type="hidden" id="username" name="salehienthoi" value="@Session["USERNAME"]" />
 
-    <div class="content" ng-repeat="item in list_duyetbaogia">
+    <div class="content" ng-repeat="item in list_duyetbaogia" style="width: 50%;">
         <div class="col-md-12">
             <div class="col-md-12">
-                <div class="col-md-3"></div>
                 <div class="col-md-2">
                     <img src="~/logo_hoplong.png" height="100" width="150" />
                 </div>
+                <div class="col-md-2"></div>
                 <div class="col-md-7">
                     <h4><b>CÔNG TY CỔ PHẦN CÔNG NGHỆ HỢP LONG</b></h4>
                     <p>Head office: 412 Trần Khát Chân-Hai Bà Trưng-Hà Nội - Tel: 043.661.7545 - Fax: 043.661.7560</p>
@@ -41,26 +44,32 @@
                     <p>Email: info@hoplongtech.com.vn  -  https://hoplongtech.com</p>
                 </div>
             </div>
-        </div>   
+        </div>  
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <hr style="border: 2px solid lightskyblue" />
+                <h2 class="text-center"><b>QUOTATION</b></h2>
+            </div>
+        </div>
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="col-md-12"  style="border-left: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;">
                     <div class="col-md-8" style="border-right: 1px solid black">
                         <div class="col-md-12">
-                            <label class="col-md-2">Khách hàng:</label>
-                            <label class="col-md-10">{{item.TEN_CONG_TY}}</label>
+                            <label class="col-md-4">Khách hàng:</label>
+                            <label class="col-md-8">{{item.TEN_CONG_TY}}</label>
                         </div>
                         <div class="col-md-12">
-                            <p class="col-md-2">Người liên hệ:</p>
-                            <p class="col-md-10">{{item.NGUOI_LIEN_HE}}</p>
+                            <p class="col-md-4">Người liên hệ:</p>
+                            <p class="col-md-8">{{item.NGUOI_LIEN_HE}}</p>
                         </div>
                         <div class="col-md-12">
-                            <p class="col-md-2">Văn phòng giao dịch:</p>
-                            <p class="col-md-10">{{item.VAN_PHONG_GIAO_DICH}}</p>
+                            <p class="col-md-4">Văn phòng giao dịch:</p>
+                            <p class="col-md-8">{{item.VAN_PHONG_GIAO_DICH}}</p>
                         </div>
                         <div class="col-md-12">
-                            <p class="col-md-2">Địa chỉ xuất hóa đơn:</p>
-                            <p class="col-md-10">{{item.DIA_CHI_XUAT_HOA_DON}}</p>
+                            <p class="col-md-4">Địa chỉ xuất hóa đơn:</p>
+                            <p class="col-md-8">{{item.DIA_CHI_XUAT_HOA_DON}}</p>
                         </div>
                         <div class="col-md-12">
                             <p class="col-md-1">Tel:</p>
@@ -74,19 +83,20 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label class="col-md-4">Quotation Number:</label>
-                        <div class="col-md-2"></div>
-                        <p class="col-md-6">{{item.SO_BAO_GIA}}</p>
-                        <p class="col-md-3">Người liên hệ:</p>
-                        <p class="col-md-9">{{item.TEN_NGUOI_BAO_GIA}}</p>
-                        <p class="col-md-1">Tel: </p>
-                        <p class="col-md-11">{{item.SDT_NGUOI_BAO_GIA}}</p>
-                        <p class="col-md-1">Email: </p>
-                        <p class="col-md-3">{{item.EMAIL_NGUOI_BAO_GIA}}</p>
+                            <p><b>Quotation Number</b>:  {{item.SO_BAO_GIA}}</p>
+                            
+                            <p class="col-md-4 pull-left">Người liên hệ:  {{item.TEN_NGUOI_BAO_GIA}}</p>
+                        <div class="col-md-12">
+                            <p class="col-md-3">Tel: </p>
+                            <p class="col-md-9">{{item.SDT_NGUOI_BAO_GIA}}</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="col-md-3">Email: </p>
+                            <p class="col-md-9">{{item.EMAIL_NGUOI_BAO_GIA}}</p>
+                        </div>
                         <p id="phivanchuyen" style="display: none;">{{item.PHI_VAN_CHUYEN}}</p>
                         <div class="col-md-12">&nbsp;</div>
                     </div>
->>>>>>> refs/remotes/origin/master
                 </div>
             </div>            
         </div>
@@ -148,7 +158,7 @@
                                         <input type="text" ng-model="detail.CACH_TINH_THANH_TIEN" readonly class="form-control" style="display:none">
                                     </td>
                                     <td class="text-center">
-                                        {{detail.GIA_SAU_CK}}                                   
+                                        {{detail.DON_GIA_SAU_CHIET_KHAU}}                                   
                                     </td>
                                     <td class="text-center">
                                         {{detail.THANH_TIEN | currency: '':0}}
@@ -251,10 +261,6 @@
                     <h3><b>HopLongTech</b></h3>
                     (Sign & write full name)
                 </div>
-            </div>
-            <div class="col-md-12">
-                <hr style="border: 2px solid lightskyblue"/>
-                <h2 class="text-center"><b>QUOTATION</b></h2>
             </div>
         </div>
     </div>

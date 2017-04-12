@@ -486,9 +486,14 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 MA_KHACH_HANG: makh,
                 MA_LOAI_KHACH: $scope.kh.MA_LOAI_KHACH
             }
-            khachhangService.save_phanloaikh(id, phanloai_save).then(function (response) {
+            if (id != null) {
+                khachhangService.save_phanloaikh(id, phanloai_save).then(function (response) {
+                    $scope.load_khachhang('A');
+                });
+            } else {
                 $scope.load_khachhang('A');
-            });
+            }
+           
         });
     };
 
@@ -591,6 +596,40 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         return input;
     };
 
+    var tmpDate = new Date();
+
+    $scope.newField = {};
+
+    $scope.editing = false;
+
+    $scope.editAppKey = function (field) {
+
+        $scope.item = field;
+
+    }
+
+    $scope.saveField = function (index) {
+        if ($scope.editing !== false) {
+            $scope.appkeys[$scope.editing] = $scope.newField;
+            $scope.editing = false;
+        }
+
+    };
+
+    $scope.cancel = function (index) {
+        //if ($scope.editing !== false) {
+        //    $scope.appkeys[$scope.editing] = $scope.newField;
+        //    $scope.editing = false;
+        //}
+        $scope.load_khachhang('A');
+    };
+
+    $scope.load_nhanvienkd = function () {
+        khachhangService.get_nhanvienkd().then(function (c) {
+            $scope.list_nhanvienkd = c;
+        });
+    };
+    $scope.load_nhanvienkd();
 
     $scope.arraythongtin = {
         ma_khach_hang: '',
@@ -678,6 +717,18 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         $scope.showtable_ho_va_ten = false;
     }
     // End Lọc nhân viên
+
+    $scope.chuyensale = function (item) {
+        $scope.item = item;
+        var data = {
+            MA_KHACH_HANG: $scope.item.MA_KHACH_HANG,
+            SALE_HIEN_THOI : $scope.item.SALES_PHU_TRACH,
+        }
+        khachhangService.save_listchuyensale(data).then(function () {
+            $scope.load_khachhang('A');
+        });
+    };
+
 });
 // End khach hang
 

@@ -1007,6 +1007,7 @@
                     <th>Phân loại khách</th>
                     <th>Tình trạng hoạt động</th>
                     <th>Sales phụ trách</th>
+                    <th>Sửa</th>
                 </tr>
             </thead>
             <tbody>
@@ -1018,7 +1019,23 @@
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.QUOC_GIA}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_LOAI_KHACH}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TINH_TRANG_HOAT_DONG}}</td>
-                    <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.SALES_PHU_TRACH}}</td>
+                    <td class="text-center">
+                        <p ng-hide="editMode" ng-model="item.SALES_PHU_TRACH">{{item.TEN_CUA_SALES_PHU_TRACH}}</p>
+                        <md-input-container ng-show="editMode">
+                            <label>Sale</label>
+                            <md-select ng-model="item.SALES_PHU_TRACH">
+                                <md-option><em>None</em></md-option>
+                                <md-option ng-repeat="state in list_nhanvienkd" ng-value="state.USERNAME">
+                                    {{state.HO_VA_TEN}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <button type="submit" ng-hide="editMode" ng-click="editMode = true; editAppKey(item)" class="btn btn-default">Edit</button>
+                        <button type="submit" ng-show="editMode" ng-click="editMode = false; chuyensale(item)" class="btn btn-default">Save</button>
+                        <button type="submit" ng-show="editMode" ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
+                    </td>
                 </tr>
                 <!--Detail row-->
 

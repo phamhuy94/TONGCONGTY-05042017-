@@ -114,7 +114,8 @@ namespace ERP.Web.Api.BaoGia
                 lienhe.TIEN_VAT = item.TIEN_VAT;
                 lienhe.TINH_TRANG_HANG = item.TINH_TRANG_HANG;
                 lienhe.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
-                lienhe.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
+                if(item.NGAY_GIAO_HANG != "")
+                    lienhe.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
                 lienhe.DIA_DIEM_GIAO_HANG = item.DIA_DIEM_GIAO_HANG;
                 lienhe.GHI_CHU = item.GHI_CHU;
                 db.BH_CT_BAO_GIA.Add(lienhe);
