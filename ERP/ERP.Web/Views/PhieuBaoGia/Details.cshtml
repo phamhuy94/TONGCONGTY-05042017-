@@ -26,10 +26,12 @@
         font-size: 12px;
     }
 </style>
+
 <div ng-app="myApp" ng-controller="PhieuBaoGiaCtrl">
     <input type="hidden" id="username" name="salehienthoi" value="@Session["USERNAME"]" />
 
-    <div class="content" ng-repeat="item in list_duyetbaogia" style="width: 50%;">
+    <div class="content" ng-repeat="item in list_duyetbaogia" id="Grid">
+
         <div class="col-md-12">
             <div class="col-md-12">
                 <div class="col-md-2">
@@ -83,6 +85,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
+
                             <p><b>Quotation Number</b>:  {{item.SO_BAO_GIA}}</p>
                             
                             <p class="col-md-4 pull-left">Người liên hệ:  {{item.TEN_NGUOI_BAO_GIA}}</p>
@@ -94,20 +97,15 @@
                             <p class="col-md-3">Email: </p>
                             <p class="col-md-9">{{item.EMAIL_NGUOI_BAO_GIA}}</p>
                         </div>
+
                         <p id="phivanchuyen" style="display: none;">{{item.PHI_VAN_CHUYEN}}</p>
                         <div class="col-md-12">&nbsp;</div>
                     </div>
                 </div>
-            </div>            
-        </div>
+            </div>
+            </div>
         <div class="col-md-12">
-            <div class="col-md-12">
-                        <div class="col-md-12 supplier" >
-                            <span>We are the leading supplier for industrial products.Hereby we would like to qoute for your inquiry as follow:</span>
-                         </div>          
-            </div>             
-        </div>
-        <div class="col-md-12">
+
             <div class="col-md-12">
                         <table class="table">
                             <thead>
@@ -204,65 +202,204 @@
                                 </tr>
                             </tbody>
                         </table>
+
+
+                <div class="col-md-12">
+                    <div class="col-md-12 supplier">
+                        <span>We are the leading supplier for industrial products.Hereby we would like to qoute for your inquiry as follow:</span>
+                    </div>
+                </div>
+
+
             </div>
-        </div>
         <div class="col-md-12">
-            <div class="col-md-12">
-                <h3><i><b style="text-decoration: underline">TERM & CONDITION:</b></i></h3>
-            </div>
-            <div class="col-md-12">
-                <ul class="col-md-10">
-                    <li>
-                        <p class="col-md-4">* Delivery time: (note)</p>
-                        <p class="col-md-4">&nbsp;</p>
-                        <p class="col-md-4">&nbsp;</p>
-                    </li>
-                    <li>
-                        <p class="col-md-4">* Delivery place:</p>
-                        <p class="col-md-4">[] At customer's office</p>
-                        <p class="col-md-4">giao tại văn phòng bên mua</p>
-                    </li>
-                    <li>
-                        <p class="col-md-4">địa điểm giao hàng</p>
-                        <p class="col-md-4">[] At customer's warehouse</p>
-                        <p class="col-md-4">giao tịa kho bên mua</p>
-                    </li>
-                    <li>
-                        <p class="col-md-4">* Payment method</p>
-                        <p class="col-md-4">[] Cash in advance</p>
-                        <p class="col-md-4">thanh toán tiền mặt</p>
-                    </li>
-                    <li>
-                        <p class="col-md-4">phương thức thanh toán</p>
-                        <p class="col-md-4">[] 100% payment after deliver</p>
-                        <p class="col-md-4">thanh toán sau khi nhận hàng</p>
-                    </li>
-                    <li>
-                        <p class="col-md-4">&nbsp;</p>
-                        <p class="col-md-4">&nbsp;</p>
-                        <p class="col-md-4">thanh toán chuyển khoản</p>
-                    </li>
-                    <li>
-                        <p class="col-md-4">* Validity</p>
-                        <p class="col-md-4">30 days(from date of it)</p>
-                        <p class="col-md-4">&nbsp;</p>
-                    </li>
-                    <li>
-                        <p class="col-md-4">* Warranty</p>
-                        <p class="col-md-4">12 months(for technical error of manufacturer)</p>
-                        <p class="col-md-4">&nbsp;</p>
-                    </li>
-                </ul>
-                <div class="col-md-6">
-                    <h3><b>CUSTOMER CONFIRMATION</b></h3>
-                    <p>(Sign,write full name & put the seal)</p>
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Description of goods<br /><span style="font-weight:normal">(Mô tả chi tiết hàng hóa)</span></th>
+                                <th>Model<br /><span style="font-weight:normal">(Mã hàng)</span></th>
+                                <th>Maker<br /><span style="font-weight:normal">(Nhà sản xuất)</span></th>
+                                <th>Qty<br /><span style="font-weight:normal">(Số lượng)</span></th>
+                                <th>UOM<br />   <span style="font-weight:normal">(Đơn vị)</span></th>
+                                <th>U.price<br />(VNĐ)</th>
+                                <th>Total Amount<br />(VNĐ)</th>
+                                <th>Delivery time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="detail in Detail.ListAdd">
+                                <td>
+                                    {{$index + 1}}
+                                </td>
+                                <td>
+                                    <div>
+                                        {{detail.TEN_HANG}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{detail.MA_HANG}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        {{detail.MA_NHOM_HANG}}
+                                    </div>
+                                    <input type="number" ng-model="detail.SO_LUONG" readonly class="form-control" ng-change="kiemtra(item)" style="display:none">
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        {{detail.SO_LUONG}}
+                                    </div>
+                                    <input type="number" ng-model="detail.DON_GIA" readonly class="form-control" ng-change="kiemtra(item)" style="display:none">
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        {{detail.DON_VI_TINH}}
+                                    </div>
+                                    <input type="number" ng-model="detail.CHIET_KHAU" readonly class="form-control" ng-change="kiemtra(item)" style="display:none">
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        {{detail.DON_GIA}}
+                                    </div>
+                                    <input type="text" ng-model="detail.CACH_TINH_THANH_TIEN" readonly class="form-control" style="display:none">
+                                </td>
+                                <td class="text-center">
+                                    {{detail.THANH_TIEN | currency: '':0}}
+                                    <input ng-model="detail.THANH_TIEN" class="form-control" readonly type="hidden" ng-disabled="true" style="display:none" />
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        {{detail.THOI_GIAN_GIAO_HANG}}
+                                    </div>
+                                    <input type="number" ng-model="detail.CK_VAT" readonly class="form-control" ng-change="kiemtra(item)" style="display:none">
+                                    <input ng-model="detail.TIEN_VAT" ng-disabled="true" readonly class="form-control" type="hidden" style="display:none" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">
+                                    <label class="col-md-3 text-left">Total</label>
+                                    <label class="col-md-9 text-right">Tổng tiền hàng</label>
+                                </td>
+                                <td class="text-center">
+                                    {{tong_thanh_tien | currency: '':0}}
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">
+                                    <label class="col-md-3 text-left">VAT 10%</label>
+                                    <label class="col-md-9 text-right">Thuế VAT 10%</label>
+                                </td>
+                                <td class="text-center">
+                                    {{tong_tien_VAT | currency: '':0}}
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">
+                                    <label class="col-md-3 text-left">Grand Total</label>
+                                    <label class="col-md-9 text-right">Tổng cộng(đã tính phí vận chuyển nếu có)</label>
+                                </td>
+                                <td class="text-center">
+                                    {{BangBaoGia.tong_tien | currency: '':0}}
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="col-md-6">
-                    <h3><b>HopLongTech</b></h3>
-                    (Sign & write full name)
+            </div>
+        <div class="col-md-12">
+                <div class="col-md-12">
+                    <h3><i><b style="text-decoration: underline">TERM & CONDITION:</b></i></h3>
+                </div>
+                <div class="col-md-12">
+                    <ul class="col-md-10">
+                        <li>
+                            <p class="col-md-4">* Delivery time: (note)</p>
+                            <p class="col-md-4">&nbsp;</p>
+                            <p class="col-md-4">&nbsp;</p>
+                        </li>
+                        <li>
+                            <p class="col-md-4">* Delivery place:</p>
+                            <p class="col-md-4">[] At customer's office</p>
+                            <p class="col-md-4">giao tại văn phòng bên mua</p>
+                        </li>
+                        <li>
+                            <p class="col-md-4">địa điểm giao hàng</p>
+                            <p class="col-md-4">[] At customer's warehouse</p>
+                            <p class="col-md-4">giao tịa kho bên mua</p>
+                        </li>
+                        <li>
+                            <p class="col-md-4">* Payment method</p>
+                            <p class="col-md-4">[] Cash in advance</p>
+                            <p class="col-md-4">thanh toán tiền mặt</p>
+                        </li>
+                        <li>
+                            <p class="col-md-4">phương thức thanh toán</p>
+                            <p class="col-md-4">[] 100% payment after deliver</p>
+                            <p class="col-md-4">thanh toán sau khi nhận hàng</p>
+                        </li>
+                        <li>
+                            <p class="col-md-4">&nbsp;</p>
+                            <p class="col-md-4">&nbsp;</p>
+                            <p class="col-md-4">thanh toán chuyển khoản</p>
+                        </li>
+                        <li>
+                            <p class="col-md-4">* Validity</p>
+                            <p class="col-md-4">30 days(from date of it)</p>
+                            <p class="col-md-4">&nbsp;</p>
+                        </li>
+                        <li>
+                            <p class="col-md-4">* Warranty</p>
+                            <p class="col-md-4">12 months(for technical error of manufacturer)</p>
+                            <p class="col-md-4">&nbsp;</p>
+                        </li>
+                    </ul>
+                    <div class="col-md-6">
+                        <h3><b>CUSTOMER CONFIRMATION</b></h3>
+                        <p>(Sign,write full name & put the seal)</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h3><b>HopLongTech</b></h3>
+                        (Sign & write full name)
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- /dashboard content -->
+
+
+        <input type="button" value="PrintQuotation" onclick="javascript:printDiv('Grid')" />
     </div>
 
+
 </div>
+
+
+<script language="javascript" type="text/javascript">
+        function printDiv(divID) {
+            //Get the HTML of div
+            var divElements = document.getElementById(divID).innerHTML;
+            //Get the HTML of whole page
+            var oldPage = document.body.innerHTML;
+
+            //Reset the page's HTML with div's HTML only
+            document.body.innerHTML =
+              "<html><head><title></title></head><body>" +
+              divElements + "</body>";
+
+            //Print Page
+            window.print();
+
+            //Restore orignal HTML
+            document.body.innerHTML = oldPage;
+
+
+        }
+</script>
+
