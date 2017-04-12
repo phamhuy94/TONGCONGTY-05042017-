@@ -63,6 +63,7 @@ namespace ERP.Web.Models.Database
         public virtual DbSet<KH_DC_XUAT_HANG> KH_DC_XUAT_HANG { get; set; }
         public virtual DbSet<KH_LIEN_HE> KH_LIEN_HE { get; set; }
         public virtual DbSet<KH_LOAI> KH_LOAI { get; set; }
+        public virtual DbSet<KH_PHAN_HOI_KHACH_HANG> KH_PHAN_HOI_KHACH_HANG { get; set; }
         public virtual DbSet<KH_PHAN_LOAI_KHACH> KH_PHAN_LOAI_KHACH { get; set; }
         public virtual DbSet<KH_SALES_PHU_TRACH> KH_SALES_PHU_TRACH { get; set; }
         public virtual DbSet<KH_TK_NGAN_HANG> KH_TK_NGAN_HANG { get; set; }
@@ -395,6 +396,7 @@ namespace ERP.Web.Models.Database
                 new ObjectParameter("macongty", typeof(string));
     
 
+
             var saleParameter = sale != null ?
                 new ObjectParameter("sale", sale) :
                 new ObjectParameter("sale", typeof(string));
@@ -420,16 +422,33 @@ namespace ERP.Web.Models.Database
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DS_TonKhoCacChiNhanh_Result>("DS_TonKhoCacChiNhanh");
 
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_DS_KhachHang_DaPhatSinhGiaoDich_Result>("Query_DS_KhachHang_DaPhatSinhGiaoDich", macongtyParameter, saleParameter);
         }
     
-        public virtual ObjectResult<XL_CHUYEN_SALES_Result> XL_CHUYEN_SALES(string sale)
+        public virtual ObjectResult<Get_BaiViet_ThongBaoKinhDoanh_Result> Get_BaiViet_ThongBaoKinhDoanh()
         {
-            var saleParameter = sale != null ?
-                new ObjectParameter("sale", sale) :
-                new ObjectParameter("sale", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_BaiViet_ThongBaoKinhDoanh_Result>("Get_BaiViet_ThongBaoKinhDoanh");
+        }
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<XL_CHUYEN_SALES_Result>("XL_CHUYEN_SALES", saleParameter);
+        public virtual ObjectResult<Get_BaoGia_TheoDuKien_Result> Get_BaoGia_TheoDuKien(string sodukien, string macongty)
+        {
+            var sodukienParameter = sodukien != null ?
+                new ObjectParameter("sodukien", sodukien) :
+                new ObjectParameter("sodukien", typeof(string));
+    
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_BaoGia_TheoDuKien_Result>("Get_BaoGia_TheoDuKien", sodukienParameter, macongtyParameter);
+        }
+    
+        public virtual ObjectResult<Get_XL_ThamChieuChungTu_Result> Get_XL_ThamChieuChungTu(string sochungtu)
+        {
+            var sochungtuParameter = sochungtu != null ?
+                new ObjectParameter("sochungtu", sochungtu) :
+                new ObjectParameter("sochungtu", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_XL_ThamChieuChungTu_Result>("Get_XL_ThamChieuChungTu", sochungtuParameter);
 
         }
     
@@ -444,6 +463,33 @@ namespace ERP.Web.Models.Database
                 new ObjectParameter("ma_cong_ty", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_ChiTietBaoGia_Result>("GetAll_ChiTietBaoGia", so_bao_giaParameter, ma_cong_tyParameter);
+        }
+    
+
+        public virtual ObjectResult<GetAll_DS_PhieuXuatKho_Result> GetAll_DS_PhieuXuatKho(string macongty, Nullable<System.DateTime> tungay, Nullable<System.DateTime> denngay)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            var tungayParameter = tungay.HasValue ?
+                new ObjectParameter("tungay", tungay) :
+                new ObjectParameter("tungay", typeof(System.DateTime));
+    
+            var denngayParameter = denngay.HasValue ?
+                new ObjectParameter("denngay", denngay) :
+                new ObjectParameter("denngay", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_DS_PhieuXuatKho_Result>("GetAll_DS_PhieuXuatKho", macongtyParameter, tungayParameter, denngayParameter);
+        }
+    
+        public virtual ObjectResult<GetAll_DS_PhieuXuatKho_NoDate_Result> GetAll_DS_PhieuXuatKho_NoDate(string macongty)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_DS_PhieuXuatKho_NoDate_Result>("GetAll_DS_PhieuXuatKho_NoDate", macongtyParameter);
         }
     
 
@@ -477,15 +523,17 @@ namespace ERP.Web.Models.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAll_ThongTinChiTietBaoGia_Result>("GetAll_ThongTinChiTietBaoGia", sobaogiaParameter);
         }
-    
 
         public virtual ObjectResult<GetChungTuFromLoai_Result> GetChungTuFromLoai(string loaiChungTu)
+
         {
             var loaiChungTuParameter = loaiChungTu != null ?
                 new ObjectParameter("LoaiChungTu", loaiChungTu) :
                 new ObjectParameter("LoaiChungTu", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetChungTuFromLoai_Result>("GetChungTuFromLoai", loaiChungTuParameter);
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GetChungTuFromLoai", loaiChungTuParameter);
+
         }
     
         public virtual ObjectResult<GetChungTuTra_Result> GetChungTuTra()
@@ -502,6 +550,22 @@ namespace ERP.Web.Models.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HopLong_PhanTrangKhachHang_Result>("HopLong_PhanTrangKhachHang", sotrangParameter);
         }
     
+
+    
+        public virtual ObjectResult<Query_DS_KhachHang_DaPhatSinhGiaoDich_Result> Query_DS_KhachHang_DaPhatSinhGiaoDich(string macongty, string sale)
+        {
+            var macongtyParameter = macongty != null ?
+                new ObjectParameter("macongty", macongty) :
+                new ObjectParameter("macongty", typeof(string));
+    
+            var saleParameter = sale != null ?
+                new ObjectParameter("sale", sale) :
+                new ObjectParameter("sale", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Query_DS_KhachHang_DaPhatSinhGiaoDich_Result>("Query_DS_KhachHang_DaPhatSinhGiaoDich", macongtyParameter, saleParameter);
+        }
+    
+
         public virtual ObjectResult<TADN_GetChungTuTra_Result> TADN_GetChungTuTra()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TADN_GetChungTuTra_Result>("TADN_GetChungTuTra");
@@ -566,6 +630,7 @@ namespace ERP.Web.Models.Database
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("XL_LayBaoGiaMoiNhat");
         }
+
     
         public virtual ObjectResult<GetChungTu_ByMa_Result> GetChungTu_ByMa(string sochungtu, string macongty)
         {
@@ -658,5 +723,6 @@ namespace ERP.Web.Models.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_BaiViet_ThongBaoKinhDoanh_Result>("Get_BaiViet_ThongBaoKinhDoanh");
 
         }
+
     }
 }

@@ -26,9 +26,15 @@ namespace ERP.Web.Models.Database
         public string LOGO { get; set; }
         public string WEBSITE { get; set; }
         public string DIEU_KHOAN_THANH_TOAN { get; set; }
+
+        public string TINH_TRANG_HOAT_DONG { get; set; }
+
         public Nullable<int> SO_NGAY_DUOC_NO { get; set; }
         public Nullable<int> SO_NO_TOI_DA { get; set; }
         public string GHI_CHU { get; set; }
         public string TRUC_THUOC { get; set; }
+
+        public string SALES_TAO { get; set; }
+
     }
 }

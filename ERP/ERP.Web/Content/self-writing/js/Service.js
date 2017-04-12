@@ -836,6 +836,11 @@ app.service('khachhangService', function ($http) {
     this.add_phanhoi = function (data_add) {
         return $http.post('/api/Api_PhanHoiKhachHang', data_add);
     };
+
+    this.save_listchuyensale = function (data_save) {
+        return $http.post('/api/Api_PhanLoaiKH/XuLyChyenSale', data_save);
+    };
+
 });
 //end khach hang
 

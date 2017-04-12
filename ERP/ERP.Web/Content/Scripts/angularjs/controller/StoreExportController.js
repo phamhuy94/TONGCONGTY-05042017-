@@ -159,7 +159,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
 
 
     }
-    
+
     Init();
     //End Init all data
 
@@ -302,33 +302,31 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         if (CheckSearchThamChieu() == false) {
             return;
         }
-        
         if ($scope.LoaiChungTu == 1) {
             var data = {
                 GiaTriChungTu: $scope.GiaTriLoaiChungTu,
                 FromTime: $scope.ThamChieu.From,
                 ToTime: $scope.ThamChieu.To
-                
-            }
-         
-                $http.post('/api/Api_XuatNhapKho/SearchByTypeWithDate',data)
-                .then(function (response) {
-                    console.log(response);
-                    if (typeof (response.data) == "object") {
-                        $scope.ThamChieu.ListResult = response.data;
-                        if ($scope.ThamChieu.ListResult.length == 0) {
-                            Norecord();
-                        }
-                    }
-                    else {
-                        ErrorSystem();
-                    }
-                }, function (error) {
-                    ConnectFail();
-                });
 
-            
-           
+
+            }
+
+            $http.post('/api/Api_XuatNhapKho/SearchByTypeWithDate', data)
+            .then(function (response) {
+                console.log(response);
+                if (typeof (response.data) == "object") {
+                    $scope.ThamChieu.ListResult = response.data;
+                    if ($scope.ThamChieu.ListResult.length == 0) {
+                        Norecord();
+                    }
+                }
+                else {
+                    ErrorSystem();
+                }
+            }, function (error) {
+                ConnectFail();
+            });
+
 
 
             //$http({
@@ -471,9 +469,12 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
             $(".tableselect").css({ "display": "none" });
         }
     }
+
     $scope.SelectDataNhanVien = function (item) {
-        $scope.GeneralInfo.NhanVienBanHang = item.USERNAME;
+        $scope.GeneralInfo.NhanVienBanHang = item.HO_VA_TEN;
+        $(".tableselect").css({ "display": "none" });
     }
+    
     $scope.AddNew = function () {
         $scope.Detail.ListAdd.push({
             MaHang: null,
@@ -596,7 +597,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         var check = true;
         $scope.GeneralInfo.NgayChungTu = $("#GeneralInfo_NgayChungTu").val();
         $scope.GeneralInfo.NgayHachToan = $("#GeneralInfo_NgayHachToan").val();
-        if ($scope.GeneralInfo.NhanVienBanHang == null && $scope.StoreType==1) {
+        if ($scope.GeneralInfo.NhanVienBanHang == null && $scope.StoreType == 1) {
             $scope.ValidateGeneral.NhanVienBanHang = false;
             check = false;
         } else {
@@ -690,8 +691,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         $scope.GeneralInfo.NguoiNhan = item.MA_DOI_TUONG;
         $scope.GeneralInfo.TenDoiTuong = item.TEN_DOI_TUONG;
     }
-    $scope.ChangeType=function()
-    {
+    $scope.ChangeType = function () {
 
     }
 

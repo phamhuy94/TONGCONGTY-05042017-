@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
+using System.Threading.Tasks;
 
 namespace ERP.Web.Api.KhachHang
 {
@@ -69,6 +70,44 @@ namespace ERP.Web.Api.KhachHang
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+
+        [HttpPost]
+        [Route("api/Api_PhanLoaiKH/XuLyChyenSale")]
+        public async Task<IHttpActionResult> XuLyChyenSale([FromBody] KH_CHUYEN_SALES datachuyensale)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            var query = db.KH_CHUYEN_SALES.Where(x => x.MA_KHACH_HANG == datachuyensale.MA_KHACH_HANG).FirstOrDefault();
+            if (query == null)
+            {
+                KH_CHUYEN_SALES chuyensale = new KH_CHUYEN_SALES();
+                chuyensale.MA_KHACH_HANG = datachuyensale.MA_KHACH_HANG;
+                chuyensale.SALE_HIEN_THOI = datachuyensale.SALE_HIEN_THOI;
+                db.KH_CHUYEN_SALES.Add(chuyensale);
+            }
+            else
+            {
+                query.SALE_CU_2 = query.SALE_CU;
+                query.SALE_CU = query.SALE_HIEN_THOI;
+                query.SALE_HIEN_THOI = datachuyensale.SALE_HIEN_THOI;
+            }
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+
+                throw;
+
+            }
+            //return this.CreatedAtRoute("GetNH_NTTK", new { id = nH_NTTK.SO_CHUNG_TU }, nH_NTTK);
+            return Ok(datachuyensale);
+        }
+
 
         // POST: api/Api_PhanLoaiKH
         [ResponseType(typeof(KH_PHAN_LOAI_KHACH))]
