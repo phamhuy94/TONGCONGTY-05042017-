@@ -18,6 +18,8 @@ namespace ERP.Web.Api.Kho
         List<GetChungTuFromDoiTuong_Result> resultDoiTuong = new List<GetChungTuFromDoiTuong_Result>();
         List<GetChungTu_ByMa_Result> resulByMa = new List<GetChungTu_ByMa_Result>();
         List<GetAll_DS_PhieuXuatKho_Result> resultDSXuatKho = new List<GetAll_DS_PhieuXuatKho_Result>();
+        List<GetChungTuTra_Result> resultCTTra = new List<GetChungTuTra_Result>();
+        List<GetChungTuTra_ByKhachHang_Result> resultCTTraByKhach = new List<GetChungTuTra_ByKhachHang_Result>();
 
         #region "SearchByType"
 
@@ -30,6 +32,12 @@ namespace ERP.Web.Api.Kho
         }
         public class DataDSXuatKho
         {
+            public string tungay { get; set; }
+            public string denngay { get; set; }
+        }
+        public class DataCTByKH
+        {
+            public string makh { get; set; }
             public string tungay { get; set; }
             public string denngay { get; set; }
         }
@@ -125,6 +133,42 @@ namespace ERP.Web.Api.Kho
             return query.ToList();
         }
         #endregion
+
+        #region "Get Chứng Từ trả"
+
+        [Route("api/Api_XuatNhapKho/GetCTTra")]
+        public List<GetChungTuTra_Result> GetCTTra()
+        {
+            var query = db.Database.SqlQuery<GetChungTuTra_Result>("GetChungTuTra");
+            resultCTTra = query.ToList();
+            return resultCTTra;
+        }
+
+        #endregion
+
+        #region "Get Chứng Từ trả theo khách hàng"
+        [HttpPost]
+        [Route("api/Api_XuatNhapKho/GetCTTraByKhach")]
+        public List<GetChungTuTra_ByKhachHang_Result> GetCTTraByKhach(DataCTByKH data)
+        {
+            if (data.tungay == "" && data.denngay == "")
+            {
+                var query = db.Database.SqlQuery<GetChungTuTra_ByKhachHang_Result>("GetChungTuTra_ByKhachHang @makhachhang", new SqlParameter("makhachhang", data.makh));
+                resultCTTraByKhach = query.ToList();
+            }
+            else
+            {
+                DateTime FromDate = xlnt.Xulydatetime(data.tungay);
+                DateTime ToDate = xlnt.Xulydatetime(data.denngay);
+                var query = db.Database.SqlQuery<GetChungTuTra_ByKhachHang_Result>("GetChungTuTra_ByKhachHangWithDate @makhachhang,@tungay,@denngay", new SqlParameter("makhachhang", data.makh), new SqlParameter("tungay", FromDate), new SqlParameter("denngay", ToDate));
+                resultCTTraByKhach = query.ToList();
+            }
+            return resultCTTraByKhach;
+        }
+
+        #endregion
+
+        
     }
 
 }
