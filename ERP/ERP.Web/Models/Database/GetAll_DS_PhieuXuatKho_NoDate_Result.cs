@@ -25,5 +25,6 @@ namespace ERP.Web.Models.Database
         public string NHAN_VIEN_BAN_HANG { get; set; }
         public decimal TONG_TIEN { get; set; }
         public string TRUC_THUOC { get; set; }
+
     }
 }

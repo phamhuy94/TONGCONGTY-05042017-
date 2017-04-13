@@ -13,7 +13,7 @@ namespace ERP.Web.Models.Database
     
     public partial class GetAll_DS_PhieuXuatKho_Result
     {
-        public string SO_CHUNG_TU { get; set; }
+
         public string NGAY_HACH_TOAN { get; set; }
         public string NGAY_CHUNG_TU { get; set; }
         public string TEN_CONG_TY { get; set; }
@@ -25,5 +25,8 @@ namespace ERP.Web.Models.Database
         public string NHAN_VIEN_BAN_HANG { get; set; }
         public decimal TONG_TIEN { get; set; }
         public string TRUC_THUOC { get; set; }
+
+        public string SO_CHUNG_TU { get; set; }
+
     }
 }

@@ -181,9 +181,10 @@ namespace ERP.Web.Api.HeThong
                 khach.DIEU_KHOAN_THANH_TOAN = kH.DIEU_KHOAN_THANH_TOAN;
                 khach.SO_NGAY_DUOC_NO = kH.SO_NGAY_DUOC_NO;
                 khach.SO_NO_TOI_DA = kH.SO_NO_TOI_DA;
+                khach.TINH_TRANG_HOAT_DONG = kH.TINH_TRANG_HOAT_DONG;
                 khach.GHI_CHU = kH.GHI_CHU;
                 khach.TRUC_THUOC = kH.TRUC_THUOC;
-
+                khach.SALES_TAO = kH.SALES_TAO;
                 db.KHs.Add(khach);
 
 

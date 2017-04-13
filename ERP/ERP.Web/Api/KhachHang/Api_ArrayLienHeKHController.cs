@@ -138,11 +138,11 @@ namespace ERP.Web.Api.KhachHang
                 db.KH_SALES_PHU_TRACH.Add(salept);
                 db.SaveChanges();
 
-                KH_CHUYEN_SALES chuyensale = new KH_CHUYEN_SALES();
-                chuyensale.MA_KHACH_HANG = item.MA_KHACH_HANG;
-                chuyensale.SALE_HIEN_THOI = item.SALES_PHU_TRACH;
-                db.KH_CHUYEN_SALES.Add(chuyensale);
-                db.SaveChanges();
+                //KH_CHUYEN_SALES chuyensale = new KH_CHUYEN_SALES();
+                //chuyensale.MA_KHACH_HANG = item.MA_KHACH_HANG;
+                //chuyensale.SALE_HIEN_THOI = item.SALES_PHU_TRACH;
+                //db.KH_CHUYEN_SALES.Add(chuyensale);
+                //db.SaveChanges();
             }
         }
 

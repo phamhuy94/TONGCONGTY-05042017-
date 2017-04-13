@@ -10,14 +10,12 @@
 namespace ERP.Web.Models.Database
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class GetChungTuFromLoai_Result
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public System.DateTime NGAY_CHUNG_TU { get; set; }
+        public System.DateTime NGAY_HACH_TOAN { get; set; }
+        public string SO_CHUNG_TU { get; set; }
+        public string DIEN_GIAI { get; set; }
     }
 }
