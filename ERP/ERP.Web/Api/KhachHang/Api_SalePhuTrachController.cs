@@ -122,23 +122,18 @@ namespace ERP.Web.Api.HeThong
             {
                 return BadRequest();
             }
-            var nv = db.KH_SALES_PHU_TRACH.Where(x => x.ID_LIEN_HE == idlienhe && x.SALES_PHU_TRACH == username).FirstOrDefault();
+            var nv = db.KH_SALES_PHU_TRACH.Where(x => x.ID_LIEN_HE == idlienhe).FirstOrDefault();
+            if(nv != null)
+            {
+                nv.ID_LIEN_HE = idlienhe;
+                nv.SALES_PHU_TRACH = sale.SALES_PHU_TRACH;
+                if (sale.NGAY_KET_THUC_PHU_TRACH != null)
+                    nv.NGAY_KET_THUC_PHU_TRACH = xlnt.Xulydatetime(sale.NGAY_KET_THUC_PHU_TRACH);
+                nv.TRANG_THAI = sale.TRANG_THAI;
+            }
 
-            nv.ID_LIEN_HE = sale.ID_LIEN_HE;
-            nv.SALES_PHU_TRACH = sale.SALES_PHU_TRACH;
-            if (sale.NGAY_KET_THUC_PHU_TRACH != null)
-                nv.NGAY_KET_THUC_PHU_TRACH = xlnt.Xulydatetime(sale.NGAY_KET_THUC_PHU_TRACH);
-            nv.TRANG_THAI = sale.TRANG_THAI;
-            if (sale.SALES_CU == false && sale.SALES_MOI == false)
-            {
-                nv.SALES_MOI = true;
-                nv.SALES_CU = false;
-            }
-            else
-            {
-                nv.SALES_CU = sale.SALES_CU;
-                nv.SALES_MOI = sale.SALES_MOI;
-            }
+            
+            
             try
             {
                 db.SaveChanges();
