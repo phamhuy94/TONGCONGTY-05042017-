@@ -50,6 +50,7 @@
     <script src="~/Content/download/angular-smart-table/angular-smart-table/dist/smart-table.js"></script>
     <!-- Angular Material Library -->
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="~/Content/self-writing/js/Controllers/ThongBaoKinhDoanhCtrl.js"></script>
     <script>
         $(function () {
             CKEDITOR.config.extraPlugins = 'justify';
@@ -103,9 +104,22 @@
                         <li class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <!--<span class="label label-warning">10</span>-->
+                                <span class="label label-warning">10</span>
                             </a>
-
+                            <ul class="dropdown-menu" ng-controller="ThongBaoKinhDoanhCtrl">
+                                <li class="header">You have 10 notifications</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li ng-repeat="item in ListThongBao">
+                                            <a href="/Home/Details/{{item.MA_BAI_VIET}}">
+                                                <i class="fa fa-users text-aqua"></i>{{item.TIEU_DE_BAI_VIET}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
                         <li class="dropdown tasks-menu">
@@ -143,6 +157,15 @@
                 <!-- /.search form -->
                 <!-- DANH SÁCH MENU TRÁI -->
                 <ul class="sidebar-menu">
+                    <li class="treeview" style="display:none" id="dang_thong_bao_kinh_doanh">
+                        <a href="/BaiVietMoi">
+                            <i class="fa fa-bell"></i>
+                            <span style="font-size:14px;">Đăng thông báo kinh doanh</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        
+                    </li>
+
 
                     <li class="treeview">
                         <a href="#">
@@ -225,7 +248,13 @@
     <script src="~/Content/self-writing/js/nav_hoplong_multilevel.js"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngMask/3.1.1/ngMask.min.js"></script>
-    
+    <script>
+        var nguoidung = $('#username').val();
+        if(nguoidung == 'Admin' || nguoidung == 'MARK001_HL')
+        {
+            $('#dang_thong_bao_kinh_doanh').css('display', 'block');
+        }
+    </script>
     <style>
         body input {
             border: 1px solid #00BFFF !important;

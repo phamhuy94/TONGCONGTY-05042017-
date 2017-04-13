@@ -237,6 +237,7 @@ app.controller('khogiuhangCtrl', function (khogiuhangService, $scope, $location,
 });
 // End kho giu hang
 
+
 // Khach hang
 app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $location) {
 
@@ -731,6 +732,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
 });
 // End khach hang
+
 
 
 //Nha cung cap
@@ -1578,6 +1580,7 @@ app.controller('danhmucCtrl', function (danhmucService, $scope) {
             }
             danhmucService.add_postcategories(postcate).then(function (response) {
                 $scope.loadDanhMuc();
+                reload();
 
             });
         });

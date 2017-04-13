@@ -751,6 +751,7 @@ app.service('productdetailsService', function ($http) {
 });
 
 
+
 // Khach hang
 app.service('khachhangService', function ($http) {
     this.get_khachhang = function (username, tukhoa) {
@@ -842,6 +843,7 @@ app.service('khachhangService', function ($http) {
 
 });
 //end khach hang
+
 
 // Nha cung cap
 app.service('nhacungcapService', function ($http) {

@@ -77,6 +77,7 @@
           <Property Name="LY_DO_THAT_BAI" Type="nvarchar(max)" />
           <Property Name="TRUC_THUOC" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="SALES_QUAN_LY" Type="varchar" MaxLength="64" />
+          <Property Name="ID_LIEN_HE" Type="int" />
         </EntityType>
         <EntityType Name="CATEGORIES">
           <Key>
@@ -1276,6 +1277,18 @@
             </Principal>
             <Dependent Role="BH_DE_NGHI_GIU_HANG">
               <PropertyRef Name="SALES_DN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BH_DON_HA__ID_LI__4B180DA3">
+          <End Role="KH_LIEN_HE" Type="Self.KH_LIEN_HE" Multiplicity="0..1" />
+          <End Role="BH_DON_HANG_DU_KIEN" Type="Self.BH_DON_HANG_DU_KIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KH_LIEN_HE">
+              <PropertyRef Name="ID_LIEN_HE" />
+            </Principal>
+            <Dependent Role="BH_DON_HANG_DU_KIEN">
+              <PropertyRef Name="ID_LIEN_HE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3442,6 +3455,7 @@
         <Function Name="BaiVietTheoDanhMuc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tukhoa" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="Get_BaiViet_ThongBaoKinhDoanh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetAll_ChiTietBaoGia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="so_bao_gia" Type="varchar" Mode="In" />
           <Parameter Name="ma_cong_ty" Type="varchar" Mode="In" />
@@ -3649,6 +3663,10 @@
           <AssociationSet Name="FK__BH_DE_NGH__SALES__3138400F" Association="Self.FK__BH_DE_NGH__SALES__3138400F">
             <End Role="CCTC_NHAN_VIEN" EntitySet="CCTC_NHAN_VIEN" />
             <End Role="BH_DE_NGHI_GIU_HANG" EntitySet="BH_DE_NGHI_GIU_HANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BH_DON_HA__ID_LI__4B180DA3" Association="Self.FK__BH_DON_HA__ID_LI__4B180DA3">
+            <End Role="KH_LIEN_HE" EntitySet="KH_LIEN_HE" />
+            <End Role="BH_DON_HANG_DU_KIEN" EntitySet="BH_DON_HANG_DU_KIEN" />
           </AssociationSet>
           <AssociationSet Name="FK__BH_DON_HA__MA_KH__6BCEF5F8" Association="Self.FK__BH_DON_HA__MA_KH__6BCEF5F8">
             <End Role="KH" EntitySet="KH" />
@@ -5310,6 +5328,11 @@
             <End Role="QUY_PHIEU_THU" EntitySet="QUY_PHIEU_THU" />
             <End Role="QUY_CT_PHIEU_THU" EntitySet="QUY_CT_PHIEU_THU" />
           </AssociationSet>
+          <AssociationSet Name="FK__BH_DON_HA__ID_LI__4B180DA3" Association="ERP_DATABASEModel.FK__BH_DON_HA__ID_LI__4B180DA3">
+            <End Role="KH_LIEN_HE" EntitySet="KH_LIEN_HE" />
+            <End Role="BH_DON_HANG_DU_KIEN" EntitySet="BH_DON_HANG_DU_KIEN" />
+          </AssociationSet>
+          <FunctionImport Name="Get_BaiViet_ThongBaoKinhDoanh" ReturnType="Collection(ERP_DATABASEModel.Get_BaiViet_ThongBaoKinhDoanh_Result)" />
 
           </EntityContainer>
         <ComplexType Name="XL_TimKiemHangHoa_Result">
@@ -5763,6 +5786,8 @@
           <NavigationProperty Name="CCTC_NHAN_VIEN" Relationship="ERP_DATABASEModel.FK__BH_DON_HA__SALES__455F344D" FromRole="BH_DON_HANG_DU_KIEN" ToRole="CCTC_NHAN_VIEN" />
           <NavigationProperty Name="CCTC_CONG_TY" Relationship="ERP_DATABASEModel.FK__BH_DON_HA__TRUC___6EAB62A3" FromRole="BH_DON_HANG_DU_KIEN" ToRole="CCTC_CONG_TY" />
           <NavigationProperty Name="KHO_DNXH" Relationship="ERP_DATABASEModel.FK__KHO_DNXH__MA_DU___7834CCDD" FromRole="BH_DON_HANG_DU_KIEN" ToRole="KHO_DNXH" />
+          <Property Name="ID_LIEN_HE" Type="Int32" />
+          <NavigationProperty Name="KH_LIEN_HE" Relationship="ERP_DATABASEModel.FK__BH_DON_HA__ID_LI__4B180DA3" FromRole="BH_DON_HANG_DU_KIEN" ToRole="KH_LIEN_HE" />
         </EntityType>
         <EntityType Name="CATEGORy">
           <Key>
@@ -6357,6 +6382,7 @@
           <NavigationProperty Name="BH_BAO_GIA" Relationship="ERP_DATABASEModel.FK__BH_BAO_GI__LIEN___64ECEE3F" FromRole="KH_LIEN_HE" ToRole="BH_BAO_GIA" />
           <NavigationProperty Name="KH" Relationship="ERP_DATABASEModel.FK__DM_LIEN_H__MA_KH__7B264821" FromRole="KH_LIEN_HE" ToRole="KH" />
           <NavigationProperty Name="KH_SALES_PHU_TRACH" Relationship="ERP_DATABASEModel.FK__KH_SALES___ID_LI__689D8392" FromRole="KH_LIEN_HE" ToRole="KH_SALES_PHU_TRACH" />
+          <NavigationProperty Name="BH_DON_HANG_DU_KIEN" Relationship="ERP_DATABASEModel.FK__BH_DON_HA__ID_LI__4B180DA3" FromRole="KH_LIEN_HE" ToRole="BH_DON_HANG_DU_KIEN" />
         </EntityType>
         <EntityType Name="KH_LOAI">
           <Key>
@@ -9488,6 +9514,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__BH_DON_HA__ID_LI__4B180DA3">
+          <End Type="ERP_DATABASEModel.KH_LIEN_HE" Role="KH_LIEN_HE" Multiplicity="0..1" />
+          <End Type="ERP_DATABASEModel.BH_DON_HANG_DU_KIEN" Role="BH_DON_HANG_DU_KIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KH_LIEN_HE">
+              <PropertyRef Name="ID_LIEN_HE" />
+            </Principal>
+            <Dependent Role="BH_DON_HANG_DU_KIEN">
+              <PropertyRef Name="ID_LIEN_HE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Get_BaiViet_ThongBaoKinhDoanh_Result">
+          <Property Type="Int32" Name="MA_BAI_VIET" Nullable="false" />
+          <Property Type="String" Name="TIEU_DE_BAI_VIET" Nullable="false" MaxLength="128" />
+          <Property Type="DateTime" Name="NGAY_DANG_BAI" Nullable="false" />
+          <Property Type="String" Name="NOI_DUNG_BAI_VIET" Nullable="true" />
+          <Property Type="String" Name="ANH_BAI_VIET" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="NGUOI_DANG_BAI" Nullable="false" MaxLength="64" />
+          <Property Type="String" Name="TEN_DANH_MUC" Nullable="false" MaxLength="128" />
+        </ComplexType>
 
         </Schema>
     </edmx:ConceptualModels>
@@ -9978,6 +10025,7 @@
           <EntitySetMapping Name="BH_DON_HANG_DU_KIEN">
             <EntityTypeMapping TypeName="ERP_DATABASEModel.BH_DON_HANG_DU_KIEN">
               <MappingFragment StoreEntitySet="BH_DON_HANG_DU_KIEN">
+                <ScalarProperty Name="ID_LIEN_HE" ColumnName="ID_LIEN_HE" />
                 <ScalarProperty Name="SALES_QUAN_LY" ColumnName="SALES_QUAN_LY" />
                 <ScalarProperty Name="TRUC_THUOC" ColumnName="TRUC_THUOC" />
                 <ScalarProperty Name="LY_DO_THAT_BAI" ColumnName="LY_DO_THAT_BAI" />
@@ -11163,6 +11211,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Get_BaiViet_ThongBaoKinhDoanh" FunctionName="ERP_DATABASEModel.Store.Get_BaiViet_ThongBaoKinhDoanh">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ERP_DATABASEModel.Get_BaiViet_ThongBaoKinhDoanh_Result">
+                <ScalarProperty Name="MA_BAI_VIET" ColumnName="MA_BAI_VIET" />
+                <ScalarProperty Name="TIEU_DE_BAI_VIET" ColumnName="TIEU_DE_BAI_VIET" />
+                <ScalarProperty Name="NGAY_DANG_BAI" ColumnName="NGAY_DANG_BAI" />
+                <ScalarProperty Name="NOI_DUNG_BAI_VIET" ColumnName="NOI_DUNG_BAI_VIET" />
+                <ScalarProperty Name="ANH_BAI_VIET" ColumnName="ANH_BAI_VIET" />
+                <ScalarProperty Name="NGUOI_DANG_BAI" ColumnName="NGUOI_DANG_BAI" />
+                <ScalarProperty Name="TEN_DANH_MUC" ColumnName="TEN_DANH_MUC" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
 
           </EntityContainerMapping>
       </Mapping>
