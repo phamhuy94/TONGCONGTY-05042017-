@@ -71,7 +71,7 @@
                                                             </td>
                                                             <td>
                                                                 {{baogia.SO_BAO_GIA}}
-                                                                <p id="phivanchuyen">{{baogia.PHI_VAN_CHUYEN}}</p>
+                                                                <p id="phivanchuyen" style="display:none">{{baogia.PHI_VAN_CHUYEN}}</p>
                                                             </td>
                                                             <td>{{baogia.NGAY_BAO_GIA | date: 'dd/MM/yyyy'}}</td>
                                                             <td>
@@ -93,6 +93,9 @@
                             </div>
                         </div>
                         <!--End Thông tin về đơn hàng dự kiến-->
+                        <div class="col-md-12" style="text-align: right;margin-bottom: 20px;">
+                            <button ng-click="CreateNewQuotation()" class="btn btn-default">Thêm báo giá mới</button>
+                        </div>
                         <!--Thông tin chung-->
                         <div class="col-md-12">
                             <div class="panel panel-default" style="margin-bottom: 10px;">
@@ -100,7 +103,7 @@
                                     <h6 class="panel-title">Thông tin chung Báo Giá<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                                 </div>
                                 <div class="panel-body" style="padding: 5px !important; font-size:12px">
-                                    <div class="form-horizontal" ng-repeat="item in BangBaoGia">
+                                    <div class="form-horizontal savethongtin" ng-repeat="item in BangBaoGia">
                                         <div class="col-md-12">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -198,7 +201,8 @@
                                                                 <input ng-model="item.THANH_TIEN" style="height: 27px;" class="form-control" type="hidden" ng-disabled="true" />
                                                             </td>
                                                             <td class="text-center">
-                                                                <input type="number" ng-model="item.CK_VAT" style="height: 27px;" class="form-control" ng-change="kiemtra(item)">
+                                                                <select class="form-control" style="height: 27px;" ng-model="item.CK_VAT" ng-change="kiemtra(item)"
+                                                                        data-ng-options="cachtinh as cachtinh for cachtinh in ck_vat"></select>
                                                             </td>
                                                             <td class="text-center">
                                                                 {{item.TIEN_VAT | currency: '' : 0}}
@@ -227,15 +231,15 @@
                                                             <td colspan="13">
                                                                 <div class="col-md-12">
                                                                     <label class="col-md-3">Tổng thành tiền: </label>
-                                                                    <p class="col-md-6" style="text-align:left">{{tong_thanh_tien | currency: '':0}} vnd</p>
+                                                                    <p class="col-md-6" style="text-align:left">{{tong_thanh_tien_edit | currency: '':0}} vnd</p>
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <label class="col-md-3">VAT 10% : </label>
-                                                                    <p class="col-md-6" style="text-align:left">{{tong_tien_VAT | currency: '':0}} vnd</p>
+                                                                    <p class="col-md-6" style="text-align:left">{{tong_tien_VAT_edit | currency: '':0}} vnd</p>
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <label class="col-md-3">Tổng tiền(chưa tính phí vận chuyển): </label>
-                                                                    <p class="col-md-6" style="text-align:left">{{tong_tien_chua_van_chuyen | currency: '':0}} vnd</p>
+                                                                    <p class="col-md-6" style="text-align:left">{{tong_tien_chua_van_chuyen_edit | currency: '':0}} vnd</p>
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <hr />
@@ -356,7 +360,8 @@
                                                                 <input ng-model="detail.thanh_tien" class="form-control" type="hidden" ng-disabled="true" />
                                                             </td>
                                                             <td class="text-center">
-                                                                <input type="number" ng-model="detail.ck_vat" class="form-control" ng-change="test(detail)">
+                                                                <select class="form-control" style="height: 27px;" ng-model="detail.ck_vat" ng-change="test(detail)"
+                                                                        data-ng-options="cachtinh as cachtinh for cachtinh in ck_vat_new"></select>
                                                             </td>
                                                             <td class="text-center">
                                                                 {{detail.tien_vat | currency: '' : 0}}
@@ -421,15 +426,15 @@
                         </div>
                     </form>                   
                 </div>
-                <!--Tìm Kiếm Hàng Hóa-->
-                <div class="tab-pane fade in" style="border:1px solid #ddd">
+                <!--Tìm Kiếm Hàng Hóa thêm mới-->
+                <div class="thongtinchungthemmoi tab-pane fade in " style="border:1px solid #ddd">
                     <center>
                         <div id="quick-access" style="padding-bottom: 20px;padding-top: 20px; align-content:center">
                             <form class="form-inline quick-search-form" role="form" action="#">
                                 <div class="form-group" style="width: 90%">
                                     <input type="text" style="height: 27px;width: 60%;  font-size:12px"  class="form-control" placeholder="Nhập mã hàng chuẩn tại đây" ng-model="search_text">
 
-                                    <button type="button" style="height: 27px;border-radius: 5px;  font-size:12px" class="btn btn-info" ng-model="find" ng-click="FindProduct(search_text)">Tìm kiếm</button>
+                                    <button type="button" style="height: 27px;border-radius: 5px;  font-size:12px" class="btn btn-info" ng-model="find" ng-click="FindProduct(search_text)">Find</button>
                                 </div>
                             </form>
                         </div>
@@ -469,6 +474,147 @@
                                                 <input type="checkbox" ng-model="checkhanghoa">
                                                 <div ng-if="checkhanghoa">
                                                     <label ng-init="check(hanghoa.MA_HANG, hanghoa.TEN_HANG, hanghoa.DVT, hanghoa.XUAT_XU,hanghoa.GIA_LIST)"></label>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.MA_HANG" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" ng-model="hanghoa.TEN_HANG" class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" ng-model="hanghoa.MA_CHUAN" class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" ng-model="hanghoa.THONG_SO" class="form-control">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" ng-model="hanghoa.HANG" class="form-control">
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.DVT" class="form-control">
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.GIA_LIST" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <input type="checkbox" ng-model="hanghoa.DISCONTINUE">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.MA_CHUYEN_DOI" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.TON_HOPLONG" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.TON_DANANG" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.TON_HCM" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.TON_HAIPHONG" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.SL_DANG_GIU" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.SL_KY_GUI_DI" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.TON_TAI_HANG" class="form-control">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="text" ng-model="hanghoa.THOI_GIAN_CAP_HANG" class="form-control">
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <!--End tìm kiếm hàng hóa-->
+
+                <!--Tìm Kiếm Hàng Hóa sửa-->
+                <div class="savethongtin tab-pane fade in " style="border:1px solid #ddd">
+                    <center>
+                        <div id="quick-access" style="padding-bottom: 20px;padding-top: 20px; align-content:center">
+                            <form class="form-inline quick-search-form" role="form" action="#">
+                                <div class="form-group" style="width: 90%">
+                                    <input type="text" style="height: 27px;width: 60%;  font-size:12px" class="form-control" placeholder="Nhập mã hàng chuẩn tại đây" ng-model="edit_text">
+
+                                    <button type="button" style="height: 27px;border-radius: 5px;  font-size:12px" class="btn btn-info" ng-model="timkiem" ng-click="TimKiem(edit_text)">Tìm kiếm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </center>
+
+
+
+                    <div class="col-md-12 content-group" style="height: 27px; font-size:12px">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover ">
+                                <thead>
+                                    <tr class="bg-primary-300" style="background:#64B5F6; color:white">
+                                        <th style="width:2%" class="text-center"></th>
+                                        <th style="width:6%" class="text-center">Mã hàng</th>
+                                        <th style="width:6%" class="text-center">Tên hàng</th>
+                                        <th style="width:8%" class="text-center">Mã chuẩn</th>
+                                        <th style="width:6%" class="text-center">Thông số</th>
+                                        <th style="width:4%" class="text-center">Hãng</th>
+                                        <th style="width:2%" class="text-center">ĐVT</th>
+                                        <th style="width:6%" class="text-center">Giá List</th>
+                                        <th style="width:5%" class="text-center">Discontinue</th>
+                                        <th style="width:8%" class="text-center">Mã chuyển đổi</th>
+                                        <th style="width:4%" class="text-center">Tồn HL</th>
+                                        <th style="width:4%" class="text-center">Tồn ĐN</th>
+                                        <th style="width:5%" class="text-center">Tồn HCM</th>
+                                        <th style="width:4%" class="text-center">Tồn HP</th>
+                                        <th style="width:5%" class="text-center">Đang giữ</th>
+                                        <th style="width:5%" class="text-center">Ký gửi</th>
+                                        <th style="width:5%" class="text-center">Tồn Hãng</th>
+                                        <th style="width:9%" class="text-center">Thời gian cấp hàng (Hãng)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="hanghoa in danhsachhanghoaluu">
+                                        <td>
+                                            <div>
+                                                <input type="checkbox" ng-model="addtosave">
+                                                <div ng-if="addtosave">
+                                                    <label ng-init="newsave(hanghoa.MA_HANG, hanghoa.TEN_HANG, hanghoa.DVT, hanghoa.XUAT_XU,hanghoa.GIA_LIST)"></label>
                                                 </div>
                                             </div>
 

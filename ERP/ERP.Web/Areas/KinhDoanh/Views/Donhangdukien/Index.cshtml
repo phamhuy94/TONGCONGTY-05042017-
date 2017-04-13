@@ -11,6 +11,7 @@
 <div class="panel-heading title">Bạn đang trong mục Đơn Hàng Dự Kiến</div>
 <br />
 <div ng-app="myApp" ng-controller="DonhangdukienCtrl">
+    <input type="hidden" value="@Session["USERNAME"]" id="username"/>
     <div class="content">
 
 
@@ -209,13 +210,13 @@
             <tbody>
                 <tr dir-paginate="item in filtered = (donhangdukien | filter: {MA_DU_KIEN:search_text}) | itemsPerPage:15 | orderBy: 'item.MA_KHACH_HANG'" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
                     <td class="text-left">{{ item.MA_DU_KIEN }}</td>
-                    <td class="text-left">{{item.MA_KHACH_HANG}}</td>
-                    <td class="text-left">{{item.NGAY_TAO}}</td>
-                    <td class="text-left">{{item.THANH_CONG}}</td>
-                    <td class="text-left">{{item.THAT_BAI}}</td>
+                    <td class="text-left">{{item.TEN_CONG_TY}}</td>
+                    <td class="text-left">{{item.NGAY_TAO | date: 'dd/MM/yyyy'}}</td>
+                    <td class="text-left">{{item.NGUOI_LIEN_HE}}</td>
+                    <td><input readonly type="checkbox" ng-model="item.THANH_CONG" /></td>
+                    <td><input readonly type="checkbox" ng-model="item.THAT_BAI" /></td>
                     <td class="text-left">{{item.LY_DO_THAT_BAI}}</td>
-                    <td class="text-left">{{item.TRUC_THUOC}}</td>
-                    <td><a href="/BaoGia/Index/{{item.MA_DU_KIEN}}">Báo giá</a></td>
+                    <td><a href="/BaoGia/Index/{{item.MA_DU_KIEN}}" style="cursor:pointer">Báo giá</a></td>
                     <td>
                         <button class="btn btn-circle" ng-click="edit(item)" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i></button>
                     </td>
@@ -227,8 +228,8 @@
 
             </tbody>
             <tfoot>
-                <tr>
-                    <td colspan="9" style="border: none !important">
+                <tr style="border:none !important">
+                    <td colspan="10" style="border: none !important">
                         <dir-pagination-controls max-size="12" style="float:right;"
                                                  direction-links="true"
                                                  boundary-links="true">

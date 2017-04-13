@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
+using System.Data.SqlClient;
 
 namespace ERP.Web.Api.HeThong
 {
@@ -17,19 +18,11 @@ namespace ERP.Web.Api.HeThong
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: api/Api_Donhangdukien
-        public List<BH_DON_HANG_DU_KIEN> GetBH_DON_HANG_DU_KIEN()
+        [Route("api/Api_Donhangdukien/LocDonDuKien/{username}")]
+        public List<GetAll_DonDuKienTheoSale_Result> LocDonDuKien(string username)
         {
-            var vData = db.BH_DON_HANG_DU_KIEN;
-            var result = vData.ToList().Select(x => new BH_DON_HANG_DU_KIEN()
-            {
-                MA_DU_KIEN = x.MA_DU_KIEN,
-                MA_KHACH_HANG = x.MA_KHACH_HANG,
-                NGAY_TAO = x.NGAY_TAO,
-                THANH_CONG = x.THANH_CONG,
-                THAT_BAI = x.THAT_BAI,
-                LY_DO_THAT_BAI = x.LY_DO_THAT_BAI,
-                TRUC_THUOC = x.TRUC_THUOC,
-            }).ToList();
+            var query = db.Database.SqlQuery<GetAll_DonDuKienTheoSale_Result>("GetAll_DonDuKienTheoSale @macongty, @sale", new SqlParameter("macongty", "HOPLONG"), new SqlParameter("sale", username));
+            var result = query.ToList();
             return result;
         }
 

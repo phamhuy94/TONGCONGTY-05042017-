@@ -30,6 +30,7 @@ namespace ERP.Web.Models.NewModels
         public string GHI_CHU { set; get; }
         public string TEN_CONG_TY { set; get; }
         public bool SALES_MOI { set; get; }
+        public string TINH_TRANG_LAM_VIEC { set; get; }
         public bool SALES_CU { set; get; }
     }
 }

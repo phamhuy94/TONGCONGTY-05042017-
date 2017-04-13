@@ -339,7 +339,19 @@ namespace ERP.Web.Controllers
 
         #endregion
 
-
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            KH kH = db.KHs.Find(id);
+            if (kH == null)
+            {
+                return HttpNotFound();
+            }
+            return View(kH);
+        }
 
     }
 }

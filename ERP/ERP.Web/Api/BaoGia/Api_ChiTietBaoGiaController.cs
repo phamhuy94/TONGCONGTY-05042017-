@@ -44,20 +44,20 @@ namespace ERP.Web.Api.BaoGia
         }
 
         // PUT: api/Api_ChiTietBaoGia/5
-        [ResponseType(typeof(void))]
+        [HttpPost]
         [Route("api/Api_ChiTietBaoGia/PutBH_CT_BAO_GIA")]
-        public IHttpActionResult PutBH_CT_BAO_GIA(List<ChiTietBaoGia> bH_CT_BAO_GIA)
+        public async Task<IHttpActionResult> PutBH_CT_BAO_GIA([FromBody] List<ChiTietBaoGia> bH_CT_BAO_GIA)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            try
-            {
-                foreach (var item in bH_CT_BAO_GIA)
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            //try
+            //{
+            foreach (var item in bH_CT_BAO_GIA)
             {
                 var baogia = db.BH_CT_BAO_GIA.Where(x => x.ID == item.ID).FirstOrDefault();
-                if(baogia != null)
+                if (baogia != null)
                 {
                     baogia.SO_BAO_GIA = item.SO_BAO_GIA;
                     baogia.MA_HANG = item.MA_HANG;
@@ -71,24 +71,47 @@ namespace ERP.Web.Api.BaoGia
                     baogia.TIEN_VAT = item.TIEN_VAT;
                     baogia.TINH_TRANG_HANG = item.TINH_TRANG_HANG;
                     baogia.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
-                        if(item.NGAY_GIAO_HANG != null)
-                            baogia.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
+                    if (item.NGAY_GIAO_HANG != null)
+                        baogia.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
                     baogia.DIA_DIEM_GIAO_HANG = item.DIA_DIEM_GIAO_HANG;
                     baogia.GHI_CHU = item.GHI_CHU;
                 }
+                else if (baogia == null)
+
+                {
+                    BH_CT_BAO_GIA newbaogia = new BH_CT_BAO_GIA();
+                    newbaogia.SO_BAO_GIA = item.SO_BAO_GIA;
+                    newbaogia.MA_HANG = item.MA_HANG;
+                    newbaogia.SO_LUONG = item.SO_LUONG;
+                    newbaogia.DON_GIA = item.DON_GIA;
+                    newbaogia.CHIET_KHAU = item.CHIET_KHAU;
+                    newbaogia.CACH_TINH_THANH_TIEN = item.CACH_TINH_THANH_TIEN;
+                    newbaogia.DON_GIA_SAU_CHIET_KHAU = item.DON_GIA_SAU_CHIET_KHAU;
+                    newbaogia.THANH_TIEN = item.THANH_TIEN;
+                    newbaogia.CK_VAT = item.CK_VAT;
+                    newbaogia.TIEN_VAT = item.TIEN_VAT;
+                    newbaogia.TINH_TRANG_HANG = item.TINH_TRANG_HANG;
+                    newbaogia.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
+                    if (item.NGAY_GIAO_HANG != null && item.NGAY_GIAO_HANG != "")
+                        newbaogia.NGAY_GIAO_HANG = xlnt.Xulydatetime(item.NGAY_GIAO_HANG.ToString());
+                    newbaogia.DIA_DIEM_GIAO_HANG = item.DIA_DIEM_GIAO_HANG;
+                    newbaogia.GHI_CHU = item.GHI_CHU;
+                    db.BH_CT_BAO_GIA.Add(newbaogia);
+                }
 
             }
-
-            
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
+            try
             {
-               
-                    throw;
+                await db.SaveChangesAsync();
             }
+            catch (DbUpdateException)
+            {
 
-            return Ok(bH_CT_BAO_GIA); 
+                throw;
+
+            }
+            //return this.CreatedAtRoute("GetNH_NTTK", new { id = nH_NTTK.SO_CHUNG_TU }, nH_NTTK);
+            return Ok(bH_CT_BAO_GIA);
         }
 
         // POST: api/Api_ChiTietBaoGia
