@@ -131,7 +131,7 @@ namespace ERP.Web.Api.Kho
                 }
             }
             //Lưu chi tiết
-            decimal tongtien = 0;
+            decimal tt = 0;
             //TONKHO_HOPLONG HHTon = new TONKHO_HOPLONG();
             //HH_NHOM_VTHH NhomHang = new HH_NHOM_VTHH();
             if (kho_xuatkho.ChiTietPX != null && kho_xuatkho.ChiTietPX.Count > 0)
@@ -178,7 +178,7 @@ namespace ERP.Web.Api.Kho
                 }
             }
 
-            xk.TONG_TIEN = tongtien;
+            xk.TONG_TIEN = tt;
 
 
             try

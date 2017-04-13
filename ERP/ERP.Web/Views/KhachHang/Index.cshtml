@@ -31,7 +31,7 @@
             <form class="form-inline quick-search-form" role="form" action="#">
                 <div class="form-group" style="width: 100%">
                     <input type="text" style="width: 60%" class="form-control" placeholder="Type Customer Name You Want To Search Here" ng-model="search_text">
-                    <input type="button" class="btn btn-info" ng-click="load_khachhang(search_text)" value="Tìm kiếm khách" />
+                    <input type="button" class="btn btn-info" ng-keydown="load_khachhang(search_text)" ng-click="load_khachhang(search_text)" value="Tìm kiếm khách" />
                 </div>
             </form>
         </div>
@@ -91,6 +91,10 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
+
                             <div class="col-md-6 thongtinchung">                               
                                 <div class="col-md-12">
                                     <label class="col-sm-3 control-label">Phân loại khách hàng</label>
@@ -578,19 +582,19 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Sales phụ trách</label>
                             <div class="col-sm-2">
-                                <select ng-model="editlh.SALES_PHU_TRACH" class="form-control input-md" disabled="disabled">
+                                <select ng-model="editlh.SALES_PHU_TRACH" class="form-control input-md">
                                     <option ng-repeat="abc in list_nhanvienkd" value="{{abc.USERNAME}}">{{abc.HO_VA_TEN}}</option>
                                 </select>
                             </div>
-                            <label class="col-sm-1 control-label">Sales cũ</label>
+                            @*<label class="col-sm-1 control-label">Sales cũ</label>
                             <div class="col-sm-1">
                                 <input type="checkbox" id="addemail" ng-model="editlh.SALES_CU">
                             </div>
                             <label class="col-sm-1 control-label">Sales mới</label>
                             <div class="col-sm-1">
                                 <input type="checkbox" id="addemail" ng-model="editlh.SALES_MOI">
-                            </div>
-                            <label class="col-sm-1 control-label">Trạng thái</label>
+                            </div>*@
+                            <label class="col-sm-1 control-label">Sale còn phụ trách? </label>
                             <div class="col-sm-1">
                                 <input type="checkbox" id="addemail" ng-model="editlh.TRANG_THAI">
                             </div>
@@ -717,7 +721,7 @@
                                                     <tr ng-repeat="lienhe in list_lienhe" ng-click="details(lienhe)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
                                                         <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.NGUOI_LIEN_HE}}</td>
                                                         <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.CHUC_VU}}</td>
-                                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.EMAIL_CA_NHAN}}</td>
+                                                        <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.EMAIL_CONG_TY}}</td>
                                                         <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.SDT1}}</td>
                                                         <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.SKYPE}}</td>
                                                         <td data-dismiss="modal" data-toggle="modal" data-target="#chitietlienhe">{{lienhe.HO_VA_TEN}}</td>
@@ -1096,6 +1100,7 @@
                 var percentVal = '100%';
                 bar.width(percentVal)
                 percent.html(percentVal);
+                alert("Thành công")
             },
             complete: function (xhr) {
                 status.html(xhr.responseText);
