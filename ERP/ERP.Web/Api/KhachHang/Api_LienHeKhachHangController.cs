@@ -85,18 +85,6 @@ namespace ERP.Web.Api.KhachHang
             return result;
         }
 
-        // GET: api/Api_LienHeKhachHang/5
-        [ResponseType(typeof(KH_LIEN_HE))]
-        public IHttpActionResult GetKH_LIEN_HE()
-        {
-            KH_LIEN_HE kH_LIEN_HE = db.KH_LIEN_HE.Find();
-            if (kH_LIEN_HE == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(kH_LIEN_HE);
-        }
 
         // PUT: api/Api_LienHeKhachHang/5
         [Route("api/Api_LienHeKhachHang/{id}")]

@@ -49,18 +49,18 @@ namespace ERP.Web.Api.BaoGia
             return result;
         }
 
-        // GET: api/Api_BaoGia_DonHangDuKien/5
-        [ResponseType(typeof(BH_DON_HANG_DU_KIEN))]
-        public IHttpActionResult GetBH_DON_HANG_DU_KIEN()
-        {
-            BH_DON_HANG_DU_KIEN bH_DON_HANG_DU_KIEN = db.BH_DON_HANG_DU_KIEN.Find();
-            if (bH_DON_HANG_DU_KIEN == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/Api_BaoGia_DonHangDuKien/5
+        //[ResponseType(typeof(BH_DON_HANG_DU_KIEN))]
+        //public IHttpActionResult GetBH_DON_HANG_DU_KIEN(string id)
+        //{
+        //    BH_DON_HANG_DU_KIEN bH_DON_HANG_DU_KIEN = db.BH_DON_HANG_DU_KIEN.Find(id);
+        //    if (bH_DON_HANG_DU_KIEN == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(bH_DON_HANG_DU_KIEN);
-        }
+        //    return Ok(bH_DON_HANG_DU_KIEN);
+        //}
 
         // PUT: api/Api_BaoGia_DonHangDuKien/5
         [ResponseType(typeof(void))]
