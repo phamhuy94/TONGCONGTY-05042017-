@@ -31,69 +31,53 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
 
     $scope.kiemtra = function (item) {
         $scope.item = item;
-        var cachtinh = $scope.item.CACH_TINH_THANH_TIEN;       
-        if (cachtinh == "Giá nhập") {
-            $scope.item.DON_GIA_SAU_CHIET_KHAU = $scope.item.DON_GIA + ($scope.item.DON_GIA * ($scope.item.CHIET_KHAU / 100));
-            $scope.item.THANH_TIEN = parseInt(($scope.item.SO_LUONG * $scope.item.DON_GIA) + (($scope.item.SO_LUONG * $scope.item.DON_GIA) * ($scope.item.CHIET_KHAU / 100)));
-            $scope.item.TIEN_VAT = parseInt(($scope.item.THANH_TIEN * parseInt($scope.item.CK_VAT)) / 100);
-        } else if (cachtinh == "Giá list") {
-            $scope.item.DON_GIA_SAU_CHIET_KHAU = $scope.item.DON_GIA - ($scope.item.DON_GIA * ($scope.item.CHIET_KHAU / 100));
-            $scope.item.THANH_TIEN = parseInt(($scope.item.SO_LUONG * $scope.item.DON_GIA) - (($scope.item.SO_LUONG * $scope.item.DON_GIA) * ($scope.item.CHIET_KHAU / 100)));
-            $scope.item.TIEN_VAT = parseInt(($scope.item.THANH_TIEN * parseInt($scope.item.CK_VAT)) / 100);
-        } else {
-            $scope.item.DON_GIA_SAU_CHIET_KHAU = $scope.item.DON_GIA;
-            $scope.item.THANH_TIEN = $scope.item.SO_LUONG * $scope.item.DON_GIA;
-            $scope.item.TIEN_VAT = parseInt(($scope.item.THANH_TIEN * parseInt($scope.item.CK_VAT)) / 100);
-        }        
+        if ($scope.item.DON_GIA_LIST != null && $scope.item.DON_GIA_LIST != "") {
+            $scope.item.DON_GIA = parseInt($scope.item.DON_GIA_LIST) - parseInt(($scope.item.DON_GIA_LIST * ($scope.item.CHIET_KHAU / 100)));
+        } else if ($scope.item.DON_GIA_NHAP != null && $scope.item.DON_GIA_NHAP != "") {
+            $scope.item.DON_GIA = parseInt($scope.item.DON_GIA_NHAP) + parseInt(($scope.item.DON_GIA_NHAP * ($scope.item.HE_SO_LOI_NHUAN / 100)));
+        }
+        $scope.item.THANH_TIEN = $scope.item.DON_GIA * $scope.item.SO_LUONG;
+
+
         var tong_thanh_tien = 0;
         var tong_tien_VAT = 0;
         var tong_tien_chua_van_chuyen = 0;
         var tong_tien_da_tinh_van_chuyen = 0;
             for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
                 tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
-                tong_tien_VAT = parseFloat($scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_VAT)
-                tong_tien_chua_van_chuyen = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + $scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_chua_van_chuyen);
             }
             $scope.tong_thanh_tien_edit = tong_thanh_tien;
-            $scope.tong_tien_VAT_edit = tong_tien_VAT;
-            $scope.tong_tien_chua_van_chuyen_edit = tong_tien_chua_van_chuyen;
-
+            $scope.tong_tien_VAT_edit = parseFloat((tong_thanh_tien / 10));
             var phi_van_chuyen = parseFloat($('#phi_van_chuyen').val()) || 0;
-                tong_tien_da_tinh_van_chuyen = parseFloat($scope.tong_tien_chua_van_chuyen_edit + phi_van_chuyen);
+
+            tong_tien_da_tinh_van_chuyen = parseFloat($scope.tong_thanh_tien_edit + phi_van_chuyen + $scope.tong_tien_VAT_edit);
                 $scope.tong_tien = tong_tien_da_tinh_van_chuyen;
     };
 
     $scope.test = function (detail) {
         $scope.detail = detail;
-        var cachtinh = $scope.detail.cach_tinh_thanh_tien;
-        if (cachtinh == "Giá nhập") {
-            $scope.detail.don_gia_sau_chiet_khau = $scope.detail.don_gia + ($scope.detail.don_gia * ($scope.detail.chiet_khau / 100));
-            $scope.detail.thanh_tien = (($scope.detail.so_luong * $scope.detail.don_gia) + (($scope.detail.so_luong * $scope.detail.don_gia) * ($scope.detail.chiet_khau / 100)));
-            $scope.detail.tien_vat = (($scope.detail.thanh_tien * parseInt($scope.detail.ck_vat)) / 100);
-        } else if (cachtinh == "Giá list") {
-            $scope.detail.don_gia_sau_chiet_khau = $scope.detail.don_gia - ($scope.detail.don_gia * ($scope.detail.chiet_khau / 100));
-            $scope.detail.thanh_tien = (($scope.detail.so_luong * $scope.detail.don_gia) - (($scope.detail.so_luong * $scope.detail.don_gia) * ($scope.detail.chiet_khau / 100)));
-            $scope.detail.tien_vat = (($scope.detail.thanh_tien * parseInt($scope.detail.ck_vat)) / 100);
-        } else {
-            $scope.detail.don_gia_sau_chiet_khau = $scope.detail.don_gia;
-            $scope.detail.thanh_tien = $scope.detail.so_luong * $scope.detail.don_gia;
-            $scope.detail.tien_vat = (($scope.detail.thanh_tien * parseInt($scope.detail.ck_vat)) / 100);
+        
+        if ($scope.detail.gia_list != null && $scope.detail.gia_list != "") {
+            $scope.detail.don_gia = parseInt($scope.detail.gia_list) - parseInt(($scope.detail.gia_list * ($scope.detail.chiet_khau / 100)));
+        } else if ($scope.detail.gia_nhap != null && $scope.detail.gia_nhap != "") {
+            $scope.detail.don_gia = parseInt($scope.detail.gia_nhap) + parseInt(($scope.detail.gia_nhap * ($scope.detail.he_so_loi_nhuan / 100)));
         }
+        $scope.detail.thanh_tien = $scope.detail.don_gia * $scope.detail.so_luong;
+
+
+
         var tong_thanh_tien_new = 0;
          tong_tien_VAT_new = 0;
         tong_tien_chua_van_chuyen_new = 0;
          tong_tien_da_tinh_van_chuyen_new = 0;
         for (var i = 0; i < $scope.Detail.ListNew.length; i++) {
             tong_thanh_tien_new = parseFloat($scope.Detail.ListNew[i].thanh_tien + tong_thanh_tien_new);
-            tong_tien_VAT_new = parseFloat($scope.Detail.ListNew[i].tien_vat + tong_tien_VAT_new)
-            tong_tien_chua_van_chuyen_new = parseFloat($scope.Detail.ListNew[i].thanh_tien + $scope.Detail.ListNew[i].tien_vat + tong_tien_chua_van_chuyen_new);
         }
         $scope.tong_thanh_tien = tong_thanh_tien_new;
-        $scope.tong_tien_VAT = tong_tien_VAT_new;
-        $scope.tong_tien_chua_van_chuyen = tong_tien_chua_van_chuyen_new;
+        $scope.tong_tien_VAT = parseFloat($scope.tong_thanh_tien / 10);
 
         var phi_van_chuyen = parseFloat($('#tienvanchuyen').val()) || 0;
-        tong_tien_da_tinh_van_chuyen_new = parseFloat($scope.tong_tien_chua_van_chuyen + phi_van_chuyen);
+        tong_tien_da_tinh_van_chuyen_new = parseFloat($scope.tong_thanh_tien + phi_van_chuyen + $scope.tong_tien_VAT);
         $scope.baogia = tong_tien_da_tinh_van_chuyen_new;
     };
 
@@ -121,13 +105,12 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         SO_BAO_GIA: '',
         MA_HANG: '',
         SO_LUONG: 0,
+        DON_GIA_LIST: 0,
+        DON_GIA_NHAP : 0,
         DON_GIA: 0,
+        HE_SO_LOI_NHUAN : 0,
         CHIET_KHAU: 0,
-        CACH_TINH_THANH_TIEN: '',
-        DON_GIA_SAU_CHIET_KHAU : '',
         THANH_TIEN: 0,
-        CK_VAT: '',
-        TIEN_VAT: 0,
         TINH_TRANG_HANG: '',
         THOI_GIAN_GIAO_HANG: '',
         NGAY_GIAO_HANG: '',
@@ -212,11 +195,10 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             SO_LUONG: $scope.Detail.ListAdd[i].SO_LUONG,
             DON_GIA: $scope.Detail.ListAdd[i].DON_GIA,
             CHIET_KHAU: $scope.Detail.ListAdd[i].CHIET_KHAU,
-            CACH_TINH_THANH_TIEN: $scope.Detail.ListAdd[i].CACH_TINH_THANH_TIEN,
+            DON_GIA_LIST: $scope.Detail.ListAdd[i].DON_GIA_LIST,
+            DON_GIA_NHAP: $scope.Detail.ListAdd[i].DON_GIA_NHAP,
+            HE_SO_LOI_NHUAN: $scope.Detail.ListAdd[i].HE_SO_LOI_NHUAN,
             THANH_TIEN: $scope.Detail.ListAdd[i].THANH_TIEN,
-            DON_GIA_SAU_CHIET_KHAU: $scope.Detail.ListAdd[i].DON_GIA_SAU_CHIET_KHAU,
-            CK_VAT: parseInt($scope.Detail.ListAdd[i].CK_VAT),
-            TIEN_VAT: $scope.Detail.ListAdd[i].TIEN_VAT,
             TINH_TRANG_HANG: $scope.Detail.ListAdd[i].TINH_TRANG_HANG,
             THOI_GIAN_GIAO_HANG: $scope.Detail.ListAdd[i].THOI_GIAN_GIAO_HANG,
             NGAY_GIAO_HANG: $scope.Detail.ListAdd[i].NGAY_GIAO_HANG,
@@ -302,12 +284,12 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             var BaoGiaChiTiet = {
                 MA_HANG: $scope.Detail.ListNew[i].ma_hang,
                 SO_LUONG: $scope.Detail.ListNew[i].so_luong,
+                DON_GIA_LIST:$scope.Detail.ListNew[i].gia_list,
+                DON_GIA_NHAP:$scope.Detail.ListNew[i].gia_nhap,
+                HE_SO_LOI_NHUAN: $scope.Detail.ListNew[i].he_so_loi_nhuan,
                 DON_GIA: $scope.Detail.ListNew[i].don_gia,
                 CHIET_KHAU: $scope.Detail.ListNew[i].chiet_khau,
-                CACH_TINH_THANH_TIEN: $scope.Detail.ListNew[i].cach_tinh_thanh_tien,
                 THANH_TIEN: $scope.Detail.ListNew[i].thanh_tien,
-                CK_VAT: parseInt($scope.Detail.ListNew[i].ck_vat),
-                TIEN_VAT: $scope.Detail.ListNew[i].tien_vat,
                 TINH_TRANG_HANG: $scope.Detail.ListNew[i].tinh_trang_hang,
                 THOI_GIAN_GIAO_HANG: $scope.Detail.ListNew[i].thoi_gian_giao_hang,
                 NGAY_GIAO_HANG: $scope.Detail.ListNew[i].ngay_giao_hang,
@@ -597,13 +579,12 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         $scope.Detail.ListNew.push({
             ma_hang: mahang,
             so_luong: 0,
-            don_gia: dongia,
+            gia_list: dongia,
+            gia_nhap: 0,
+            don_gia: '',
+            he_so_loi_nhuan: 0,
             chiet_khau: 0,
-            cach_tinh_thanh_tien: '',
-            don_gia_sau_chiet_khau: '',
             thanh_tien: 0,
-            ck_vat: '',
-            tien_vat: 0,
             tinh_trang_hang: '',
             thoi_gian_giao_hang: '',
             ngay_giao_hang: '',
@@ -645,14 +626,12 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
             var tong_tien_da_tinh_van_chuyen = 0;
             for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
                 tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
-                tong_tien_VAT = parseFloat($scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_VAT)
-                tong_tien_chua_van_chuyen = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + $scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_chua_van_chuyen);
             }
             $scope.tong_thanh_tien_edit = tong_thanh_tien;
-            $scope.tong_tien_VAT_edit = tong_tien_VAT;
-            $scope.tong_tien_chua_van_chuyen_edit = tong_tien_chua_van_chuyen;
-            var phi_van_chuyen = parseInt($('#phivanchuyen').text());
-            tong_tien_da_tinh_van_chuyen = parseFloat(tong_tien_chua_van_chuyen + phi_van_chuyen);
+            $scope.tong_tien_VAT_edit = parseFloat($scope.tong_thanh_tien_edit / 10);
+            var phi_van_chuyen = parseInt($('.' + $scope.baogia.SO_BAO_GIA + '-phivanchuyen').text());
+
+            tong_tien_da_tinh_van_chuyen = parseFloat($scope.tong_thanh_tien_edit + phi_van_chuyen + $scope.tong_tien_VAT_edit);
             $scope.tong_tien = tong_tien_da_tinh_van_chuyen;
         });
     };
@@ -678,19 +657,17 @@ app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
         $scope.Detail.ListAdd.push({
             MA_HANG: mahang,
             SO_LUONG: 0,
-            DON_GIA: dongia,
+            DON_GIA_LIST: dongia,
+            DON_GIA_NHAP: 0,
+            DON_GIA: 0,
+            HE_SO_LOI_NHUAN: 0,
             CHIET_KHAU: 0,
-            CACH_TINH_THANH_TIEN: '',
-            DON_GIA_SAU_CHIET_KHAU: '',
             THANH_TIEN: 0,
-            CK_VAT: '',
-            TIEN_VAT: 0,
             TINH_TRANG_HANG: '',
             THOI_GIAN_GIAO_HANG: '',
             NGAY_GIAO_HANG: '',
             DIA_DIEM_GIAO_HANG: '',
             GHI_CHU: '',
-
         });
     }
     // End hang hoa luu

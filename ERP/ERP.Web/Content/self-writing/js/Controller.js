@@ -261,6 +261,84 @@ app.controller('khogiuhangCtrl', function (khogiuhangService, $scope, $location,
 
 // Khach hang
 app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $location) {
+    //Phan trang kh
+    function pageClick2(pageNumber) {
+        var salestao = $('#salehienthoi').val();
+        $("#page-number-2").text(pageNumber);
+        $http({
+            method: 'POST',
+            data: $scope.filtered,
+            url: window.location.origin + '/api/Api_KH/PhantrangKH/' + pageNumber + '/' + salestao
+        }).then(function successCallback(response) {
+            $scope.filtered = response.data;
+        });
+    }
+        var itemsCount = 2000;
+        var itemsOnPage = 10;
+
+
+        var pagination2 = new Pagination({
+            container: $("#pagination-2"),
+            pageClickCallback: pageClick2,
+            maxVisibleElements: 16,
+            showInput: true,
+            inputTitle: "Go to page"
+        });
+        pagination2.make(itemsCount, itemsOnPage);
+    //End phan trang kh
+
+    //Phan trang thong ke mua hang
+        function pageClick3(pageNumber) {
+            $("#page-number-3").text(pageNumber);
+            var makh = $('#MA_KHach_HANG').text();
+            $http({
+                method: 'POST',
+                data: $scope.thong_ke_mua_hang,
+                url: window.location.origin + '/api/Api_KH/ThongKeMuaHang/' + makh + '/' + pageNumber
+            }).then(function successCallback(response) {
+                $scope.thong_ke_mua_hang = response.data;
+            });
+        }
+
+        var tongso = 2000;
+        var sohienthi = 10;
+
+
+        var pagination3 = new Pagination({
+            container: $("#pagination-3"),
+            pageClickCallback: pageClick3,
+            maxVisibleElements: 10,
+            showInput: true,
+            inputTitle: "Go to page"
+        });
+        pagination3.make(tongso, sohienthi);
+    // End phan trang thong ke mua hang
+
+
+        function phantrangkh(pageNumber) {
+        var salestao = $('#salehienthoi').val();
+        $http({
+            method: 'POST',
+            data: $scope.filtered,
+            url: window.location.origin + '/api/Api_KH/PhantrangKH/' + pageNumber + '/' + salestao
+        }).then(function successCallback(response) {
+            $scope.filtered = response.data;
+        });
+    };
+        phantrangkh(1);
+
+
+        function thongkemuahang(pageNumber) {
+            var salestao = $('#salehienthoi').val();
+            $http({
+                method: 'POST',
+                data: $scope.filtered,
+                url: window.location.origin + '/api/Api_KH/PhantrangKH/' + pageNumber + '/' + salestao
+            }).then(function successCallback(response) {
+                $scope.filtered = response.data;
+            });
+        };
+        phantrangkh(1);
 
     $scope.createnew = function () {
         var salestao = $('#salehienthoi').val();
@@ -407,8 +485,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         });
     };
 
-
-    //Load khách Hàng
+   //Load khách Hàng
    
     $scope.load_khachhang = function (tukhoa) {
         var salehienthoi = $('#salehienthoi').val();
@@ -448,6 +525,16 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.get_taikhoan = function (makh) {
         khachhangService.get_taikhoankh(makh).then(function (b) {
             $scope.list_taikhoankh = b;
+        });
+    };
+
+    $scope.get_thongkemuahang = function (makh) {
+        $http({
+            method: 'POST',
+            data: $scope.thong_ke_mua_hang,
+            url: window.location.origin + '/api/Api_KH/ThongKeMuaHang/' + makh + '/' + 1
+        }).then(function successCallback(response) {
+            $scope.thong_ke_mua_hang = response.data;
         });
     };
 
@@ -767,7 +854,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         $scope.item = item;
         var data = {
             MA_KHACH_HANG: $scope.item.MA_KHACH_HANG,
-            SALE_HIEN_THOI : $scope.item.SALES_PHU_TRACH,
+            SALE_HIEN_THOI : $scope.item.USERNAME,
         }
         khachhangService.save_listchuyensale(data).then(function () {
             $scope.load_khachhang('A');
@@ -883,7 +970,12 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
         });
     };
+
+
+   
+
 });
+
 // End khach hang
 
 

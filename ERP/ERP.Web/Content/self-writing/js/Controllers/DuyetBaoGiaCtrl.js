@@ -10,10 +10,10 @@ app.controller('DuyetBaoGiaCtrl', function (DuyetBaoGiaService, $scope, $http) {
         SO_LUONG: 0,
         DON_GIA: 0,
         CHIET_KHAU: 0,
-        CACH_TINH_THANH_TIEN: '',
         THANH_TIEN: 0,
-        CK_VAT: 0,
-        TIEN_VAT: 0,
+        DON_GIA_LIST: 0,
+        DON_GIA_NHAP: 0,
+        HE_SO_LOI_NHUAN: 0,
         TINH_TRANG_HANG: '',
         THOI_GIAN_GIAO_HANG: '',
         NGAY_GIAO_HANG: '',
@@ -68,14 +68,12 @@ app.controller('DuyetBaoGiaCtrl', function (DuyetBaoGiaService, $scope, $http) {
                 var tong_tien_da_tinh_van_chuyen = 0;
                 for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
                     tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
-                    tong_tien_VAT = parseFloat($scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_VAT)
-                    tong_tien_chua_van_chuyen = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + $scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_chua_van_chuyen);
                 }
                 $scope.tong_thanh_tien = tong_thanh_tien;
-                $scope.tong_tien_VAT = tong_tien_VAT;
-                $scope.tong_tien_chua_van_chuyen = tong_tien_chua_van_chuyen;
+                $scope.tong_tien_VAT = parseFloat($scope.tong_thanh_tien / 10);
+
                 var phi_van_chuyen = parseInt($('#phivanchuyen').val());
-                tong_tien_da_tinh_van_chuyen = parseFloat(tong_tien_chua_van_chuyen + phi_van_chuyen);
+                tong_tien_da_tinh_van_chuyen = parseFloat($scope.tong_thanh_tien + phi_van_chuyen + $scope.tong_tien_VAT);
                 $scope.BangBaoGia.tong_tien = tong_tien_da_tinh_van_chuyen;
             });
         });

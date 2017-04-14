@@ -45,7 +45,9 @@ namespace ERP.Web.Models.NewModels
         public string NGUOI_LIEN_HE { set; get; }
         public string TEN_CONG_TY { set; get; }
         public DateTime NGAY_TAO { set; get; }
-
+        public decimal DON_GIA_LIST { set; get; }
+        public decimal DON_GIA_NHAP { set; get; }
+        public float HE_SO_LOI_NHUAN { set; get; }
         public decimal DON_GIA_SAU_CHIET_KHAU { set; get; }
     }
 }

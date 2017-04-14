@@ -63,12 +63,11 @@ namespace ERP.Web.Api.BaoGia
                     baogia.MA_HANG = item.MA_HANG;
                     baogia.SO_LUONG = item.SO_LUONG;
                     baogia.DON_GIA = item.DON_GIA;
+                    baogia.DON_GIA_LIST = item.DON_GIA_LIST;
+                    baogia.DON_GIA_NHAP = item.DON_GIA_NHAP;
+                    baogia.HE_SO_LOI_NHUAN = item.HE_SO_LOI_NHUAN;
                     baogia.CHIET_KHAU = item.CHIET_KHAU;
-                    baogia.CACH_TINH_THANH_TIEN = item.CACH_TINH_THANH_TIEN;
-                    baogia.DON_GIA_SAU_CHIET_KHAU = item.DON_GIA_SAU_CHIET_KHAU;
                     baogia.THANH_TIEN = item.THANH_TIEN;
-                    baogia.CK_VAT = item.CK_VAT;
-                    baogia.TIEN_VAT = item.TIEN_VAT;
                     baogia.TINH_TRANG_HANG = item.TINH_TRANG_HANG;
                     baogia.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
                     if (item.NGAY_GIAO_HANG != null)
@@ -85,11 +84,10 @@ namespace ERP.Web.Api.BaoGia
                     newbaogia.SO_LUONG = item.SO_LUONG;
                     newbaogia.DON_GIA = item.DON_GIA;
                     newbaogia.CHIET_KHAU = item.CHIET_KHAU;
-                    newbaogia.CACH_TINH_THANH_TIEN = item.CACH_TINH_THANH_TIEN;
-                    newbaogia.DON_GIA_SAU_CHIET_KHAU = item.DON_GIA_SAU_CHIET_KHAU;
                     newbaogia.THANH_TIEN = item.THANH_TIEN;
-                    newbaogia.CK_VAT = item.CK_VAT;
-                    newbaogia.TIEN_VAT = item.TIEN_VAT;
+                    newbaogia.DON_GIA_LIST = item.DON_GIA_LIST;
+                    newbaogia.DON_GIA_NHAP = item.DON_GIA_NHAP;
+                    newbaogia.HE_SO_LOI_NHUAN = item.HE_SO_LOI_NHUAN;
                     newbaogia.TINH_TRANG_HANG = item.TINH_TRANG_HANG;
                     newbaogia.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
                     if (item.NGAY_GIAO_HANG != null && item.NGAY_GIAO_HANG != "")
@@ -130,11 +128,10 @@ namespace ERP.Web.Api.BaoGia
                 lienhe.SO_LUONG = item.SO_LUONG;
                 lienhe.DON_GIA = item.DON_GIA;
                 lienhe.CHIET_KHAU = item.CHIET_KHAU;
-                lienhe.CACH_TINH_THANH_TIEN = item.CACH_TINH_THANH_TIEN;
-                lienhe.DON_GIA_SAU_CHIET_KHAU = item.DON_GIA_SAU_CHIET_KHAU;
                 lienhe.THANH_TIEN = item.THANH_TIEN;
-                lienhe.CK_VAT = item.CK_VAT;
-                lienhe.TIEN_VAT = item.TIEN_VAT;
+                lienhe.DON_GIA_LIST = item.DON_GIA_LIST;
+                lienhe.DON_GIA_NHAP = item.DON_GIA_NHAP;
+                lienhe.HE_SO_LOI_NHUAN = item.HE_SO_LOI_NHUAN;
                 lienhe.TINH_TRANG_HANG = item.TINH_TRANG_HANG;
                 lienhe.THOI_GIAN_GIAO_HANG = item.THOI_GIAN_GIAO_HANG;
                 if(item.NGAY_GIAO_HANG != "")

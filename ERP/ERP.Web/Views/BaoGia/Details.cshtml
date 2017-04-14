@@ -201,10 +201,7 @@
                                         <th class="text-center">Số lượng</th>
                                         <th class="text-center !important">Đơn giá</th>
                                         <th class="text-center !important">Chiết khấu</th>
-                                        <th class="text-center !important">Cách tính thành tiền</th>
                                         <th class="text-center">Thành tiền</th>
-                                        <th class="text-center">Chiết khấu VAT</th>
-                                        <th class="text-center !important">Thành tiền VAT</th>
                                         <th class="text-center !important">Tình trạng hàng</th>
                                         <th class="text-center">Thời gian giao hàng</th>
                                         <th class="text-center !important">Ngày giao hàng</th>
@@ -229,18 +226,8 @@
                                             <input type="number" ng-model="detail.CHIET_KHAU" readonly class="form-control" ng-change="kiemtra(item)">
                                         </td>
                                         <td class="text-center">
-                                            <input type="text" ng-model="detail.CACH_TINH_THANH_TIEN" readonly class="form-control">
-                                        </td>
-                                        <td class="text-center">
                                             {{detail.THANH_TIEN | currency: '':0}}
                                             <input ng-model="detail.THANH_TIEN" class="form-control" readonly type="hidden" ng-disabled="true" />
-                                        </td>
-                                        <td class="text-center">
-                                            <input type="number" ng-model="detail.CK_VAT" readonly class="form-control" ng-change="kiemtra(item)">
-                                        </td>
-                                        <td class="text-center">
-                                            {{detail.TIEN_VAT | currency: '' : 0}}
-                                            <input ng-model="detail.TIEN_VAT" ng-disabled="true" readonly class="form-control" type="hidden" />
                                         </td>
                                         <td class="text-center">
                                             <input type="text" ng-model="detail.TINH_TRANG_HANG" readonly class="form-control">
@@ -274,10 +261,6 @@
                                             <div class="col-md-12">
                                                 <label class="col-md-3">VAT 10% : </label>
                                                 <p class="col-md-6" style="text-align:right">{{tong_tien_VAT | currency: '':0}} vnd</p>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label class="col-md-3">Tổng tiền(chưa tính phí vận chuyển): </label>
-                                                <p class="col-md-6" style="text-align:right">{{tong_tien_chua_van_chuyen | currency: '':0}} vnd</p>
                                             </div>
                                             <div class="col-md-12">
                                                 <hr />

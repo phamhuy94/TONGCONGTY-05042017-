@@ -34,6 +34,14 @@ namespace ERP.Web.Api.HeThong
             return result;
         }
 
+        [Route("api/Api_KH/ThongKeMuaHang/{makhach}/{page}")]
+        public List<KH_GetThongKeMuaHang_Result> ThongKeMuaHang(string makhach,int page)
+        {
+            var query = db.Database.SqlQuery<KH_GetThongKeMuaHang_Result>("KH_GetThongKeMuaHang @makhach,@page", new SqlParameter("makhach", makhach), new SqlParameter("page", page));
+            var result = query.ToList();
+            return result;
+        }
+
         [Route("api/Api_KH/LocKH/{username}")]
         public List<GetAll_KhachCuaSale_Result> LocKH(string username)
         {
@@ -42,6 +50,14 @@ namespace ERP.Web.Api.HeThong
             return result;
         }
 
+        
+        [Route("api/Api_KH/PhantrangKH/{page}/{sale}")]
+        public List<HopLong_PhanTrangKhachHang_Result> PhantrangKH(int page,string sale)
+        {
+            var query = db.Database.SqlQuery<HopLong_PhanTrangKhachHang_Result>("HopLong_PhanTrangKhachHang  @sotrang,@sale", new SqlParameter("sotrang", page), new SqlParameter("sale", sale));
+            var result = query.ToList();
+            return result;
+        }
 
         [Route("api/Api_KH/GET_KHACH_CUA_SALE/{username}")]
         public List<GetAll_KhachCuaSale_Result> GET_KHACH_CUA_SALE(string username)

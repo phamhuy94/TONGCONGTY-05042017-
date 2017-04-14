@@ -754,6 +754,14 @@ app.service('productdetailsService', function ($http) {
 
 // Khach hang
 app.service('khachhangService', function ($http) {
+
+    this.phantrangkh = function (sotrang) {
+        return $http.post("/api/Api_KH/PhantrangKH/" + sotrang).then(function (response) {
+            return response.data;
+        });
+    };
+
+
     this.get_khachhang = function (username, tukhoa) {
         return $http.post('/api/Api_KH/KH_THEO_SALES/'+username+'/'+tukhoa).then(function (response) {
             return response.data;
@@ -796,6 +804,13 @@ app.service('khachhangService', function ($http) {
             return response.data;
         });
     };
+
+    //this.get_thongke_muahang = function (makh) {
+    //    return $http.post('/api/Api_KH/ThongKeMuaHang/' + makh).then(function (response) {
+    //        return response.data;
+    //    });
+    //};
+
     this.add_phanloaikh = function (phanloaikh_add) {
         return $http.post('/api/Api_PhanLoaiKH', phanloaikh_add);
     };

@@ -1,1 +1,1 @@
-﻿var app = angular.module('myApp', ['angularUtils.directives.dirPagination', 'smart-table', 'ngMask', 'ngMaterial', 'smart-table']);
+﻿var app = angular.module('myApp', ['angularUtils.directives.dirPagination', 'smart-table', 'ngMask', 'ngMaterial']);

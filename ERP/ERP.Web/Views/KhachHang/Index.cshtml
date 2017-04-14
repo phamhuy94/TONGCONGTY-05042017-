@@ -3,10 +3,14 @@
 @{
     ViewBag.Title = "Index";
 }
+
 <link href="~/Content/self-writing/css/KhachHang.css" rel="stylesheet" />
 @*<script src="~/Content/self-writing/js/Services/KhachHangServices.js"></script>
-<script src="~/Content/self-writing/js/Controllers/KhachHangCtrl.js"></script>*@
+@*<script src="~/Content/self-writing/js/Controllers/KhachHangCtrl.js"></script>*@
 <script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="~/Content/self-writing/pagination.js"></script>
+
+
 <style>
     #myModal .col-md-12 {
         margin: 10px 0px;
@@ -24,6 +28,7 @@
 </style>
 <div ng-app="myApp" ng-controller="khachhangCtrl">
     <input type="button" onclick="location.href='/KinhDoanh/Donhangdukien';" value="Đơn hàng dự kiến" />
+
     <div class="content">
         <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
 
@@ -628,7 +633,7 @@
                         <div class="col-md-9">
                             <div style="margin-bottom: 5%;" class="col-md-12">
                                 <h1>{{item.TEN_CONG_TY | uppercase}}</h1>
-                                <div class="col-md-3 detail">Mã khách hàng: {{item.MA_KHACH_HANG}}</div>
+                                <div class="col-md-3 detail">Mã khách hàng: <span id="MA_KHach_HANG">{{item.MA_KHACH_HANG}}</span></div>
                                 <div class="col-md-2 detail">Tỉnh: {{item.TINH}}</div>
                                 <div class="col-md-2 detail">Quốc gia: {{item.QUOC_GIA}}</div>
                                 <div class="col-md-9">Tình trạng hoạt động: {{item.TINH_TRANG_HOAT_DONG}}</div>
@@ -639,6 +644,7 @@
                                     <li><a data-toggle="tab" href="#lienhekhachhang">Liên hệ</a></li>
                                     <li><a data-toggle="tab" href="#taikhoankhachhang">Tài khoản</a></li>
                                     <li><a data-toggle="tab" href="#phanhoikhachhang">Phản hồi khách hàng</a></li>
+                                    <li><a data-toggle="tab" href="#thongkemuahang">Thống kê mua hàng</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <!--Tab chi tiết hàng hóa-->
@@ -771,6 +777,41 @@
                                             </tr>
                                         </table>
                                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newphanhoi">Thêm mới</button>
+                                    </div>
+                                    <div id="thongkemuahang" class="tab-pane fade">
+                                        <table class="table">
+                                            <thead class="table-header-popup">
+                                                <tr>
+                                                    <th style="text-align: center">Mã hàng</th>
+                                                    <th style="text-align: center">Số lượng mua</th>
+                                                    <th style="text-align: center">Đơn giá mua</th>
+                                                    <th style="text-align: center">Ngày mua</th>
+                                                    <th style="text-align: center">Nhân viên bán hàng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="thongke in thong_ke_mua_hang" ng-click="details(taikhoan)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                                                    <td>{{thongke.MA_HANG}}</td>
+                                                    <td>{{thongke.SL_MUA}}</td>
+                                                    <td>{{thongke.DON_GIA_MUA}}</td>
+                                                    <td>{{thongke.NGAY_MUA | date: 'dd/MM/yyyy'}}</td>
+                                                    <td>{{thongke.NHAN_VIEN_MUA_HANG}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="col-md-12">
+                                            <div>
+                                                <div id="pagination-3" style="width: 30%;display:inline-block"></div>
+                                            </div>
+                                            <div>
+                                                <samp>
+                                                    <span>Current page:</span>
+                                                    <span id="page-number-3"></span>
+                                                </samp>
+                                            </div>
+                                        </div>
+                                        <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newtaikhoan">Thêm mới</button>
                                     </div>
                                 </div>
                             </div>
@@ -1011,7 +1052,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate="item in filtered = list_kh  | itemsPerPage:20 | orderBy: 'item.TEN_CONG_TY'" ng-click="transfer(item);get_lienhe(item.MA_KHACH_HANG);get_taikhoan(item.MA_KHACH_HANG);get_phanhoi(item.MA_KHACH_HANG)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
+                <tr ng-repeat="item in filtered" ng-click="transfer(item);get_lienhe(item.MA_KHACH_HANG);get_taikhoan(item.MA_KHACH_HANG);get_phanhoi(item.MA_KHACH_HANG);get_thongkemuahang(item.MA_KHACH_HANG)" class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.MA_KHACH_HANG}}</td>
                     <td class="text-left" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_CONG_TY}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.EMAIL}}</td>
@@ -1021,10 +1062,10 @@
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TEN_LOAI_KHACH}}</td>
                     <td class="text-center" data-toggle="modal" data-target="#chitietkhachhang">{{item.TINH_TRANG_HOAT_DONG}}</td>
                     <td class="text-center">
-                        <p ng-hide="editMode" ng-model="item.SALES_PHU_TRACH">{{item.TEN_CUA_SALES_PHU_TRACH}}</p>
+                        <p ng-hide="editMode" ng-model="item.USERNAME">{{item.HO_VA_TEN}}</p>
                         <md-input-container ng-show="editMode">
                             <label>Sale</label>
-                            <md-select ng-model="item.SALES_PHU_TRACH">
+                            <md-select ng-model="item.USERNAME">
                                 <md-option><em>None</em></md-option>
                                 <md-option ng-repeat="state in list_nhanvienkd" ng-value="state.USERNAME">
                                     {{state.HO_VA_TEN}}
@@ -1041,22 +1082,21 @@
                 <!--Detail row-->
 
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="9" style="border: none !important">
-                        <dir-pagination-controls max-size="12" style="float:right;"
-                                                 direction-links="true"
-                                                 boundary-links="true">
-                        </dir-pagination-controls>
-                    </td>
-                </tr>
-            </tfoot>
         </table>
+
+
+        <div class="col-md-12">
+            <div>
+                <div id="pagination-2" style="width: 30%;display:inline-block"></div>
+            </div>
+            <div>
+                <samp>
+                    <span>Current page:</span>
+                    <span id="page-number-2"></span>
+                </samp>
+            </div>
+        </div>
     </div>
-
-
-
-
 
     <script>
     (function () {
@@ -1091,4 +1131,7 @@
 
     })();
     </script>
+
+
+
 </div>

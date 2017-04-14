@@ -17,10 +17,10 @@ namespace ERP.Web.Api.HeThong
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: api/Api_Mausohoadon
-        public List<MAU_SO_HOA_DON> GetMAU_SO_HOA_DON()
+        public List<DM_MAU_SO_HOA_DON> GetMAU_SO_HOA_DON()
         {
-            var vData = db.MAU_SO_HOA_DON;
-            var result = vData.ToList().Select(x => new MAU_SO_HOA_DON()
+            var vData = db.DM_MAU_SO_HOA_DON;
+            var result = vData.ToList().Select(x => new DM_MAU_SO_HOA_DON()
             {
                 MAU_SO = x.MAU_SO,
                 TEN_MAU = x.TEN_MAU,
@@ -29,10 +29,10 @@ namespace ERP.Web.Api.HeThong
         }
 
         // GET: api/Api_Mausohoadon/5
-        [ResponseType(typeof(MAU_SO_HOA_DON))]
+        [ResponseType(typeof(DM_MAU_SO_HOA_DON))]
         public IHttpActionResult GetMAU_SO_HOA_DON(string id)
         {
-            MAU_SO_HOA_DON mAU_SO_HOA_DON = db.MAU_SO_HOA_DON.Find(id);
+            DM_MAU_SO_HOA_DON mAU_SO_HOA_DON = db.DM_MAU_SO_HOA_DON.Find(id);
             if (mAU_SO_HOA_DON == null)
             {
                 return NotFound();
@@ -43,9 +43,9 @@ namespace ERP.Web.Api.HeThong
 
         // PUT: api/Api_Mausohoadon/5
         [ResponseType(typeof(void))]
-        public void PutMAU_SO_HOA_DON(string id, MAU_SO_HOA_DON mAU_SO_HOA_DON)
+        public void PutMAU_SO_HOA_DON(string id, DM_MAU_SO_HOA_DON mAU_SO_HOA_DON)
         {
-            var check = db.MAU_SO_HOA_DON.Where(x => x.MAU_SO == id);
+            var check = db.DM_MAU_SO_HOA_DON.Where(x => x.MAU_SO == id);
             if (check.Count() > 0)
             {
                 var resultupdate = check.FirstOrDefault();
@@ -57,15 +57,15 @@ namespace ERP.Web.Api.HeThong
         }
 
         // POST: api/Api_Mausohoadon
-        [ResponseType(typeof(MAU_SO_HOA_DON))]
-        public IHttpActionResult PostMAU_SO_HOA_DON(MAU_SO_HOA_DON mAU_SO_HOA_DON)
+        [ResponseType(typeof(DM_MAU_SO_HOA_DON))]
+        public IHttpActionResult PostMAU_SO_HOA_DON(DM_MAU_SO_HOA_DON mAU_SO_HOA_DON)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.MAU_SO_HOA_DON.Add(mAU_SO_HOA_DON);
+            db.DM_MAU_SO_HOA_DON.Add(mAU_SO_HOA_DON);
 
             try
             {
@@ -87,16 +87,16 @@ namespace ERP.Web.Api.HeThong
         }
 
         // DELETE: api/Api_Mausohoadon/5
-        [ResponseType(typeof(MAU_SO_HOA_DON))]
+        [ResponseType(typeof(DM_MAU_SO_HOA_DON))]
         public IHttpActionResult DeleteMAU_SO_HOA_DON(string id)
         {
-            MAU_SO_HOA_DON mAU_SO_HOA_DON = db.MAU_SO_HOA_DON.Find(id);
+            DM_MAU_SO_HOA_DON mAU_SO_HOA_DON = db.DM_MAU_SO_HOA_DON.Find(id);
             if (mAU_SO_HOA_DON == null)
             {
                 return NotFound();
             }
 
-            db.MAU_SO_HOA_DON.Remove(mAU_SO_HOA_DON);
+            db.DM_MAU_SO_HOA_DON.Remove(mAU_SO_HOA_DON);
             db.SaveChanges();
 
             return Ok(mAU_SO_HOA_DON);
@@ -113,7 +113,7 @@ namespace ERP.Web.Api.HeThong
 
         private bool MAU_SO_HOA_DONExists(string id)
         {
-            return db.MAU_SO_HOA_DON.Count(e => e.MAU_SO == id) > 0;
+            return db.DM_MAU_SO_HOA_DON.Count(e => e.MAU_SO == id) > 0;
         }
     }
 }
