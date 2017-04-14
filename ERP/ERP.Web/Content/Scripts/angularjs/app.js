@@ -16,11 +16,7 @@ var LandingPageController = function ($rootScope, $scope, $http, $location, conf
     //});
     //$rootScope.title = "Trang chủ";
     //$rootScope.dashboard = true;
-    //$rootScope.PageSetting = {
-    //    PageCount: 0,
-    //    NumberPerPage: 10,
-    //    CurrentPage: 1
-    //}
+    
 
     
 }

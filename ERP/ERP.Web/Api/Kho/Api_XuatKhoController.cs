@@ -56,14 +56,16 @@ namespace ERP.Web.Api.Kho
 
             //Lưu thông tin nhập kho
             var xk = db.KHO_XUAT_KHO.Where(x => x.SO_CHUNG_TU == kho_xuatkho.SO_CHUNG_TU).FirstOrDefault();
-   
+
             xk.NGAY_CHUNG_TU = GeneralFunction.ConvertToTime(kho_xuatkho.NGAY_CHUNG_TU);
             xk.NGAY_HACH_TOAN = GeneralFunction.ConvertToTime(kho_xuatkho.NGAY_HACH_TOAN);
             xk.SO_CHUNG_TU = kho_xuatkho.SO_CHUNG_TU;
             xk.NGUOI_NHAN = kho_xuatkho.NGUOI_NHAN;
             xk.KHACH_HANG = kho_xuatkho.KHACH_HANG;
             xk.NGUOI_LAP_PHIEU = kho_xuatkho.NGUOI_LAP_PHIEU;
-            xk.TRUC_THUOC = kho_xuatkho.TRUC_THUOC;
+
+            xk.TRUC_THUOC = "HOPLONG";
+
             xk.LOAI_XUAT_KHO = kho_xuatkho.LOAI_XUAT_KHO;
 
             //Lưu thông tin tham chiếu
@@ -77,7 +79,7 @@ namespace ERP.Web.Api.Kho
                         //newItem.SO_CHUNG_TU_GOC = xk.SO_CHUNG_TU;
                         newItem.SO_CHUNG_TU_THAM_CHIEU = item.SO_CHUNG_TU;
                     }
-                        
+         
                 }
             }
             //Lưu chi tiết
@@ -125,11 +127,59 @@ namespace ERP.Web.Api.Kho
                     //    hangton.SL_HANG = Convert.ToInt32(item.SoLuong);
                     //}
 
+
+                }
+            }
+            //Lưu chi tiết
+            decimal tongtien = 0;
+            //TONKHO_HOPLONG HHTon = new TONKHO_HOPLONG();
+            //HH_NHOM_VTHH NhomHang = new HH_NHOM_VTHH();
+            if (kho_xuatkho.ChiTietPX != null && kho_xuatkho.ChiTietPX.Count > 0)
+            {
+                foreach (ChiTietPhieuXuatKho item in kho_xuatkho.ChiTietPX)
+                {
+                    var newItem = db.KHO_CT_XUAT_KHO.Where(x => x.SO_CHUNG_TU == xk.SO_CHUNG_TU).FirstOrDefault();
+                    int sl_cu = newItem.SO_LUONG;
+                    if (newItem != null)
+                    {
+                        newItem.SO_CHUNG_TU = xk.SO_CHUNG_TU;
+                        newItem.MA_HANG = item.MA_HANG;
+                        newItem.TK_CO = item.TK_CO;
+                        newItem.TK_NO = item.TK_NO;
+                        newItem.DVT = item.DVT;
+                        newItem.DON_GIA_BAN = Convert.ToDecimal(item.DON_GIA_BAN);
+                        newItem.DON_GIA_VON = Convert.ToDecimal(item.DON_GIA_VON);
+                        newItem.SO_LUONG = Convert.ToInt32(item.SO_LUONG);
+                        newItem.THANH_TIEN = newItem.DON_GIA_BAN * newItem.SO_LUONG;
+                        tongtien += newItem.THANH_TIEN;
+                        newItem.TK_KHO = item.TK_KHO;
+                    }
+
+                    //Cập nhật hàng tồn
+                    TONKHO_HOPLONG newHangTon = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG).FirstOrDefault();
+                    newHangTon.SL_HOPLONG = newHangTon.SL_HOPLONG + sl_cu;
+                    if (newHangTon == null || newHangTon.SL_HOPLONG < item.SO_LUONG)
+                    {
+                        return BadRequest("Hàng không có trong kho hoặc SL tồn không đủ");
+                    }
+                    else
+                        newHangTon.SL_HOPLONG -= Convert.ToInt32(item.SO_LUONG);
+                    //if (newHangTon == null)
+                    //{
+                    //    db.TONKHO_HOPLONG.Add(newHangTon);
+                    //}
+                    ////Cập nhật nhóm hàng
+                    //TONKHO_HANG hangton = NhomHang.GetNhomHang(item.MA_HANG);
+                    //if (hangton != null)
+                    //{
+                    //    hangton.SL_HANG = Convert.ToInt32(item.SO_LUONG);
+                    //}
+
                 }
             }
 
             xk.TONG_TIEN = tongtien;
-          
+
 
             try
             {
@@ -137,14 +187,16 @@ namespace ERP.Web.Api.Kho
             }
             catch (DbUpdateConcurrencyException)
             {
-               
+      
                 
                     throw;
                 
+
             }
 
             return Ok(xk.SO_CHUNG_TU);
         }
+    
         public string GeneralChungTu()
         {
             Regex digitsOnly = new Regex(@"[^\d]");
@@ -191,7 +243,7 @@ namespace ERP.Web.Api.Kho
             xk.KHACH_HANG = kho_xuatkho.KHACH_HANG;
 
             xk.NGUOI_LAP_PHIEU = kho_xuatkho.NGUOI_LAP_PHIEU;
-            xk.TRUC_THUOC = kho_xuatkho.TRUC_THUOC;
+            xk.TRUC_THUOC = "HOPLONG";
 
             xk.LOAI_XUAT_KHO = kho_xuatkho.LOAI_XUAT_KHO;
             db.KHO_XUAT_KHO.Add(xk);
@@ -217,41 +269,59 @@ namespace ERP.Web.Api.Kho
                 {
                     KHO_CT_XUAT_KHO newItem = new KHO_CT_XUAT_KHO();
                     newItem.SO_CHUNG_TU = xk.SO_CHUNG_TU;
-                    newItem.MA_HANG = item.MaHang;
-                    newItem.TK_CO = item.TKCo;
-                    newItem.TK_NO = item.TKNo;
+                    newItem.MA_HANG = item.MA_HANG;
+                    newItem.TK_CO = item.TK_CO;
+                    newItem.TK_NO = item.TK_NO;
                     newItem.DVT = item.DVT;
-                    newItem.DON_GIA_BAN = Convert.ToDecimal(item.DonGia);
-                    newItem.DON_GIA_VON = Convert.ToDecimal(item.DonGiaVon);
-                    newItem.SO_LUONG = Convert.ToInt32(item.SoLuong);
+                    newItem.DON_GIA_BAN = Convert.ToDecimal(item.DON_GIA);
+                    newItem.DON_GIA_VON = Convert.ToDecimal(item.DON_GIA_VON);
+                    newItem.SO_LUONG = Convert.ToInt32(item.SO_LUONG);
                     newItem.THANH_TIEN = newItem.DON_GIA_BAN * newItem.SO_LUONG;
                     tongtien += newItem.THANH_TIEN;
-                    newItem.TK_KHO = item.TKKho;
+                    newItem.TK_KHO = item.TK_KHO;
                     db.KHO_CT_XUAT_KHO.Add(newItem);
                     //Cập nhật hàng tồn
-                    TONKHO_HOPLONG newHangTon = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MaHang).FirstOrDefault();
-                    if (newHangTon == null || newHangTon.SL_HOPLONG < item.SoLuong)
+                    TONKHO_HOPLONG newHangTon = db.TONKHO_HOPLONG.Where(x => x.MA_HANG == item.MA_HANG).FirstOrDefault();
+                    if (newHangTon == null || newHangTon.SL_HOPLONG < item.SO_LUONG)
                     {
                         return BadRequest("Hàng không có trong kho hoặc SL tồn không đủ");
                     }
-                    newHangTon.SL_HOPLONG -= Convert.ToInt32(item.SoLuong);
+                    newHangTon.SL_HOPLONG -= Convert.ToInt32(item.SO_LUONG);
                     //if (newHangTon == null)
                     //{
                     //    db.TONKHO_HOPLONG.Add(newHangTon);
                     //}
                     ////Cập nhật nhóm hàng
-                    //TONKHO_HANG hangton = NhomHang.GetNhomHang(item.MaHang);
+                    //TONKHO_HANG hangton = NhomHang.GetNhomHang(item.MA_HANG);
                     //if (hangton != null)
                     //{
-                    //    hangton.SL_HANG = Convert.ToInt32(item.SoLuong);
+                    //    hangton.SL_HANG = Convert.ToInt32(item.SO_LUONG);
                     //}
 
                 }
             }
-           
+
             xk.TONG_TIEN = tongtien;
-            db.SaveChanges();
-           
+            
+
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (KHO_XUAT_KHOExists(kho_xuatkho.SO_CHUNG_TU))
+                {
+                    return Conflict();
+                }
+                else
+
+                    throw;
+
+            }
+
+
             return Ok(xk.SO_CHUNG_TU);
             //try
             //{

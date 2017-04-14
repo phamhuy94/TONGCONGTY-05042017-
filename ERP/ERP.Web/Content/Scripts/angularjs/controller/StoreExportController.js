@@ -9,8 +9,14 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
     }, function (start, end, label) {
         $(this).val($(this).val);
     });
-    //$scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
-    //$scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
+
+    $rootScope.PageSetting = {
+        PageCount: 0,
+        NumberPerPage: 10,
+        CurrentPage: 1
+    }
+    $scope.numPerPage = angular.copy($rootScope.PageSetting.NumberPerPage);
+    $scope.currentPage = angular.copy($rootScope.PageSetting.CurrentPage);
     $scope.NhanVien = [];
     $scope.GiaTriThamChieu = [];
     $scope.LoaiChungTu = null;
@@ -159,7 +165,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
 
 
     }
-    
+
     Init();
     //End Init all data
 
@@ -302,33 +308,31 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         if (CheckSearchThamChieu() == false) {
             return;
         }
-        
         if ($scope.LoaiChungTu == 1) {
             var data = {
                 GiaTriChungTu: $scope.GiaTriLoaiChungTu,
                 FromTime: $scope.ThamChieu.From,
                 ToTime: $scope.ThamChieu.To
-                
-            }
-         
-                $http.post('/api/Api_XuatNhapKho/SearchByTypeWithDate',data)
-                .then(function (response) {
-                    console.log(response);
-                    if (typeof (response.data) == "object") {
-                        $scope.ThamChieu.ListResult = response.data;
-                        if ($scope.ThamChieu.ListResult.length == 0) {
-                            Norecord();
-                        }
-                    }
-                    else {
-                        ErrorSystem();
-                    }
-                }, function (error) {
-                    ConnectFail();
-                });
 
-            
-           
+
+            }
+
+            $http.post('/api/Api_XuatNhapKho/SearchByTypeWithDate', data)
+            .then(function (response) {
+                console.log(response);
+                if (typeof (response.data) == "object") {
+                    $scope.ThamChieu.ListResult = response.data;
+                    if ($scope.ThamChieu.ListResult.length == 0) {
+                        Norecord();
+                    }
+                }
+                else {
+                    ErrorSystem();
+                }
+            }, function (error) {
+                ConnectFail();
+            });
+
 
 
             //$http({
@@ -471,20 +475,23 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
             $(".tableselect").css({ "display": "none" });
         }
     }
+
     $scope.SelectDataNhanVien = function (item) {
-        $scope.GeneralInfo.NhanVienBanHang = item.USERNAME;
+        $scope.GeneralInfo.NhanVienBanHang = item.HO_VA_TEN;
+        $(".tableselect").css({ "display": "none" });
     }
+    
     $scope.AddNew = function () {
         $scope.Detail.ListAdd.push({
-            MaHang: null,
-            TenHang: null,
-            TKKho: null,
-            DonGia: null,
-            SoLuong: null,
+            MA_HANG: null,
+            TEN_HANG: null,
+            TK_KHO: null,
+            DON_GIA: null,
+            SO_LUONG: null,
             DVT: null,
-            TKNo: null,
-            TKCo: null,
-            DonGiaVon: null
+            TK_NO: null,
+            TK_CO: null,
+            DON_GIA_VON: null
         });
     }
     $scope.ShowHangHoa = function (index) {
@@ -497,8 +504,8 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         }
     }
     $scope.SelectHangHoa = function (index, childIndex) {
-        $scope.Detail.ListAdd[index].MaHang = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
-        $scope.Detail.ListAdd[index].TenHang = $scope.Detail.ListHangHoa[childIndex].TEN_HANG;
+        $scope.Detail.ListAdd[index].MA_HANG = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
+        $scope.Detail.ListAdd[index].TEN_HANG = $scope.Detail.ListHangHoa[childIndex].TEN_HANG;
         $scope.Detail.ListAdd[index].SearchHang = $scope.Detail.ListHangHoa[childIndex].MA_HANG;
         $scope.Detail.ListAdd[index].KhoList = $scope.Detail.ListHangHoa[childIndex].KHO;
         $(".tableselect").css({ "display": "none" });
@@ -513,10 +520,6 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
             $(".tableselect").css({ "display": "none" });
         }
     };
-    $scope.SelectKho = function (index, item, kho) {
-        item.Kho = kho.MA_KHO;
-        $(".tableselect").css({ "display": "none" });
-    };
 
     $scope.ShowTaiKhoanCo = function (index) {
         if ($("#DataTaiKhoanCo" + index).css("display") == "none") {
@@ -528,7 +531,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         }
     };
     $scope.SelectTKCo = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TKCo = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+        $scope.Detail.ListAdd[index].TK_CO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
         $(".tableselect").css({ "display": "none" });
     };
     $scope.ShowTaiKhoanNo = function (index) {
@@ -541,7 +544,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         }
     };
     $scope.SelectTKNo = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TKNo = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+        $scope.Detail.ListAdd[index].TK_NO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
         $("#DataTaiKhoanNo" + index).css({ "display": "none" });
     };
 
@@ -555,7 +558,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         }
     };
     $scope.SelectTKKho = function (index, tkindex) {
-        $scope.Detail.ListAdd[index].TKKho = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
+        $scope.Detail.ListAdd[index].TK_KHO = $scope.Detail.ListTaiKhoan[tkindex].SO_TK;
         $(".tableselect").css({ "display": "none" });
     };
     function ResetAfterSave() {
@@ -596,7 +599,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         var check = true;
         $scope.GeneralInfo.NgayChungTu = $("#GeneralInfo_NgayChungTu").val();
         $scope.GeneralInfo.NgayHachToan = $("#GeneralInfo_NgayHachToan").val();
-        if ($scope.GeneralInfo.NhanVienBanHang == null && $scope.StoreType==1) {
+        if ($scope.GeneralInfo.NhanVienBanHang == null && $scope.StoreType == 1) {
             $scope.ValidateGeneral.NhanVienBanHang = false;
             check = false;
         } else {
@@ -690,8 +693,7 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
         $scope.GeneralInfo.NguoiNhan = item.MA_DOI_TUONG;
         $scope.GeneralInfo.TenDoiTuong = item.TEN_DOI_TUONG;
     }
-    $scope.ChangeType=function()
-    {
+    $scope.ChangeType = function () {
 
     }
 
@@ -714,8 +716,8 @@ app.controller('StoreExportController', function ($rootScope, $scope, $http, con
     //button add check
     $scope.check = function (mahang, tenhang) {
         $scope.Detail.ListAdd.push({
-            MaHang: mahang,
-            TenHang: tenhang,
+            MA_HANG: mahang,
+            TEN_HANG: tenhang,
         });
     }
     //End Tìm Kiếm Thông Tin hàng Hóa

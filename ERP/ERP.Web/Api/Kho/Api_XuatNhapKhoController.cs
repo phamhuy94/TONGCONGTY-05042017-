@@ -18,6 +18,8 @@ namespace ERP.Web.Api.Kho
         List<GetChungTuFromDoiTuong_Result> resultDoiTuong = new List<GetChungTuFromDoiTuong_Result>();
         List<GetChungTu_ByMa_Result> resulByMa = new List<GetChungTu_ByMa_Result>();
         List<GetAll_DS_PhieuXuatKho_Result> resultDSXuatKho = new List<GetAll_DS_PhieuXuatKho_Result>();
+        List<GetChungTuTra_Result> resultCTTra = new List<GetChungTuTra_Result>();
+        List<GetChungTuTra_ByKhachHang_Result> resultCTTraByKhach = new List<GetChungTuTra_ByKhachHang_Result>();
 
         #region "SearchByType"
 
@@ -33,10 +35,18 @@ namespace ERP.Web.Api.Kho
             public string tungay { get; set; }
             public string denngay { get; set; }
         }
+        public class DataCTByKH
+        {
+            public string makh { get; set; }
+            public string tungay { get; set; }
+            public string denngay { get; set; }
+        }
         [Route("api/Api_XuatNhapKho/SearchByTypeWithDate")]
         public List<Search_SearchByType_Result> SearchByTypeWithDate(DataCondition data)
         {
+
             if(data.ToTime == "" && data.FromTime =="")
+
             {
                 var query = db.Database.SqlQuery<Search_SearchByType_Result>("Search_SearchByType @LoaiChungTu,@macongty", new SqlParameter("LoaiChungTu", data.GiaTriChungTu), new SqlParameter("macongty", "HOPLONG"));
                 result = query.ToList();
@@ -87,7 +97,7 @@ namespace ERP.Web.Api.Kho
             resulByMa = query.ToList();
             return resulByMa;
         }
-        
+
         #endregion
 
 
@@ -97,10 +107,10 @@ namespace ERP.Web.Api.Kho
         public List<GetAllDoiTuong_Result> GetAllDoiTuong()
         {
 
-           
-                var query = db.Database.SqlQuery<GetAllDoiTuong_Result>("GetAllDoiTuong @macongty", new SqlParameter("macongty", "HOPLONG"));
-            var    resultAllDT = query.ToList();
-            
+
+            var query = db.Database.SqlQuery<GetAllDoiTuong_Result>("GetAllDoiTuong @macongty", new SqlParameter("macongty", "HOPLONG"));
+            var resultAllDT = query.ToList();
+
             return resultAllDT;
         }
         #endregion
@@ -111,10 +121,11 @@ namespace ERP.Web.Api.Kho
         [Route("api/Api_XuatNhapKho/GetAllDSPhieuXuatKho")]
         public List<GetAll_DS_PhieuXuatKho_Result> GetAllDSPhieuXuatKho(DataDSXuatKho data)
         {
-           
+
                 string FromDate = data.tungay;
                 string ToDate = data.denngay;
                 var query = db.Database.SqlQuery<GetAll_DS_PhieuXuatKho_Result>("GetAll_DS_PhieuXuatKho @tungay,@denngay, @macongty", new SqlParameter("tungay", FromDate), new SqlParameter("denngay", ToDate), new SqlParameter("macongty", "HOPLONG"));
+
             //var resultDSXuatKho = query.ToList();
 
 
@@ -122,6 +133,42 @@ namespace ERP.Web.Api.Kho
             return query.ToList();
         }
         #endregion
+
+        #region "Get Chứng Từ trả"
+
+        [Route("api/Api_XuatNhapKho/GetCTTra")]
+        public List<GetChungTuTra_Result> GetCTTra()
+        {
+            var query = db.Database.SqlQuery<GetChungTuTra_Result>("GetChungTuTra");
+            resultCTTra = query.ToList();
+            return resultCTTra;
+        }
+
+        #endregion
+
+        #region "Get Chứng Từ trả theo khách hàng"
+        [HttpPost]
+        [Route("api/Api_XuatNhapKho/GetCTTraByKhach")]
+        public List<GetChungTuTra_ByKhachHang_Result> GetCTTraByKhach(DataCTByKH data)
+        {
+            if (data.tungay == "" && data.denngay == "")
+            {
+                var query = db.Database.SqlQuery<GetChungTuTra_ByKhachHang_Result>("GetChungTuTra_ByKhachHang @makhachhang", new SqlParameter("makhachhang", data.makh));
+                resultCTTraByKhach = query.ToList();
+            }
+            else
+            {
+                DateTime FromDate = xlnt.Xulydatetime(data.tungay);
+                DateTime ToDate = xlnt.Xulydatetime(data.denngay);
+                var query = db.Database.SqlQuery<GetChungTuTra_ByKhachHang_Result>("GetChungTuTra_ByKhachHangWithDate @makhachhang,@tungay,@denngay", new SqlParameter("makhachhang", data.makh), new SqlParameter("tungay", FromDate), new SqlParameter("denngay", ToDate));
+                resultCTTraByKhach = query.ToList();
+            }
+            return resultCTTraByKhach;
+        }
+
+        #endregion
+
+        
     }
 
 }

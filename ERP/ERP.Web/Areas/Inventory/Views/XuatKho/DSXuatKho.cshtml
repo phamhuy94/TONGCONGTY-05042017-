@@ -1,11 +1,14 @@
 ﻿@*<link href="~/Content/assets/css/components.css" rel="stylesheet" />*@
 
-<script src="~/Content/self-writing/pnotify.custom.min.js"></script>
+<link href="~/Content/self-writing/css/Kho/common.css" rel="stylesheet" />
+<link href="~/Content/self-writing/css/Kho/site.css" rel="stylesheet" />
+<script src="~/Content/download/pnotify.custom.min.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/pages/form_bootstrap_select.js"></script>
 <script src="~/Content/Scripts/angularjs/controller/DSXuatKhoController.js"></script>
-<script src="~/Content/self-writing/js/date_directive.js"></script>
-<div ng-app="app" ng-controller="DSPhieuXuatKhoController" >
+<script src="~/Content/self-writing/js/Service.js"></script>
+<div ng-app="app" ng-controller="DSPhieuXuatKhoController">
+
     <div class="content">
         <div class="phieuthu padding10 borderRadius3 border">
             <div class="head clearfix paddingTB10">
@@ -30,7 +33,9 @@
             </div>
             <br>
             <div class="table-responsive">
+
                 <table class="table table-striped table-hover table-bordered" >
+
                     <thead class="bg-blue text-white">
                         <tr>
                             <th>Ngày hạch toán</th>
@@ -51,7 +56,6 @@
                             <td class="text-left" data-toggle="modal" data-target="#updatephieuxuatkho">{{DSPhieuXuatKho.TONG_TIEN}}</td>
                             <td class="text-left" data-toggle="modal" data-target="#updatephieuxuatkho">{{DSPhieuXuatKho.LY_DO_XUAT}}</td>
                             <td class="text-left" data-toggle="modal" data-target="#updatephieuxuatkho">{{DSPhieuXuatKho.LOAI_XUAT_KHO}}</td>
-                       
 
                         </tr>
                     </tbody>
@@ -85,10 +89,11 @@
                                     <div class="form-group">
                                         <label class="control-label col-lg-2" style="font-weight:bold; font-size:16px">Phiếu xuất kho</label>
                                         <div class="col-lg-3">
-                                            <select name="select" class="form-control" ng-model="item.LOAI_XUAT_KHO" ng-change="ChangeType()" 
-                                                    data-ng-options="item as item for item in phieuxuatkho">
-                                                
-                                            </select>
+
+                                            <select name="select" class="form-control" ng-model="item.LOAI_XUAT_KHO" ng-change="ChangeType()"
+                                                    data-ng-options="item as item for item in phieuxuatkho"></select>
+
+          
                                         </div>
                                     </div>
                                 </form>
@@ -120,7 +125,7 @@
                                                         <div class="has-feedback">
                                                             <input type="text" ng-model="item.DOI_TUONG" class="form-control showtableselect" readonly>
                                                         </div>
-                                       
+
                                                         <label id="basic-error" class="validation-error-label" ng-if="ValidateGeneral.NguoiGiaoHang == false" for="basic">Trường này không được để trống</label>
                                                     </div>
                                                     <div class="col-lg-4" ng-if="item.LOAI_XUAT_KHO == 'Sản xuất'">
@@ -130,7 +135,9 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-lg-3">Địa chỉ</label>
                                                     <div class="col-lg-9">
-                                                        <input type="text" ng-model="item.DIA_CHI" class="form-control" >
+
+                                                        <input type="text" ng-model="item.DIA_CHI" class="form-control">
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -165,7 +172,9 @@
                                                     <div class="col-lg-8">
                                                         <input type="hidden" value="@Session["USERNAME"]" id="username" />
                                                         <input type="hidden" value="@Session["MA_CONG_TY"]" id="macongty" />
-                                                        <div class="bootstrap-tagsinput"><span class="tag label label-info"  ng-repeat="item in ThamChieu.ListSelect ">{{item.SO_CHUNG_TU}}<span data-role="remove" ng-click="RemoveThamChieu($index) "></span></span> <input style="border: none !important" type="text" ></div>
+
+                                                        <div class="bootstrap-tagsinput"><span class="tag label label-info" ng-repeat="item in ThamChieu.ListSelect ">{{item.SO_CHUNG_TU}}<span data-role="remove" ng-click="RemoveThamChieu($index) "></span></span> <input style="border: none !important" type="text"></div>
+
                                                     </div>
                                                     <div class="col-lg-1">
                                                         <a data-toggle="modal" data-target="#modal_theme_primary"><i class="icon-search4"></i></a>
@@ -186,7 +195,9 @@
                                                     <label class="control-label col-lg-4">Ngày hạch toán</label>
                                                     <div class="col-lg-8">
                                                         <div class="form-group has-feedback">
-                                                            <input type="text" datepicker ng-model="item.NGAY_HACH_TOAN" class="form-control datetimepicker"  readonly>
+
+                                                            <input type="text" datepicker ng-model="item.NGAY_HACH_TOAN" class="form-control datetimepicker" readonly>
+
                                                             <div class="form-control-feedback">
                                                                 <i class="icon-calendar"></i>
                                                             </div>
@@ -427,7 +438,9 @@
 
     .bootstrap-tagsinput {
 
+
     border: 1px solid #00BFFF !important;
     border-radius: 5px !important;
 }
+
 </style>

@@ -20,8 +20,7 @@ namespace ERP.Web.Models.Database
             this.BH_BAO_GIA = new HashSet<BH_BAO_GIA>();
 <<<<<<< HEAD
 =======
-            this.BH_DON_HANG_DU_KIEN = new HashSet<BH_DON_HANG_DU_KIEN>();
-            this.KH_SALES_PHU_TRACH = new HashSet<KH_SALES_PHU_TRACH>();
+
 >>>>>>> origin/master
             this.BH_DON_HANG_DU_KIEN = new HashSet<BH_DON_HANG_DU_KIEN>();
             this.KH_SALES_PHU_TRACH = new HashSet<KH_SALES_PHU_TRACH>();
