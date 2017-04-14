@@ -33,6 +33,7 @@ namespace ERP.Web.Areas.HopLong.Api.HeThong
                 THANH_TICH_CONG_TAC = x.THANH_TICH_CONG_TAC,
                 TRINH_DO_HOC_VAN = x.TRINH_DO_HOC_VAN,
                 MA_PHONG_BAN = x.MA_PHONG_BAN,
+                LINH_VUC_CONG_TAC = x.LINH_VUC_CONG_TAC,
             }).ToList();
             return result;
         }
@@ -46,7 +47,7 @@ namespace ERP.Web.Areas.HopLong.Api.HeThong
                          join t2 in db.HT_NGUOI_DUNG on t1.USERNAME equals t2.USERNAME
                          join t3 in db.CCTC_PHONG_BAN on t1.MA_PHONG_BAN equals t3.MA_PHONG_BAN
 
-                         select new { t1.USERNAME, t1.GIOI_TINH, t1.NGAY_SINH, t1.CHUC_VU, t1.QUE_QUAN, t1.THANH_TICH_CONG_TAC, t1.TRINH_DO_HOC_VAN, t2.HO_VA_TEN, t2.EMAIL, t2.SDT, t2.AVATAR, t3.TEN_PHONG_BAN, t1.MA_PHONG_BAN });
+                         select new { t1.LINH_VUC_CONG_TAC,t1.USERNAME, t1.GIOI_TINH, t1.NGAY_SINH, t1.CHUC_VU, t1.QUE_QUAN, t1.THANH_TICH_CONG_TAC, t1.TRINH_DO_HOC_VAN, t2.HO_VA_TEN, t2.EMAIL, t2.SDT, t2.AVATAR, t3.TEN_PHONG_BAN, t1.MA_PHONG_BAN });
 
 
             var result = vData.ToList().Select(x => new NguoiDungPhongBan()
@@ -63,7 +64,8 @@ namespace ERP.Web.Areas.HopLong.Api.HeThong
                 AVATAR = x.AVATAR,
                 TEN_PHONG_BAN = x.TEN_PHONG_BAN,
                 USERNAME = x.USERNAME,
-                MA_PHONG_BAN = x.MA_PHONG_BAN
+                MA_PHONG_BAN = x.MA_PHONG_BAN,
+                LINH_VUC_CONG_TAC = x.LINH_VUC_CONG_TAC,
             }).ToList();
             return result;
         }
@@ -104,6 +106,7 @@ namespace ERP.Web.Areas.HopLong.Api.HeThong
             nv.NGAY_SINH = xlnt.Xulydatetime(nhanvien.NGAY_SINH);
             nv.QUE_QUAN = nhanvien.QUE_QUAN;
             nv.THANH_TICH_CONG_TAC = nhanvien.THANH_TICH_CONG_TAC;
+            nv.LINH_VUC_CONG_TAC = nhanvien.LINH_VUC_CONG_TAC;
             nv.TRINH_DO_HOC_VAN = nhanvien.TRINH_DO_HOC_VAN;
             nv.MA_PHONG_BAN = nhanvien.MA_PHONG_BAN;
             db.Entry(nv).State = EntityState.Modified;
@@ -146,7 +149,7 @@ namespace ERP.Web.Areas.HopLong.Api.HeThong
             nv.THANH_TICH_CONG_TAC = nhanvien.THANH_TICH_CONG_TAC;
             nv.TRINH_DO_HOC_VAN = nhanvien.TRINH_DO_HOC_VAN;
             nv.MA_PHONG_BAN = nhanvien.MA_PHONG_BAN;
-
+            nv.LINH_VUC_CONG_TAC = nhanvien.LINH_VUC_CONG_TAC;
             db.CCTC_NHAN_VIEN.Add(nv);
 
             try

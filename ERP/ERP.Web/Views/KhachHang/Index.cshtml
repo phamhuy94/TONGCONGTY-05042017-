@@ -23,6 +23,7 @@
     }
 </style>
 <div ng-app="myApp" ng-controller="khachhangCtrl">
+    <input type="button" onclick="location.href='/KinhDoanh/Donhangdukien';" value="Đơn hàng dự kiến" />
     <div class="content">
         <input type="hidden" id="salehienthoi" name="salehienthoi" value="@Session["USERNAME"]" />
 
@@ -228,8 +229,7 @@
                                                 <th style="text-align: center">Skype</th>
                                                 <th style="text-align: center">Facebook</th>
                                                 <th style="text-align: center">Sale phụ trách</th>
-                                                <th style="text-align: center">Sales Mới</th>
-                                                <th style="text-align: center">Sales Cũ</th>
+                                                <th style="text-align: center">Tình trạng làm việc</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -264,10 +264,7 @@
                                                     </md-input-container>
                                                 </td>
                                                 <td>
-                                                    <input type="checkbox" ng-model="arraylienhe[$index].sales_moi"/>
-                                                </td>
-                                                <td>
-                                                    <input type="checkbox" ng-model="arraylienhe[$index].sales_cu" />
+                                                    <select ng-model="arraylienhe[$index].tinh_trang_lam_viec" id="adddieukhoanthanhtoan" style="height: 27px;padding-left: 5px;width:100%" data-ng-options="item as item for item in tinh_trang"></select>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -403,7 +400,7 @@
                                         <label class="col-md-12">Ghi chú</label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <textarea id="editghichu" name="editghichu"  class="form-control input-md" ng-model="kh.GHI_CHU"></textarea>
+                                        <textarea id="editghichu" name="editghichu" class="form-control input-md" ng-model="kh.GHI_CHU"></textarea>
                                     </div>
                                 </div>
                                 <script>
@@ -461,9 +458,8 @@
                                         <td>{{lienhe.EMAIL_CONG_TY}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Loại sales:</td>
-                                        <td ng-if="lienhe.SALES_MOI == true">Sales Mới</td>
-                                        <td ng-if="lienhe.SALES_CU == true">Sales Cũ</td>
+                                        <td>Tình trạng làm việc</td>
+                                        <td>{{lienhe.TINH_TRANG_LAM_VIEC}}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -528,7 +524,7 @@
                         <div class="form-group">
                             <label for="addtencongty" class="col-sm-2 control-label">Người liên hệ</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control"  id="addtencongty" ng-model="editlh.NGUOI_LIEN_HE">
+                                <input type="text" class="form-control" id="addtencongty" ng-model="editlh.NGUOI_LIEN_HE">
                             </div>
                         </div>
                         <div class="form-group">
@@ -586,15 +582,15 @@
                                     <option ng-repeat="abc in list_nhanvienkd" value="{{abc.USERNAME}}">{{abc.HO_VA_TEN}}</option>
                                 </select>
                             </div>
-                            @*<label class="col-sm-1 control-label">Sales cũ</label>
-                            <div class="col-sm-1">
-                                <input type="checkbox" id="addemail" ng-model="editlh.SALES_CU">
+
+                            <label class="col-sm-2 control-label">Tình trạng làm việc</label>
+                            <div class="col-md-4">
+                                <select ng-model="editlh.TINH_TRANG_LAM_VIEC" style="height: 27px;padding-left: 5px;width:100%" data-ng-options="item as item for item in tinh_trang"></select>
                             </div>
-                            <label class="col-sm-1 control-label">Sales mới</label>
-                            <div class="col-sm-1">
-                                <input type="checkbox" id="addemail" ng-model="editlh.SALES_MOI">
-                            </div>*@
+                           
+
                             <label class="col-sm-1 control-label">Sale còn phụ trách? </label>
+
                             <div class="col-sm-1">
                                 <input type="checkbox" id="addemail" ng-model="editlh.TRANG_THAI">
                             </div>
@@ -767,24 +763,13 @@
                                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newtaikhoan">Thêm mới</button>
                                     </div>
                                     <div id="phanhoikhachhang" class="tab-pane fade">
-                                        <div class="col-md-12" ng-repeat="khachphanhoi in list_phanhoi" style="border: 1px solid black;margin: 10px 0px;">
-                                            <div class="col-md-3" style="border-right: 1px solid black">
-                                                <div class="col-md-12">
-                                                   <p>{{khachphanhoi.NGAY_PHAN_HOI}}</p> 
-                                                </div>
-                                               
-                                            </div>
-                                            <div class="col-md-3" style="border-right: 1px solid black">
-                                                <div class="col-md-12">
-                                                    <p>{{khachphanhoi.HO_VA_TEN}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="col-md-12">
-                                                    <p  ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe"></p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <table class="table" ng-repeat="khachphanhoi in list_phanhoi">
+                                            <tr>
+                                                <td style="width: 10%;border: 1px solid black">{{khachphanhoi.NGAY_PHAN_HOI}}</td>
+                                                <td style="width: 20%;border: 1px solid black">{{khachphanhoi.HO_VA_TEN}}</td>
+                                                <td  ng-bind-html="khachphanhoi.THONG_TIN_PHAN_HOI | unsafe" style="width: 69%;border: 1px solid black"></td>
+                                            </tr>
+                                        </table>
                                         <button type="button" ng-click="transfer(item)" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#newphanhoi">Thêm mới</button>
                                     </div>
                                 </div>
@@ -884,13 +869,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <label class="col-sm-1 control-label">Sales mới</label>
-                            <div class="col-sm-1">
-                                <input type="checkbox"  id="addemail" ng-model="sales_moi">
-                            </div>
-                            <label class="col-sm-1 control-label">Sales cũ</label>
-                            <div class="col-sm-1">
-                                <input type="checkbox"  id="addemail" ng-model="sales_cu">
+                            <label class="col-sm-2 control-label">Tình trạng làm việc</label>
+                            <div class="col-sm-3">
+                                <select ng-model="tinh_trang_lam_viec" id="adddieukhoanthanhtoan" style="height: 27px;padding-left: 5px;width:100%" data-ng-options="item as item for item in tinh_trang"></select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -983,7 +964,7 @@
         </div>
         <!--end modal-->
 
-        <!-- Modal thêm mới tài khoản -->
+        <!-- Modal thêm mới phản hồi -->
         <div class="modal fade" id="newphanhoi" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">

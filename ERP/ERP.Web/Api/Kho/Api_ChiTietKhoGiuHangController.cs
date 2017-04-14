@@ -29,14 +29,26 @@ namespace ERP.Web.Api.Kho
                          where t1.MA_GIU_KHO == ma_giu_kho
                          select new
                          {
+                             t2.ID,
+                             t2.DVT,
+                             t2.XUAT_XU,
+                             t2.THANH_TIEN,
+                             t2.DON_GIA,
                              t2.MA_HANG,
                              t2.SL_GIU,
                              t2.NGAY_XUAT,
                              t2.DA_XUAT,
-                             t2.GHI_CHU
+                             t2.GHI_CHU,
+                             t2.MA_GIU_KHO
                          });
             var result = vData.ToList().Select(x => new Khogiuhang()
             {
+                ID = x.ID,
+                DVT = x.DVT,
+                MA_GIU_KHO = x.MA_GIU_KHO,
+                THANH_TIEN = x.THANH_TIEN,
+                DON_GIA = x.DON_GIA,
+                XUAT_XU = x.XUAT_XU,
                 MA_HANG = x.MA_HANG,
                 SL_GIU = x.SL_GIU,
                 NGAY_XUAT = x.NGAY_XUAT.ToString(),
@@ -61,6 +73,7 @@ namespace ERP.Web.Api.Kho
 
         // PUT: api/Api_ChiTietKhoGiuHang/5
         [ResponseType(typeof(void))]
+        [Route("api/Api_ChiTietKhoGiuHang/PutKHO_CT_GIU_HANG/{id}")]
         public IHttpActionResult PutKHO_CT_GIU_HANG(int id, KHO_CT_GIU_HANG kHO_CT_GIU_HANG)
         {
             if (!ModelState.IsValid)

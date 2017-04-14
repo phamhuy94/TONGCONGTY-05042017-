@@ -15,5 +15,6 @@ namespace ERP.Web.Models.NewModels
         public string MA_PHONG_BAN { set; get; }
 
         public string THANH_TICH_CONG_TAC { set; get; }
+        public string LINH_VUC_CONG_TAC { set; get; }
     }
 }

@@ -41,7 +41,8 @@ namespace ERP.Web.Api.KhachHang
                              t1.SDT1,
                              t1.SDT2,
                              t1.GHI_CHU,
-                             t1.FACEBOOK
+                             t1.FACEBOOK,
+                             t1.TINH_TRANG_LAM_VIEC
                          ,
                              t2.ID,
                              t2.ID_LIEN_HE,
@@ -68,6 +69,7 @@ namespace ERP.Web.Api.KhachHang
                 EMAIL_CONG_TY = x.EMAIL_CONG_TY,
                 SKYPE = x.SKYPE,
                 FACEBOOK = x.FACEBOOK,
+                TINH_TRANG_LAM_VIEC = x.TINH_TRANG_LAM_VIEC,
                 SDT1 = x.SDT1,
                 SDT2 = x.SDT2,
                 GHI_CHU = x.GHI_CHU,
@@ -142,6 +144,7 @@ namespace ERP.Web.Api.KhachHang
             lienhe.GHI_CHU = lh.GHI_CHU;
             lienhe.SDT1 = lh.SDT1;
             lienhe.SDT2 = lh.SDT2;
+            lienhe.TINH_TRANG_LAM_VIEC = lh.TINH_TRANG_LAM_VIEC;
             db.KH_LIEN_HE.Add(lienhe);
             db.SaveChanges();
             var query = db.KH_LIEN_HE.Where(x => x.SDT1 == lh.SDT1).ToList();

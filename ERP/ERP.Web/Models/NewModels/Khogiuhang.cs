@@ -20,11 +20,14 @@ namespace ERP.Web.Models.NewModels
         public string TRUC_THUOC { set; get; }
 
 
-
+        public int ID { set; get; }
         public string NGAY_XUAT { set; get; }
         public string MA_HANG { set; get; }
         public int SL_GIU { set; get; }
-
+        public string DVT { set; get; }
+        public string XUAT_XU { set; get; }
+        public decimal DON_GIA { set; get; }
+        public decimal THANH_TIEN { set; get; }
         public bool DA_XUAT { set; get; }
         public string GHI_CHU { set; get; }
        

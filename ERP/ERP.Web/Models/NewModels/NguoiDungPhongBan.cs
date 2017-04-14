@@ -21,7 +21,7 @@ namespace ERP.Web.Areas.HopLong.Models
         public string CHUC_VU { set; get; }
         public string TEN_PHONG_BAN { set; get; }
         public string USERNAME { get; set; }
-
+        public string LINH_VUC_CONG_TAC { set; get; }
         public string MA_PHONG_BAN { set; get; }
     }
 }

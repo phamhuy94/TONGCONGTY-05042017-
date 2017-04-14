@@ -32,5 +32,7 @@ namespace ERP.Web.Models.NewModels
         public string NGUOI_PHAN_HOI { set; get; }
         public string NGAY_PHAN_HOI { set; get; }
         public string THONG_TIN_PHAN_HOI { set; get; }
+        public string TINH_TRANG_HOAT_DONG { set; get; }
+        public string SALES_TAO { set; get; }
     }
 }

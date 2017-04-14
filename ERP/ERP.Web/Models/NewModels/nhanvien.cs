@@ -29,5 +29,6 @@ namespace ERP.Web.Models.NewModels
         public string MA_CONG_TY { set; get; }
        public bool? IS_ADMIN { set; get; }
         public bool ALLOWED { set; get; }
+        public string LINH_VUC_CONG_TAC { set; get; }
     }
 }

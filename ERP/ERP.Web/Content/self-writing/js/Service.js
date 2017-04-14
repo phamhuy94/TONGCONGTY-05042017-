@@ -550,8 +550,8 @@ app.service('MausohoadonService', function ($http) {
 
 // Đơn hàng dự kiến
 app.service('DonhangdukienService', function ($http) {
-    this.get_donhangdukien = function () {
-        return $http.get("/api/Api_Donhangdukien").then(function (response) {
+    this.get_donhangdukien = function (username) {
+        return $http.post("/api/Api_Donhangdukien/LocDonDuKien/" + username).then(function (response) {
             return response.data;
         });
     }
@@ -841,6 +841,11 @@ app.service('khachhangService', function ($http) {
         return $http.post('/api/Api_PhanLoaiKH/XuLyChyenSale', data_save);
     };
 
+    this.chitietkhachhang = function (makh) {
+        return $http.get('/api/Api_KH/GetCT_KH/' + makh).then(function (response) {
+            return response.data;
+        });
+    };
 });
 //end khach hang
 
@@ -949,5 +954,9 @@ app.service('khogiuhangService', function ($http) {
 
     this.save_khogiuhang = function (magiukho, data_save) {
         return $http.put('/api/Api_KhoGiuHang/' + magiukho, data_save);
+    };
+
+    this.save_ct_khogiuhang = function (id,data) {
+        return $http.put('/api/Api_ChiTietKhoGiuHang/PutKHO_CT_GIU_HANG/' + id, data);
     };
 });

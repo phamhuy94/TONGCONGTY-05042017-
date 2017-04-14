@@ -63,16 +63,13 @@ namespace ERP.Web.Api.HeThong
 
 
         // GET: api/Api_KH/5
-        [ResponseType(typeof(KH))]
-        public IHttpActionResult GetKH(string id)
-        {
-            KH kH = db.KHs.Find(id);
-            if (kH == null)
-            {
-                return NotFound();
-            }
 
-            return Ok(kH);
+        [Route("api/Api_KH/GetCT_KH/{makh}")]
+        public List<Get_ChiTiet_Tung_KhachHang_Result> GetCT_KH(string makh)
+        {
+            var query = db.Database.SqlQuery<Get_ChiTiet_Tung_KhachHang_Result>("Get_ChiTiet_Tung_KhachHang @makh,@macongty", new SqlParameter("makh", makh), new SqlParameter("macongty", "HOPLONG"));
+            var result = query.ToList();
+            return result;
         }
 
         // PUT: api/Api_KH/5

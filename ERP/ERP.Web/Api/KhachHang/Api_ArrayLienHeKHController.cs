@@ -117,6 +117,7 @@ namespace ERP.Web.Api.KhachHang
                 lienhe.GHI_CHU = item.GHI_CHU;
                 lienhe.SDT1 = item.SDT1;
                 lienhe.SDT2 = item.SDT2;
+                lienhe.TINH_TRANG_LAM_VIEC = item.TINH_TRANG_LAM_VIEC;
                 db.KH_LIEN_HE.Add(lienhe);
                 db.SaveChanges();
                 var query = db.KH_LIEN_HE.Where(x => x.SDT1 == item.SDT1).ToList();
