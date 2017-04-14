@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using ERP.Web.Controllers;
+using System.Web.SessionState;
 
 namespace ERP.Web.Security
 {
     public static class SessionPersister
     {
+        public static HttpSessionState Session = HttpContext.Current.Session;
         public static string idSession = "ID";
-        public static string userSession = "UserName";
+
+        public static string userSession = "Username";
+
         public static string nameSession = "FullName";
         public static string birthdaySession = "Birthday";
         public static string addressSession = "Address";

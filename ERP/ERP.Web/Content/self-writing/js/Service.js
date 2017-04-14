@@ -550,8 +550,8 @@ app.service('MausohoadonService', function ($http) {
 
 // Đơn hàng dự kiến
 app.service('DonhangdukienService', function ($http) {
-    this.get_donhangdukien = function () {
-        return $http.get("/api/Api_Donhangdukien").then(function (response) {
+    this.get_donhangdukien = function (username) {
+        return $http.post("/api/Api_Donhangdukien/LocDonDuKien/" + username).then(function (response) {
             return response.data;
         });
     }
@@ -560,6 +560,7 @@ app.service('DonhangdukienService', function ($http) {
             return response.data;
         });
     }
+
     this.add = function (data_add) {
         return $http.post("/api/Api_Donhangdukien", data_add);
     };
@@ -750,6 +751,7 @@ app.service('productdetailsService', function ($http) {
 });
 
 
+
 // Khach hang
 app.service('khachhangService', function ($http) {
     this.get_khachhang = function (username, tukhoa) {
@@ -772,7 +774,11 @@ app.service('khachhangService', function ($http) {
             return response.data;
         });
     };
-
+    this.get_phanhoi = function (makh) {
+        return $http.get('/api/Api_PhanHoiKhachHang/GetKhachHanghl/' + makh).then(function (response) {
+            return response.data;
+        });
+    };
     this.get_taikhoankh = function (makh) {
         return $http.get('/api/Api_TaiKhoanKH/' + makh).then(function (response) {
             return response.data;
@@ -826,8 +832,23 @@ app.service('khachhangService', function ($http) {
     this.add_saletao = function (data_add) {
         return $http.post('/api/Api_ChuyenSale', data_add);
     };
+
+    this.add_phanhoi = function (data_add) {
+        return $http.post('/api/Api_PhanHoiKhachHang', data_add);
+    };
+
+    this.save_listchuyensale = function (data_save) {
+        return $http.post('/api/Api_PhanLoaiKH/XuLyChyenSale', data_save);
+    };
+
+    this.chitietkhachhang = function (makh) {
+        return $http.get('/api/Api_KH/GetCT_KH/' + makh).then(function (response) {
+            return response.data;
+        });
+    };
 });
 //end khach hang
+
 
 // Nha cung cap
 app.service('nhacungcapService', function ($http) {
@@ -933,5 +954,9 @@ app.service('khogiuhangService', function ($http) {
 
     this.save_khogiuhang = function (magiukho, data_save) {
         return $http.put('/api/Api_KhoGiuHang/' + magiukho, data_save);
+    };
+
+    this.save_ct_khogiuhang = function (id,data) {
+        return $http.put('/api/Api_ChiTietKhoGiuHang/PutKHO_CT_GIU_HANG/' + id, data);
     };
 });

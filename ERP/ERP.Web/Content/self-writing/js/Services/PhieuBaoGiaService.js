@@ -5,7 +5,7 @@
         });
     };
     this.get_ct_phieubaogia = function (so_bao_gia) {
-        return $http.get('/api/Api_BaoGia/GetThongTinChiTiet/' + so_bao_gia).then(function (response) {
+        return $http.get('/api/Api_PhieuBaoGia/GetThongTinChiTiet/' + so_bao_gia).then(function (response) {
             return response.data;
         });
     };

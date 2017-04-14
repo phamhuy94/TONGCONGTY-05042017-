@@ -65,6 +65,12 @@
                                     <textarea id="thanhtich" name="thanhtich" placeholder="Achievements" class="form-control input-md" ng-model="thanhtich"></textarea>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label ckeditor" for="name">Lĩnh vực công tác: </label>
+                                <div class="col-md-10 ckeditor">
+                                    <textarea id="linh_vuc_cong_tac" name="linh_vuc_cong_tac" class="form-control input-md" ng-model="linh_vuc_cong_tac"></textarea>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -125,6 +131,9 @@
                                         CKEDITOR.replace('thanhtich', {
                                             height: 100
                                         });
+                                        CKEDITOR.replace('linh_vuc_cong_tac', {
+                                            height: 100
+                                        });                                        
                             </script>
                         </div>
                         <!-- Button (Double) -->
@@ -136,6 +145,147 @@
                             </div>
                         </div>
                     </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myEdit" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" style="width: 80%">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Username </label>
+                                <div class="col-md-8">
+                                    <input type="text" placeholder="Username" class="form-control input-md" ng-model="nv.USERNAME" ng-disabled="true">
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Password: </label>
+                                <div class="col-md-8">
+                                    <input type="text" placeholder="Password" class="form-control input-md" ng-model="nv.PASSWORD">
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Fullname: </label>
+                                <div class="col-md-8">
+                                    <input type="text" placeholder="Fullname" class="form-control input-md" ng-model="nv.HO_VA_TEN">
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Phone Number: </label>
+                                <div class="col-md-8">
+                                    <input type="text" placeholder="Phone Number" class="form-control input-md" ng-model="nv.SDT">
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Email </label>
+                                <div class="col-md-8">
+                                    <input type="text" placeholder="Email" class="form-control input-md" ng-model="nv.EMAIL">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label ckeditor" for="name">Thành tích: </label>
+                                <div class="col-md-10 ckeditor">
+                                    <textarea id="editthanhtich" name="editthanhtich" placeholder="Achievements" class="form-control input-md" ng-model="nv.THANH_TICH_CONG_TAC"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Company ID </label>
+                                <div class="col-md-8">
+                                    <input type="text" placeholder="Company ID" class="form-control input-md" ng-model="nv.MA_CONG_TY" ng-disabled="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" style="padding-top: 0px !important" for="name">Admin </label>
+                                <div class="col-md-3">
+                                    <input type="checkbox" ng-model="nv.IS_ADMIN">
+                                </div>
+                                <label class="col-md-3 control-label" style="padding-top: 0px !important" for="name">Allowed </label>
+                                <div class="col-md-3">
+                                    <input type="checkbox" ng-model="nv.ALLOWED">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Gender: </label>
+                                <div class="col-md-8">
+                                    <input type="text" placeholder="Gender" class="form-control input-md" ng-model="nv.GIOI_TINH">
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Birthday </label>
+                                <div class="col-md-8">
+                                    <input type="text" mask="29/19/9999" placeholder="dd/MM/yyyy" class="form-control input-md" ng-model="nv.NGAY_SINH">
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Native Place: </label>
+                                <div class="col-md-8">
+                                    <input type="text" placeholder="Native Place" class="form-control input-md" ng-model="nv.QUE_QUAN">
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Education: </label>
+                                <div class="col-md-8">
+                                    <input type="text" placeholder="Education" class="form-control input-md" ng-model="nv.TRINH_DO_HOC_VAN">
+                                </div>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Department ID </label>
+                                <div class="col-md-8">
+                                    <input type="text" placeholder="Department ID" class="form-control input-md" ng-model="nv.MA_PHONG_BAN">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label ckeditor" for="name">Lĩnh vực công tác: </label>
+                                <div class="col-md-10 ckeditor">
+                                    <textarea id="editlinh_vuc_cong_tac" name="editlinh_vuc_cong_tac" class="form-control input-md" ng-model="nv.LINH_VUC_CONG_TAC"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <form action="/Settings/NguoiDung" ng-controller="imgCtrl" method="post">
+                                    <div class="col-md-3">
+                                        @Html.AntiForgeryToken()
+                                        <input type='file' name="files" id="imgEdit" style="width: 100%" />
+                                        <input type="submit" value="Upload Ảnh cá nhân" style="margin-top: 30px;" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <img id="edit_img" src="#" height="150" width="150" />
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <script>
+                                CKEDITOR.replace('editthanhtich', {
+                                    height: 100
+                                });
+                                CKEDITOR.replace('editlinh_vuc_cong_tac', {
+                                    height: 100
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <!-- Button (Double) -->                   
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="anmelden"></label>
+                        <div class="col-md-12 addnew">
+                            <button id="addnew" name="addnew" class="btn btn-success" ng-click="save(item.USERNAME)" data-dismiss="modal">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button id="exit" name="exit" class="btn btn-danger" data-dismiss="modal">Exit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -155,138 +305,7 @@
         
         <!--end modal-->
         <!-- Modal Update -->
-        <div class="modal fade" id="myEdit" role="dialog">
-            <div class="modal-dialog modal-lg" style="width: 80%">
-                <div class="modal-content">
-
-                    <div class="modal-body">
-                            <fieldset>
-                                <!-- Form Name -->
-                                <legend>Sửa người dùng</legend>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Username </label>
-                                        <div class="col-md-8">
-                                            <input type="text" placeholder="Username" class="form-control input-md" ng-model="nv.USERNAME" ng-disabled="true">
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Password: </label>
-                                        <div class="col-md-8">
-                                            <input type="text" placeholder="Password" class="form-control input-md" ng-model="nv.PASSWORD">
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Fullname: </label>
-                                        <div class="col-md-8">
-                                            <input type="text" placeholder="Fullname" class="form-control input-md" ng-model="nv.HO_VA_TEN">
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Phone Number: </label>
-                                        <div class="col-md-8">
-                                            <input type="text" placeholder="Phone Number" class="form-control input-md" ng-model="nv.SDT">
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Email </label>
-                                        <div class="col-md-8">
-                                            <input type="text" placeholder="Email" class="form-control input-md" ng-model="nv.EMAIL">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label ckeditor" for="name">Thành tích: </label>
-                                        <div class="col-md-10 ckeditor">
-                                            <textarea id="editthanhtich" name="editthanhtich" placeholder="Achievements" class="form-control input-md" ng-model="nv.THANH_TICH_CONG_TAC"></textarea>
-                                        </div>
-                                    </div>
-                                    <script>
-                                        CKEDITOR.replace('editthanhtich', {
-                                            height: 100
-                                        });
-                                    </script>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Gender: </label>
-                                        <div class="col-md-8">
-                                            <input type="text" placeholder="Gender" class="form-control input-md" ng-model="nv.GIOI_TINH">
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Birthday </label>
-                                        <div class="col-md-8">
-                                            <input type="text" mask="29/19/9999" placeholder="dd/MM/yyyy" class="form-control input-md" ng-model="nv.NGAY_SINH">
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Native Place: </label>
-                                        <div class="col-md-8">
-                                            <input type="text" placeholder="Native Place" class="form-control input-md" ng-model="nv.QUE_QUAN">
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Education: </label>
-                                        <div class="col-md-8">
-                                            <input type="text" placeholder="Education" class="form-control input-md" ng-model="nv.TRINH_DO_HOC_VAN">
-                                        </div>
-                                    </div>
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Department ID </label>
-                                        <div class="col-md-8">
-                                            <input type="text" placeholder="Department ID" class="form-control input-md" ng-model="nv.MA_PHONG_BAN">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Company ID </label>
-                                        <div class="col-md-8">
-                                            <input type="text" placeholder="Company ID" class="form-control input-md" ng-model="nv.MA_CONG_TY" ng-disabled="true">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label" style="padding-top: 0px !important" for="name">Admin </label>
-                                        <div class="col-md-3">
-                                            <input type="checkbox" ng-model="nv.IS_ADMIN" >
-                                        </div>
-                                        <label class="col-md-3 control-label" style="padding-top: 0px !important" for="name" >Allowed </label>
-                                        <div class="col-md-3">
-                                            <input type="checkbox" ng-model="nv.ALLOWED">
-                                        </div>
-                                    </div>
-                                    <form action="/Settings/NguoiDung" ng-controller="imgCtrl" method="post">
-                                        <div class="col-md-3">
-                                            @Html.AntiForgeryToken()
-                                            <input type='file' name="files" id="imgEdit" style="width: 100%" />
-                                            <input type="submit" value="Upload Ảnh cá nhân" style="margin-top: 30px;" />
-                                        </div>
-                                        <div class="col-md-9">
-                                            <img id="edit_img" src="#" height="250" width="250" />
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- Button (Double) -->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="anmelden"></label>
-                                    <div class="col-md-12 addnew">
-                                        <button id="addnew" name="addnew" class="btn btn-success" ng-click="save(item.USERNAME)" data-dismiss="modal">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button id="exit" name="exit" class="btn btn-danger" data-dismiss="modal">Exit</button>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <br />
         <!--end modal-->
         <!-- Modal delete -->
@@ -354,9 +373,13 @@
                                 <p class="col-md-6"><b>Email:</b> {{nv.EMAIL}}</p>
                             </div>
                         </div>
+                        <div class="col-md-12">                           
+                                <h1 style="color: #097be0">Thành tích công tác</h1>
+                                <p class="{{nv.USERNAME}}-1 col-md-12" ng-bind-html="nv.THANH_TICH_CONG_TAC | unsafe" style="word-wrap:break-word"></p>                          
+                        </div>
                         <div class="col-md-12">
-                            <h1 style="color: #097be0">Thành tích công tác</h1>
-                            <p class="{{nv.USERNAME}}-1 col-md-12" ng-bind-html="nv.THANH_TICH_CONG_TAC | unsafe" style="word-wrap:break-word"></p>
+                            <h1 style="color: #097be0">Lĩnh vực công tác</h1>
+                            <p class="{{nv.USERNAME}}-2 col-md-12" ng-bind-html="nv.LINH_VUC_CONG_TAC | unsafe" style="word-wrap:break-word"></p>
                         </div>
                         <button style="float:right" class="btn  btn-circle" ng-click="update_nv(nv)" data-dismiss="modal" type="button" data-toggle="modal" data-target="#myEdit"><i class="glyphicon glyphicon-edit"></i>Sửa</button>
                     </div>

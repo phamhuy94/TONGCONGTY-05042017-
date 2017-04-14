@@ -23,146 +23,6 @@
 
 <div ng-app="myApp" ng-controller="khogiuhangCtrl">
     <div class="content">
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Add New Product</button>
-        <!-- Modal Add New -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-
-                    <div class="modal-body">
-                        <form class="form-horizontal" name="myForm" novalidate>
-                            <fieldset>
-                                <!-- Form Name -->
-                                <legend>Thêm kho giữ</legend>
-                                <!-- Text input-->
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <label class="col-md-4 control-label" for="name">Sale giữ hàng: </label>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" ng-model="nvkd.HO_VA_TEN" value="{{nvkd.HO_VA_TEN}}" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
-                                                <input type="hidden" class="form-control" ng-model="nvkd.USERNAME" ng-change="onNhanVienFind()" ng-focus="showtable_ho_va_ten = true">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_ho_va_ten = !showtable_ho_va_ten" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_ho_va_ten">
-                                                        <div class="table-responsive" style="max-height: 280px">
-                                                            <table class="table table-striped table-hover" st-pagination-scroll st-table="staffsCollection" st-safe-src="arrayNVFinded">
-                                                                <tbody>
-                                                                    <tr ng-repeat="staff in staffsCollection" style="cursor:pointer" ng-click="showInfoStaff(staff)">
-                                                                        <td>{{staff.HO_VA_TEN}}</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <label class="col-md-4 control-label" for="name">Khách hàng: </label>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" ng-model="kh.TEN_CONG_TY" ng-change="onKHFind()" ng-focus="showtable_khach_hang = true">
-                                                <input type="hidden" class="form-control" ng-model="kh.MA_KHACH_HANG" ng-change="onKHFind()" ng-focus="showtable_khach_hang = true">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="showtable_khach_hang = !showtable_khach_hang" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-center borderRadius0 padding0" style="display: block" ng-show="showtable_khach_hang">
-                                                        <div class="table-responsive" style="max-height: 280px">
-                                                            <table class="table table-striped table-hover" st-pagination-scroll st-table="KHCollection" st-safe-src="arrayKHFinded">
-                                                                <tbody>
-                                                                    <tr ng-repeat="staff in KHCollection" style="cursor:pointer" ng-click="showInfoKH(staff)">
-                                                                        <td>{{staff.TEN_CONG_TY}}</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <label class="col-md-4 control-label" for="name">Ngày giữ: </label>
-                                        <div class="col-md-4">
-                                            @*<input type="text" placeholder="Ngày giữ" mask="39/19/9999" class="form-control input-md" ng-model="ngay_giu">*@
-                                            <input type="text" datepicker class="form-control datetimepickerKT" ng-model="ngay_giu">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label" for="name">Hủy đơn giữ: </label>
-                                    <div class="col-md-1">
-                                        <input type="checkbox" ng-model="huy_don_giu" style="margin-top: 10px">
-                                    </div>
-                                    <label class="col-md-2 control-label" for="name">Đơn đang xuất: </label>
-                                    <div class="col-md-1">
-                                        <input type="checkbox" ng-model="don_dang_xuat" style="margin-top: 10px">
-                                    </div>
-                                    <label class="col-md-3 control-label" for="name">Đơn đã hoàn thành: </label>
-                                    <div class="col-md-1">
-                                        <input type="checkbox" ng-model="don_da_hoan_thanh" style="margin-top: 10px">
-                                    </div>
-                                </div>
-                                <div class="form-group" style="text-align: center;">
-                                    <input type="number" placeholder="Số lượng hàng giữ muốn nhập" id="number" />
-                                    <button ng-click="addtoshow()">Nhập</button>
-                                </div>
-                                <div class="form-group themchitiet" style="display: none;">
-                                    <div class="col-md-12">
-                                        <table class="table">
-                                            <thead class="table-header-popup" style="background-color: #d7f1f9">
-                                                <tr>
-                                                    <th style="text-align: center">Mã hàng</th>
-                                                    <th style="text-align: center">Số lượng giữ</th>
-                                                    <th style="text-align: center">Ngày xuất</th>
-                                                    <th style="text-align: center;width: 10%">Đã xuất</th>
-                                                    <th style="text-align: center">Ghi chú</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr ng-repeat="i in range(1)">
-                                                    <td>
-                                                        <input type="text" class="form-control" ng-model="arraychitiet[$index].ma_hang">
-                                                    </td>
-                                                    <td><input type="text" class="form-control" ng-model="arraychitiet[$index].so_luong_giu"></td>
-                                                    <td>
-                                                        <input type="text" datepicker class="form-control datetimepickerKT" ng-model="arraychitiet[$index].ngay_xuat">
-                                                    </td>
-                                                    <td><input type="checkbox" ng-model="arraychitiet[$index].da_xuat"></td>
-                                                    <td>
-                                                        <textarea id="ghichu" name="ghichu" placeholder="Ghi chú" class="form-control input-md" ng-model="arraychitiet[$index].ghi_chu"></textarea>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- Button (Double) -->
-                                <div class="form-group" style="padding-top: 20px;border-top: 1px solid #ddd;">
-                                    <label class="col-md-4 control-label" for="anmelden"></label>
-                                    <div class="col-md-8 addnew">
-                                        <button id="addnew" name="addnew" class="btn" ng-click="add()" data-dismiss="modal">Add New</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button id="exit" name="exit" class="btn" data-dismiss="modal">Exit</button>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--end modal-->
 
         <div class="container">
             <table class="table">
@@ -207,29 +67,70 @@
         </div>
 
         <div class="modal fade" id="chitiethanghoa" role="dialog" tabindex="-1">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
+            <div class="modal-dialog modal-lg" style="width: 90%">
+                <div class="modal-content" style="width: 100%">
 
                     <div class="modal-body">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Mã hàng</th>
+                                    <th>Đơn vị tính</th>
+                                    <th>Xuất xứ</th>
                                     <th>Số lượng giữ</th>
+                                    <th>Đơn giá</th>
+                                    <th>Thành tiền</th>
                                     <th>Ngày xuất</th>
                                     <th>Đã xuất</th>
                                     <th>Ghi chú</th>
+                                    <th>Sửa</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr dir-paginate="item in filtered = (list_chitietgiukho) |  itemsPerPage:10 track by item.MA_HANG " class="hover" ng-class-odd="'odd'" ng-class-even="'even'">
-                                    <td>{{item.MA_HANG}}</td>
-                                    <td>{{item.SL_GIU}}</td>
-                                    <td>{{item.NGAY_XUAT | stringToDate:"dd/MM/yyyy"}}</td>
                                     <td class="text-left">
-                                        <input type="checkbox" ng-model="item.DA_XUAT" ng-disabled="true" />
+                                        <p style="display:none">{{item.ID}}</p>
+                                        <p style="display:none">{{item.MA_GIU_KHO}}</p>
+                                        <p data-ng-hide="editMode" ng-model="item.MA_HANG">{{item.MA_HANG}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.MA_HANG" data-ng-required />
                                     </td>
-                                    <td>{{item.GHI_CHU}}</td>
+                                    <td class="text-left">
+                                        <p data-ng-hide="editMode" ng-model="item.DVT">{{item.DVT}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.DVT" data-ng-required />
+                                    </td>
+                                    <td>
+                                        <p data-ng-hide="editMode" ng-model="item.XUAT_XU">{{item.XUAT_XU}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.XUAT_XU" data-ng-required />
+                                    </td>
+                                    <td class="text-left">
+                                        <p data-ng-hide="editMode" ng-model="item.SL_GIU">{{item.SL_GIU}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.SL_GIU" data-ng-required />
+                                    </td>
+                                    <td class="text-left">
+                                        <p data-ng-hide="editMode" ng-model="item.DON_GIA">{{item.DON_GIA}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.DON_GIA" data-ng-required />
+                                    </td>
+                                    <td class="text-left">
+                                        <p data-ng-hide="editMode" ng-model="item.THANH_TIEN">{{item.THANH_TIEN}}</p>
+                                        <p type="text" data-ng-show="editMode">{{item.DON_GIA * item.SL_GIU}}</p>
+                                    </td>
+                                    <td>
+                                        <p data-ng-hide="editMode" ng-model="item.NGAY_XUAT">{{item.NGAY_XUAT}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.NGAY_XUAT" data-ng-required />
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" data-ng-hide="editMode" ng-model="item.DA_XUAT" ng-disabled="true" />
+                                        <input type="checkbox" data-ng-show="editMode" data-ng-model="item.DA_XUAT" data-ng-required />
+                                    </td>
+                                    <td>
+                                        <p data-ng-hide="editMode" ng-model="item.GHI_CHU">{{item.GHI_CHU}}</p>
+                                        <input type="text" data-ng-show="editMode" data-ng-model="item.GHI_CHU" data-ng-required />
+                                    </td>
+                                    <td>
+                                        <button type="submit" data-ng-hide="editMode" data-ng-click="editMode = true; editAppKey(entry)" class="btn btn-default">Edit</button>
+                                        <button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; save_edit(item)" class="btn btn-default">Save</button>
+                                        <button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; cancel_edit()" class="btn btn-default">Cancel</button>
+                                    </td>
                                 </tr>
                                 <tr ng-if="item.expanded" dir-paginate-end=""></tr>
                             </tbody>

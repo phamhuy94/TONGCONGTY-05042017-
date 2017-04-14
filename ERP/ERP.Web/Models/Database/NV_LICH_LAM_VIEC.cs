@@ -19,6 +19,8 @@ namespace ERP.Web.Models.Database
         public System.DateTime NGAY_THUC_HIEN { get; set; }
         public string NOI_DUNG_CONG_VIEC { get; set; }
         public string DIA_DIEM_LAM_VIEC { get; set; }
+        public Nullable<System.DateTime> THOI_GIAN_BAT_DAU { get; set; }
+        public Nullable<System.DateTime> THOI_GIAN_KET_THUC { get; set; }
         public string NHAN_VIEN_THUC_HIEN { get; set; }
         public bool HUY_CONG_VIEC { get; set; }
         public string TRANG_THAI { get; set; }

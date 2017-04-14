@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ERP.Web.Models.Database;
+using ERP.Web.Models.NewModels;
 
 namespace ERP.Web.Api.BaoGia
 {
@@ -17,27 +18,42 @@ namespace ERP.Web.Api.BaoGia
         private ERP_DATABASEEntities db = new ERP_DATABASEEntities();
 
         // GET: api/Api_BaoGia_DonHangDuKien
-        public List<BH_DON_HANG_DU_KIEN> GetBH_DON_HANG_DU_KIEN()
+        [Route("api/Api_BaoGia_DonHangDuKien/BH_DON_HANG_DU_KIEN/{madk}")]
+        public List<ThongTinDonDuKien> GetBH_DON_HANG_DU_KIEN(string madk)
         {
-            var vData = db.BH_DON_HANG_DU_KIEN.Where(x => x.TRUC_THUOC == "HOPLONG");
-            var result = vData.ToList().Select(x => new BH_DON_HANG_DU_KIEN()
+            var vData = (from t1 in db.BH_DON_HANG_DU_KIEN
+                         join t2 in db.KH_LIEN_HE on t1.ID_LIEN_HE equals t2.ID_LIEN_HE
+                         join t4 in db.KHs on t1.MA_KHACH_HANG equals t4.MA_KHACH_HANG
+                         join t3 in db.HT_NGUOI_DUNG on t1.SALES_QUAN_LY equals t3.USERNAME
+                         where t1.MA_DU_KIEN == madk
+                         select new
+                         {
+                             t3.HO_VA_TEN,
+                             t1.ID_LIEN_HE,
+                             t4.TEN_CONG_TY,
+                             t1.SALES_QUAN_LY,
+                             t1.MA_KHACH_HANG,
+                             t1.MA_DU_KIEN,
+                             t2.NGUOI_LIEN_HE,
+                         });
+            var result = vData.ToList().Select(x => new ThongTinDonDuKien()
             {
+                HO_VA_TEN = x.HO_VA_TEN,
+                ID_LIEN_HE = x.ID_LIEN_HE,
+                NGUOI_LIEN_HE = x.NGUOI_LIEN_HE,
+                TEN_CONG_TY = x.TEN_CONG_TY,
                 MA_DU_KIEN = x.MA_DU_KIEN,
                 MA_KHACH_HANG = x.MA_KHACH_HANG,
-                NGAY_TAO = x.NGAY_TAO,
-                THANH_CONG = x.THANH_CONG,
-                THAT_BAI = x.THAT_BAI,
-                LY_DO_THAT_BAI = x.LY_DO_THAT_BAI,
-                TRUC_THUOC = x.TRUC_THUOC,
+                SALES_QUAN_LY = x.SALES_QUAN_LY,
             }).ToList();
             return result;
         }
 
         // GET: api/Api_BaoGia_DonHangDuKien/5
         [ResponseType(typeof(BH_DON_HANG_DU_KIEN))]
-        public IHttpActionResult GetBH_DON_HANG_DU_KIEN(string id)
+        public IHttpActionResult GetBH_DON_HANG_DU_KIEN()
         {
-            BH_DON_HANG_DU_KIEN bH_DON_HANG_DU_KIEN = db.BH_DON_HANG_DU_KIEN.Find(id);
+            BH_DON_HANG_DU_KIEN bH_DON_HANG_DU_KIEN = db.BH_DON_HANG_DU_KIEN.Find();
             if (bH_DON_HANG_DU_KIEN == null)
             {
                 return NotFound();

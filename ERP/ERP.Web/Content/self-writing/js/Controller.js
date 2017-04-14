@@ -34,6 +34,27 @@ app.controller('khogiuhangCtrl', function (khogiuhangService, $scope, $location,
         });
     };
 
+    $scope.save_edit = function (item) {
+        $scope.item = item;
+        $scope.item.THANH_TIEN = $scope.item.DON_GIA * $scope.item.SL_GIU;
+        var data_save = {
+            ID: $scope.item.ID,
+            MA_GIU_KHO: $scope.item.MA_GIU_KHO,
+            MA_HANG: $scope.item.MA_HANG,
+            DVT: $scope.item.DVT,
+            XUAT_XU: $scope.item.XUAT_XU,
+            SL_GIU: $scope.item.SL_GIU,
+            DON_GIA: $scope.item.DON_GIA,
+            THANH_TIEN: $scope.item.THANH_TIEN,
+            NGAY_XUAT: $scope.item.NGAY_XUAT,
+            DA_XUAT: $scope.item.DA_XUAT,
+            GHI_CHU : $scope.item.GHI_CHU,
+        }
+        khogiuhangService.save_ct_khogiuhang($scope.item.ID, data_save).then(function (response) {
+            $scope.load_khogiuhang();
+        });
+    };
+
 
     $scope.add = function () {
         var data_add = {
@@ -110,7 +131,7 @@ app.controller('khogiuhangCtrl', function (khogiuhangService, $scope, $location,
     $scope.editing = false;
 
     $scope.editAppKey = function (field) {
-        $scope.editing = $scope.appkeys.indexOf(field);
+        
         $scope.newField = angular.copy(field);
     }
 
@@ -237,6 +258,7 @@ app.controller('khogiuhangCtrl', function (khogiuhangService, $scope, $location,
 });
 // End kho giu hang
 
+
 // Khach hang
 app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $location) {
 
@@ -244,8 +266,13 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         var salestao = $('#salehienthoi').val();
         var logo = $('#imgInp').val();
         var name_without_ext = (logo.split('\\').pop().split('/').pop().split())[0];
+
+
+        $("textarea[name=themghichu]").val(CKEDITOR.instances.themghichu.getData());
+        var themghichu = $("[name=themghichu]").val();
+
+
         $scope.Thong_tin_KH = {
-            MA_KHACH_HANG: $scope.arraythongtin.ma_khach_hang,
             LOGO: name_without_ext,
             TEN_CONG_TY: $scope.arraythongtin.ten_cong_ty,
             VAN_PHONG_GIAO_DICH: $scope.arraythongtin.van_phong_giao_dich,
@@ -258,7 +285,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             SO_NGAY_DUOC_NO: $scope.arraythongtin.so_ngay_duoc_no,
             SO_NO_TOI_DA: $scope.arraythongtin.so_no_toi_da,
             EMAIL: $scope.arraythongtin.email,
-            GHI_CHU: $scope.arraythongtin.ghi_chu,
+            GHI_CHU: themghichu,
             TINH: $scope.arraythongtin.tinh,
             TINH_TRANG_HOAT_DONG: $scope.arraythongtin.tinh_trang_hoat_dong,
             QUOC_GIA: $scope.arraythongtin.quoc_gia,
@@ -301,6 +328,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 SALES_MOI : $scope.arraylienhe[i].sales_moi,
                 SALES_CU: $scope.arraylienhe[i].sales_cu,
                 SALE_HIEN_THOI: $scope.arraylienhe[i].sales_phu_trach,
+                TINH_TRANG_LAM_VIEC: $scope.arraylienhe[i].tinh_trang_lam_viec,
             }
             $scope.Lien_he_TK.push(lien_he);
         }
@@ -412,14 +440,20 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.load_loaitaikhoan();
 
     $scope.get_lienhe = function (makh) {
-        khachhangService.get_lienhekh(makh).then(function (lienhe) {
-            $scope.list_lienhe = lienhe;
+        khachhangService.get_lienhekh(makh).then(function (a) {
+            $scope.list_lienhe = a;
         });
     };
 
     $scope.get_taikhoan = function (makh) {
-        khachhangService.get_taikhoankh(makh).then(function (taikhoankh) {
-            $scope.list_taikhoankh = taikhoankh;
+        khachhangService.get_taikhoankh(makh).then(function (b) {
+            $scope.list_taikhoankh = b;
+        });
+    };
+
+    $scope.get_phanhoi = function (makh) {
+        khachhangService.get_phanhoi(makh).then(function (c) {
+            $scope.list_phanhoi = c;
         });
     };
 
@@ -433,6 +467,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
 
     $scope.edit = function (item) {
         $scope.kh = item;
+        var ghichuvalue = $('.' + item.MA_KHACH_HANG + '-1').html();
+        CKEDITOR.instances.editghichu.setData(ghichuvalue);
     };
 
     $scope.EditLienHe = function (lienhe) {
@@ -442,6 +478,10 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
     $scope.save = function (makh, id) {
         var logo = $('#imgEdit').val();
         var name_without_ext = (logo.split('\\').pop().split('/').pop().split())[0];
+
+        $("textarea[name=editghichu]").val(CKEDITOR.instances.editghichu.getData());
+        var editghichu = $("[name=editghichu]").val();
+
         var kh_save = {
             MA_KHACH_HANG: makh,
             TEN_CONG_TY: $scope.kh.TEN_CONG_TY,
@@ -459,7 +499,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             DIEU_KHOAN_THANH_TOAN: $scope.kh.DIEU_KHOAN_THANH_TOAN,
             SO_NGAY_DUOC_NO: $scope.kh.SO_NGAY_DUOC_NO,
             SO_NO_TOI_DA: $scope.kh.SO_NO_TOI_DA,
-            GHI_CHU: $scope.kh.GHI_CHU,
+            GHI_CHU: editghichu,
             TRUC_THUOC: "HOPLONG"
         }
         khachhangService.save_khachhang(makh, kh_save).then(function (response) {
@@ -469,9 +509,22 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 MA_KHACH_HANG: makh,
                 MA_LOAI_KHACH: $scope.kh.MA_LOAI_KHACH
             }
-            khachhangService.save_phanloaikh(id, phanloai_save).then(function (response) {
-                $scope.load_khachhang('A');
-            });
+            var phanloai_add = {
+                MA_KHACH_HANG: makh,
+                MA_LOAI_KHACH: $scope.kh.MA_LOAI_KHACH
+            }
+            if (id != null) {
+                khachhangService.save_phanloaikh(id, phanloai_save).then(function (response) {
+                    $scope.load_khachhang('A');
+                    $scope.new_ct_khachhang();
+                });
+            } else if (id == null && $scope.kh.MA_LOAI_KHACH != null) {
+                khachhangService.add_phanloaikh(phanloai_add).then(function (response) {
+                    $scope.load_khachhang('A');
+                    $scope.new_ct_khachhang();
+                });
+            }
+           
         });
     };
 
@@ -491,6 +544,7 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             GHI_CHU: $scope.editlh.GHI_CHU,
             SDT1: $scope.editlh.SDT1,
             SDT2: $scope.editlh.SDT2,
+            TINH_TRANG_LAM_VIEC: $scope.editlh.TINH_TRANG_LAM_VIEC,
         }
         khachhangService.save_lienhe(idlienhe, data_save).then(function (response) {
             $scope.load_khachhang();
@@ -504,13 +558,21 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
                 TRANG_THAI : $scope.editlh.TRANG_THAI,
             }
             khachhangService.save_salesphutrach($scope.editlh.SALES_PHU_TRACH, idlienhe, data_savesalesphutrach).then(function (response) {
-                $scope.load_khachhang();
+                $scope.load_khachhang('A');
+                $scope.new_ct_khachhang();
             });
 
         });
     };
 
     $scope.addnew = function (makh) {
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
         var data_add = {
             MA_KHACH_HANG: makh,
             NGUOI_LIEN_HE: $scope.nguoi_lien_he,
@@ -524,13 +586,15 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             FACEBOOK: $scope.facebook,
             GHI_CHU: $scope.ghi_chu_lh,
             SDT1: $scope.so_dien_thoai1,
+            TINH_TRANG_LAM_VIEC : $scope.tinh_trang_lam_viec,
             SDT2: $scope.so_dien_thoai2,
             SALES_PHU_TRACH: $scope.nvkd.USERNAME,
             SALES_MOI: $scope.sales_moi,
             SALES_CU : $scope.sales_cu,
         }
         khachhangService.add_lienhe(data_add).then(function (response) {
-            $scope.load_khachhang();
+            $scope.load_khachhang('A');
+            $scope.new_ct_khachhang();
         });
     };
 
@@ -546,13 +610,29 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
             LOAI_TAI_KHOAN: $scope.loai_tai_khoan
         }
         khachhangService.add_taikhoan(data_add).then(function (response) {
-            $scope.load_khachhang();
+            $scope.load_khachhang('A');
+            $scope.new_ct_khachhang();
+        });
+    };
+
+    $scope.addnewphanhoi = function (makh) {
+        $("textarea[name=phanhoimoi]").val(CKEDITOR.instances.phanhoimoi.getData());
+        var phanhoimoi = $("[name=phanhoimoi]").val();
+        var username = $('#salehienthoi').val();
+        var data_add = {
+            MA_KHACH_HANG: makh,
+            NGUOI_PHAN_HOI: username,
+            THONG_TIN_PHAN_HOI: phanhoimoi,
+        }
+        khachhangService.add_phanhoi(data_add).then(function (response) {
+            $scope.load_khachhang('A');
+            $scope.new_ct_khachhang();
         });
     };
 
     $scope.dieukhoantt = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
     $scope.tinhtranghoatdong = ['Cầm chừng', 'Bình thường', 'Sắp phá sản', 'Đã phá sản'];
-
+    $scope.tinh_trang = ['Còn công tác', 'Đã luân chuyển', 'Đã nghỉ việc', 'Chuyển công ty khác'];
     $scope.range = function (min, max, step) {
         step = step || 1;
         var input = [];
@@ -560,6 +640,40 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         return input;
     };
 
+    var tmpDate = new Date();
+
+    $scope.newField = {};
+
+    $scope.editing = false;
+
+    $scope.editAppKey = function (field) {
+
+        $scope.item = field;
+
+    }
+
+    $scope.saveField = function (index) {
+        if ($scope.editing !== false) {
+            $scope.appkeys[$scope.editing] = $scope.newField;
+            $scope.editing = false;
+        }
+
+    };
+
+    $scope.cancel = function (index) {
+        //if ($scope.editing !== false) {
+        //    $scope.appkeys[$scope.editing] = $scope.newField;
+        //    $scope.editing = false;
+        //}
+        $scope.load_khachhang('A');
+    };
+
+    $scope.load_nhanvienkd = function () {
+        khachhangService.get_nhanvienkd().then(function (c) {
+            $scope.list_nhanvienkd = c;
+        });
+    };
+    $scope.load_nhanvienkd();
 
     $scope.arraythongtin = {
         ma_khach_hang: '',
@@ -597,7 +711,8 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         facebook: '',
         sales_phu_trach: '',
         sales_cu: '',
-        sales_moi : '',
+        sales_moi: '',
+        tinh_trang_lam_viec : '',
     }];
 
     $scope.arraytaikhoan = [{
@@ -647,8 +762,130 @@ app.controller('khachhangCtrl', function (khachhangService, $scope, $http, $loca
         $scope.showtable_ho_va_ten = false;
     }
     // End Lọc nhân viên
+
+    $scope.chuyensale = function (item) {
+        $scope.item = item;
+        var data = {
+            MA_KHACH_HANG: $scope.item.MA_KHACH_HANG,
+            SALE_HIEN_THOI : $scope.item.SALES_PHU_TRACH,
+        }
+        khachhangService.save_listchuyensale(data).then(function () {
+            $scope.load_khachhang('A');
+        });
+    };
+
+
+    $scope.new_ct_khachhang = function () {
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+
+        khachhangService.chitietkhachhang(url).then(function (abc) {
+            $scope.list_chitietkhachhangnew = abc;
+        });
+    };
+    $scope.new_ct_khachhang();
+
+    $scope.addnew_lienhe_ct = function (makh) {
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+        var data_add = {
+            MA_KHACH_HANG: url,
+            NGUOI_LIEN_HE: $scope.nguoi_lien_he,
+            CHUC_VU: $scope.chuc_vu,
+            PHONG_BAN: $scope.phong_ban,
+            NGAY_SINH: $scope.ngay_sinh,
+            GIOI_TINH: $scope.gioi_tinh,
+            EMAIL_CA_NHAN: $scope.email_ca_nhan,
+            EMAIL_CONG_TY: $scope.email_cong_ty,
+            SKYPE: $scope.skype,
+            FACEBOOK: $scope.facebook,
+            GHI_CHU: $scope.ghi_chu_lh,
+            SDT1: $scope.so_dien_thoai1,
+            TINH_TRANG_LAM_VIEC: $scope.tinh_trang_lam_viec,
+            SDT2: $scope.so_dien_thoai2,
+            SALES_PHU_TRACH: $scope.nvkd.USERNAME,
+            SALES_MOI: $scope.sales_moi,
+            SALES_CU: $scope.sales_cu,
+        }
+        khachhangService.add_lienhe(data_add).then(function (response) {
+            $scope.load_khachhang('A');
+            $scope.new_ct_khachhang();
+        });
+    };
+
+    $scope.save_chitiet_kh = function (makh, id) {
+        var logo = $('#imgEdit').val();
+        var name_without_ext = (logo.split('\\').pop().split('/').pop().split())[0];
+
+        $("textarea[name=editghichu]").val(CKEDITOR.instances.editghichu.getData());
+        var editghichu = $("[name=editghichu]").val();
+
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+
+        var kh_save = {
+            MA_KHACH_HANG: url,
+            TEN_CONG_TY: $scope.kh.TEN_CONG_TY,
+            VAN_PHONG_GIAO_DICH: $scope.kh.VAN_PHONG_GIAO_DICH,
+            DIA_CHI_XUAT_HOA_DON: $scope.kh.DIA_CHI_XUAT_HOA_DON,
+            TINH: $scope.kh.TINH,
+            QUOC_GIA: $scope.kh.QUOC_GIA,
+            MST: $scope.kh.MST,
+            HOTLINE: $scope.kh.HOTLINE,
+            EMAIL: $scope.kh.EMAIL,
+            FAX: $scope.kh.FAX,
+            LOGO: name_without_ext,
+            TINH_TRANG_HOAT_DONG: $scope.kh.TINH_TRANG_HOAT_DONG,
+            WEBSITE: $scope.kh.WEBSITE,
+            DIEU_KHOAN_THANH_TOAN: $scope.kh.DIEU_KHOAN_THANH_TOAN,
+            SO_NGAY_DUOC_NO: $scope.kh.SO_NGAY_DUOC_NO,
+            SO_NO_TOI_DA: $scope.kh.SO_NO_TOI_DA,
+            GHI_CHU: editghichu,
+            TRUC_THUOC: "HOPLONG"
+        }
+        khachhangService.save_khachhang(url, kh_save).then(function (response) {
+            $scope.load_khachhang('A');
+            var phanloai_save = {
+                ID: id,
+                MA_KHACH_HANG: url,
+                MA_LOAI_KHACH: $scope.kh.MA_LOAI_KHACH
+            }
+            var phanloai_add = {
+                MA_KHACH_HANG: url,
+                MA_LOAI_KHACH: $scope.kh.MA_LOAI_KHACH
+            }
+            if (id != null) {
+                khachhangService.save_phanloaikh(id, phanloai_save).then(function (response) {
+                    $scope.load_khachhang('A');
+                    $scope.new_ct_khachhang();
+                });
+            } else if (id == null && $scope.kh.MA_LOAI_KHACH != null) {
+                khachhangService.add_phanloaikh(phanloai_add).then(function (response) {
+                    $scope.load_khachhang('A');
+                    $scope.new_ct_khachhang();
+                });
+            }
+
+        });
+    };
 });
 // End khach hang
+
 
 
 //Nha cung cap
@@ -1263,6 +1500,8 @@ app.controller('userCtrl', function (userService, $scope) {
     $scope.add = function () {
         $("textarea[name=thanhtich]").val(CKEDITOR.instances.thanhtich.getData());
         var thanhtich = $("[name=thanhtich]").val();
+        $("textarea[name=linh_vuc_cong_tac]").val(CKEDITOR.instances.linh_vuc_cong_tac.getData());
+        var linh_vuc_cong_tac = $("[name=linh_vuc_cong_tac]").val();
         var a = $('#imgInp').val();
         var name_without_ext = (a.split('\\').pop().split('/').pop().split())[0];
         var data_add = {
@@ -1285,6 +1524,7 @@ app.controller('userCtrl', function (userService, $scope) {
                 QUE_QUAN: $scope.quequan,
                 THANH_TICH_CONG_TAC: thanhtich,
                 TRINH_DO_HOC_VAN: $scope.trinhdohocvan,
+                LINH_VUC_CONG_TAC: linh_vuc_cong_tac,
                 MA_PHONG_BAN: $scope.maphongban
             }
             userService.add_nhanvien(nhanvien_add).then(function (response) {
@@ -1305,11 +1545,15 @@ app.controller('userCtrl', function (userService, $scope) {
         $scope.nv = nv;
         var thanhtichvalue = $('.' + nv.USERNAME + '-1').html();
         CKEDITOR.instances.editthanhtich.setData(thanhtichvalue);
+        var linhvuccongtacvalue = $('.' + nv.USERNAME + '-2').html();
+        CKEDITOR.instances.editlinh_vuc_cong_tac.setData(linhvuccongtacvalue);
     }
 
     $scope.save = function (username) {
         $("textarea[name=editthanhtich]").val(CKEDITOR.instances.editthanhtich.getData());
         var editthanhtich = $("[name=editthanhtich]").val();
+        $("textarea[name=editlinh_vuc_cong_tac]").val(CKEDITOR.instances.editlinh_vuc_cong_tac.getData());
+        var editlinh_vuc_cong_tac = $("[name=editlinh_vuc_cong_tac]").val();
         var a = $('#imgEdit').val();
         var name_without_ext = (a.split('\\').pop().split('/').pop().split())[0];
         var data_update = {
@@ -1332,6 +1576,7 @@ app.controller('userCtrl', function (userService, $scope) {
                 NGAY_SINH: $scope.nv.NGAY_SINH,
                 QUE_QUAN: $scope.nv.QUE_QUAN,
                 THANH_TICH_CONG_TAC: editthanhtich,
+                LINH_VUC_CONG_TAC: editlinh_vuc_cong_tac,
                 TRINH_DO_HOC_VAN: $scope.nv.TRINH_DO_HOC_VAN,
                 MA_PHONG_BAN: $scope.nv.MA_PHONG_BAN
             }
@@ -1496,6 +1741,7 @@ app.controller('danhmucCtrl', function (danhmucService, $scope) {
             }
             danhmucService.add_postcategories(postcate).then(function (response) {
                 $scope.loadDanhMuc();
+                reload();
 
             });
         });
@@ -2964,7 +3210,8 @@ app.controller('purphutrachCtrl', function (purphutrachService, $scope) {
 // Đơn hàng dự kiến
 app.controller('DonhangdukienCtrl', function (DonhangdukienService, $scope) {
     $scope.Donhangdukien = function () {
-        DonhangdukienService.get_donhangdukien().then(function (a) {
+        var username = $('#username').val();
+        DonhangdukienService.get_donhangdukien(username).then(function (a) {
             $scope.donhangdukien = a;
         });
         DonhangdukienService.get_khachhang().then(function (b) {

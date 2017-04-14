@@ -1,18 +1,49 @@
 ﻿
-app.controller('baogiaCtrl', function ($scope, $http) {
+app.controller('baogiaCtrl', function ($scope, $http, baogiaService, $timeout) {
+
+    $scope.load_baogiatheodukien = function () {
+        //this gets the full url
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+        //
+        $scope.list_baogiatheodukien = [];
+        baogiaService.load_baogiatheodukien(url).then(function (bcd) {
+            $scope.list_baogiatheodukien = bcd;
+            if ($scope.list_baogiatheodukien.length > 0) {
+                $('.thongtinchungthemmoi').hide();
+                $('.savethongtin').show();
+            } else {              
+                $('.thongtinchungthemmoi').show();
+                $('.savethongtin').hide();
+            }
+        });
+        
+    };
+    $scope.load_baogiatheodukien();
+
+
+
 
     $scope.kiemtra = function (item) {
         $scope.item = item;
         var cachtinh = $scope.item.CACH_TINH_THANH_TIEN;       
         if (cachtinh == "Giá nhập") {
-            $scope.item.THANH_TIEN = (($scope.item.SO_LUONG * $scope.item.DON_GIA) + (($scope.item.SO_LUONG * $scope.item.DON_GIA) * ($scope.item.CHIET_KHAU / 100)));
-            $scope.item.TIEN_VAT = (($scope.item.THANH_TIEN * $scope.item.CK_VAT) / 100);
+            $scope.item.DON_GIA_SAU_CHIET_KHAU = $scope.item.DON_GIA + ($scope.item.DON_GIA * ($scope.item.CHIET_KHAU / 100));
+            $scope.item.THANH_TIEN = parseInt(($scope.item.SO_LUONG * $scope.item.DON_GIA) + (($scope.item.SO_LUONG * $scope.item.DON_GIA) * ($scope.item.CHIET_KHAU / 100)));
+            $scope.item.TIEN_VAT = parseInt(($scope.item.THANH_TIEN * parseInt($scope.item.CK_VAT)) / 100);
         } else if (cachtinh == "Giá list") {
-            $scope.item.THANH_TIEN = (($scope.item.SO_LUONG * $scope.item.DON_GIA) - (($scope.item.SO_LUONG * $scope.item.DON_GIA) * ($scope.item.CHIET_KHAU / 100)));
-            $scope.item.TIEN_VAT = (($scope.item.THANH_TIEN * $scope.item.CK_VAT) / 100);
+            $scope.item.DON_GIA_SAU_CHIET_KHAU = $scope.item.DON_GIA - ($scope.item.DON_GIA * ($scope.item.CHIET_KHAU / 100));
+            $scope.item.THANH_TIEN = parseInt(($scope.item.SO_LUONG * $scope.item.DON_GIA) - (($scope.item.SO_LUONG * $scope.item.DON_GIA) * ($scope.item.CHIET_KHAU / 100)));
+            $scope.item.TIEN_VAT = parseInt(($scope.item.THANH_TIEN * parseInt($scope.item.CK_VAT)) / 100);
         } else {
+            $scope.item.DON_GIA_SAU_CHIET_KHAU = $scope.item.DON_GIA;
             $scope.item.THANH_TIEN = $scope.item.SO_LUONG * $scope.item.DON_GIA;
-            $scope.item.TIEN_VAT = (($scope.item.THANH_TIEN * $scope.item.CK_VAT) / 100);
+            $scope.item.TIEN_VAT = parseInt(($scope.item.THANH_TIEN * parseInt($scope.item.CK_VAT)) / 100);
         }        
         var tong_thanh_tien = 0;
         var tong_tien_VAT = 0;
@@ -23,23 +54,68 @@ app.controller('baogiaCtrl', function ($scope, $http) {
                 tong_tien_VAT = parseFloat($scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_VAT)
                 tong_tien_chua_van_chuyen = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + $scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_chua_van_chuyen);
             }
-            $scope.tong_thanh_tien = tong_thanh_tien;
-            $scope.tong_tien_VAT = tong_tien_VAT;
-            $scope.tong_tien_chua_van_chuyen = tong_tien_chua_van_chuyen;
+            $scope.tong_thanh_tien_edit = tong_thanh_tien;
+            $scope.tong_tien_VAT_edit = tong_tien_VAT;
+            $scope.tong_tien_chua_van_chuyen_edit = tong_tien_chua_van_chuyen;
 
-
-
-            tong_tien_da_tinh_van_chuyen = parseFloat(tong_tien_chua_van_chuyen + $scope.BangBaoGia.phi_van_chuyen);
-            $scope.BangBaoGia.tong_tien = tong_tien_da_tinh_van_chuyen;
-        
-          
+            var phi_van_chuyen = parseFloat($('#phi_van_chuyen').val()) || 0;
+                tong_tien_da_tinh_van_chuyen = parseFloat($scope.tong_tien_chua_van_chuyen_edit + phi_van_chuyen);
+                $scope.tong_tien = tong_tien_da_tinh_van_chuyen;
     };
 
+    $scope.test = function (detail) {
+        $scope.detail = detail;
+        var cachtinh = $scope.detail.cach_tinh_thanh_tien;
+        if (cachtinh == "Giá nhập") {
+            $scope.detail.don_gia_sau_chiet_khau = $scope.detail.don_gia + ($scope.detail.don_gia * ($scope.detail.chiet_khau / 100));
+            $scope.detail.thanh_tien = (($scope.detail.so_luong * $scope.detail.don_gia) + (($scope.detail.so_luong * $scope.detail.don_gia) * ($scope.detail.chiet_khau / 100)));
+            $scope.detail.tien_vat = (($scope.detail.thanh_tien * parseInt($scope.detail.ck_vat)) / 100);
+        } else if (cachtinh == "Giá list") {
+            $scope.detail.don_gia_sau_chiet_khau = $scope.detail.don_gia - ($scope.detail.don_gia * ($scope.detail.chiet_khau / 100));
+            $scope.detail.thanh_tien = (($scope.detail.so_luong * $scope.detail.don_gia) - (($scope.detail.so_luong * $scope.detail.don_gia) * ($scope.detail.chiet_khau / 100)));
+            $scope.detail.tien_vat = (($scope.detail.thanh_tien * parseInt($scope.detail.ck_vat)) / 100);
+        } else {
+            $scope.detail.don_gia_sau_chiet_khau = $scope.detail.don_gia;
+            $scope.detail.thanh_tien = $scope.detail.so_luong * $scope.detail.don_gia;
+            $scope.detail.tien_vat = (($scope.detail.thanh_tien * parseInt($scope.detail.ck_vat)) / 100);
+        }
+        var tong_thanh_tien_new = 0;
+         tong_tien_VAT_new = 0;
+        tong_tien_chua_van_chuyen_new = 0;
+         tong_tien_da_tinh_van_chuyen_new = 0;
+        for (var i = 0; i < $scope.Detail.ListNew.length; i++) {
+            tong_thanh_tien_new = parseFloat($scope.Detail.ListNew[i].thanh_tien + tong_thanh_tien_new);
+            tong_tien_VAT_new = parseFloat($scope.Detail.ListNew[i].tien_vat + tong_tien_VAT_new)
+            tong_tien_chua_van_chuyen_new = parseFloat($scope.Detail.ListNew[i].thanh_tien + $scope.Detail.ListNew[i].tien_vat + tong_tien_chua_van_chuyen_new);
+        }
+        $scope.tong_thanh_tien = tong_thanh_tien_new;
+        $scope.tong_tien_VAT = tong_tien_VAT_new;
+        $scope.tong_tien_chua_van_chuyen = tong_tien_chua_van_chuyen_new;
 
+        var phi_van_chuyen = parseFloat($('#tienvanchuyen').val()) || 0;
+        tong_tien_da_tinh_van_chuyen_new = parseFloat($scope.tong_tien_chua_van_chuyen + phi_van_chuyen);
+        $scope.baogia = tong_tien_da_tinh_van_chuyen_new;
+    };
 
+    $scope.load_dondukien = function () {
+        //this gets the full url
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+        //return
+        baogiaService.load_dondukien(url).then(function (abc) {
+            $scope.list_dondukien = abc;
+        });
+    };
+    $scope.load_dondukien();
     //Mảng chi tiết báo giá
     $scope.Detail = {
-        ListAdd: []
+        ListAdd: [],
+        ListNew: []
     }
     $scope.Detail.ListAdd = [{
         SO_BAO_GIA: '',
@@ -48,8 +124,9 @@ app.controller('baogiaCtrl', function ($scope, $http) {
         DON_GIA: 0,
         CHIET_KHAU: 0,
         CACH_TINH_THANH_TIEN: '',
+        DON_GIA_SAU_CHIET_KHAU : '',
         THANH_TIEN: 0,
-        CK_VAT: 0,
+        CK_VAT: '',
         TIEN_VAT: 0,
         TINH_TRANG_HANG: '',
         THOI_GIAN_GIAO_HANG: '',
@@ -57,75 +134,23 @@ app.controller('baogiaCtrl', function ($scope, $http) {
         DIA_DIEM_GIAO_HANG: '',
         GHI_CHU: '',
     }];
+    $scope.Detail.ListNew = [];
 
 
 
 
-    $scope.tongthanhtien = function (item) {
-        
-    };
-    $scope.tongthanhtien();
 
     var salehienthoi = $('#salehienthoi').val();
     //khai báo thông tin chung
-    $scope.BangBaoGia = {
-        so_bao_gia: '',
-        ngay_bao_gia: '',
-        ma_du_kien: '',
-        ma_khach_hang: '',
-        lien_he_khach_hang: '',
-        phuong_thuc_thanh_toan: '',
-        han_thanh_toan: '',
-        hieu_luc_bao_gia: '',
-        dieu_khoan_thanh_toan: '',
-        phi_van_chuyen: '',
-        tong_tien: '',
-        da_duyet: false,
-        nguoi_duyet: '',
-        da_trung: false,
-        da_huy: false,
-        ly_do_huy: '',
-        sales_bao_gia: '',
-        truc_thuoc: '',
+
+    $scope.kiemtien = function () {
+        var tongtienbaogiaabc = $scope.baogia;
+        console.log(tongtienbaogiaabc);
     };
 
-    //button add new row
-    //$scope.AddNew = function () {
-    //    $scope.Detail.ListAdd.push({
-    //        SO_BAO_GIA: null,
-    //        MA_HANG: null,
-    //        SO_LUONG: 0,
-    //        DON_GIA: null,
-    //        CHIET_KHAU: null,
-    //        CACH_TINH_THANH_TIEN: null,
-    //        THANH_TIEN: null,
-    //        CK_VAT: 0,
-    //        TIEN_VAT: null,
-    //        TINH_TRANG_HANG: null,
-    //        THOI_GIAN_GIAO_HANG: null,
-    //        NGAY_GIAO_HANG: null,
-    //        DIA_DIEM_GIAO_HANG: null,
-    //        GHI_CHU: '',
-    //    });
-    //}
 
-    //Khai báo đối tượng lưu vào cơ sở dữ liệu-------------------------------------
+    //Khai báo đối tượng sửa vào cơ sở dữ liệu-------------------------------------
     $scope.onSave = function () {
-        if (!$scope.arrayKhachHang.ma_khach_hang) {
-            alert('Thiếu thông tin Mã khách hàng');
-            return;
-        }
-
-        if (!$scope.arraySaleGiu.username) {
-            alert('Thiếu thông tin Sale giữ');
-            return;
-        }
-
-        if (!$scope.BangBaoGia.ngay_bao_gia) {
-            alert('Thiếu thông tin Ngày báo giá');
-            return;
-        }
-
 
         for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
             if (!$scope.Detail.ListAdd[i].MA_HANG) {
@@ -145,22 +170,34 @@ app.controller('baogiaCtrl', function ($scope, $http) {
 
         }
 
-        var tong_tien = parseFloat($('#tong_tien').text());
+        //this gets the full url
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+        //return
+        
+        var tong_tien = parseInt($('#tong_tien').text());
+
         $scope.Bao_Gia = {
-            SALES_BAO_GIA: $scope.arraySaleGiu.username,
-            MA_KHACH_HANG: $scope.arrayKhachHang.ma_khach_hang,
-            NGAY_BAO_GIA: $scope.BangBaoGia.ngay_bao_gia.format('DD-MM-YYYY'),
-            MA_DU_KIEN: $scope.arrayIDDuKien.ma_du_kien,
-            LIEN_HE_KHACH_HANG: $scope.arrayLienHe.id_lien_he,
-            PHUONG_THUC_THANH_TOAN: $scope.BangBaoGia.phuong_thuc_thanh_toan,
-            HAN_THANH_TOAN: $scope.BangBaoGia.han_thanh_toan,
-            HIEU_LUC_BAO_GIA: $scope.BangBaoGia.hieu_luc_bao_gia,
-            DIEU_KHOAN_THANH_TOAN: $scope.BangBaoGia.dieu_khoan_thanh_toan,
-            PHI_VAN_CHUYEN: $scope.BangBaoGia.phi_van_chuyen,
-            TONG_TIEN: tong_tien,
-            DA_DUYET: false,
-            DA_TRUNG: false,
-            DA_HUY : false,
+            SO_BAO_GIA: $scope.BangBaoGia[0].SO_BAO_GIA,
+            SALES_BAO_GIA: $scope.BangBaoGia[0].SALES_BAO_GIA,
+            MA_KHACH_HANG: $scope.BangBaoGia[0].MA_KHACH_HANG,
+            NGAY_BAO_GIA: $scope.BangBaoGia[0].NGAY_BAO_GIA,
+            MA_DU_KIEN: url,
+            LIEN_HE_KHACH_HANG: $scope.BangBaoGia[0].LIEN_HE_KHACH_HANG,
+            PHUONG_THUC_THANH_TOAN: $scope.BangBaoGia[0].PHUONG_THUC_THANH_TOAN,
+            HAN_THANH_TOAN: $scope.BangBaoGia[0].HAN_THANH_TOAN,
+            HIEU_LUC_BAO_GIA: $scope.BangBaoGia[0].HIEU_LUC_BAO_GIA,
+            DIEU_KHOAN_THANH_TOAN: $scope.BangBaoGia[0].DIEU_KHOAN_THANH_TOAN,
+            PHI_VAN_CHUYEN: $scope.BangBaoGia[0].PHI_VAN_CHUYEN,
+            TONG_TIEN: $scope.tong_tien,
+            DA_DUYET: $scope.BangBaoGia[0].DA_DUYET,
+            DA_TRUNG: $scope.BangBaoGia[0].DA_TRUNG,
+            DA_HUY: $scope.BangBaoGia[0].DA_HUY,
             TRUC_THUOC:'HOPLONG'
         };
 
@@ -170,14 +207,15 @@ app.controller('baogiaCtrl', function ($scope, $http) {
            
 
         var ChiTietBaoGia = {
-
+            ID : $scope.Detail.ListAdd[i].ID,
             MA_HANG: $scope.Detail.ListAdd[i].MA_HANG,
             SO_LUONG: $scope.Detail.ListAdd[i].SO_LUONG,
             DON_GIA: $scope.Detail.ListAdd[i].DON_GIA,
             CHIET_KHAU: $scope.Detail.ListAdd[i].CHIET_KHAU,
             CACH_TINH_THANH_TIEN: $scope.Detail.ListAdd[i].CACH_TINH_THANH_TIEN,
             THANH_TIEN: $scope.Detail.ListAdd[i].THANH_TIEN,
-            CK_VAT: $scope.Detail.ListAdd[i].CK_VAT,
+            DON_GIA_SAU_CHIET_KHAU: $scope.Detail.ListAdd[i].DON_GIA_SAU_CHIET_KHAU,
+            CK_VAT: parseInt($scope.Detail.ListAdd[i].CK_VAT),
             TIEN_VAT: $scope.Detail.ListAdd[i].TIEN_VAT,
             TINH_TRANG_HANG: $scope.Detail.ListAdd[i].TINH_TRANG_HANG,
             THOI_GIAN_GIAO_HANG: $scope.Detail.ListAdd[i].THOI_GIAN_GIAO_HANG,
@@ -192,15 +230,12 @@ app.controller('baogiaCtrl', function ($scope, $http) {
     //Lưu vào CSDL
           
     $http({
-        method: 'POST',
+        method: 'PUT',
         data: $scope.Bao_Gia,
-        url: window.location.origin + '/api/Api_BaoGia'
+        url: window.location.origin + '/api/Api_BaoGia/' + $scope.Bao_Gia.SO_BAO_GIA
     }).then(function successCallback(response) {
         $scope.Bao_Gia = response.data;
-        if (!$scope.Bao_Gia) {
-            alert('Không lưu được thông tin chung của giữ hàng');
-            return;
-        }
+
         $scope.Bao_Gia.SO_BAO_GIA;
 
         for (var i = 0; i < $scope.arrayChiTietBaoGia.length; i++) {
@@ -212,7 +247,7 @@ app.controller('baogiaCtrl', function ($scope, $http) {
             $http({
                 method: 'POST',
                 data: $scope.arrayChiTietBaoGia,
-                url: window.location.origin + '/api/Api_ChiTietBaoGia'
+                url: window.location.origin + '/api/Api_ChiTietBaoGia/PutBH_CT_BAO_GIA'
             }).then(function successCallback(response) {
                 alert("Hoàn Thành Lưu");
             }, function errorCallback(response) {
@@ -229,13 +264,112 @@ app.controller('baogiaCtrl', function ($scope, $http) {
 
     //End Khai báo đối tượng lưu vào cơ sở dữ liệu-----------------------------------
 
+    //Thêm mới vào csdl
+    $scope.AddNew = function () {
 
+
+        var url = document.location.href;
+        //this removes the anchor at the end, if there is one
+        url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+        //this removes the query after the file name, if there is one
+        url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+        //this removes everything before the last slash in the path
+        url = url.substring(url.lastIndexOf("/") + 1, url.length);
+        //return
+        var tongtien = parseInt($('#tongtienbaogia').text());
+        $scope.BANGBAOGIA = {
+            SALES_BAO_GIA: salehienthoi,
+            MA_KHACH_HANG: $scope.list_dondukien[0].MA_KHACH_HANG,
+            MA_DU_KIEN: url,
+            LIEN_HE_KHACH_HANG: $scope.list_dondukien[0].ID_LIEN_HE,
+            PHUONG_THUC_THANH_TOAN: $scope.phuong_thuc_thanh_toan,
+            HAN_THANH_TOAN: $scope.han_thanh_toan,
+            HIEU_LUC_BAO_GIA: $scope.hieu_luc_bao_gia,
+            DIEU_KHOAN_THANH_TOAN: $scope.dieu_khoan_thanh_toan,
+            PHI_VAN_CHUYEN: $scope.phivanchuyen,
+            TONG_TIEN: $scope.baogia,
+            DA_DUYET: false,
+            DA_TRUNG: false,
+            DA_HUY: false,
+            TRUC_THUOC: 'HOPLONG'
+        };
+
+        $scope.arrayBaoGiaChiTiet = [];
+
+        for (var i = 0; i < $scope.Detail.ListNew.length; i++) {
+
+
+            var BaoGiaChiTiet = {
+                MA_HANG: $scope.Detail.ListNew[i].ma_hang,
+                SO_LUONG: $scope.Detail.ListNew[i].so_luong,
+                DON_GIA: $scope.Detail.ListNew[i].don_gia,
+                CHIET_KHAU: $scope.Detail.ListNew[i].chiet_khau,
+                CACH_TINH_THANH_TIEN: $scope.Detail.ListNew[i].cach_tinh_thanh_tien,
+                THANH_TIEN: $scope.Detail.ListNew[i].thanh_tien,
+                CK_VAT: parseInt($scope.Detail.ListNew[i].ck_vat),
+                TIEN_VAT: $scope.Detail.ListNew[i].tien_vat,
+                TINH_TRANG_HANG: $scope.Detail.ListNew[i].tinh_trang_hang,
+                THOI_GIAN_GIAO_HANG: $scope.Detail.ListNew[i].thoi_gian_giao_hang,
+                NGAY_GIAO_HANG: $scope.Detail.ListNew[i].ngay_giao_hang,
+                DON_GIA_SAU_CHIET_KHAU: $scope.Detail.ListNew[i].don_gia_sau_chiet_khau,
+                DIA_DIEM_GIAO_HANG: $scope.Detail.ListNew[i].dia_diem_giao_hang,
+                GHI_CHU: $scope.Detail.ListNew[i].GHI_CHU,
+            }
+            //PUSH ChiTietGiu VÀO MẢNG arrayChiTietGiu
+            $scope.arrayBaoGiaChiTiet.push(BaoGiaChiTiet);
+        }
+
+        //Lưu vào CSDL
+
+        $http({
+            method: 'POST',
+            data: $scope.BANGBAOGIA,
+            url: window.location.origin + '/api/Api_BaoGia'
+        }).then(function successCallback(response) {
+            $scope.BANGBAOGIA = response.data;
+            if (!$scope.BANGBAOGIA) {
+                alert('Không lưu được thông tin chung của giữ hàng');
+                return;
+            }
+            $scope.BANGBAOGIA.SO_BAO_GIA;
+
+            for (var i = 0; i < $scope.arrayBaoGiaChiTiet.length; i++) {
+                $scope.arrayBaoGiaChiTiet[i].SO_BAO_GIA = $scope.BANGBAOGIA.SO_BAO_GIA;
+            }
+
+
+            if ($scope.arrayBaoGiaChiTiet.length > 0) {
+                $http({
+                    method: 'POST',
+                    data: $scope.arrayBaoGiaChiTiet,
+                    url: window.location.origin + '/api/Api_ChiTietBaoGia'
+                }).then(function successCallback(response) {
+                    alert("Hoàn Thành Lưu");
+                }, function errorCallback(response) {
+                    alert('Không lưu được chi tiết giữ kho');
+                });
+                return;
+            }
+
+        }, function errorCallback(response) {
+            console.log(response);
+            alert('Sự cố hệ thống, Không lưu được phiếu giữ kho, Bạn vui lòng liên hệ với admin để khắc phục ');
+        });
+    }
+    //End thêm mới
 
     //Button hủy
     $scope.onHuy = function () {
         window.location.href = window.location.origin + '/GiuHang/Giu_Hang_HL';
     }
     //End button hủy
+
+    $scope.CreateNewQuotation = function () {
+           $('.thongtinchungthemmoi').show();
+           $('.savethongtin').hide();       
+    };
+
+
 
     //Show thông tin khách hàng---------------------------------------------------------------------------------------------------------------
     $scope.arrayKhachHang = {
@@ -308,7 +442,7 @@ app.controller('baogiaCtrl', function ($scope, $http) {
                      return item;
                  });
              }
-             
+
          }, function (error) {
              console.log(error);
          });
@@ -388,7 +522,7 @@ app.controller('baogiaCtrl', function ($scope, $http) {
     }
     //End Show thông tin người giữ----------------------------------------------------------------------------------------------------------------------
 
-    
+
 
     $scope.run_lienhe = function () {
         //Show thông tin lien he---------------------------------------------------------------------------------------------------------------
@@ -444,7 +578,7 @@ app.controller('baogiaCtrl', function ($scope, $http) {
     
     
     
-    //Tìm Kiếm Thông Tin hàng Hóa
+    //Tìm Kiếm Thông Tin hàng Hóa thêm mới
     $scope.FindProduct = function (machuan) {
     
         $http({
@@ -460,27 +594,118 @@ app.controller('baogiaCtrl', function ($scope, $http) {
 
     //button add check
     $scope.check = function (mahang, tenhang, dvt, xuatxu, dongia) {
-        $scope.Detail.ListAdd.push({
-            MA_HANG: mahang,
-            DON_GIA: parseInt(dongia),
-            SO_BAO_GIA: null,
-            SO_LUONG: 0,
-            CHIET_KHAU: 0,
-            CACH_TINH_THANH_TIEN: null,
-            THANH_TIEN: 0,
-            CK_VAT: 0,
-            TIEN_VAT: 0,
-            TINH_TRANG_HANG: null,
-            THOI_GIAN_GIAO_HANG: null,
-            NGAY_GIAO_HANG: null,
-            DIA_DIEM_GIAO_HANG: null,
-            GHI_CHU: '',
+        $scope.Detail.ListNew.push({
+            ma_hang: mahang,
+            so_luong: 0,
+            don_gia: dongia,
+            chiet_khau: 0,
+            cach_tinh_thanh_tien: '',
+            don_gia_sau_chiet_khau: '',
+            thanh_tien: 0,
+            ck_vat: '',
+            tien_vat: 0,
+            tinh_trang_hang: '',
+            thoi_gian_giao_hang: '',
+            ngay_giao_hang: '',
+            dia_diem_giao_hang: '',
+            ghi_chu: '',
+
+        });
+        
+    }
+
+        $scope.FindProduct = function (machuan) {
+    
+        $http({
+            method: 'GET',
+            data: machuan,
+            url: window.location.origin + '/api/Api_TonKhoHL/GetHH_TON_KHO/'+ machuan
+        }).then(function successCallback(response) {
+            $scope.danhsachhanghoa = response.data;
+            
         });
     }
-        //End Tìm Kiếm Thông Tin hàng Hóa
+
+
+
+    $scope.thembaogia = function (baogia) {
+        $scope.baogia = baogia;
+        $('.thongtinchungthemmoi').hide();
+        $('.savethongtin').show();
+
+        baogiaService.get_phieubaogia($scope.baogia.SO_BAO_GIA).then(function (a) {
+            $scope.BangBaoGia = a;
+        });
+
+        baogiaService.get_ct_phieubaogia($scope.baogia.SO_BAO_GIA).then(function (b) {
+            $scope.Detail.ListAdd = b;
+            var tong_thanh_tien = 0;
+            var tong_tien_VAT = 0;
+            var tong_tien_chua_van_chuyen = 0;
+            var tong_tien_da_tinh_van_chuyen = 0;
+            for (var i = 0; i < $scope.Detail.ListAdd.length; i++) {
+                tong_thanh_tien = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + tong_thanh_tien);
+                tong_tien_VAT = parseFloat($scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_VAT)
+                tong_tien_chua_van_chuyen = parseFloat($scope.Detail.ListAdd[i].THANH_TIEN + $scope.Detail.ListAdd[i].TIEN_VAT + tong_tien_chua_van_chuyen);
+            }
+            $scope.tong_thanh_tien_edit = tong_thanh_tien;
+            $scope.tong_tien_VAT_edit = tong_tien_VAT;
+            $scope.tong_tien_chua_van_chuyen_edit = tong_tien_chua_van_chuyen;
+            var phi_van_chuyen = parseInt($('#phivanchuyen').text());
+            tong_tien_da_tinh_van_chuyen = parseFloat(tong_tien_chua_van_chuyen + phi_van_chuyen);
+            $scope.tong_tien = tong_tien_da_tinh_van_chuyen;
+        });
+    };
+        //End Tìm Kiếm Thông Tin hàng Hóa them
+
+
+    //Tìm Kiếm Thông Tin hàng Hóa lưu
+    $scope.TimKiem = function (machuan) {
+    
+        $http({
+            method: 'GET',
+            data: machuan,
+            url: window.location.origin + '/api/Api_TonKhoHL/GetHH_TON_KHO/'+ machuan
+        }).then(function successCallback(response) {
+            $scope.danhsachhanghoaluu = response.data;
+            
+        });
+    }
+
+
+    //button add check
+    $scope.newsave = function (mahang, tenhang, dvt, xuatxu, dongia) {
+        $scope.Detail.ListAdd.push({
+            MA_HANG: mahang,
+            SO_LUONG: 0,
+            DON_GIA: dongia,
+            CHIET_KHAU: 0,
+            CACH_TINH_THANH_TIEN: '',
+            DON_GIA_SAU_CHIET_KHAU: '',
+            THANH_TIEN: 0,
+            CK_VAT: '',
+            TIEN_VAT: 0,
+            TINH_TRANG_HANG: '',
+            THOI_GIAN_GIAO_HANG: '',
+            NGAY_GIAO_HANG: '',
+            DIA_DIEM_GIAO_HANG: '',
+            GHI_CHU: '',
+
+        });
+    }
+    // End hang hoa luu
+
+
 
 
     $scope.phuongthuctt = ["Chuyển khoản", "Tiền mặt","Trả tiền sau khi nhận hàng"];
     $scope.cachtinhthanhtien = ['Giá nhập','Giá list'];
     $scope.dieukhoantt = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
+    $scope.ck_vat = [0,5,10];
+
+    $scope.phuongthucttnew = ["Chuyển khoản", "Tiền mặt", "Trả tiền sau khi nhận hàng"];
+    $scope.cachtinhthanhtiennew = ['Giá nhập', 'Giá list'];
+    $scope.dieukhoanttnew = ['5 ngày', '7 ngày', '30 ngày', 'Ngày 5 hàng tháng', 'Ngày 15 hàng tháng', 'Ngày 30 hàng tháng'];
+    $scope.ck_vat_new = [0,5,10];
 });
+
