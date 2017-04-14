@@ -85,8 +85,33 @@ namespace ERP.Web.Api.HeThong
             {
                 return BadRequest();
             }
-
-            db.Entry(kH).State = EntityState.Modified;
+            var khach = db.KHs.Where(x => x.MA_KHACH_HANG == id).FirstOrDefault();
+            if(khach != null)
+            {
+                if(kH.LOGO!= "")
+                {
+                    khach.LOGO = kH.LOGO;
+                }
+               
+                khach.TEN_CONG_TY = kH.TEN_CONG_TY;
+                khach.VAN_PHONG_GIAO_DICH = kH.VAN_PHONG_GIAO_DICH;
+                khach.DIA_CHI_XUAT_HOA_DON = kH.DIA_CHI_XUAT_HOA_DON;
+                khach.TINH = kH.TINH;
+                khach.QUOC_GIA = kH.QUOC_GIA;
+                khach.MST = kH.MST;
+                khach.HOTLINE = kH.HOTLINE;
+                khach.EMAIL = kH.EMAIL;
+                khach.FAX = kH.FAX;
+                khach.WEBSITE = kH.WEBSITE;
+                khach.DIEU_KHOAN_THANH_TOAN = kH.DIEU_KHOAN_THANH_TOAN;
+                khach.SO_NGAY_DUOC_NO = kH.SO_NGAY_DUOC_NO;
+                khach.SO_NO_TOI_DA = kH.SO_NO_TOI_DA;
+                khach.TINH_TRANG_HOAT_DONG = kH.TINH_TRANG_HOAT_DONG;
+                khach.GHI_CHU = kH.GHI_CHU;
+                khach.TRUC_THUOC = kH.TRUC_THUOC;
+                khach.SALES_TAO = kH.SALES_TAO;
+            }
+            //db.Entry(kH).State = EntityState.Modified;
 
             try
             {
